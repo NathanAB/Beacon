@@ -1,0 +1,8 @@
+header {
+  height: 60px;
+  border-bottom: 1px gray solid;
+  box-shadow: 0 0 5px black;
+  position: fixed !important;
+  top: 0px;
+  left: 0px;
+}
