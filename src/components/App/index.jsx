@@ -10,7 +10,13 @@ import BottomNav from '../BottomNav';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#ed6565',
+      main: '#ED6565',
+      contrastText: '#F5F5F5',
+    },
+    secondary: {
+      main: '#F5F5F5',
+      dark: '#E0E0E0',
+      contrastText: '#ED6565',
     },
   },
 });
