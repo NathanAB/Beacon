@@ -22,6 +22,8 @@ const styles = theme => ({
     width: '350px',
     'max-width': '100%',
     position: 'relative',
+    overflow: 'visible',
+    margin: 'auto',
   },
   cardContent: {
     backgroundColor: theme.palette.primary.main,
@@ -198,20 +200,20 @@ class DateCard extends React.Component {
             </CardContent>
           </CardActionArea>
           { this.renderExpanded() }
+          { !isExpanded
+            && (
+            <Fab
+              variant="extended"
+              aria-label="Plan Date"
+              color="secondary"
+              className={classes.addButton}
+              onClick={this.onClickAddHandler}
+            >
+              Plan This
+            </Fab>
+            )
+          }
         </Card>
-        { !isExpanded
-          && (
-          <Fab
-            variant="extended"
-            aria-label="Plan Date"
-            color="secondary"
-            className={classes.addButton}
-            onClick={this.onClickAddHandler}
-          >
-            Plan This
-          </Fab>
-          )
-        }
       </div>
     );
   }

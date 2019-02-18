@@ -7,7 +7,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 
-import logo from '../../assets/img/logo.png';
+import logo from './logo.png';
+import icon from './icon.png';
 
 const styles = theme => ({
   root: {
@@ -37,7 +38,13 @@ const styles = theme => ({
       width: 200,
     },
   },
-  logo: { width: '150px' },
+  icon: {
+    height: '25px',
+    'margin-right': '5px',
+  },
+  logo: {
+    height: '18px',
+  },
 });
 
 function Header(props) {
@@ -46,7 +53,9 @@ function Header(props) {
     <AppBar position="fixed" color="secondary">
       <Toolbar className={classes.toolbar}>
         <Button>
-          <img alt="DateSpotter Logo" src={logo} className={classes.logo} />
+          <img alt="GamePlan Icon" src={icon} className={classes.icon} />
+          {' '}
+          <img alt="GamePlan Logo" src={logo} className={classes.logo} />
         </Button>
         <IconButton color="primary" className={classes.accountButton}>
           {/* <AccountCircle /> */}
