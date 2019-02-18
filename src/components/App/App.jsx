@@ -9,15 +9,21 @@ import BottomNav from '../BottomNav/BottomNav';
 import CONSTANTS from '../../constants';
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
   palette: {
     primary: {
-      main: '#ED6565',
+      // main: '#ED6565',
+      main: '#ef352b',
+      // main: '#f34e2a',
       contrastText: '#FFFFFF',
     },
     secondary: {
       main: '#FFFFFF',
       dark: '#E0E0E0',
-      contrastText: '#ED6565',
+      // contrastText: '#ED6565',
+      contrastText: '#ef352b',
     },
   },
 });

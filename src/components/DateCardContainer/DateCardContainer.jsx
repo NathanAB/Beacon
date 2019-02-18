@@ -9,19 +9,17 @@ const styles = () => ({
   },
 });
 
-function DateCardContainer(props) {
+function DateCardContainer({ children }) {
   // eslint-disable-next-line
-  const gridCards = props.children.map(child => <Grid item>{ child }</Grid>);
+  const gridCards = children.map(child => <Grid item xs>{ child }</Grid>);
 
   return (
     <Grid
       container
+      direction="row"
+      justify="space-around"
+      alignItems="flex-start"
       spacing={32}
-      justify="space-evenly"
-      style={{
-        margin: 0,
-        width: '100%',
-      }}
     >
       { gridCards }
     </Grid>

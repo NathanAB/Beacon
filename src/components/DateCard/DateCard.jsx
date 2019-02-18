@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,24 +16,27 @@ import Icon from '@material-ui/core/Icon';
 const styles = theme => ({
   container: {
     position: 'relative',
+    width: '100%',
   },
   card: {
     width: '350px',
+    'max-width': '100%',
     position: 'relative',
   },
   cardContent: {
     backgroundColor: theme.palette.primary.main,
-    width: '350px',
+    width: '318px',
+    'max-width': 'calc(100% - 32px)',
     color: 'white',
   },
   cardHeader: {
     color: theme.palette.primary.contrastText,
-    fontSize: '1.4rem',
   },
   cardSubheader: {
     color: theme.palette.primary.contrastText,
-    fontSize: '1.1rem',
-    fontWeight: '300',
+  },
+  cardDescription: {
+    color: theme.palette.primary.contrastText,
   },
   addButton: {
     position: 'absolute',
@@ -59,6 +61,7 @@ const styles = theme => ({
   },
   tagChip: {
     'margin-right': theme.spacing.unit,
+    'margin-bottom': theme.spacing.unit,
   },
   listChip: {
     'font-size': '1rem',
@@ -102,7 +105,7 @@ class DateCard extends React.Component {
     const { dateObj, classes } = this.props;
     // eslint-disable-next-line arrow-body-style
     const thumbnails = dateObj.spots.map((spot) => {
-      return (<img className={classes.thumbnailImage} alt={spot.name} style={{ 'background-image': `url(${spot.imageUrl})` }} />);
+      return (<img className={classes.thumbnailImage} alt={spot.name} style={{ backgroundImage: `url(${spot.imageUrl})` }} />);
     });
     return (
       <div className={classes.thumbnailContainer}>
@@ -153,16 +156,14 @@ class DateCard extends React.Component {
       <Collapse in={isExpanded}>
         <CardContent>
           {spotList}
-          <p style={{ 'text-align': 'center' }}>
-            <Button
-              variant="contained"
-              aria-label="Add this spot"
-              color="primary"
-              size="large"
-            >
-              Plan Entire Date
-            </Button>
-          </p>
+          <Button
+            variant="contained"
+            aria-label="Add this spot"
+            color="primary"
+            size="large"
+          >
+            Plan Entire Date
+          </Button>
         </CardContent>
       </Collapse>
     );
@@ -185,11 +186,14 @@ class DateCard extends React.Component {
               { this.renderThumbnails() }
             </CardMedia>
             <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant="headline" component="h2" className={classes.cardHeader}>
+              <Typography variant="h5" gutterBottom className={classes.cardHeader}>
                 {dateObj.name}
               </Typography>
-              <Typography component="p" className={classes.cardSubheader}>
-                {`${dateObj.location} | ${dateObj.length}`}
+              <Typography variant="h6" gutterBottom className={classes.cardSubheader}>
+                {`${dateObj.location} | ${dateObj.length} | ${dateObj.cost}`}
+              </Typography>
+              <Typography variant="body1" className={classes.cardDescription}>
+                { dateObj.description }
               </Typography>
             </CardContent>
           </CardActionArea>

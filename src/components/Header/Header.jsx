@@ -43,7 +43,7 @@ const styles = theme => ({
 function Header(props) {
   const { classes } = props;
   return (
-    <AppBar position="fixed" color="white">
+    <AppBar position="fixed" color="secondary">
       <Toolbar className={classes.toolbar}>
         <Button>
           <img alt="DateSpotter Logo" src={logo} className={classes.logo} />
