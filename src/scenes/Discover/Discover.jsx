@@ -18,9 +18,11 @@ function Discover({ onAddDate }) {
         return true;
       }
 
-      return date.spots.find(spot => (
-        spot.tags.find(tag => tagFilters.indexOf(tag) > -1)
-      ));
+      return tagFilters.filter(tag => (
+        date.spots.find(spot => (
+          spot.tags.includes(tag)
+        ))
+      )).length === tagFilters.length;
     })
     .map(date => (<DateCard onClickAdd={onAddDate} dateObj={date} />));
 

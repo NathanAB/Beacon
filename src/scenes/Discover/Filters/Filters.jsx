@@ -12,6 +12,7 @@ import {
   ListItem,
   Icon,
   Divider,
+  Chip,
 } from '@material-ui/core';
 
 import Tags from '../../../mocks/tags';
@@ -19,7 +20,7 @@ import Locations from '../../../mocks/locations';
 
 const styles = {
   filtersContainer: {
-    margin: '20px 0px',
+    margin: '20px 32px',
   },
   filtersButton: {
     margin: 'auto',
@@ -32,6 +33,11 @@ const styles = {
   },
   checkbox: {
     padding: '0px',
+  },
+  filterChip: {
+    margin: '0.3em',
+    'border-width': '1px',
+    'border-style': 'solid',
   },
   divider: {
     margin: '10px 0',
@@ -80,28 +86,23 @@ function Filters({
         </List>
         <Divider variant="middle" className={classes.divider} />
         <Typography variant="overline">Tags:</Typography>
-        <List className={classes.root}>
-          {
-          Tags.map(tag => (
-            <ListItem
-              key={tag}
-              role={undefined}
-              dense
-              button
-              onClick={toggleTag(tag)}
-              className={classes.checkbox}
-            >
-              <Checkbox
-                checked={tagFilters.indexOf(tag) !== -1}
-                checkedIcon={<Icon>check_box</Icon>}
-                disableRipple
-                color="primary"
+        {
+          Tags.map((tag) => {
+            const isFilterOn = tagFilters.indexOf(tag) !== -1;
+            const variant = isFilterOn ? '' : 'outlined';
+            const color = isFilterOn ? 'primary' : '';
+            return (
+              <Chip
+                className={classes.filterChip}
+                key={tag}
+                onClick={toggleTag(tag)}
+                label={tag}
+                variant={variant}
+                color={color}
               />
-              <ListItemText primary={tag} />
-            </ListItem>
-          ))
+            );
+          })
         }
-        </List>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   );

@@ -137,40 +137,28 @@ class DateCard extends React.Component {
     const { dateObj, classes } = this.props;
     const { isExpanded } = this.state;
 
-    const spotList = dateObj.spots.map((spot, idx) => {
-      const stars = [];
-      for (let i = 1; i <= 5; i += 1) {
-        const star = i <= spot.rating
-          ? <Icon color="primary">star</Icon>
-          : <Icon color="primary">star_border</Icon>;
-        stars.push(star);
-      }
-      return (
-        <div>
-          <p>
-            <h3>
-              <Chip color="primary" label={idx + 1} className={classes.listChip} />
-              { spot.activity }
-            </h3>
-            { spot.tags.map(tag => (<Chip variant="outlined" label={tag} className={classes.tagChip} />)) }
-            <p>{spot.description}</p>
-            <div className={classes.spotDetails}>
-              <div className={classes.stars}>
-                {stars}
-              </div>
-              <Button
-                variant="contained"
-                aria-label="Add this spot"
-                color="secondary"
-              >
+    const spotList = dateObj.spots.map((spot, idx) => (
+      <div>
+        <p>
+          <h3>
+            <Chip color="primary" label={idx + 1} className={classes.listChip} />
+            { spot.activity }
+          </h3>
+          { spot.tags.map(tag => (<Chip variant="outlined" label={tag} className={classes.tagChip} />)) }
+          <p>{spot.description}</p>
+          <div className={classes.spotDetails}>
+            <Button
+              variant="contained"
+              aria-label="Add this spot"
+              color="secondary"
+            >
                 Add This Spot
-              </Button>
-            </div>
-          </p>
-          <Divider variant="middle" />
-        </div>
-      );
-    });
+            </Button>
+          </div>
+        </p>
+        <Divider variant="middle" />
+      </div>
+    ));
     return (
       <Collapse in={isExpanded}>
         <CardContent>
