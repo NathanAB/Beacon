@@ -40,10 +40,27 @@ const styles = theme => ({
   cardDescription: {
     color: theme.palette.primary.contrastText,
   },
+  cardDescriptionCollapsed: {
+    height: '190px',
+    overflow: 'hidden',
+    'margin-bottom': '20px',
+  },
+  cardDescriptionFade: {
+    height: '2em',
+    position: 'absolute',
+    bottom: '30px',
+    width: '90%',
+    background: 'linear-gradient( 0deg, #7f194c, #ff000000 )',
+  },
   addButton: {
     position: 'absolute',
     right: -theme.spacing.unit * 2,
     bottom: -theme.spacing.unit * 2,
+  },
+  planDateButton: {
+    display: 'block',
+    margin: 'auto',
+    'margin-top': '1em',
   },
   actionArea: {
     width: '100%',
@@ -163,6 +180,7 @@ class DateCard extends React.Component {
             aria-label="Add this spot"
             color="primary"
             size="large"
+            className={classes.planDateButton}
           >
             Plan Entire Date
           </Button>
@@ -177,6 +195,11 @@ class DateCard extends React.Component {
       dateObj,
     } = this.props;
     const { isExpanded } = this.state;
+
+    const cardDescriptionClasses = [classes.cardDescription];
+    if (!isExpanded) {
+      cardDescriptionClasses.push(classes.cardDescriptionCollapsed);
+    }
 
     return (
       <div className={classes.container}>
@@ -194,8 +217,11 @@ class DateCard extends React.Component {
               <Typography variant="h6" gutterBottom className={classes.cardSubheader}>
                 {`${dateObj.location} | ${dateObj.length} | ${dateObj.cost}`}
               </Typography>
-              <Typography variant="body1" className={classes.cardDescription}>
+              <Typography variant="body1" className={cardDescriptionClasses}>
                 { dateObj.description }
+                { !isExpanded
+                  && <div className={classes.cardDescriptionFade} />
+                }
               </Typography>
             </CardContent>
           </CardActionArea>
