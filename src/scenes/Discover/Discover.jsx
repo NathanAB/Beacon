@@ -12,6 +12,7 @@ import DateCard from '../../components/DateCard/DateCard';
 function Discover({ onAddDate }) {
   const [tagFilters, setTagFilters] = useState([]);
   const [locationFilters, setLocationFilters] = useState([]);
+  const [costFilters, setCostFilters] = useState([]);
   const dateComponents = DateObjs
     .filter((date) => {
       if (!tagFilters.length) {
@@ -39,7 +40,7 @@ function Discover({ onAddDate }) {
     setTagFilters(newTagFilters);
   };
 
-  const toggleLocation = value => () => {
+  const toggleLocationFilter = value => () => {
     const currentIndex = locationFilters.indexOf(value);
     const newLocationFilters = [...locationFilters];
 
@@ -52,13 +53,28 @@ function Discover({ onAddDate }) {
     setLocationFilters(newLocationFilters);
   };
 
+  const toggleCostFilter = value => () => {
+    const currentIndex = costFilters.indexOf(value);
+    const newCostFilters = [...costFilters];
+
+    if (currentIndex === -1) {
+      newCostFilters.push(value);
+    } else {
+      newCostFilters.splice(currentIndex, 1);
+    }
+
+    setCostFilters(newCostFilters);
+  };
+
   return (
     <React.Fragment>
       <Filters
         toggleTag={toggleTag}
         tagFilters={tagFilters}
-        toggleLocation={toggleLocation}
+        toggleLocationFilter={toggleLocationFilter}
         locationFilters={locationFilters}
+        toggleCostFilter={toggleCostFilter}
+        costFilters={costFilters}
       />
       { dateComponents.length
         ? <DateCardContainer tagFilters={tagFilters}>{ dateComponents }</DateCardContainer>

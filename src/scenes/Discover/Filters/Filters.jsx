@@ -48,8 +48,10 @@ function Filters({
   classes,
   toggleTag,
   tagFilters,
-  toggleLocation,
+  toggleLocationFilter,
   locationFilters,
+  toggleCostFilter,
+  costFilters,
 }) {
   return (
     <ExpansionPanel color="primary" className={classes.filtersContainer}>
@@ -70,7 +72,7 @@ function Filters({
               role={undefined}
               dense
               button
-              onClick={toggleLocation(location)}
+              onClick={toggleLocationFilter(location)}
               className={classes.checkbox}
             >
               <Checkbox
@@ -80,6 +82,30 @@ function Filters({
                 color="primary"
               />
               <ListItemText primary={location} />
+            </ListItem>
+          ))
+        }
+        </List>
+        <Divider variant="middle" className={classes.divider} />
+        <Typography variant="overline">Cost:</Typography>
+        <List className={classes.root}>
+          {
+          ['$', '$$', '$$$', '$$$$'].map(cost => (
+            <ListItem
+              key={cost}
+              role={undefined}
+              dense
+              button
+              onClick={toggleCostFilter(cost)}
+              className={classes.checkbox}
+            >
+              <Checkbox
+                checked={costFilters.indexOf(cost) !== -1}
+                checkedIcon={<Icon>check_box</Icon>}
+                disableRipple
+                color="primary"
+              />
+              <ListItemText primary={cost} />
             </ListItem>
           ))
         }
@@ -112,8 +138,10 @@ Filters.propTypes = {
   classes: PropTypes.object.isRequired,
   toggleTag: PropTypes.func.isRequired,
   tagFilters: PropTypes.array.isRequired,
-  toggleLocation: PropTypes.func.isRequired,
+  toggleLocationFilter: PropTypes.func.isRequired,
   locationFilters: PropTypes.array.isRequired,
+  toggleCostFilter: PropTypes.func.isRequired,
+  costFilters: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(Filters);
