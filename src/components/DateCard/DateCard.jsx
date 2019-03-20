@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
 import Collapse from '@material-ui/core/Collapse';
-import Icon from '@material-ui/core/Icon';
+import { Icon } from '@material-ui/core';
 
 const styles = theme => ({
   container: {
@@ -29,28 +29,40 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary.main,
     width: '318px',
     'max-width': 'calc(100% - 32px)',
-    color: 'white',
   },
   cardHeader: {
     color: theme.palette.primary.contrastText,
+    'text-transform': 'uppercase',
+    'font-weight': 400,
   },
   cardSubheader: {
     color: theme.palette.primary.contrastText,
+    'font-weight': 300,
   },
   cardDescription: {
     color: theme.palette.primary.contrastText,
+    'font-weight': 300,
+    position: 'relative',
   },
   cardDescriptionCollapsed: {
     height: '190px',
     overflow: 'hidden',
-    'margin-bottom': '20px',
   },
   cardDescriptionFade: {
     height: '2em',
     position: 'absolute',
-    bottom: '30px',
-    width: '90%',
+    bottom: '0px',
+    width: '100%',
     background: 'linear-gradient( 0deg, #7f194c, #ff000000 )',
+  },
+  cardDescriptionExpandIcon: {
+    'font-size': '40px',
+    display: 'block',
+    margin: 'auto',
+    color: 'white',
+  },
+  activityTitle: {
+    'text-transform': 'uppercase',
   },
   addButton: {
     position: 'absolute',
@@ -140,10 +152,10 @@ class DateCard extends React.Component {
     const spotList = dateObj.spots.map((spot, idx) => (
       <div>
         <p>
-          <h3>
+          <Typography variant="h6" gutterBottom className={classes.activityTitle}>
             <Chip color="primary" label={idx + 1} className={classes.listChip} />
             { spot.activity }
-          </h3>
+          </Typography>
           { spot.tags.map(tag => (<Chip variant="outlined" label={tag} className={classes.tagChip} />)) }
           <p>{spot.description}</p>
           <div className={classes.spotDetails}>
@@ -199,10 +211,10 @@ class DateCard extends React.Component {
               { this.renderThumbnails() }
             </CardMedia>
             <CardContent className={classes.cardContent}>
-              <Typography variant="h5" gutterBottom className={classes.cardHeader}>
+              <Typography variant="h6" gutterBottom className={classes.cardHeader}>
                 {dateObj.name}
               </Typography>
-              <Typography variant="h6" gutterBottom className={classes.cardSubheader}>
+              <Typography variant="subtitle1" gutterBottom className={classes.cardSubheader}>
                 {`${dateObj.location} | ${dateObj.length} | ${dateObj.cost}`}
               </Typography>
               <Typography variant="body1" className={cardDescriptionClasses}>
@@ -211,6 +223,9 @@ class DateCard extends React.Component {
                   && <div className={classes.cardDescriptionFade} />
                 }
               </Typography>
+              { !isExpanded
+                && <Icon className={classes.cardDescriptionExpandIcon}>expand_more</Icon>
+              }
             </CardContent>
           </CardActionArea>
           { this.renderExpanded() }
