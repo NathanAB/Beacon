@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
+import {
+  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button,
+} from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -25,31 +24,38 @@ const styles = theme => ({
   },
 });
 
-function PinnedSubheaderList(props) {
-  const { classes, currentDate } = props;
+function Planner(props) {
+  const { classes, checkingOutDate, cancelCheckout } = props;
 
   return (
-    <List className={classes.root} subheader={<li />}>
-      <ListSubheader className={classes.listHeader}>YOUR DATE</ListSubheader>
-      {currentDate.length
-        ? currentDate.map(date => (
-          <ListItem className={classes.listItem} key={date.name}>
-            <ListItemText primary={date.name} />
-          </ListItem>
-        ))
-        : (
-          <div className={classes.noDate}>
-            Nothing planned so far!
-          </div>
-        )
-      }
-    </List>
+    <Dialog
+      open={!!checkingOutDate.name}
+      onClose={cancelCheckout}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogTitle id="form-dialog-title">{checkingOutDate.name}</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          {checkingOutDate.description}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={cancelCheckout} color="primary">
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 
-PinnedSubheaderList.propTypes = {
+Planner.propTypes = {
   classes: PropTypes.object.isRequired,
-  currentDate: PropTypes.array.isRequired,
+  checkingOutDate: PropTypes.object,
+  cancelCheckout: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(PinnedSubheaderList);
+Planner.defaultProps = {
+  checkingOutDate: {},
+};
+
+export default withStyles(styles)(Planner);

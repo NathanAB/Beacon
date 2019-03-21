@@ -61,6 +61,9 @@ const styles = theme => ({
     margin: 'auto',
     color: 'white',
   },
+  activitySection: {
+    'margin-bottom': '15px',
+  },
   activityTitle: {
     'text-transform': 'uppercase',
   },
@@ -73,6 +76,7 @@ const styles = theme => ({
     display: 'block',
     margin: 'auto',
     'margin-top': '1em',
+    'text-transform': 'uppercase',
   },
   actionArea: {
     width: '100%',
@@ -150,24 +154,13 @@ class DateCard extends React.Component {
     const { isExpanded } = this.state;
 
     const spotList = dateObj.spots.map((spot, idx) => (
-      <div>
-        <p>
-          <Typography variant="h6" gutterBottom className={classes.activityTitle}>
-            <Chip color="primary" label={idx + 1} className={classes.listChip} />
-            { spot.activity }
-          </Typography>
-          { spot.tags.map(tag => (<Chip variant="outlined" label={tag} className={classes.tagChip} />)) }
-          <p>{spot.description}</p>
-          <div className={classes.spotDetails}>
-            <Button
-              variant="contained"
-              aria-label="Add this spot"
-              color="secondary"
-            >
-                Add This Spot
-            </Button>
-          </div>
-        </p>
+      <div className={classes.activitySection}>
+        <Typography variant="h6" gutterBottom className={classes.activityTitle}>
+          <Chip color="primary" label={idx + 1} className={classes.listChip} />
+          { spot.activity }
+        </Typography>
+        { spot.tags.map(tag => (<Chip variant="outlined" label={tag} className={classes.tagChip} />)) }
+        <p>{spot.description}</p>
         <Divider variant="middle" />
       </div>
     ));
@@ -181,8 +174,9 @@ class DateCard extends React.Component {
             color="primary"
             size="large"
             className={classes.planDateButton}
+            onClick={this.onClickAddHandler}
           >
-            Plan Entire Date
+            Let's do this
           </Button>
         </CardContent>
       </Collapse>
@@ -229,7 +223,7 @@ class DateCard extends React.Component {
             </CardContent>
           </CardActionArea>
           { this.renderExpanded() }
-          { !isExpanded
+          {/* { !isExpanded
             && (
             <Fab
               variant="extended"
@@ -238,10 +232,10 @@ class DateCard extends React.Component {
               className={classes.addButton}
               onClick={this.onClickAddHandler}
             >
-              Plan This
+              Plan Date
             </Fab>
             )
-          }
+          } */}
         </Card>
       </div>
     );

@@ -32,7 +32,7 @@ class App extends React.Component {
     super();
     this.state = {
       currentTab: CONSTANTS.TABS.DISCOVER,
-      currentDate: [],
+      checkingOutDate: {},
     };
     this.onChangeTab = this.onChangeTab.bind(this);
     this.onAddDate = this.onAddDate.bind(this);
@@ -45,22 +45,23 @@ class App extends React.Component {
   }
 
   onAddDate(date) {
-    this.setState(old => ({
-      currentDate: old.currentDate.concat(date),
-    }));
+    this.setState({
+      checkingOutDate: date,
+    });
     console.log(date);
   }
 
   render() {
-    const { currentTab, currentDate } = this.state;
+    const { currentTab, checkingOutDate } = this.state;
     return (
       <div className="App">
         <MuiThemeProvider theme={theme}>
           <Header />
           <Body
             currentTab={currentTab}
-            currentDate={currentDate}
+            checkingOutDate={checkingOutDate}
             onAddDate={this.onAddDate}
+            cancelCheckout={() => this.setState({ checkingOutDate: {} })}
           />
           <BottomNav onChange={this.onChangeTab} />
         </MuiThemeProvider>

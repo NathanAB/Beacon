@@ -9,13 +9,15 @@ import './Body.css';
 
 const { TABS } = CONSTANTS;
 
-function renderDiscover(onAddDate) {
-  return (<Discover onAddDate={onAddDate} />);
-}
-
-function renderPlanner(currentDate) {
+function renderDiscover(onAddDate, checkingOutDate, cancelCheckout) {
   return (
-    <Planner currentDate={currentDate} />
+    <>
+      <Discover onAddDate={onAddDate} />
+      <Planner
+        checkingOutDate={checkingOutDate}
+        cancelCheckout={cancelCheckout}
+      />
+    </>
   );
 }
 
@@ -23,14 +25,11 @@ function renderMyDates() {
 
 }
 
-function Body({ currentTab, currentDate, onAddDate }) {
+function Body({ currentTab, checkingOutDate, cancelCheckout, onAddDate }) {
   let contentToRender;
   switch (currentTab) {
     case TABS.DISCOVER:
-      contentToRender = renderDiscover(onAddDate);
-      break;
-    case TABS.PLANNER:
-      contentToRender = renderPlanner(currentDate);
+      contentToRender = renderDiscover(onAddDate, checkingOutDate, cancelCheckout);
       break;
     case TABS.MY_DATES:
       contentToRender = renderMyDates();
