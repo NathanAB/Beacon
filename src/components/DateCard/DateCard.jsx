@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniq, map } from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import Fab from '@material-ui/core/Fab';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -65,6 +65,7 @@ const styles = theme => ({
     'margin-bottom': '15px',
   },
   activityTitle: {
+    'padding-top': '1rem',
     'text-transform': 'uppercase',
   },
   addButton: {
@@ -108,10 +109,25 @@ const styles = theme => ({
     'justify-content': 'space-between',
     'align-items': 'center',
   },
-  stars: {
-
+  sectionImage: {
+    display: 'block',
+    width: '100%',
+    height: '11rem',
+    'background-position': 'center',
+    'background-size': 'cover',
+  },
+  expandedContent: {
+    padding: 0,
   },
 });
+
+function costToString(cost) {
+  const str = [];
+  for (let i = 0; i < cost; i += 1) {
+    str.push('$');
+  }
+  return str.join('');
+}
 
 class DateCard extends React.Component {
   constructor() {
@@ -139,8 +155,8 @@ class DateCard extends React.Component {
   renderThumbnails() {
     const { dateObj, classes } = this.props;
     // eslint-disable-next-line arrow-body-style
-    const thumbnails = dateObj.spots.map((spot) => {
-      return (<img className={classes.thumbnailImage} alt={spot.name} style={{ backgroundImage: `url(${spot.imageUrl})` }} />);
+    const thumbnails = dateObj.sections.map((section) => {
+      return (<div className={classes.thumbnailImage} style={{ backgroundImage: `url(${section.image})` }} />);
     });
     return (
       <div className={classes.thumbnailContainer}>
@@ -149,25 +165,70 @@ class DateCard extends React.Component {
     );
   }
 
+  renderMain() {
+    const {
+      classes,
+      dateObj,
+    } = this.props;
+    const { sections } = dateObj;
+    const { isExpanded } = this.state;
+
+    const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
+    const dateHours = Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
+    const dateCost = sections.reduce((total, section) => total + section.price, 0) / sections.length;
+    const dateCostString = costToString(dateCost);
+    const dateLocations = uniq(map(sections, 'spot.neighborhood.name')).join(', ');
+    const cardDescriptionClasses = [classes.cardDescription];
+    if (!isExpanded) {
+      cardDescriptionClasses.push(classes.cardDescriptionCollapsed);
+    }
+    return (
+      <CardActionArea onClick={this.onClickMainHandler} className={classes.actionArea}>
+        <CardMedia
+          className={classes.media}
+        >
+          { this.renderThumbnails() }
+        </CardMedia>
+        <CardContent className={classes.cardContent}>
+          <Typography variant="h6" gutterBottom className={classes.cardHeader}>
+            {dateObj.name}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom className={classes.cardSubheader}>
+            {`${dateLocations} | ${dateHours} hrs | ${dateCostString}`}
+          </Typography>
+          <Typography variant="body1" className={cardDescriptionClasses}>
+            { dateObj.description }
+            { !isExpanded
+              && <div className={classes.cardDescriptionFade} />
+            }
+          </Typography>
+          { !isExpanded
+            && <Icon className={classes.cardDescriptionExpandIcon}>expand_more</Icon>
+          }
+        </CardContent>
+      </CardActionArea>
+    );
+  }
+
   renderExpanded() {
     const { dateObj, classes } = this.props;
     const { isExpanded } = this.state;
 
-    const spotList = dateObj.spots.map((spot, idx) => (
+    const sectionList = dateObj.sections.map((section, idx) => (
       <div className={classes.activitySection}>
+        <div className={classes.sectionImage} style={{ backgroundImage: `url(${section.image})` }} />
         <Typography variant="h6" gutterBottom className={classes.activityTitle}>
           <Chip color="primary" label={idx + 1} className={classes.listChip} />
-          { spot.activity }
+          { `${section.activity.name} @ ${section.spot.name}` }
         </Typography>
-        { spot.tags.map(tag => (<Chip variant="outlined" label={tag} className={classes.tagChip} />)) }
-        <p>{spot.description}</p>
-        <Divider variant="middle" />
+        { section.tags.map(tag => (<Chip variant="outlined" label={tag.name} className={classes.tagChip} />)) }
+        <p>{section.description}</p>
       </div>
     ));
     return (
       <Collapse in={isExpanded}>
-        <CardContent>
-          {spotList}
+        <CardContent className={classes.expandedContent}>
+          {sectionList}
           <Button
             variant="contained"
             aria-label="Add this spot"
@@ -176,7 +237,7 @@ class DateCard extends React.Component {
             className={classes.planDateButton}
             onClick={this.onClickAddHandler}
           >
-            Let's do this
+            {'Let\'s do this'}
           </Button>
         </CardContent>
       </Collapse>
@@ -186,7 +247,6 @@ class DateCard extends React.Component {
   render() {
     const {
       classes,
-      dateObj,
     } = this.props;
     const { isExpanded } = this.state;
 
@@ -197,45 +257,9 @@ class DateCard extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Card className={classes.card}>
-          <CardActionArea onClick={this.onClickMainHandler} className={classes.actionArea}>
-            <CardMedia
-              className={classes.media}
-            >
-              { this.renderThumbnails() }
-            </CardMedia>
-            <CardContent className={classes.cardContent}>
-              <Typography variant="h6" gutterBottom className={classes.cardHeader}>
-                {dateObj.name}
-              </Typography>
-              <Typography variant="subtitle1" gutterBottom className={classes.cardSubheader}>
-                {`${dateObj.location} | ${dateObj.length} | ${dateObj.cost}`}
-              </Typography>
-              <Typography variant="body1" className={cardDescriptionClasses}>
-                { dateObj.description }
-                { !isExpanded
-                  && <div className={classes.cardDescriptionFade} />
-                }
-              </Typography>
-              { !isExpanded
-                && <Icon className={classes.cardDescriptionExpandIcon}>expand_more</Icon>
-              }
-            </CardContent>
-          </CardActionArea>
+        <Card className={classes.card} elevation={0}>
+          { this.renderMain() }
           { this.renderExpanded() }
-          {/* { !isExpanded
-            && (
-            <Fab
-              variant="extended"
-              aria-label="Plan Date"
-              color="secondary"
-              className={classes.addButton}
-              onClick={this.onClickAddHandler}
-            >
-              Plan Date
-            </Fab>
-            )
-          } */}
         </Card>
       </div>
     );

@@ -19,9 +19,9 @@ function Discover({ onAddDate }) {
         return true;
       }
 
-      return tagFilters.filter(tag => (
-        date.spots.find(spot => (
-          spot.tags.includes(tag)
+      return tagFilters.filter(tagFilter => (
+        date.sections.find(section => (
+          section.tags.find(tag => tag.name === tagFilter)
         ))
       )).length === tagFilters.length;
     })
