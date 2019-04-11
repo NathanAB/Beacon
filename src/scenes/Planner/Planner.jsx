@@ -64,12 +64,7 @@ function Planner(props) {
             margin="normal"
             className={classes.textInput}
           />
-          <TextField
-            id="date-time"
-            label="Time"
-            margin="normal"
-            className={classes.textInput}
-          />
+          <TextField id="date-time" label="Time" margin="normal" className={classes.textInput} />
           <TextField
             id="date-participant"
             label="Who's going?"
