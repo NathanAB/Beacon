@@ -58,8 +58,7 @@ function Header(props) {
           <img alt="GamePlan Logo" src={logo} className={classes.logo} />
         </Button>
         <IconButton color="primary" className={classes.accountButton}>
-          {/* <AccountCircle /> */}
-          <Icon>shopping_cart</Icon>
+          <Icon>account_circle</Icon>
         </IconButton>
       </Toolbar>
     </AppBar>
