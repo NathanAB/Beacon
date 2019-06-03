@@ -13,6 +13,7 @@ import {
   Icon,
   Divider,
   Chip,
+  InputBase,
 } from '@material-ui/core';
 
 import Tags from '../../../mocks/tags';
@@ -42,6 +43,34 @@ const styles = {
   divider: {
     margin: '10px 0',
   },
+  search: {
+    position: 'relative',
+    borderRadius: '2rem',
+    border: '1px solid gray',
+    marginLeft: 0,
+    width: '100%',
+    'margin-bottom': '1rem',
+  },
+  searchIcon: {
+    width: '1rem',
+    'margin-left': '1rem',
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'gray',
+  },
+  inputRoot: {
+    color: 'inherit',
+    width: '100%',
+  },
+  inputInput: {
+    padding: '0.7rem',
+    'padding-left': '2.3rem',
+    width: '100%',
+  },
 };
 
 function Filters({
@@ -54,19 +83,37 @@ function Filters({
   costFilters,
 }) {
   return (
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <Icon>search</Icon>
+      </div>
+      <InputBase
+        placeholder="Have a specific thing in mind?"
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+      />
+    </div>
+    /** 
     <ExpansionPanel color="primary" className={classes.filtersContainer}>
       <ExpansionPanelSummary className={classes.filtersButtonContainer}>
-        <Typography variant="button" color="primary" align="center" className={classes.filtersButton}>
-          <span className={classes.filtersText}>Filters</span>
-          {' '}
-          <Icon color="primary" className={classes.filtersText}>filter_list</Icon>
+        <Typography
+          variant="button"
+          color="primary"
+          align="center"
+          className={classes.filtersButton}
+        >
+          <span className={classes.filtersText}>Filters</span>{' '}
+          <Icon color="primary" className={classes.filtersText}>
+            filter_list
+          </Icon>
         </Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.filtersBody}>
         <Typography variant="overline">Locations:</Typography>
         <List className={classes.root}>
-          {
-          Locations.map(location => (
+          {Locations.map(location => (
             <ListItem
               key={location}
               role={undefined}
@@ -83,14 +130,12 @@ function Filters({
               />
               <ListItemText primary={location} />
             </ListItem>
-          ))
-        }
+          ))}
         </List>
         <Divider variant="middle" className={classes.divider} />
         <Typography variant="overline">Cost:</Typography>
         <List className={classes.root}>
-          {
-          ['$', '$$', '$$$', '$$$$'].map(cost => (
+          {['$', '$$', '$$$', '$$$$'].map(cost => (
             <ListItem
               key={cost}
               role={undefined}
@@ -107,30 +152,28 @@ function Filters({
               />
               <ListItemText primary={cost} />
             </ListItem>
-          ))
-        }
+          ))}
         </List>
         <Divider variant="middle" className={classes.divider} />
         <Typography variant="overline">Tags:</Typography>
-        {
-          Tags.map((tag) => {
-            const isFilterOn = tagFilters.indexOf(tag) !== -1;
-            const variant = isFilterOn ? '' : 'outlined';
-            const color = isFilterOn ? 'primary' : '';
-            return (
-              <Chip
-                className={classes.filterChip}
-                key={tag}
-                onClick={toggleTag(tag)}
-                label={tag}
-                variant={variant}
-                color={color}
-              />
-            );
-          })
-        }
+        {Tags.map(tag => {
+          const isFilterOn = tagFilters.indexOf(tag) !== -1;
+          const variant = isFilterOn ? '' : 'outlined';
+          const color = isFilterOn ? 'primary' : '';
+          return (
+            <Chip
+              className={classes.filterChip}
+              key={tag}
+              onClick={toggleTag(tag)}
+              label={tag}
+              variant={variant}
+              color={color}
+            />
+          );
+        })}
       </ExpansionPanelDetails>
     </ExpansionPanel>
+    * */
   );
 }
 

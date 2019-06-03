@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniq, map } from 'lodash';
+import { uniq, uniqBy, map } from 'lodash';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -16,10 +16,9 @@ import { Icon } from '@material-ui/core';
 const styles = theme => ({
   container: {
     position: 'relative',
-    width: '100%',
   },
   card: {
-    width: '350px',
+    width: '320px',
     'max-width': '100%',
     position: 'relative',
     overflow: 'visible',
@@ -45,7 +44,7 @@ const styles = theme => ({
     position: 'relative',
   },
   cardDescriptionCollapsed: {
-    height: '190px',
+    height: '0px',
     overflow: 'hidden',
   },
   cardDescriptionFade: {
@@ -83,7 +82,7 @@ const styles = theme => ({
     width: '100%',
   },
   media: {
-    height: 140,
+    height: '160px',
   },
   thumbnailContainer: {
     height: '100%',
@@ -98,6 +97,7 @@ const styles = theme => ({
   tagChip: {
     'margin-right': theme.spacing.unit,
     'margin-bottom': theme.spacing.unit,
+    height: '1.5rem',
   },
   listChip: {
     'font-size': '1rem',
@@ -152,30 +152,41 @@ class DateCard extends React.Component {
     onClickMain();
   }
 
+  renderAllTags() {
+    const { dateObj, classes } = this.props;
+    let tags = [];
+    dateObj.sections.forEach(section => {
+      tags.push(...section.tags);
+    });
+    tags = uniqBy(tags, tag => tag.name);
+    tags = tags.slice(0, 3);
+
+    return tags.map(tag => <Chip color="secondary" label={tag.name} className={classes.tagChip} />);
+  }
+
   renderThumbnails() {
     const { dateObj, classes } = this.props;
     // eslint-disable-next-line arrow-body-style
-    const thumbnails = dateObj.sections.map((section) => {
-      return (<div className={classes.thumbnailImage} style={{ backgroundImage: `url(${section.image})` }} />);
+    const thumbnails = dateObj.sections.map(section => {
+      return (
+        <div
+          className={classes.thumbnailImage}
+          style={{ backgroundImage: `url(${section.image})` }}
+        />
+      );
     });
-    return (
-      <div className={classes.thumbnailContainer}>
-        { thumbnails }
-      </div>
-    );
+    return <div className={classes.thumbnailContainer}>{thumbnails}</div>;
   }
 
   renderMain() {
-    const {
-      classes,
-      dateObj,
-    } = this.props;
+    const { classes, dateObj } = this.props;
     const { sections } = dateObj;
     const { isExpanded } = this.state;
 
     const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
     const dateHours = Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
-    const dateCost = sections.reduce((total, section) => total + section.price, 0) / sections.length;
+    const dateCost =
+      sections.reduce((total, section) => total + section.price, 0) / sections.length;
     const dateCostString = costToString(dateCost);
     const dateLocations = uniq(map(sections, 'spot.neighborhood.name')).join(', ');
     const cardDescriptionClasses = [classes.cardDescription];
@@ -184,27 +195,20 @@ class DateCard extends React.Component {
     }
     return (
       <CardActionArea onClick={this.onClickMainHandler} className={classes.actionArea}>
-        <CardMedia
-          className={classes.media}
-        >
-          { this.renderThumbnails() }
-        </CardMedia>
+        <CardMedia className={classes.media}>{this.renderThumbnails()}</CardMedia>
         <CardContent className={classes.cardContent}>
-          <Typography variant="h6" gutterBottom className={classes.cardHeader}>
+          <Typography variant="subheading" className={classes.cardHeader}>
             {dateObj.name}
           </Typography>
-          <Typography variant="subtitle1" gutterBottom className={classes.cardSubheader}>
-            {`${dateLocations} | ${dateHours} hrs | ${dateCostString}`}
+          <Typography variant="subtitle2" gutterBottom className={classes.cardSubheader}>
+            {`${dateLocations} • ${dateHours} hrs • ${dateCostString}`}
           </Typography>
+          {this.renderAllTags()}
           <Typography variant="body1" className={cardDescriptionClasses}>
-            { dateObj.description }
-            { !isExpanded
-              && <div className={classes.cardDescriptionFade} />
-            }
+            {dateObj.description}
+            {!isExpanded && <div className={classes.cardDescriptionFade} />}
           </Typography>
-          { !isExpanded
-            && <Icon className={classes.cardDescriptionExpandIcon}>expand_more</Icon>
-          }
+          {/* {!isExpanded && <Icon className={classes.cardDescriptionExpandIcon}>expand_more</Icon>} */}
         </CardContent>
       </CardActionArea>
     );
@@ -216,12 +220,15 @@ class DateCard extends React.Component {
 
     const sectionList = dateObj.sections.map((section, idx) => (
       <div className={classes.activitySection}>
-        <div className={classes.sectionImage} style={{ backgroundImage: `url(${section.image})` }} />
+        <div
+          className={classes.sectionImage}
+          style={{ backgroundImage: `url(${section.image})` }}
+        />
         <Typography variant="h6" gutterBottom className={classes.activityTitle}>
           <Chip color="primary" label={idx + 1} className={classes.listChip} />
-          { `${section.activity.name} @ ${section.spot.name}` }
+          {`${section.activity.name} @ ${section.spot.name}`}
         </Typography>
-        { section.tags.map(tag => (<Chip variant="outlined" label={tag.name} className={classes.tagChip} />)) }
+        {/* { section.tags.map(tag => (<Chip variant="outlined" label={tag.name} className={classes.tagChip} />)) } */}
         <p>{section.description}</p>
       </div>
     ));
@@ -237,7 +244,7 @@ class DateCard extends React.Component {
             className={classes.planDateButton}
             onClick={this.onClickAddHandler}
           >
-            {'Let\'s do this'}
+            {"Let's do this"}
           </Button>
         </CardContent>
       </Collapse>
@@ -245,9 +252,7 @@ class DateCard extends React.Component {
   }
 
   render() {
-    const {
-      classes,
-    } = this.props;
+    const { classes } = this.props;
     const { isExpanded } = this.state;
 
     const cardDescriptionClasses = [classes.cardDescription];
@@ -258,8 +263,8 @@ class DateCard extends React.Component {
     return (
       <div className={classes.container}>
         <Card className={classes.card} elevation={0}>
-          { this.renderMain() }
-          { this.renderExpanded() }
+          {this.renderMain()}
+          {this.renderExpanded()}
         </Card>
       </div>
     );

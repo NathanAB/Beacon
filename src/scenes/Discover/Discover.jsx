@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { PropTypes } from 'prop-types';
-import {
-  Typography,
-} from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import Filters from './Filters/Filters';
 import DateCardContainer from './DateCardContainer/DateCardContainer';
+import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
+import DatesRow from './DatesRow/DatesRow';
 import DateObjs from '../../mocks/dates';
 import DateCard from '../../components/DateCard/DateCard';
 
@@ -13,19 +13,17 @@ function Discover({ onAddDate }) {
   const [tagFilters, setTagFilters] = useState([]);
   const [locationFilters, setLocationFilters] = useState([]);
   const [costFilters, setCostFilters] = useState([]);
-  const dateComponents = DateObjs
-    .filter((date) => {
-      if (!tagFilters.length) {
-        return true;
-      }
+  const dateComponents = DateObjs.filter(date => {
+    if (!tagFilters.length) {
+      return true;
+    }
 
-      return tagFilters.filter(tagFilter => (
-        date.sections.find(section => (
-          section.tags.find(tag => tag.name === tagFilter)
-        ))
-      )).length === tagFilters.length;
-    })
-    .map(date => (<DateCard onClickAdd={onAddDate} dateObj={date} />));
+    return (
+      tagFilters.filter(tagFilter =>
+        date.sections.find(section => section.tags.find(tag => tag.name === tagFilter)),
+      ).length === tagFilters.length
+    );
+  }).map(date => <DateCard onClickAdd={onAddDate} dateObj={date} />);
 
   const toggleTag = value => () => {
     const currentIndex = tagFilters.indexOf(value);
@@ -76,10 +74,15 @@ function Discover({ onAddDate }) {
         toggleCostFilter={toggleCostFilter}
         costFilters={costFilters}
       />
-      { dateComponents.length
-        ? <DateCardContainer tagFilters={tagFilters}>{ dateComponents }</DateCardContainer>
-        : <Typography variant="h6" align="center">No date plans meet your criteria :(</Typography>
-      }
+      <DatesRow />
+      <NeighborhoodsRow />
+      {/* {dateComponents.length ? (
+        <DateCardContainer tagFilters={tagFilters}>{dateComponents}</DateCardContainer>
+      ) : (
+        <Typography variant="h6" align="center">
+          No date plans meet your criteria :(
+        </Typography>
+      )} */}
     </React.Fragment>
   );
 }
