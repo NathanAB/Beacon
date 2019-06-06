@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 
+import { Typography } from '@material-ui/core';
 import logo from './logo.png';
 import icon from './icon.png';
 
@@ -53,9 +54,10 @@ function Header(props) {
     <AppBar position="fixed" color="secondary">
       <Toolbar className={classes.toolbar}>
         <Button>
-          <img alt="GamePlan Icon" src={icon} className={classes.icon} />
-          {' '}
-          <img alt="GamePlan Logo" src={logo} className={classes.logo} />
+          <img alt="Logo" src={icon} className={classes.icon} />
+          <Typography variant="h5" color="primary">
+            Beacon
+          </Typography>
         </Button>
         <IconButton color="primary" className={classes.accountButton}>
           <Icon>account_circle</Icon>

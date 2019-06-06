@@ -13,6 +13,9 @@ const styles = () => ({
   rowContainer: {
     width: 'calc(100vw - 25px)',
     'overflow-x': 'scroll',
+    '-ms-overflow-style': 'none',
+    overflow: '-moz-scrollbars-none',
+    '&::-webkit-scrollbar': { width: '0 !important' },
   },
   row: {
     width: '1200px',
