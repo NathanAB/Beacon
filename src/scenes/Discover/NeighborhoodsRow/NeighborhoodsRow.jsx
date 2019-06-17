@@ -3,33 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
-const NEIGHBORHOODS = [
-  {
-    name: 'Georgetown',
-    image:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fpics4.city-data.com%2Fcpicv%2Fvfiles24873.jpg&f=1',
-  },
-  {
-    name: 'H Street',
-    image:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fassets.urbanturf.com%2Fdc%2Fimages%2Fblog%2F2009%2F10%2FTAYLOR_NCINDC.jpg&f=1',
-  },
-  {
-    name: 'Capitol Hill',
-    image:
-      'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia-cdn.tripadvisor.com%2Fmedia%2Fphoto-s%2F01%2F65%2Ff8%2Fe5%2Fcaption.jpg&f=1',
-  },
-  {
-    name: 'U Street',
-    image:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.culturaltourismdc.org%2Fportal%2Fimage%2Fimage_gallery%3Fuuid%3D01192ccb-9293-464c-8680-d2024261a05c%26groupId%3D701982%26t%3D1395174609912&f=1',
-  },
-  {
-    name: 'Dupont',
-    image:
-      'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fpics4.city-data.com%2Fcpicv%2Fvfiles24873.jpg&f=1',
-  },
-];
+import Store from '../../../store';
 
 const styles = () => ({
   container: {
@@ -43,11 +17,12 @@ const styles = () => ({
     '&::-webkit-scrollbar': { width: '0 !important' },
   },
   row: {
-    width: '32.5rem',
+    width: '41rem',
   },
   neighborhood: {
     display: 'inline-block',
     'text-align': 'center',
+    padding: 0,
     'margin-right': '1.5rem',
   },
   icon: {
@@ -59,20 +34,31 @@ const styles = () => ({
   caption: {},
 });
 
-function renderNeighborhoods(classes) {
-  return NEIGHBORHOODS.map(neighborhood => {
-    return (
-      <div className={classes.neighborhood}>
-        <div className={classes.icon} style={{ backgroundImage: `url(${neighborhood.image})` }} />
-        <Typography variant="caption" className={classes.caption}>
-          {neighborhood.name}
-        </Typography>
-      </div>
-    );
-  });
-}
-
 function NeighborhoodsRow({ classes }) {
+  const store = Store.useStore();
+  const neighborhoods = store.get('neighborhoods');
+
+  function addFilter(neighborhood) {
+    store.set('filters')([{ type: 'neighborhood', value: neighborhood }]);
+  }
+
+  function renderNeighborhoods() {
+    return neighborhoods.map(neighborhood => {
+      return (
+        <button
+          type="button"
+          className={classes.neighborhood}
+          onClick={() => addFilter(neighborhood.name)}
+        >
+          <div className={classes.icon} style={{ backgroundImage: `url(${neighborhood.image})` }} />
+          <Typography variant="caption" className={classes.caption}>
+            {neighborhood.name}
+          </Typography>
+        </button>
+      );
+    });
+  }
+
   return (
     <section className={classes.container}>
       <Typography variant="h6" className={classes.caption}>

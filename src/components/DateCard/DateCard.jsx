@@ -23,25 +23,23 @@ const styles = theme => ({
     position: 'relative',
     overflow: 'visible',
     margin: 'auto',
+    border: '1px solid lightgray',
   },
   cardContent: {
-    backgroundColor: theme.palette.primary.main,
     width: '318px',
     'max-width': 'calc(100% - 32px)',
+    padding: '0.5rem 1rem',
   },
   cardHeader: {
-    color: theme.palette.primary.contrastText,
     'text-transform': 'uppercase',
     'font-weight': 400,
   },
   cardSubheader: {
-    color: theme.palette.primary.contrastText,
     'font-weight': 300,
   },
   cardDescription: {
-    color: theme.palette.primary.contrastText,
-    'font-weight': 300,
     position: 'relative',
+    marginTop: '0.5rem',
   },
   cardDescriptionCollapsed: {
     height: '0px',
@@ -65,7 +63,6 @@ const styles = theme => ({
   },
   activityTitle: {
     'padding-top': '1rem',
-    'text-transform': 'uppercase',
   },
   addButton: {
     position: 'absolute',
@@ -96,7 +93,7 @@ const styles = theme => ({
   },
   tagChip: {
     'margin-right': theme.spacing.unit,
-    'margin-bottom': theme.spacing.unit,
+    'margin-top': '5px',
     height: '1.5rem',
   },
   listChip: {
@@ -145,7 +142,10 @@ class DateCard extends React.Component {
   }
 
   onClickMainHandler() {
-    const { onClickMain } = this.props;
+    const { onClickMain, noExpand } = this.props;
+    if (noExpand) {
+      return;
+    }
     this.setState(oldState => ({
       isExpanded: !oldState.isExpanded,
     }));
@@ -161,7 +161,7 @@ class DateCard extends React.Component {
     tags = uniqBy(tags, tag => tag.name);
     tags = tags.slice(0, 3);
 
-    return tags.map(tag => <Chip color="secondary" label={tag.name} className={classes.tagChip} />);
+    return tags.map(tag => <Chip label={tag.name} className={classes.tagChip} />);
   }
 
   renderThumbnails() {
@@ -204,11 +204,11 @@ class DateCard extends React.Component {
             {`${dateLocations} • ${dateHours} hrs • ${dateCostString}`}
           </Typography>
           {this.renderAllTags()}
-          <Typography variant="body1" className={cardDescriptionClasses}>
+          <Typography variant="body2" className={cardDescriptionClasses}>
             {dateObj.description}
             {!isExpanded && <div className={classes.cardDescriptionFade} />}
           </Typography>
-          {/* {!isExpanded && <Icon className={classes.cardDescriptionExpandIcon}>expand_more</Icon>} */}
+          {this.renderExpanded()}
         </CardContent>
       </CardActionArea>
     );
@@ -218,20 +218,22 @@ class DateCard extends React.Component {
     const { dateObj, classes } = this.props;
     const { isExpanded } = this.state;
 
-    const sectionList = dateObj.sections.map((section, idx) => (
-      <div className={classes.activitySection}>
-        <div
-          className={classes.sectionImage}
-          style={{ backgroundImage: `url(${section.image})` }}
-        />
-        <Typography variant="h6" gutterBottom className={classes.activityTitle}>
-          <Chip color="primary" label={idx + 1} className={classes.listChip} />
-          {`${section.activity.name} @ ${section.spot.name}`}
-        </Typography>
-        {/* { section.tags.map(tag => (<Chip variant="outlined" label={tag.name} className={classes.tagChip} />)) } */}
-        <p>{section.description}</p>
-      </div>
-    ));
+    const sectionList = dateObj.sections.map(section => {
+      const duration = Math.round(section.minutes / 30) / 2; // Round to the nearest half-hour
+      const costString = costToString(section.price);
+      return (
+        <div className={classes.activitySection}>
+          <Typography variant="body2" className={classes.activityTitle}>
+            <strong>
+              {section.spot.name} • {costString}
+              <br />
+              {duration} hours
+            </strong>
+          </Typography>
+          <Typography variant="body2">{section.description}</Typography>
+        </div>
+      );
+    });
     return (
       <Collapse in={isExpanded}>
         <CardContent className={classes.expandedContent}>
@@ -264,7 +266,6 @@ class DateCard extends React.Component {
       <div className={classes.container}>
         <Card className={classes.card} elevation={0}>
           {this.renderMain()}
-          {this.renderExpanded()}
         </Card>
       </div>
     );
@@ -276,11 +277,13 @@ DateCard.propTypes = {
   dateObj: PropTypes.object.isRequired,
   onClickMain: PropTypes.func,
   onClickAdd: PropTypes.func.isRequired,
+  noExpand: PropTypes.bool,
 };
 
 DateCard.defaultProps = {
   classes: {},
   onClickMain: () => {},
+  noExpand: false,
 };
 
 export default withStyles(styles)(DateCard);

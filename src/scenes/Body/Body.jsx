@@ -9,24 +9,20 @@ import './Body.css';
 
 const { TABS } = CONSTANTS;
 
-function renderDiscover(onAddDate, checkingOutDate, cancelCheckout) {
-  return (
-    <>
-      <Discover onAddDate={onAddDate} />
-      <Planner
-        checkingOutDate={checkingOutDate}
-        cancelCheckout={cancelCheckout}
-      />
-    </>
-  );
-}
-
-function renderMyDates() {
-
-}
-
 function Body({ currentTab, checkingOutDate, cancelCheckout, onAddDate }) {
   let contentToRender;
+
+  function renderDiscover(onAddDate, checkingOutDate, cancelCheckout) {
+    return (
+      <>
+        <Discover onAddDate={onAddDate} />
+        <Planner checkingOutDate={checkingOutDate} cancelCheckout={cancelCheckout} />
+      </>
+    );
+  }
+
+  function renderMyDates() {}
+
   switch (currentTab) {
     case TABS.DISCOVER:
       contentToRender = renderDiscover(onAddDate, checkingOutDate, cancelCheckout);
@@ -37,11 +33,7 @@ function Body({ currentTab, checkingOutDate, cancelCheckout, onAddDate }) {
     default:
       break;
   }
-  return (
-    <main>
-      {contentToRender}
-    </main>
-  );
+  return <main>{contentToRender}</main>;
 }
 
 Body.propTypes = {

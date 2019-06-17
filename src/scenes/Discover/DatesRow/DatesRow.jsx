@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
-import DateObjs from '../../../mocks/dates';
 import DateCard from '../../../components/DateCard/DateCard';
+import Store from '../../../store';
 
 const styles = () => ({
   container: {
@@ -34,17 +34,20 @@ const styles = () => ({
   caption: {},
 });
 
-function renderDates(classes) {
-  return DateObjs.map(date => {
-    return (
-      <div className={classes.dateContainer}>
-        <DateCard dateObj={date} />
-      </div>
-    );
-  });
-}
-
 function DatesRow({ classes }) {
+  const store = Store.useStore();
+  const DateObjs = store.get('dates');
+
+  function renderDates() {
+    return DateObjs.map(date => {
+      return (
+        <div className={classes.dateContainer}>
+          <DateCard dateObj={date} noExpand />
+        </div>
+      );
+    });
+  }
+
   return (
     <section className={classes.container}>
       <Typography variant="h6" className={classes.caption}>

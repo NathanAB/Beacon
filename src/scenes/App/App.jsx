@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import BottomNav from '../../components/BottomNav/BottomNav';
 import CONSTANTS from '../../constants';
 import Body from '../Body/Body';
+import Store from '../../store';
 
 const theme = createMuiTheme({
   typography: {
@@ -27,47 +28,38 @@ const theme = createMuiTheme({
   },
 });
 
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      currentTab: CONSTANTS.TABS.DISCOVER,
-      checkingOutDate: {},
-    };
-    this.onChangeTab = this.onChangeTab.bind(this);
-    this.onAddDate = this.onAddDate.bind(this);
+function App() {
+  const store = Store.useStore();
+  const checkingOutDate = store.get('checkingOutDate');
+
+  function onChangeTab(newTab) {
+    if (newTab === CONSTANTS.TABS.DISCOVER) {
+      store.set('filters')([]);
+      store.set('isFilterPageOpen')(false);
+    }
+
+    store.set('currentTab')(newTab);
   }
 
-  onChangeTab(newTab) {
-    this.setState({
-      currentTab: newTab,
-    });
+  function onAddDate(date) {
+    store.set('checkingOutDate')(date);
   }
 
-  onAddDate(date) {
-    this.setState({
-      checkingOutDate: date,
-    });
-    console.log(date);
-  }
-
-  render() {
-    const { currentTab, checkingOutDate } = this.state;
-    return (
-      <div className="App">
-        <MuiThemeProvider theme={theme}>
-          <Header />
-          <Body
-            currentTab={currentTab}
-            checkingOutDate={checkingOutDate}
-            onAddDate={this.onAddDate}
-            cancelCheckout={() => this.setState({ checkingOutDate: {} })}
-          />
-          <BottomNav onChange={this.onChangeTab} />
-        </MuiThemeProvider>
-      </div>
-    );
-  }
+  const currentTab = store.get('currentTab');
+  return (
+    <div className="App">
+      <MuiThemeProvider theme={theme}>
+        <Header />
+        <Body
+          currentTab={currentTab}
+          checkingOutDate={checkingOutDate}
+          onAddDate={onAddDate}
+          cancelCheckout={() => {}} // TODO
+        />
+        <BottomNav onChange={onChangeTab} />
+      </MuiThemeProvider>
+    </div>
+  );
 }
 
 export default App;

@@ -1,0 +1,150 @@
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import {
+  withStyles,
+  Typography,
+  List,
+  Checkbox,
+  ListItemText,
+  ListItem,
+  Icon,
+  Divider,
+  Chip,
+  InputBase,
+  Button,
+} from '@material-ui/core';
+
+import Tags from '../../../mocks/tags';
+import Store from '../../../store';
+import TagsRow from '../TagsRow/TagsRow';
+
+const styles = {
+  filtersContainer: {
+    margin: '20px 32px',
+  },
+  filtersButton: {
+    margin: 'auto',
+  },
+  tagChip: {
+    margin: '0.3rem 0.7rem 0 0',
+  },
+  filtersText: {
+    'vertical-align': 'middle',
+  },
+  filtersBody: {
+    display: 'block',
+  },
+  checkbox: {
+    padding: '0px',
+  },
+  filterChip: {
+    margin: '0.3em',
+    'border-width': '1px',
+    'border-style': 'solid',
+  },
+  divider: {
+    margin: '10px 0',
+  },
+  search: {
+    position: 'relative',
+    borderRadius: '2rem',
+    border: '1px solid gray',
+    marginLeft: 0,
+    width: '100%',
+    'margin-bottom': '1rem',
+  },
+  searchIcon: {
+    width: '1rem',
+    'margin-left': '1rem',
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'gray',
+  },
+  inputRoot: {
+    color: 'inherit',
+    width: '100%',
+  },
+  inputInput: {
+    padding: '0.7rem',
+    'padding-left': '2.3rem',
+    width: '100%',
+  },
+  filterSection: {
+    'margin-bottom': '1rem',
+  },
+};
+
+function FilterPage({ classes }) {
+  const store = Store.useStore();
+  const costs = store.get('costs');
+  const filters = store.get('filters');
+  const durations = store.get('durations');
+  const neighborhoods = store.get('neighborhoods');
+
+  function toggleFilter(type, value, isTagToggled) {
+    let newFilters;
+    if (isTagToggled) {
+      newFilters = filters.filter(filter => filter.value !== value);
+    } else {
+      newFilters = filters.concat({ type, value });
+    }
+    store.set('filters')(newFilters);
+  }
+
+  function renderFilterSection(options, type) {
+    return options.map(option => {
+      const isTagToggled = filters.some(filter => filter.value === option);
+      const color = isTagToggled ? 'primary' : 'default';
+      return (
+        <Chip
+          color={color}
+          label={option}
+          className={classes.tagChip}
+          onClick={() => toggleFilter(type, option, isTagToggled)}
+        />
+      );
+    });
+  }
+
+  return (
+    <div>
+      <section className={classes.filterSection}>
+        <Typography variant="h6">Cost</Typography>
+        {renderFilterSection(costs, 'cost')}
+      </section>
+
+      <section className={classes.filterSection}>
+        <Typography variant="h6">Duration</Typography>
+        {renderFilterSection(durations, 'duration')}
+      </section>
+
+      <section className={classes.filterSection}>
+        <Typography variant="h6">Location</Typography>
+        {renderFilterSection(neighborhoods.map(n => n.name), 'neighborhood')}
+      </section>
+
+      <section className={classes.filterSection}>
+        <Typography variant="h6">Characteristic</Typography>
+        <TagsRow />
+      </section>
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => store.set('isFilterPageOpen')(false)}
+      >
+        Done
+      </Button>
+    </div>
+  );
+}
+
+FilterPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(FilterPage);

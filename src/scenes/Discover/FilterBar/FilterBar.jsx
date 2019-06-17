@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core';
 
 import Tags from '../../../mocks/tags';
-import Locations from '../../../mocks/locations';
+import Store from '../../../store';
 
 const styles = {
   filtersContainer: {
@@ -47,29 +47,32 @@ const styles = {
     position: 'relative',
     borderRadius: '2rem',
     border: '1px solid gray',
-    marginLeft: 0,
     width: '100%',
-    'margin-bottom': '1rem',
+    padding: '0.3rem 0',
+    textAlign: 'left',
+    outline: 'none',
+    color: 'gray',
+    marginBottom: '1rem',
   },
   searchIcon: {
+    'margin-left': '0.8rem',
     width: '1rem',
-    'margin-left': '1rem',
     height: '100%',
-    position: 'absolute',
     pointerEvents: 'none',
-    display: 'flex',
+    display: 'inline-block',
     alignItems: 'center',
     justifyContent: 'center',
     color: 'gray',
+    'vertical-align': 'middle',
   },
-  inputRoot: {
-    color: 'inherit',
-    width: '100%',
+  filterChips: {
+    'margin-left': '1rem',
+    'vertical-align': 'middle',
+    display: 'inline-block',
   },
-  inputInput: {
-    padding: '0.7rem',
-    'padding-left': '2.3rem',
-    width: '100%',
+  placeholder: {
+    color: 'gray',
+    display: 'inline-block',
   },
 };
 
@@ -82,19 +85,33 @@ function Filters({
   toggleCostFilter,
   costFilters,
 }) {
+  const store = Store.useStore();
+  const filters = store.get('filters');
+
+  function renderChips() {
+    if (filters.length) {
+      return filters.map(filter => {
+        return <Chip label={filter.value} />;
+      });
+    }
+    return (
+      <Typography variant="body2" className={classes.placeholder}>
+        Have a specific thing in mind?
+      </Typography>
+    );
+  }
+
   return (
-    <div className={classes.search}>
-      <div className={classes.searchIcon}>
-        <Icon>search</Icon>
-      </div>
-      <InputBase
-        placeholder="Have a specific thing in mind?"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-      />
-    </div>
+    <button
+      type="button"
+      className={classes.search}
+      onClick={() => store.set('isFilterPageOpen')(true)}
+    >
+      <span className={classes.searchIcon}>
+        <Icon>filter_list</Icon>
+      </span>
+      <span className={classes.filterChips}>{renderChips()}</span>
+    </button>
     /** 
     <ExpansionPanel color="primary" className={classes.filtersContainer}>
       <ExpansionPanelSummary className={classes.filtersButtonContainer}>
