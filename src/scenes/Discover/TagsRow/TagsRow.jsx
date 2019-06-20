@@ -13,20 +13,19 @@ const styles = () => ({
 function TagsRow({ classes }) {
   const store = Store.useStore();
   const tags = store.get('tags');
-  let filters = store.get('filters');
+  const filters = store.get('filters');
 
-  function addTagFilter(tag, isTagToggled) {
-    if (isTagToggled) {
-      filters = filters.filter(filter => filter.value !== tag);
-    } else {
-      filters.push({ type: 'tag', value: tag });
-    }
+  function addTagFilter(tag) {
+    filters.push({ type: 'tag', value: tag });
     store.set('filters')(filters);
   }
 
   function renderTags() {
     return tags.map(tag => {
       const isTagToggled = filters.some(filter => filter.value === tag);
+      if (isTagToggled) {
+        return '';
+      }
       const color = isTagToggled ? 'primary' : 'default';
       return (
         <Chip

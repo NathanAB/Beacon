@@ -16,6 +16,7 @@ import { Icon } from '@material-ui/core';
 const styles = theme => ({
   container: {
     position: 'relative',
+    minHeight: '278px',
   },
   card: {
     width: '320px',
@@ -264,7 +265,7 @@ class DateCard extends React.Component {
 
     return (
       <div className={classes.container}>
-        <Card className={classes.card} elevation={0}>
+        <Card className={classes.card} elevation={3}>
           {this.renderMain()}
         </Card>
       </div>

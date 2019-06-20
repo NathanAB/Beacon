@@ -20,32 +20,9 @@ import Tags from '../../../mocks/tags';
 import Store from '../../../store';
 
 const styles = {
-  filtersContainer: {
-    margin: '20px 32px',
-  },
-  filtersButton: {
-    margin: 'auto',
-  },
-  filtersText: {
-    'vertical-align': 'middle',
-  },
-  filtersBody: {
-    display: 'block',
-  },
-  checkbox: {
-    padding: '0px',
-  },
-  filterChip: {
-    margin: '0.3em',
-    'border-width': '1px',
-    'border-style': 'solid',
-  },
-  divider: {
-    margin: '10px 0',
-  },
   search: {
     position: 'relative',
-    borderRadius: '2rem',
+    borderRadius: '22px',
     border: '1px solid gray',
     width: '100%',
     padding: '0.3rem 0',
@@ -53,9 +30,12 @@ const styles = {
     outline: 'none',
     color: 'gray',
     marginBottom: '1rem',
+    display: 'flex',
+    alignItems: 'center',
+    minHeight: '50px',
   },
   searchIcon: {
-    'margin-left': '0.8rem',
+    'margin-left': '1rem',
     width: '1rem',
     height: '100%',
     pointerEvents: 'none',
@@ -69,6 +49,9 @@ const styles = {
     'margin-left': '1rem',
     'vertical-align': 'middle',
     display: 'inline-block',
+  },
+  chip: {
+    margin: '0.2rem',
   },
   placeholder: {
     color: 'gray',
@@ -88,10 +71,17 @@ function Filters({
   const store = Store.useStore();
   const filters = store.get('filters');
 
+  const removeFilter = filterToRemove => () => {
+    const newFilters = filters.filter(filter => filter.value !== filterToRemove.value);
+    store.set('filters')(newFilters);
+  };
+
   function renderChips() {
     if (filters.length) {
       return filters.map(filter => {
-        return <Chip label={filter.value} />;
+        return (
+          <Chip label={filter.value} className={classes.chip} onDelete={removeFilter(filter)} />
+        );
       });
     }
     return (
@@ -112,85 +102,6 @@ function Filters({
       </span>
       <span className={classes.filterChips}>{renderChips()}</span>
     </button>
-    /** 
-    <ExpansionPanel color="primary" className={classes.filtersContainer}>
-      <ExpansionPanelSummary className={classes.filtersButtonContainer}>
-        <Typography
-          variant="button"
-          color="primary"
-          align="center"
-          className={classes.filtersButton}
-        >
-          <span className={classes.filtersText}>Filters</span>{' '}
-          <Icon color="primary" className={classes.filtersText}>
-            filter_list
-          </Icon>
-        </Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.filtersBody}>
-        <Typography variant="overline">Locations:</Typography>
-        <List className={classes.root}>
-          {Locations.map(location => (
-            <ListItem
-              key={location}
-              role={undefined}
-              dense
-              button
-              onClick={toggleLocationFilter(location)}
-              className={classes.checkbox}
-            >
-              <Checkbox
-                checked={locationFilters.indexOf(location) !== -1}
-                checkedIcon={<Icon>check_box</Icon>}
-                disableRipple
-                color="primary"
-              />
-              <ListItemText primary={location} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider variant="middle" className={classes.divider} />
-        <Typography variant="overline">Cost:</Typography>
-        <List className={classes.root}>
-          {['$', '$$', '$$$', '$$$$'].map(cost => (
-            <ListItem
-              key={cost}
-              role={undefined}
-              dense
-              button
-              onClick={toggleCostFilter(cost)}
-              className={classes.checkbox}
-            >
-              <Checkbox
-                checked={costFilters.indexOf(cost) !== -1}
-                checkedIcon={<Icon>check_box</Icon>}
-                disableRipple
-                color="primary"
-              />
-              <ListItemText primary={cost} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider variant="middle" className={classes.divider} />
-        <Typography variant="overline">Tags:</Typography>
-        {Tags.map(tag => {
-          const isFilterOn = tagFilters.indexOf(tag) !== -1;
-          const variant = isFilterOn ? '' : 'outlined';
-          const color = isFilterOn ? 'primary' : '';
-          return (
-            <Chip
-              className={classes.filterChip}
-              key={tag}
-              onClick={toggleTag(tag)}
-              label={tag}
-              variant={variant}
-              color={color}
-            />
-          );
-        })}
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
-    * */
   );
 }
 

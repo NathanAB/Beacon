@@ -46,6 +46,10 @@ const styles = theme => ({
   logo: {
     height: '18px',
   },
+  title: {
+    fontWeight: 800,
+    letterSpacing: '0.3rem',
+  },
 });
 
 function Header(props) {
@@ -53,13 +57,15 @@ function Header(props) {
   return (
     <AppBar position="fixed" color="secondary">
       <Toolbar className={classes.toolbar}>
+        <IconButton className={classes.accountButton}>
+          <Icon>settings</Icon>
+        </IconButton>
         <Button>
-          <img alt="Logo" src={icon} className={classes.icon} />
-          <Typography variant="h5" color="primary">
+          <Typography variant="h5" color="primary" className={classes.title}>
             Beacon
           </Typography>
         </Button>
-        <IconButton color="primary" className={classes.accountButton}>
+        <IconButton className={classes.accountButton}>
           <Icon>account_circle</Icon>
         </IconButton>
       </Toolbar>

@@ -85,26 +85,24 @@ function FilterPage({ classes }) {
   const durations = store.get('durations');
   const neighborhoods = store.get('neighborhoods');
 
-  function toggleFilter(type, value, isTagToggled) {
-    let newFilters;
-    if (isTagToggled) {
-      newFilters = filters.filter(filter => filter.value !== value);
-    } else {
-      newFilters = filters.concat({ type, value });
-    }
+  function toggleFilter(type, value) {
+    const newFilters = filters.concat({ type, value });
     store.set('filters')(newFilters);
   }
 
   function renderFilterSection(options, type) {
     return options.map(option => {
       const isTagToggled = filters.some(filter => filter.value === option);
+      if (isTagToggled) {
+        return '';
+      }
       const color = isTagToggled ? 'primary' : 'default';
       return (
         <Chip
           color={color}
           label={option}
           className={classes.tagChip}
-          onClick={() => toggleFilter(type, option, isTagToggled)}
+          onClick={() => toggleFilter(type, option)}
         />
       );
     });
