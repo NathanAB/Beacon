@@ -55,7 +55,7 @@ const styles = theme => ({
 function Header(props) {
   const { classes } = props;
   return (
-    <AppBar position="fixed" color="secondary">
+    <AppBar position="fixed" color="contrastText">
       <Toolbar className={classes.toolbar}>
         <IconButton className={classes.accountButton}>
           <Icon>settings</Icon>

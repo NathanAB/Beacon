@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 
 import './css/index.css';
 import App from './scenes/App/App';
 import registerServiceWorker from './registerServiceWorker';
 import Store from './store';
 
-import ReactGA from 'react-ga';
-
 ReactGA.initialize('UA-54887334-4', {
-  debug: true
+  debug: true,
 });
 
 ReactDOM.render(

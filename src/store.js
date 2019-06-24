@@ -14,4 +14,6 @@ export default createConnectedStore({
   currentTab: constants.TABS.DISCOVER,
   costs: ['Free', '$', '$$', '$$$', '$$$$'],
   durations: ['1 hour', '2 hours', '3 hours', '4+ hours'],
+  checkoutDate: false,
+  myDates: [],
 });

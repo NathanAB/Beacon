@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { PropTypes } from 'prop-types';
 import { Typography } from '@material-ui/core';
 
 import Store from '../../store';
@@ -8,7 +7,6 @@ import DatesList from './DatesList/DatesList';
 import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
 import DatesRow from './DatesRow/DatesRow';
 import TagsRow from './TagsRow/TagsRow';
-import DateObjs from '../../mocks/dates';
 import DateCard from '../../components/DateCard/DateCard';
 import FilterPage from './FilterPage/FilterPage';
 
@@ -31,7 +29,7 @@ function getDatesByTags(dateObjs, tags) {
   });
 }
 
-function Discover({ onAddDate }) {
+function Discover() {
   const [tagFilters, setTagFilters] = useState([]);
   const [locationFilters, setLocationFilters] = useState([]);
   const [costFilters, setCostFilters] = useState([]);
@@ -125,13 +123,5 @@ function Discover({ onAddDate }) {
     </React.Fragment>
   );
 }
-
-Discover.propTypes = {
-  onAddDate: PropTypes.func,
-};
-
-Discover.defaultProps = {
-  onAddDate: () => {},
-};
 
 export default Discover;

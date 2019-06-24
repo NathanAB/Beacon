@@ -2,10 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, IconButton, Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+  IconButton,
+  Typography,
 } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
+
+import Store from '../../../store';
+import Constants from '../../../constants';
 
 const styles = theme => ({
   root: {
@@ -33,23 +43,33 @@ const styles = theme => ({
   textInput: {
     width: '100%',
   },
+  confirmButton: {
+    marginBottom: '1rem',
+    marginRight: '1rem',
+  },
 });
 
-function Planner(props) {
-  const { classes, checkingOutDate, cancelCheckout } = props;
+function Planner({ classes }) {
+  const store = Store.useStore();
+  const checkoutDate = store.get('checkoutDate');
+  const confirmCheckout = () => {
+    store.set('myDates')([checkoutDate]);
+    store.set('currentTab')(Constants.TABS.MY_DATES);
+    store.set('checkoutDate')(false);
+  };
+
+  const cancelCheckout = () => store.set('checkoutDate')(false);
+
+  if (!checkoutDate) {
+    return '';
+  }
 
   return (
-    <Dialog
-      open={!!checkingOutDate.name}
-      onClose={cancelCheckout}
-      aria-labelledby="form-dialog-title"
-    >
+    <Dialog open={!!checkoutDate.name} onClose={cancelCheckout} aria-labelledby="form-dialog-title">
       <IconButton aria-label="Close" className={classes.closeButton} onClick={cancelCheckout}>
         <CloseIcon />
       </IconButton>
-      <DialogTitle id="form-dialog-title">
-        {`Planning: ${checkingOutDate.name}`}
-      </DialogTitle>
+      <DialogTitle id="form-dialog-title">{`Planning: ${checkoutDate.name}`}</DialogTitle>
       <DialogContent>
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
@@ -58,12 +78,7 @@ function Planner(props) {
             margin="normal"
             className={classes.textInput}
           />
-          <TextField
-            id="date-date"
-            label="Date"
-            margin="normal"
-            className={classes.textInput}
-          />
+          <TextField id="date-date" label="Date" margin="normal" className={classes.textInput} />
           <TextField id="date-time" label="Time" margin="normal" className={classes.textInput} />
           <TextField
             id="date-participant"
@@ -74,8 +89,14 @@ function Planner(props) {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={cancelCheckout} color="primary">
-          I'm game
+        <Button
+          onClick={confirmCheckout}
+          variant="contained"
+          color="primary"
+          size="small"
+          className={classes.confirmButton}
+        >
+          Add this Date
         </Button>
       </DialogActions>
     </Dialog>
@@ -84,12 +105,6 @@ function Planner(props) {
 
 Planner.propTypes = {
   classes: PropTypes.object.isRequired,
-  checkingOutDate: PropTypes.object,
-  cancelCheckout: PropTypes.func.isRequired,
-};
-
-Planner.defaultProps = {
-  checkingOutDate: {},
 };
 
 export default withStyles(styles)(Planner);

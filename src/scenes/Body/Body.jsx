@@ -1,31 +1,36 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 
 import CONSTANTS from '../../constants';
-import Planner from '../Planner/Planner';
+import Planner from '../Discover/Planner/Planner';
 import Discover from '../Discover/Discover';
+import MyDates from '../MyDates/MyDates';
+import Store from '../../store';
 
 import './Body.css';
 
 const { TABS } = CONSTANTS;
 
-function Body({ currentTab, checkingOutDate, cancelCheckout, onAddDate }) {
+function Body() {
+  const store = Store.useStore();
+  const currentTab = store.get('currentTab');
   let contentToRender;
 
-  function renderDiscover(onAddDate, checkingOutDate, cancelCheckout) {
+  function renderDiscover() {
     return (
       <>
-        <Discover onAddDate={onAddDate} />
-        <Planner checkingOutDate={checkingOutDate} cancelCheckout={cancelCheckout} />
+        <Discover />
+        <Planner />
       </>
     );
   }
 
-  function renderMyDates() {}
+  function renderMyDates() {
+    return <MyDates />;
+  }
 
   switch (currentTab) {
     case TABS.DISCOVER:
-      contentToRender = renderDiscover(onAddDate, checkingOutDate, cancelCheckout);
+      contentToRender = renderDiscover();
       break;
     case TABS.MY_DATES:
       contentToRender = renderMyDates();
@@ -35,16 +40,5 @@ function Body({ currentTab, checkingOutDate, cancelCheckout, onAddDate }) {
   }
   return <main>{contentToRender}</main>;
 }
-
-Body.propTypes = {
-  currentTab: PropTypes.string,
-  currentDate: PropTypes.array,
-  onAddDate: PropTypes.func.isRequired,
-};
-
-Body.defaultProps = {
-  currentTab: 'discover',
-  currentDate: [],
-};
 
 export default Body;
