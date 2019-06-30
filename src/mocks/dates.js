@@ -8,7 +8,7 @@ module.exports = [
         description:
           "For those not looking for the most romantic of dates but rather a local spot where you can be casual and take it easy, Luna Grill will not disappoint. It's a breakfast all day kind of place. Enough said.",
         minutes: 60,
-        price: 2,
+        cost: 2,
         tips: '',
         image:
           'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.borderstan.com%2Ffiles%2F2015%2F12%2FLuna-Grill-DinerFINAL-600x400.jpg&f=1',
@@ -41,7 +41,7 @@ module.exports = [
         description:
           "You and your date will have no problem finding a spot or a beer of your liking here since The Big Hunt has three floors, four bars, and 32 beers on tap. Your date may also appreciate that it's a classic DC spot being one of DC's oldest beer bars.",
         minutes: 90,
-        price: 2,
+        cost: 2,
         tips: '',
         image: 'https://www.undergroundcomedydc.com/uploads/1/9/8/3/19836721/whatever_16_orig.png',
         rating: 0,
@@ -80,7 +80,7 @@ module.exports = [
         description:
           "Go on this free tour where you'll learn about one of the most historic buildings in DC and impress your date choosing a non-typical place to explore and learn.",
         minutes: 60,
-        price: 0,
+        cost: 0,
         tips: '',
         image:
           'https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.signiant.com%2Fwp-content%2Fuploads%2F2015%2F06%2Flibrary-of-congress.jpg&f=1',
@@ -107,7 +107,7 @@ module.exports = [
         description:
           "Come for the no-frills, greasy spoon atmosphere that will leave you both satisfied and show your date you're not high maintenance.",
         minutes: 60,
-        price: 2,
+        cost: 2,
         tips: '',
         image:
           'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fcdn.onlyinyourstate.com%2Fwp-content%2Fuploads%2F2016%2F08%2Fjimmy-ts-place-food-700x525.jpg&f=1',
@@ -147,7 +147,7 @@ module.exports = [
         description:
           'Delicious, authentic Northern Thai food. It has a great atmosphere and well reviewed.',
         minutes: 60,
-        price: 2,
+        cost: 2,
         tips: '',
         image: 'http://roamalicious.com/wp-content/uploads/2012/11/khao-soi.jpg',
         rating: 0,
@@ -181,7 +181,7 @@ module.exports = [
       {
         description: 'Retro vibe with games to engage in and break the ice.',
         minutes: 90,
-        price: 2,
+        cost: 2,
         tips: '',
         image:
           'https://washington-org.s3.amazonaws.com/s3fs-public/playersclubdc_playing-arcade-games-at-players-club_yesmydccool.jpg',
@@ -207,7 +207,7 @@ module.exports = [
       {
         description: 'Great coffee or dessert.',
         minutes: 60,
-        price: 2,
+        cost: 2,
         tips: '',
         image:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHOs_TZRspNFMC9HuCGg5T6LMuI30ylUBXeHd4ta7EOODPGRJw',

@@ -53,7 +53,8 @@ function Planner({ classes }) {
   const store = Store.useStore();
   const checkoutDate = store.get('checkoutDate');
   const confirmCheckout = () => {
-    store.set('myDates')([checkoutDate]);
+    const myDates = store.get('myDates');
+    store.set('myDates')(myDates.concat([checkoutDate]));
     store.set('currentTab')(Constants.TABS.MY_DATES);
     store.set('checkoutDate')(false);
   };

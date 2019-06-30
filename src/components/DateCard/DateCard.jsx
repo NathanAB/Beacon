@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Collapse from '@material-ui/core/Collapse';
 
-import Store from '../../store';
 import { NONAME } from 'dns';
+import Store from '../../store';
 
 const styles = theme => ({
   container: {
@@ -138,6 +138,10 @@ const styles = theme => ({
 });
 
 function costToString(cost) {
+  if (cost === 0) {
+    return 'Free';
+  }
+
   const str = [];
   for (let i = 0; i < cost; i += 1) {
     str.push('$');
@@ -180,7 +184,7 @@ function DateCard({ dateObj, classes, noExpand }) {
     }
     const sectionList = dateObj.sections.map(section => {
       const duration = Math.round(section.minutes / 30) / 2; // Round to the nearest half-hour
-      const costString = costToString(section.price);
+      const costString = costToString(section.cost);
       return (
         <div className={classes.activitySection}>
           <Typography variant="body2" className={classes.activityTitle}>
@@ -216,8 +220,7 @@ function DateCard({ dateObj, classes, noExpand }) {
     const { sections } = dateObj;
     const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
     const dateHours = Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
-    const dateCost =
-      sections.reduce((total, section) => total + section.price, 0) / sections.length;
+    const dateCost = sections.reduce((total, section) => total + section.cost, 0) / sections.length;
     const dateCostString = costToString(dateCost);
     const dateLocations = uniq(map(sections, 'spot.neighborhood.name')).join(', ');
     const cardDescriptionClasses = [classes.cardDescription];

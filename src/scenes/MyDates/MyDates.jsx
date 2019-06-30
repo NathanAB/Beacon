@@ -2,6 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
 import Store from '../../store';
+import DatesList from '../Discover/DatesList/DatesList';
+import DateCard from '../../components/DateCard/DateCard';
 
 const styles = {};
 
@@ -10,9 +12,8 @@ function MyDates({}) {
   const myDates = store.get('myDates');
 
   function renderMyDates() {
-    return myDates.map(date => {
-      return date.name;
-    });
+    const dateCards = myDates.map(date => <DateCard dateObj={date} />);
+    return <DatesList>{dateCards}</DatesList>;
   }
 
   return <>{renderMyDates()}</>;

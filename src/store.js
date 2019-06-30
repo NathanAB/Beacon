@@ -13,7 +13,7 @@ export default createConnectedStore({
   isFilterPageOpen: false,
   currentTab: constants.TABS.DISCOVER,
   costs: ['Free', '$', '$$', '$$$', '$$$$'],
-  durations: ['1 hour', '2 hours', '3 hours', '4+ hours'],
+  durations: ['1 Hour', '2 Hours', '3 Hours', '4 Hours'],
   checkoutDate: false,
   myDates: [],
 });
