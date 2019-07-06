@@ -1,20 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import {
-  withStyles,
-  Typography,
-  List,
-  Checkbox,
-  ListItemText,
-  ListItem,
-  Icon,
-  Divider,
-  Chip,
-  InputBase,
-  Button,
-} from '@material-ui/core';
+import { withStyles, Typography, Chip, Button } from '@material-ui/core';
 
-import Tags from '../../../mocks/tags';
 import Store from '../../../store';
 import TagsRow from '../TagsRow/TagsRow';
 

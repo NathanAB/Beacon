@@ -1,22 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import {
-  withStyles,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  Typography,
-  ExpansionPanelDetails,
-  List,
-  Checkbox,
-  ListItemText,
-  ListItem,
-  Icon,
-  Divider,
-  Chip,
-  InputBase,
-} from '@material-ui/core';
+import { withStyles, Typography, Icon, Chip } from '@material-ui/core';
 
-import Tags from '../../../mocks/tags';
 import Store from '../../../store';
 
 const styles = {
@@ -59,15 +44,7 @@ const styles = {
   },
 };
 
-function Filters({
-  classes,
-  toggleTag,
-  tagFilters,
-  toggleLocationFilter,
-  locationFilters,
-  toggleCostFilter,
-  costFilters,
-}) {
+function Filters({ classes }) {
   const store = Store.useStore();
   const filters = store.get('filters');
 
@@ -107,12 +84,6 @@ function Filters({
 
 Filters.propTypes = {
   classes: PropTypes.object.isRequired,
-  toggleTag: PropTypes.func.isRequired,
-  tagFilters: PropTypes.array.isRequired,
-  toggleLocationFilter: PropTypes.func.isRequired,
-  locationFilters: PropTypes.array.isRequired,
-  toggleCostFilter: PropTypes.func.isRequired,
-  costFilters: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(Filters);

@@ -16,10 +16,10 @@ const styles = theme => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginLeft: theme.spacing.unit * 1,
+    marginLeft: theme.spacing(1),
   },
   accountButton: {
-    marginRight: theme.spacing.unit * 1,
+    marginRight: theme.spacing(1),
   },
   toolbar: {
     'justify-content': 'space-between',
@@ -29,10 +29,10 @@ const styles = theme => ({
     width: '100%',
   },
   inputInput: {
-    paddingTop: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingTop: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(10),
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {

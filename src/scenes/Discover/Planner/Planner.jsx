@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   DialogActions,
   Button,
   IconButton,
-  Typography,
 } from '@material-ui/core';
+import { DatePicker, TimePicker } from '@material-ui/pickers';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -36,8 +35,8 @@ const styles = theme => ({
   },
   closeButton: {
     position: 'absolute',
-    right: theme.spacing.unit,
-    top: theme.spacing.unit,
+    right: theme.spacing(1),
+    top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
   textInput: {
@@ -49,12 +48,24 @@ const styles = theme => ({
   },
 });
 
+// TODO - Add validation
 function Planner({ classes }) {
   const store = Store.useStore();
   const checkoutDate = store.get('checkoutDate');
+  const [name, setName] = useState('');
+  const [day, setDay] = useState(new Date());
+  const [time, setTime] = useState(new Date());
+  const [notes, setNotes] = useState('');
   const confirmCheckout = () => {
-    const myDates = store.get('myDates');
-    store.set('myDates')(myDates.concat([checkoutDate]));
+    const userDates = store.get('userDates');
+    const newUserDate = {
+      dateId: checkoutDate.id,
+      name,
+      day,
+      time,
+      notes,
+    };
+    store.set('userDates')(userDates.concat([newUserDate]));
     store.set('currentTab')(Constants.TABS.MY_DATES);
     store.set('checkoutDate')(false);
   };
@@ -76,16 +87,28 @@ function Planner({ classes }) {
           <TextField
             id="date-name"
             label="Date Name"
-            margin="normal"
+            margin="dense"
             className={classes.textInput}
+            value={name}
+            onChange={e => setName(e.target.value)}
           />
-          <TextField id="date-date" label="Date" margin="normal" className={classes.textInput} />
-          <TextField id="date-time" label="Time" margin="normal" className={classes.textInput} />
-          <TextField
-            id="date-participant"
-            label="Who's going?"
+
+          <DatePicker margin="normal" className={classes.textInput} value={day} onChange={setDay} />
+
+          <TimePicker
             margin="normal"
             className={classes.textInput}
+            value={time}
+            onChange={setTime}
+          />
+
+          <TextField
+            id="date-notes"
+            label="Notes"
+            margin="dense"
+            className={classes.textInput}
+            value={notes}
+            onChange={e => setNotes(e.target.value)}
           />
         </form>
       </DialogContent>

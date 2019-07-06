@@ -1,5 +1,6 @@
 module.exports = [
   {
+    id: 0,
     name: 'Casual Dinner and Comedy',
     description:
       "Neither the Luna Grill nor The Big Hunt are good places to romance or impress, but they do provide low-key, reasonable cost spots for you to enjoy your time out together. Start off at Luna Grill, one of the only diners around DC. You could get some comfort food lke a cheesesteak or sirloin burger, but also more upscale options like shrimp and grits. The next spot in this date doesn't provide much of an opportunity to walk off your diner food since The Big Hunt is only a one minute walk away. If your date is into beer, this is an especially great spot since it has a crazy amount of beers on tap to choose from. It's a bit dark and basic inside, but it's got a fun vibe to wrap up the night together. See the \"other notes and tips\" section for more info on the regular events here to make the night extra special.",
@@ -72,6 +73,7 @@ module.exports = [
     ],
   },
   {
+    id: 1,
     name: 'History Tour and Brunch',
     description:
       "This date combines two things you can only do in Capitol Hill: tour the Library of Congress and go to Jimmy T's. After seeing the beauty of the Library of Congress and learning all about its formation and collection, you can continue the intellectual and casual conversation at Jimmy T's nearby. This diner isn't great for a romantic date or a first date, but is a great way to finish off a date where you're focused on local D.C spots.",
@@ -139,6 +141,7 @@ module.exports = [
     ],
   },
   {
+    id: 2,
     name: '14th St Night Out',
     description:
       "This is an ideal first date with good food, fun games, and a classic spot for dessert to finish it off (although this plan will work for any date!). Start off at Baan Thai for some authentic Thai food in a low key establishment with plenty of two-seater tables. When you're done, walk one block to keep the fun going at a bar where you can order Shake Shack (if you're somehow still hungry) and have fun challenging each other at skee-ball and other games. Last, back track just half a block and grab an after date espresso or gellato (or combine for an affogato).",

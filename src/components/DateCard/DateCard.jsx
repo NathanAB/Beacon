@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Collapse from '@material-ui/core/Collapse';
 
-import { NONAME } from 'dns';
 import Store from '../../store';
+import { costToString } from '../../utils';
 
 const styles = theme => ({
   container: {
@@ -44,22 +44,12 @@ const styles = theme => ({
     position: 'relative',
     marginTop: '0.5rem',
   },
-  cardDescriptionCollapsed: {
-    height: '0px',
-    overflow: 'hidden',
-  },
   cardDescriptionFade: {
     height: '2em',
     position: 'absolute',
     bottom: '0px',
     width: '100%',
     background: 'linear-gradient( 0deg, #7f194c, #ff000000 )',
-  },
-  cardDescriptionExpandIcon: {
-    fontSize: '40px',
-    display: 'block',
-    margin: 'auto',
-    color: 'white',
   },
   activitySection: {
     'margin-bottom': '15px',
@@ -79,11 +69,6 @@ const styles = theme => ({
   },
   activityCost: {
     textTransform: 'capitalize',
-  },
-  addButton: {
-    position: 'absolute',
-    right: -theme.spacing.unit * 2,
-    bottom: -theme.spacing.unit * 2,
   },
   planDateButton: {
     display: 'block',
@@ -108,26 +93,9 @@ const styles = theme => ({
     'background-size': 'cover',
   },
   tagChip: {
-    'margin-right': theme.spacing.unit,
-    'margin-top': '5px',
+    marginRight: theme.spacing(1),
+    marginTop: '5px',
     height: '1.5rem',
-  },
-  listChip: {
-    'font-size': '1rem',
-    'margin-right': theme.spacing.unit,
-    'margin-bottom': theme.spacing.unit,
-  },
-  spotDetails: {
-    display: 'flex',
-    'justify-content': 'space-between',
-    'align-items': 'center',
-  },
-  sectionImage: {
-    display: 'block',
-    width: '100%',
-    height: '11rem',
-    'background-position': 'center',
-    'background-size': 'cover',
   },
   expandedContent: {
     padding: 0,
@@ -136,18 +104,6 @@ const styles = theme => ({
     display: 'none',
   },
 });
-
-function costToString(cost) {
-  if (cost === 0) {
-    return 'Free';
-  }
-
-  const str = [];
-  for (let i = 0; i < cost; i += 1) {
-    str.push('$');
-  }
-  return str.join('');
-}
 
 function DateCard({ dateObj, classes, noExpand }) {
   const store = Store.useStore();
@@ -178,6 +134,7 @@ function DateCard({ dateObj, classes, noExpand }) {
   }
 
   function renderExpanded() {
+    const cardDescriptionClasses = [classes.cardDescription];
     function checkoutDate(e) {
       e.stopPropagation();
       store.set('checkoutDate')(dateObj);
@@ -200,16 +157,19 @@ function DateCard({ dateObj, classes, noExpand }) {
     return (
       <Collapse in={isExpanded}>
         <CardContent className={classes.expandedContent}>
+          <Typography variant="body2" className={cardDescriptionClasses}>
+            {dateObj.description}
+          </Typography>
           {sectionList}
           <Button
             variant="contained"
             aria-label="Add this spot"
             color="primary"
-            size="large"
+            size="medium"
             className={classes.planDateButton}
             onClick={checkoutDate}
           >
-            {"Let's do this"}
+            Add this Date
           </Button>
         </CardContent>
       </Collapse>
@@ -223,10 +183,6 @@ function DateCard({ dateObj, classes, noExpand }) {
     const dateCost = sections.reduce((total, section) => total + section.cost, 0) / sections.length;
     const dateCostString = costToString(dateCost);
     const dateLocations = uniq(map(sections, 'spot.neighborhood.name')).join(', ');
-    const cardDescriptionClasses = [classes.cardDescription];
-    if (!isExpanded) {
-      cardDescriptionClasses.push(classes.cardDescriptionCollapsed);
-    }
     return (
       <CardActionArea
         onClick={() => !noExpand && setIsExpanded(!isExpanded)}
@@ -234,26 +190,17 @@ function DateCard({ dateObj, classes, noExpand }) {
       >
         <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
         <CardContent className={classes.cardContent}>
-          <Typography variant="subheading" className={classes.cardHeader}>
+          <Typography variant="subtitle1" className={classes.cardHeader}>
             {dateObj.name}
           </Typography>
           <Typography variant="subtitle2" gutterBottom className={classes.cardSubheader}>
             {`${dateLocations} • ${dateHours} hrs • ${dateCostString}`}
           </Typography>
           {renderAllTags()}
-          <Typography variant="body2" className={cardDescriptionClasses}>
-            {dateObj.description}
-            {!isExpanded && <div className={classes.cardDescriptionFade} />}
-          </Typography>
           {renderExpanded()}
         </CardContent>
       </CardActionArea>
     );
-  }
-
-  const cardDescriptionClasses = [classes.cardDescription];
-  if (!isExpanded) {
-    cardDescriptionClasses.push(classes.cardDescriptionCollapsed);
   }
 
   return (

@@ -3,16 +3,17 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Store from '../../store';
 import DatesList from '../Discover/DatesList/DatesList';
-import DateCard from '../../components/DateCard/DateCard';
+import UserDateCard from '../../components/UserDateCard/UserDateCard';
 
 const styles = {};
 
 function MyDates({}) {
   const store = Store.useStore();
-  const myDates = store.get('myDates');
+  const userDates = store.get('userDates');
 
   function renderMyDates() {
-    const dateCards = myDates.map(date => <DateCard dateObj={date} />);
+    const dateCards = userDates.map(userDate => <UserDateCard userDate={userDate} />);
+    // const dateCards = [<UserDateCard />];
     return <DatesList>{dateCards}</DatesList>;
   }
 

@@ -1,6 +1,8 @@
 import 'typeface-roboto';
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 
 import Header from '../../components/Header/Header';
 import BottomNav from '../BottomNav/BottomNav';
@@ -9,9 +11,6 @@ import Body from '../Body/Body';
 import Store from '../../store';
 
 const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
   palette: {
     primary: {
       main: '#fec838',
@@ -47,12 +46,14 @@ function App() {
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>
-        <Header />
-        <Body
-          currentTab={currentTab}
-          cancelCheckout={() => {}} // TODO
-        />
-        <BottomNav onChange={onChangeTab} />
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <Header />
+          <Body
+            currentTab={currentTab}
+            cancelCheckout={() => {}} // TODO
+          />
+          <BottomNav onChange={onChangeTab} />
+        </MuiPickersUtilsProvider>
       </MuiThemeProvider>
     </div>
   );
