@@ -41,8 +41,14 @@ function DatesRow({ classes }) {
   function renderDates() {
     return DateObjs.map(date => {
       return (
-        <div className={classes.dateContainer}>
-          <DateCard dateObj={date} noExpand />
+        <div className={classes.dateContainer} key={date.id}>
+          <DateCard
+            dateObj={date}
+            onClick={() => {
+              store.set('focusedDate')(date.id);
+            }}
+            noExpand
+          />
         </div>
       );
     });

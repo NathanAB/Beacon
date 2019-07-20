@@ -57,7 +57,12 @@ function Filters({ classes }) {
     if (filters.length) {
       return filters.map(filter => {
         return (
-          <Chip label={filter.value} className={classes.chip} onDelete={removeFilter(filter)} />
+          <Chip
+            key={filter.value}
+            label={filter.value}
+            className={classes.chip}
+            onDelete={removeFilter(filter)}
+          />
         );
       });
     }

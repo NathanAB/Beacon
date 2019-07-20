@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Typography } from '@material-ui/core';
 
 import Store from '../../store';
@@ -9,25 +9,6 @@ import DatesRow from './DatesRow/DatesRow';
 import TagsRow from './TagsRow/TagsRow';
 import DateCard from '../../components/DateCard/DateCard';
 import FilterPage from './FilterPage/FilterPage';
-
-/**
- * Filter dates on one or more tags
- * @param {Array<DateObj>} dateObjs Array of date objects
- * @param {Array<String>} tags Arrayt of tags to filter on
- */
-function getDatesByTags(dateObjs, tags) {
-  return dateObjs.filter(date => {
-    if (!tags.length) {
-      return true;
-    }
-
-    return (
-      tags.filter(tagFilter =>
-        date.sections.find(section => section.tags.find(tag => tag.name === tagFilter)),
-      ).length === tags.length
-    );
-  });
-}
 
 function filterDates(dateObjs, filters) {
   if (!filters.length) {
@@ -66,14 +47,33 @@ function Discover() {
   const [tagFilters, setTagFilters] = useState([]);
   const [locationFilters, setLocationFilters] = useState([]);
   const [costFilters, setCostFilters] = useState([]);
+  const focusedRef = useRef(null);
 
   const store = Store.useStore();
   const filters = store.get('filters');
   const isFilterPageOpen = store.get('isFilterPageOpen');
   const dates = store.get('dates');
+  const focusedDate = store.get('focusedDate');
 
   const filteredDates = filterDates(dates, filters);
-  const dateCards = filteredDates.map(date => <DateCard dateObj={date} />);
+  const dateCards = filteredDates.map(date => {
+    const isFocusedDate = focusedDate === date.id;
+    return (
+      <DateCard
+        key={date.id}
+        dateObj={date}
+        defaultExpanded={isFocusedDate}
+        ref={isFocusedDate ? focusedRef : null}
+      />
+    );
+  });
+
+  // Scroll to focused date when clicked on Discover landing page
+  useEffect(() => {
+    if (focusedDate) {
+      window.scrollTo(0, focusedRef.current.offsetTop);
+    }
+  }, [focusedDate]);
 
   const toggleTag = value => () => {
     const currentIndex = tagFilters.indexOf(value);
@@ -119,7 +119,7 @@ function Discover() {
       return <FilterPage />;
     }
 
-    if (filters.length) {
+    if (filters.length || focusedDate) {
       return <DatesList>{dateCards}</DatesList>;
     }
 
@@ -144,16 +144,7 @@ function Discover() {
         toggleCostFilter={toggleCostFilter}
         costFilters={costFilters}
       />
-
       {renderContent()}
-
-      {/* {dateComponents.length ? (
-        <DateCardContainer tagFilters={tagFilters}>{dateComponents}</DateCardContainer>
-      ) : (
-        <Typography variant="h6" align="center">
-          No date plans meet your criteria :(
-        </Typography>
-      )} */}
     </React.Fragment>
   );
 }

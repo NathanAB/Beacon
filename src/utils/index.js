@@ -1,4 +1,5 @@
-function costToString(cost) {
+// eslint-disable-next-line import/prefer-default-export
+export const costToString = cost => {
   if (cost === 0) {
     return 'Free';
   }
@@ -8,6 +9,4 @@ function costToString(cost) {
     str.push('$');
   }
   return str.join('');
-}
-
-export { costToString };
+};

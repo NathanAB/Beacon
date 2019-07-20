@@ -17,4 +17,5 @@ export default createConnectedStore({
   durations: ['1 Hour', '2 Hours', '3 Hours', '4 Hours'],
   checkoutDate: false,
   userDates: [],
+  focusedDate: false,
 });

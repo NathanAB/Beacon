@@ -10,27 +10,32 @@ const styles = () => ({
   },
 });
 
-function DateCardContainer({ children }) {
+function DatesList({ children, isMyDates }) {
+  const emptyMessage = isMyDates
+    ? "You haven't saved any dates yet."
+    : 'No dates match your filters. Try something else?';
+
   if (!children.length) {
-    return (
-      <Typography variant="h6">
-        No dates match your filters :( <br /> Try something else?
-      </Typography>
-    );
+    return <Typography variant="h6">{emptyMessage}</Typography>;
   }
 
   // eslint-disable-next-line
-  const gridCards = children.map(child => <Grid item xs>{ child }</Grid>);
+  const gridCards = children.map((child, i) => <Grid key={i} item xs>{ child }</Grid>);
 
   return (
-    <Grid container direction="row" justify="space-around" alignItems="flex-start" spacing={32}>
+    <Grid container direction="row" justify="space-around" alignItems="flex-start" spacing={2}>
       {gridCards}
     </Grid>
   );
 }
 
-DateCardContainer.propTypes = {
+DatesList.propTypes = {
   children: PropTypes.arrayOf().isRequired,
+  isMyDates: PropTypes.bool,
 };
 
-export default withStyles(styles)(DateCardContainer);
+DatesList.defaultProps = {
+  isMyDates: false,
+};
+
+export default withStyles(styles)(DatesList);

@@ -46,6 +46,7 @@ function NeighborhoodsRow({ classes }) {
     return neighborhoods.map(neighborhood => {
       return (
         <button
+          key={neighborhood.name}
           type="button"
           className={classes.neighborhood}
           onClick={() => addFilter(neighborhood.name)}

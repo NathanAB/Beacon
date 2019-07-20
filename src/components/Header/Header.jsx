@@ -8,8 +8,6 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 
 import { Typography } from '@material-ui/core';
-import logo from './logo.png';
-import icon from './icon.png';
 
 const styles = theme => ({
   root: {
@@ -22,7 +20,7 @@ const styles = theme => ({
     marginRight: theme.spacing(1),
   },
   toolbar: {
-    'justify-content': 'space-between',
+    justifyContent: 'space-between',
   },
   inputRoot: {
     color: 'inherit',
@@ -41,7 +39,7 @@ const styles = theme => ({
   },
   icon: {
     height: '25px',
-    'margin-right': '5px',
+    marginRight: '5px',
   },
   logo: {
     height: '18px',
@@ -55,7 +53,7 @@ const styles = theme => ({
 function Header(props) {
   const { classes } = props;
   return (
-    <AppBar position="fixed" color="contrastText">
+    <AppBar position="fixed" color="inherit">
       <Toolbar className={classes.toolbar}>
         <IconButton className={classes.accountButton}>
           <Icon>settings</Icon>

@@ -7,14 +7,14 @@ import UserDateCard from '../../components/UserDateCard/UserDateCard';
 
 const styles = {};
 
-function MyDates({}) {
+function MyDates() {
   const store = Store.useStore();
   const userDates = store.get('userDates');
 
   function renderMyDates() {
     const dateCards = userDates.map(userDate => <UserDateCard userDate={userDate} />);
     // const dateCards = [<UserDateCard />];
-    return <DatesList>{dateCards}</DatesList>;
+    return <DatesList isMyDates>{dateCards}</DatesList>;
   }
 
   return <>{renderMyDates()}</>;

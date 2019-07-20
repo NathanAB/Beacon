@@ -17,7 +17,7 @@ const styles = {
     position: 'fixed',
     bottom: '0px',
     left: '0px',
-    'box-shadow': '0px 0px 20px 0px rgba(0,0,0,0.1)',
+    boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.1)',
   },
 };
 
@@ -28,7 +28,11 @@ function BottomNav({ classes }) {
   return (
     <BottomNavigation
       value={currentTab}
-      onChange={(event, value) => store.set('currentTab')(value)}
+      onChange={(event, value) => {
+        store.set('currentTab')(value);
+        store.set('filters')([]);
+        store.set('focusedDate')(false);
+      }}
       className={classes.root}
     >
       <BottomNavigationAction label="Discover" value={TABS.DISCOVER} icon={<Icon>explore</Icon>} />

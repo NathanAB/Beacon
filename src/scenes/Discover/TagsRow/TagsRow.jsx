@@ -29,6 +29,7 @@ function TagsRow({ classes }) {
       const color = isTagToggled ? 'primary' : 'default';
       return (
         <Chip
+          key={tag}
           color={color}
           label={tag}
           className={classes.tagChip}
