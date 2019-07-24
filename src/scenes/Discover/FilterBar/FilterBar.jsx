@@ -7,17 +7,17 @@ import Store from '../../../store';
 const styles = {
   search: {
     position: 'relative',
-    borderRadius: '22px',
+    borderRadius: '12px',
     border: '1px solid gray',
     width: '100%',
-    padding: '0.3rem 0',
+    padding: '0.2rem 0',
     textAlign: 'left',
     outline: 'none',
     color: 'gray',
-    marginBottom: '1rem',
+    marginBottom: '24px',
     display: 'flex',
     alignItems: 'center',
-    minHeight: '50px',
+    minHeight: '47px',
   },
   searchIcon: {
     'margin-left': '1rem',

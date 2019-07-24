@@ -1,4 +1,3 @@
-import 'typeface-roboto';
 import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -27,6 +26,9 @@ const theme = createMuiTheme({
     MuiButtonBase: {
       disableRipple: true,
     },
+  },
+  typography: {
+    fontFamily: 'Open Sans',
   },
 });
 

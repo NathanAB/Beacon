@@ -31,7 +31,9 @@ const styles = () => ({
     'background-size': 'cover',
     'border-radius': '2.5rem',
   },
-  caption: {},
+  title: {
+    fontWeight: 600,
+  },
 });
 
 function NeighborhoodsRow({ classes }) {
@@ -52,9 +54,7 @@ function NeighborhoodsRow({ classes }) {
           onClick={() => addFilter(neighborhood.name)}
         >
           <div className={classes.icon} style={{ backgroundImage: `url(${neighborhood.image})` }} />
-          <Typography variant="caption" className={classes.caption}>
-            {neighborhood.name}
-          </Typography>
+          <Typography variant="caption">{neighborhood.name}</Typography>
         </button>
       );
     });
@@ -62,7 +62,7 @@ function NeighborhoodsRow({ classes }) {
 
   return (
     <section className={classes.container}>
-      <Typography variant="h6" className={classes.caption}>
+      <Typography variant="h6" className={classes.title}>
         Browse by Neighborhood
       </Typography>
       <div className={classes.rowContainer}>

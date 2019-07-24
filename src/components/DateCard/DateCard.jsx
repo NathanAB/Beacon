@@ -48,7 +48,7 @@ const styles = theme => ({
     margin: '1rem 0',
     backgroundColor: theme.palette.secondary.main,
     color: theme.palette.secondary.text,
-    borderRadius: '1rem',
+    borderRadius: '0.5rem',
     display: 'flex',
     justifyContent: 'space-between',
     fontWeight: 600,
@@ -88,6 +88,7 @@ const styles = theme => ({
   },
   expandedContent: {
     padding: 0,
+    paddingTop: '1rem',
   },
 });
 
@@ -176,6 +177,7 @@ const DateCard = React.forwardRef(
             return !noExpand && setIsExpanded(!isExpanded);
           }}
           className={classes.actionArea}
+          focusHighlight
         >
           <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
           <CardContent className={classes.cardContent}>

@@ -128,7 +128,9 @@ function Discover() {
         <DatesRow />
         <NeighborhoodsRow />
 
-        <Typography variant="h6">Explore by Characteristic</Typography>
+        <Typography variant="h6" style={{ fontWeight: 600 }}>
+          Explore by Characteristic
+        </Typography>
         <TagsRow />
       </>
     );

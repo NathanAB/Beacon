@@ -43,20 +43,26 @@ const styles = theme => ({
     width: '100%',
   },
   confirmButton: {
-    marginBottom: '1rem',
-    marginRight: '1rem',
+    margin: '24px 0',
+  },
+  formTitle: {
+    padding: '16px 46px 16px 24px',
   },
 });
 
 // TODO - Add validation
-function Planner({ classes }) {
+function AddDateForm({ classes }) {
   const store = Store.useStore();
   const checkoutDate = store.get('checkoutDate');
   const [name, setName] = useState('');
   const [day, setDay] = useState(new Date());
   const [time, setTime] = useState(new Date());
   const [notes, setNotes] = useState('');
-  const confirmCheckout = () => {
+  const confirmCheckout = e => {
+    e.preventDefault();
+    if (!name) {
+      return;
+    }
     const userDates = store.get('userDates');
     const newUserDate = {
       dateId: checkoutDate.id,
@@ -81,9 +87,17 @@ function Planner({ classes }) {
       <IconButton aria-label="Close" className={classes.closeButton} onClick={cancelCheckout}>
         <CloseIcon />
       </IconButton>
-      <DialogTitle id="form-dialog-title">{`Planning: ${checkoutDate.name}`}</DialogTitle>
+      <DialogTitle
+        id="form-dialog-title"
+        className={classes.formTitle}
+      >{`Planning: ${checkoutDate.name}`}</DialogTitle>
       <DialogContent>
-        <form className={classes.container} noValidate autoComplete="off">
+        <form
+          className={classes.container}
+          noValidate
+          autoComplete="off"
+          onSubmit={confirmCheckout}
+        >
           <TextField
             id="date-name"
             label="Date Name"
@@ -91,15 +105,23 @@ function Planner({ classes }) {
             className={classes.textInput}
             value={name}
             onChange={e => setName(e.target.value)}
+            required
           />
 
-          <DatePicker margin="normal" className={classes.textInput} value={day} onChange={setDay} />
+          <DatePicker
+            margin="normal"
+            className={classes.textInput}
+            value={day}
+            onChange={setDay}
+            required
+          />
 
           <TimePicker
             margin="normal"
             className={classes.textInput}
             value={time}
             onChange={setTime}
+            required
           />
 
           <TextField
@@ -110,25 +132,24 @@ function Planner({ classes }) {
             value={notes}
             onChange={e => setNotes(e.target.value)}
           />
+
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            type="submit"
+            className={classes.confirmButton}
+          >
+            Add this Date
+          </Button>
         </form>
       </DialogContent>
-      <DialogActions>
-        <Button
-          onClick={confirmCheckout}
-          variant="contained"
-          color="primary"
-          size="small"
-          className={classes.confirmButton}
-        >
-          Add this Date
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
 
-Planner.propTypes = {
+AddDateForm.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Planner);
+export default withStyles(styles)(AddDateForm);

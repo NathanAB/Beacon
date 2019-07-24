@@ -56,7 +56,7 @@ function Header(props) {
     <AppBar position="fixed" color="inherit">
       <Toolbar className={classes.toolbar}>
         <IconButton className={classes.accountButton}>
-          <Icon>settings</Icon>
+          <Icon></Icon>
         </IconButton>
         <Button>
           <Typography variant="h5" color="primary" className={classes.title}>

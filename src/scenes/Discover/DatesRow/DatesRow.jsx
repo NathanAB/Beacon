@@ -31,7 +31,9 @@ const styles = () => ({
     'background-size': 'cover',
     'border-radius': '2.5rem',
   },
-  caption: {},
+  title: {
+    fontWeight: 600,
+  },
 });
 
 function DatesRow({ classes }) {
@@ -56,7 +58,7 @@ function DatesRow({ classes }) {
 
   return (
     <section className={classes.container}>
-      <Typography variant="h6" className={classes.caption}>
+      <Typography variant="h6" className={classes.title}>
         Discover Dates
       </Typography>
       <div className={classes.rowContainer}>

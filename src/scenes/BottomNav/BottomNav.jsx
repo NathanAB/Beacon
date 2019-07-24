@@ -32,6 +32,7 @@ function BottomNav({ classes }) {
         store.set('currentTab')(value);
         store.set('filters')([]);
         store.set('focusedDate')(false);
+        store.set('isFilterPageOpen')(false);
       }}
       className={classes.root}
     >

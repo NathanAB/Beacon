@@ -1,10 +1,26 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Open Sans' !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway' !important;
+}
+
+p {
+  font-family: 'Open Sans' !important;
 }
 
 button {
   border: none;
   background: none;
+}
+
+.MuiCardActionArea-focusHighlight {
+  display: none;
+}
+
+.MuiChip-root {
+  border-radius: 4px !important;
 }

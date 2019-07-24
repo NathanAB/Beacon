@@ -122,7 +122,7 @@ function FilterPage({ classes }) {
         color="primary"
         onClick={() => store.set('isFilterPageOpen')(false)}
       >
-        Done
+        Search
       </Button>
     </div>
   );

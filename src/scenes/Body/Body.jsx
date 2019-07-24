@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CONSTANTS from '../../constants';
-import Planner from '../Discover/Planner/Planner';
+import AddDateForm from '../Discover/AddDateForm/AddDateForm';
 import Discover from '../Discover/Discover';
 import MyDates from '../MyDates/MyDates';
 import Store from '../../store';
@@ -19,7 +19,7 @@ function Body() {
     return (
       <>
         <Discover />
-        <Planner />
+        <AddDateForm />
       </>
     );
   }

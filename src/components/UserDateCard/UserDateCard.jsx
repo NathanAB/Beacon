@@ -8,6 +8,14 @@ import Store from '../../store';
 import { costToString } from '../../utils';
 
 const styles = theme => ({
+  card: {
+    width: '320px',
+    'max-width': '100%',
+    position: 'relative',
+    overflow: 'visible',
+    margin: 'auto',
+    border: '1px solid lightgray',
+  },
   cardHeader: {
     backgroundColor: theme.palette.primary.main,
   },
@@ -21,6 +29,9 @@ const styles = theme => ({
     marginRight: theme.spacing(1),
     marginTop: '5px',
     height: '1.5rem',
+  },
+  dateTitle: {
+    textTransform: 'uppercase',
   },
 });
 
@@ -49,7 +60,7 @@ function UserDateCard({ classes, userDate }) {
   }
 
   return (
-    <Card elevation={3}>
+    <Card elevation={3} className={classes.card}>
       <CardContent className={classes.cardHeader}>
         <Typography variant="h5" className={classes.cardHeaderText}>
           {userDate.name}
@@ -65,7 +76,7 @@ function UserDateCard({ classes, userDate }) {
         </Typography>
       </CardContent>
       <CardContent>
-        <Typography variant="subtitle2">{dateObj.name}</Typography>
+        <Typography variant="subtitle2" className={classes.dateTitle}>{dateObj.name}</Typography>
         <Typography variant="subtitle2" gutterBottom>
           {`${dateLocations} • ${dateHours} hrs • ${dateCostString}`}
         </Typography>
