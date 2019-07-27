@@ -16,6 +16,7 @@ export default createConnectedStore({
   costs: ['Free', '$', '$$', '$$$', '$$$$'],
   durations: ['1 Hour', '2 Hours', '3 Hours', '4 Hours'],
   checkoutDate: false,
+  editDate: false,
   userDates: [],
   focusedDate: false,
 });

@@ -12,7 +12,7 @@ const styles = () => ({
 
 function DatesList({ children, isMyDates }) {
   const emptyMessage = isMyDates
-    ? "You haven't saved any dates yet."
+    ? 'You have no dates planned.'
     : 'No dates match your filters. Try something else?';
 
   if (!children.length) {
@@ -30,7 +30,7 @@ function DatesList({ children, isMyDates }) {
 }
 
 DatesList.propTypes = {
-  children: PropTypes.arrayOf().isRequired,
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
   isMyDates: PropTypes.bool,
 };
 

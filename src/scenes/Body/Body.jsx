@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CONSTANTS from '../../constants';
-import AddDateForm from '../Discover/AddDateForm/AddDateForm';
+import AddDateForm from '../AddDateForm/AddDateForm';
 import Discover from '../Discover/Discover';
 import MyDates from '../MyDates/MyDates';
 import Store from '../../store';
@@ -16,12 +16,7 @@ function Body() {
   let contentToRender;
 
   function renderDiscover() {
-    return (
-      <>
-        <Discover />
-        <AddDateForm />
-      </>
-    );
+    return <Discover />;
   }
 
   function renderMyDates() {
@@ -38,7 +33,12 @@ function Body() {
     default:
       break;
   }
-  return <main>{contentToRender}</main>;
+  return (
+    <main>
+      <AddDateForm />
+      {contentToRender}
+    </main>
+  );
 }
 
 export default Body;

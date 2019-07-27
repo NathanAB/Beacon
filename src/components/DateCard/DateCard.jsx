@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Collapse from '@material-ui/core/Collapse';
 
+import { CardActions } from '@material-ui/core';
 import Store from '../../store';
 import { costToString } from '../../utils';
 
@@ -41,7 +42,7 @@ const styles = theme => ({
     'font-weight': 300,
   },
   activitySection: {
-    'margin-bottom': '15px',
+    'margin-top': '15px',
   },
   activityTitle: {
     padding: '0.5rem 1rem',
@@ -62,8 +63,8 @@ const styles = theme => ({
   planDateButton: {
     display: 'block',
     margin: 'auto',
-    'margin-top': '1em',
-    'text-transform': 'uppercase',
+    marginBottom: '1em',
+    textTransform: 'uppercase',
   },
   actionArea: {
     width: '100%',
@@ -90,12 +91,20 @@ const styles = theme => ({
     padding: 0,
     paddingTop: '1rem',
   },
+  cardActions: {
+    paddingTop: 0,
+  },
 });
 
 const DateCard = React.forwardRef(
   ({ dateObj, classes, noExpand, onClick, defaultExpanded }, ref) => {
     const store = Store.useStore();
     const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+
+    function checkoutDate(e) {
+      e.stopPropagation();
+      store.set('checkoutDate')(dateObj);
+    }
 
     function renderAllTags() {
       let tags = [];
@@ -123,10 +132,6 @@ const DateCard = React.forwardRef(
     }
 
     function renderExpanded() {
-      function checkoutDate(e) {
-        e.stopPropagation();
-        store.set('checkoutDate')(dateObj);
-      }
       const sectionList = dateObj.sections.map(section => {
         const duration = Math.round(section.minutes / 30) / 2; // Round to the nearest half-hour
         const costString = costToString(section.cost);
@@ -147,16 +152,6 @@ const DateCard = React.forwardRef(
           <CardContent className={classes.expandedContent}>
             <Typography variant="body2">{dateObj.description}</Typography>
             {sectionList}
-            <Button
-              variant="contained"
-              aria-label="Add this spot"
-              color="primary"
-              size="medium"
-              className={classes.planDateButton}
-              onClick={checkoutDate}
-            >
-              Add this Date
-            </Button>
           </CardContent>
         </Collapse>
       );
@@ -177,7 +172,6 @@ const DateCard = React.forwardRef(
             return !noExpand && setIsExpanded(!isExpanded);
           }}
           className={classes.actionArea}
-          focusHighlight
         >
           <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
           <CardContent className={classes.cardContent}>
@@ -198,6 +192,20 @@ const DateCard = React.forwardRef(
       <div className={classes.container} ref={ref}>
         <Card className={classes.card} elevation={3}>
           {renderMain()}
+          <Collapse in={isExpanded}>
+            <CardActions className={classes.cardActions}>
+              <Button
+                variant="contained"
+                aria-label="Add this spot"
+                color="primary"
+                size="medium"
+                className={classes.planDateButton}
+                onClick={checkoutDate}
+              >
+                Add this Date
+              </Button>
+            </CardActions>
+          </Collapse>
         </Card>
       </div>
     );

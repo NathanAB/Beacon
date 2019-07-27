@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Chip } from '@material-ui/core';
+import { Card, CardContent, Typography, Chip, IconButton, Icon } from '@material-ui/core';
 import moment from 'moment';
 import { uniq, uniqBy, map } from 'lodash';
 
@@ -21,6 +21,7 @@ const styles = theme => ({
   },
   cardHeaderText: {
     color: theme.palette.primary.contrastText,
+    marginRight: '28px',
   },
   italic: {
     fontStyle: 'italic',
@@ -32,6 +33,12 @@ const styles = theme => ({
   },
   dateTitle: {
     textTransform: 'uppercase',
+  },
+  editButton: {
+    top: '5px',
+    position: 'absolute',
+    right: '5px',
+    color: 'white',
   },
 });
 
@@ -48,7 +55,7 @@ function UserDateCard({ classes, userDate }) {
   const dateCostString = costToString(dateCost);
   const dateLocations = uniq(map(sections, 'spot.neighborhood.name')).join(', ');
 
-  function renderAllTags() {
+  const renderAllTags = () => {
     let tags = [];
     dateObj.sections.forEach(section => {
       tags.push(...section.tags);
@@ -56,12 +63,19 @@ function UserDateCard({ classes, userDate }) {
     tags = uniqBy(tags, tag => tag.name);
     tags = tags.slice(0, 3);
 
-    return tags.map(tag => <Chip label={tag.name} className={classes.tagChip} />);
-  }
+    return tags.map(tag => <Chip key={tag.name} label={tag.name} className={classes.tagChip} />);
+  };
+
+  const editDate = () => {
+    store.set('editDate')(userDate);
+  };
 
   return (
     <Card elevation={3} className={classes.card}>
       <CardContent className={classes.cardHeader}>
+        <IconButton className={classes.editButton} onClick={editDate}>
+          <Icon>edit</Icon>
+        </IconButton>
         <Typography variant="h5" className={classes.cardHeaderText}>
           {userDate.name}
         </Typography>
@@ -71,12 +85,14 @@ function UserDateCard({ classes, userDate }) {
         <Typography variant="subtitle2" className={classes.cardHeaderText}>
           {moment(userDate.time).format('h:mm a')}
         </Typography>
-        <Typography variant="body2" className={[classes.cardHeaderText, classes.italic]}>
+        <Typography variant="body2" className={[classes.cardHeaderText, classes.italic].join(' ')}>
           {userDate.notes}
         </Typography>
       </CardContent>
       <CardContent>
-        <Typography variant="subtitle2" className={classes.dateTitle}>{dateObj.name}</Typography>
+        <Typography variant="subtitle2" className={classes.dateTitle}>
+          {dateObj.name}
+        </Typography>
         <Typography variant="subtitle2" gutterBottom>
           {`${dateLocations} • ${dateHours} hrs • ${dateCostString}`}
         </Typography>

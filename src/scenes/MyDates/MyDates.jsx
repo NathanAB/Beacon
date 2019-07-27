@@ -12,7 +12,9 @@ function MyDates() {
   const userDates = store.get('userDates');
 
   function renderMyDates() {
-    const dateCards = userDates.map(userDate => <UserDateCard userDate={userDate} />);
+    const dateCards = userDates.map(userDate => (
+      <UserDateCard key={userDate.dateId} userDate={userDate} />
+    ));
     // const dateCards = [<UserDateCard />];
     return <DatesList isMyDates>{dateCards}</DatesList>;
   }
