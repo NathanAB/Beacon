@@ -95,7 +95,9 @@ function Header(props) {
         >
           {user ? (
             <>
-              <MenuItem>Logged in as {user.displayName}</MenuItem>
+              <MenuItem>
+                Logged in as {user.name} <br /> ({user.email})
+              </MenuItem>
               <a href="/logout">
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
               </a>

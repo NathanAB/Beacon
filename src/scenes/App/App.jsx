@@ -47,6 +47,19 @@ function App() {
     auth();
   }, []);
 
+  useEffect(() => {
+    const auth = async () => {
+      const res = await fetch('/api/dates');
+      if (res.ok) {
+        const dates = await res.json();
+        // TODO: Use real data for dates
+        // store.set('dates')(dates);
+        console.log(dates);
+      }
+    };
+    auth();
+  }, []);
+
   function onChangeTab(newTab) {
     if (newTab === CONSTANTS.TABS.DISCOVER) {
       store.set('filters')([]);
