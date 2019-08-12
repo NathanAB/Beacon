@@ -6,8 +6,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { Typography } from '@material-ui/core';
+
+import Store from '../../store';
 
 const styles = theme => ({
   root: {
@@ -51,6 +55,17 @@ const styles = theme => ({
 });
 
 function Header(props) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const store = Store.useStore();
+  const user = store.get('user');
+
+  function handleClick(event) {
+    setAnchorEl(event.currentTarget);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+  }
   const { classes } = props;
   return (
     <AppBar position="fixed" color="inherit">
@@ -63,9 +78,34 @@ function Header(props) {
             Beacon
           </Typography>
         </Button>
-        <IconButton className={classes.accountButton}>
+        <IconButton
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+          className={classes.accountButton}
+        >
           <Icon>account_circle</Icon>
         </IconButton>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {user ? (
+            <>
+              <MenuItem>Logged in as {user.displayName}</MenuItem>
+              <a href="/logout">
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+              </a>
+            </>
+          ) : (
+            <a href="/login/google">
+              <MenuItem onClick={handleClose}>Login</MenuItem>
+            </a>
+          )}
+        </Menu>
       </Toolbar>
     </AppBar>
   );

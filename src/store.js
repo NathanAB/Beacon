@@ -19,4 +19,5 @@ export default createConnectedStore({
   editDate: false,
   userDates: [],
   focusedDate: false,
+  user: false,
 });

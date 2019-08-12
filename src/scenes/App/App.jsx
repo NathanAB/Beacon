@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
@@ -35,6 +35,17 @@ const theme = createMuiTheme({
 function App() {
   const store = Store.useStore();
   const currentTab = store.get('currentTab');
+
+  useEffect(() => {
+    const auth = async () => {
+      const res = await fetch('/api/auth');
+      if (res.ok) {
+        const authData = await res.json();
+        store.set('user')(authData);
+      }
+    };
+    auth();
+  }, []);
 
   function onChangeTab(newTab) {
     if (newTab === CONSTANTS.TABS.DISCOVER) {
