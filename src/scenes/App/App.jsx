@@ -53,7 +53,7 @@ function App() {
       if (res.ok) {
         const dates = await res.json();
         // TODO: Use real data for dates
-        // store.set('dates')(dates);
+        store.set('dates')(dates);
         console.log(dates);
       }
     };
