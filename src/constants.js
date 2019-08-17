@@ -1,5 +1,7 @@
 const API_URL = process.env.REACT_APP_API_URL || '';
 
+console.log('env:', process.env);
+
 export default {
   TABS: {
     DISCOVER: 'discover',
