@@ -8,9 +8,9 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
 import { Typography } from '@material-ui/core';
 
+import CONSTANTS from '../../constants';
 import Store from '../../store';
 
 const styles = theme => ({
@@ -98,12 +98,12 @@ function Header(props) {
               <MenuItem>
                 Logged in as {user.name} <br /> ({user.email})
               </MenuItem>
-              <a href="/logout">
+              <a href={CONSTANTS.API.LOGIN}>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
               </a>
             </>
           ) : (
-            <a href="/login/google">
+            <a href={CONSTANTS.API.LOGIN_GOOGLE}>
               <MenuItem onClick={handleClose}>Login</MenuItem>
             </a>
           )}

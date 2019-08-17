@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     const auth = async () => {
-      const res = await fetch('/api/auth');
+      const res = await fetch(CONSTANTS.API.AUTH);
       if (res.ok) {
         const authData = await res.json();
         store.set('user')(authData);
@@ -49,7 +49,7 @@ function App() {
 
   useEffect(() => {
     const auth = async () => {
-      const res = await fetch('/api/dates');
+      const res = await fetch(CONSTANTS.API.DATES);
       if (res.ok) {
         const dates = await res.json();
         // TODO: Use real data for dates
