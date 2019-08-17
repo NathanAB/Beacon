@@ -8,7 +8,7 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { Typography } from '@material-ui/core';
+import { Typography, Divider } from '@material-ui/core';
 
 import CONSTANTS from '../../constants';
 import Store from '../../store';
@@ -95,10 +95,14 @@ function Header(props) {
         >
           {user ? (
             <>
-              <MenuItem>
+              <Typography
+                variant="subtitle1"
+                style={{ paddingLeft: '20px', paddingRight: '20px', paddingBottom: '10px' }}
+              >
                 Logged in as {user.name} <br /> ({user.email})
-              </MenuItem>
-              <a href={CONSTANTS.API.LOGIN}>
+              </Typography>
+              <Divider />
+              <a href={CONSTANTS.API.LOGOUT}>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
               </a>
             </>
