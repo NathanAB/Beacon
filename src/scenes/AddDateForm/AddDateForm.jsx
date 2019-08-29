@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Dialog, DialogTitle, DialogContent, Button, IconButton } from '@material-ui/core';
-import { DatePicker, TimePicker } from '@material-ui/pickers';
+import { DateTimePicker } from '@material-ui/pickers';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
+import moment from 'moment';
 
 import Store from '../../store';
 import Constants from '../../constants';
+import * as api from '../../api';
 
 const styles = theme => ({
   root: {
@@ -53,32 +55,35 @@ function AddDateForm({ classes }) {
   const checkoutDate = store.get('checkoutDate');
   const editDate = store.get('editDate');
   const [name, setName] = useState(editDate ? editDate.name : '');
-  const [day, setDay] = useState(editDate ? editDate.day : new Date());
-  const [time, setTime] = useState(editDate ? editDate.time : new Date());
+  const [dateTime, setDateTime] = useState(editDate ? editDate.startTime : moment());
   const [notes, setNotes] = useState(editDate ? editDate.notes : '');
+  const [isSaving, setIsSaving] = useState(false);
   let userDates = store.get('userDates');
 
-  const confirmCheckout = e => {
+  const confirmCheckout = async e => {
     e.preventDefault();
     // Do not allow saving without a date name
     if (!name) {
       return;
     }
+    setIsSaving(true);
     const newUserDate = {
       userDateId: editDate ? editDate.id : 1234,
       dateId: checkoutDate.id || editDate.dateId,
       name,
-      day,
-      time,
+      startTime: dateTime.toISOString(),
       notes,
     };
+    const userDateObj = await api.createUserDate(newUserDate);
     if (editDate) {
       userDates = userDates.filter(date => date.dateId !== editDate.dateId);
     }
+
     store.set('userDates')(userDates.concat([newUserDate]));
     store.set('currentTab')(Constants.TABS.MY_DATES);
     store.set('checkoutDate')(false);
     store.set('editDate')(false);
+    setIsSaving(false);
   };
 
   const cancelCheckout = () => {
@@ -91,6 +96,34 @@ function AddDateForm({ classes }) {
     store.set('userDates')(userDates);
     store.set('checkoutDate')(false);
     store.set('editDate')(false);
+  };
+
+  const renderButtons = () => {
+    if (isSaving) return 'Saving date...';
+    return (
+      <>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          type="submit"
+          className={classes.confirmButton}
+        >
+          {editDate ? 'Change Date' : 'Add this Date'}
+        </Button>
+        {editDate && (
+          <Button
+            onClick={deleteDate}
+            color="primary"
+            size="small"
+            type="button"
+            className={classes.deleteButton}
+          >
+            Delete Date
+          </Button>
+        )}
+      </>
+    );
   };
 
   return (
@@ -122,19 +155,11 @@ function AddDateForm({ classes }) {
             required
           />
 
-          <DatePicker
+          <DateTimePicker
             margin="normal"
             className={classes.textInput}
-            value={day}
-            onChange={setDay}
-            required
-          />
-
-          <TimePicker
-            margin="normal"
-            className={classes.textInput}
-            value={time}
-            onChange={setTime}
+            value={dateTime}
+            onChange={setDateTime}
             required
           />
 
@@ -147,26 +172,7 @@ function AddDateForm({ classes }) {
             onChange={e => setNotes(e.target.value)}
           />
 
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            type="submit"
-            className={classes.confirmButton}
-          >
-            {editDate ? 'Change Date' : 'Add this Date'}
-          </Button>
-          {editDate && (
-            <Button
-              onClick={deleteDate}
-              color="primary"
-              size="small"
-              type="button"
-              className={classes.deleteButton}
-            >
-              Delete Date
-            </Button>
-          )}
+          {renderButtons()}
         </form>
       </DialogContent>
     </Dialog>

@@ -80,10 +80,10 @@ function UserDateCard({ classes, userDate }) {
           {userDate.name}
         </Typography>
         <Typography variant="subtitle2" className={classes.cardHeaderText}>
-          {moment(userDate.day).format('dddd, MMMM Do')}
+          {moment(userDate.startTime).format('dddd, MMMM Do')}
         </Typography>
         <Typography variant="subtitle2" className={classes.cardHeaderText}>
-          {moment(userDate.time).format('h:mm a')}
+          {moment(userDate.startTime).format('h:mm a')}
         </Typography>
         <Typography variant="body2" className={[classes.cardHeaderText, classes.italic].join(' ')}>
           {userDate.notes}

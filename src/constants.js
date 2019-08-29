@@ -13,5 +13,8 @@ export default {
     LOGIN_GOOGLE: `${API_URL}/login/google`,
     LOGOUT: `${API_URL}/logout`,
     DATES: `${API_URL}/api/dates`,
+    NEIGHBORHOODS: `${API_URL}/api/neighborhoods`,
+    TAGS: `${API_URL}/api/tags`,
+    USER_DATES: `${API_URL}/api/userDates`,
   },
 };

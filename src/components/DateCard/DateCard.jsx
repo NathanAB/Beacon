@@ -10,8 +10,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Collapse from '@material-ui/core/Collapse';
-
 import { CardActions } from '@material-ui/core';
+
+import placeholderImg from '../../assets/img/placeholder.png';
 import Store from '../../store';
 import { costToString } from '../../utils';
 
@@ -99,11 +100,16 @@ const styles = theme => ({
 const DateCard = React.forwardRef(
   ({ dateObj, classes, noExpand, onClick, defaultExpanded }, ref) => {
     const store = Store.useStore();
+    const user = store.get('user');
     const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 
     function checkoutDate(e) {
       e.stopPropagation();
-      store.set('checkoutDate')(dateObj);
+      if (user) {
+        store.set('checkoutDate')(dateObj);
+      } else {
+        store.set('isLoginDialogOpen')(true);
+      }
     }
 
     function renderAllTags() {
@@ -124,7 +130,7 @@ const DateCard = React.forwardRef(
           <div
             className={classes.thumbnailImage}
             key={section.spot.name}
-            style={{ backgroundImage: `url(${section.image})` }}
+            style={{ backgroundImage: `url(${section.image || placeholderImg})` }}
           />
         );
       });

@@ -108,7 +108,7 @@ function Header(props) {
             </>
           ) : (
             <a href={CONSTANTS.API.LOGIN_GOOGLE}>
-              <MenuItem onClick={handleClose}>Login</MenuItem>
+              <MenuItem onClick={handleClose}>Login with Google</MenuItem>
             </a>
           )}
         </Menu>

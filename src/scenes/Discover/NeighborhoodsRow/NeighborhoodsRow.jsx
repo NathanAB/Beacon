@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
 import Store from '../../../store';
+import placeholderImg from '../../../assets/img/placeholder.png';
 
 const styles = () => ({
   container: {
@@ -17,13 +18,14 @@ const styles = () => ({
     '&::-webkit-scrollbar': { width: '0 !important' },
   },
   row: {
-    width: '41rem',
+    whiteSpace: 'nowrap',
   },
   neighborhood: {
     display: 'inline-block',
     'text-align': 'center',
     padding: 0,
     'margin-right': '1.5rem',
+    width: '80px',
   },
   icon: {
     width: '5rem',
@@ -33,6 +35,9 @@ const styles = () => ({
   },
   title: {
     fontWeight: 600,
+  },
+  caption: {
+    whiteSpace: 'normal',
   },
 });
 
@@ -53,8 +58,17 @@ function NeighborhoodsRow({ classes }) {
           className={classes.neighborhood}
           onClick={() => addFilter(neighborhood.name)}
         >
-          <div className={classes.icon} style={{ backgroundImage: `url(${neighborhood.image})` }} />
-          <Typography variant="caption">{neighborhood.name}</Typography>
+          <div
+            className={classes.icon}
+            style={{
+              backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+            }}
+          />
+          <Typography variant="caption" className={classes.caption}>
+            {neighborhood.name}
+          </Typography>
         </button>
       );
     });

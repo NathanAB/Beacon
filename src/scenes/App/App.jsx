@@ -3,6 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
+import * as api from '../../api';
 import Header from '../../components/Header/Header';
 import BottomNav from '../BottomNav/BottomNav';
 import CONSTANTS from '../../constants';
@@ -36,28 +37,43 @@ function App() {
   const store = Store.useStore();
   const currentTab = store.get('currentTab');
 
+  // Make initial API requests
   useEffect(() => {
-    const auth = async () => {
-      const res = await fetch(CONSTANTS.API.AUTH);
-      if (res.ok) {
-        const authData = await res.json();
+    const getUserDates = async () => {
+      const userDates = await api.getUserDates();
+      if (userDates) {
+        store.set('userDates')(userDates);
+      }
+    };
+    const initialReqs = async () => {
+      const authData = await api.auth();
+      if (authData) {
         store.set('user')(authData);
+        getUserDates();
       }
     };
-    auth();
-  }, []);
-
-  useEffect(() => {
-    const auth = async () => {
-      const res = await fetch(CONSTANTS.API.DATES);
-      if (res.ok) {
-        const dates = await res.json();
-        // TODO: Use real data for dates
+    const getDates = async () => {
+      const dates = await api.getDates();
+      if (dates) {
         store.set('dates')(dates);
-        console.log(dates);
       }
     };
-    auth();
+    const getNeighborhoods = async () => {
+      const neigborhoods = await api.getNeighborhoods();
+      if (neigborhoods) {
+        store.set('neighborhoods')(neigborhoods);
+      }
+    };
+    const getTags = async () => {
+      const tags = await api.getTags();
+      if (tags) {
+        store.set('tags')(tags);
+      }
+    };
+    initialReqs();
+    getDates();
+    getNeighborhoods();
+    getTags();
   }, []);
 
   function onChangeTab(newTab) {

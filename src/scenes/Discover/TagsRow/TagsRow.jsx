@@ -16,22 +16,22 @@ function TagsRow({ classes }) {
   const filters = store.get('filters');
 
   function addTagFilter(tag) {
-    filters.push({ type: 'tag', value: tag });
+    filters.push({ type: 'tag', value: tag.name });
     store.set('filters')(filters);
   }
 
   function renderTags() {
     return tags.map(tag => {
-      const isTagToggled = filters.some(filter => filter.value === tag);
+      const isTagToggled = filters.some(filter => filter.value === tag.name);
       if (isTagToggled) {
         return '';
       }
       const color = isTagToggled ? 'primary' : 'default';
       return (
         <Chip
-          key={tag}
+          key={tag.name}
           color={color}
-          label={tag}
+          label={tag.name}
           className={classes.tagChip}
           onClick={() => addTagFilter(tag, isTagToggled)}
         />

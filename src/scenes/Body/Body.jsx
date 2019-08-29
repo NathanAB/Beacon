@@ -2,6 +2,7 @@ import React from 'react';
 
 import CONSTANTS from '../../constants';
 import AddDateForm from '../AddDateForm/AddDateForm';
+import LoginDialog from '../LoginDialog/LoginDialog';
 import Discover from '../Discover/Discover';
 import MyDates from '../MyDates/MyDates';
 import Store from '../../store';
@@ -36,6 +37,7 @@ function Body() {
   return (
     <main>
       <AddDateForm />
+      <LoginDialog />
       {contentToRender}
     </main>
   );

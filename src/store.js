@@ -12,6 +12,7 @@ export default createConnectedStore({
   dates,
   filters: [],
   isFilterPageOpen: false,
+  isLoginDialogOpen: false,
   currentTab: constants.TABS.DISCOVER,
   costs: ['Free', '$', '$$', '$$$', '$$$$'],
   durations: ['1 Hour', '2 Hours', '3 Hours', '4 Hours'],
