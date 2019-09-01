@@ -16,6 +16,7 @@ const fetchPost = async ({ url, body }) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
+    credentials: 'include',
   });
   if (res.ok) {
     return res.json();
