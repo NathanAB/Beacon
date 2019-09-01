@@ -55,28 +55,40 @@ function AddDateForm({ classes }) {
   const checkoutDate = store.get('checkoutDate');
   const editDate = store.get('editDate');
   const [name, setName] = useState(editDate ? editDate.name : '');
-  const [dateTime, setDateTime] = useState(editDate ? editDate.startTime : moment());
+  const [dateTime, setDateTime] = useState(editDate ? moment(editDate.startTime) : moment());
   const [notes, setNotes] = useState(editDate ? editDate.notes : '');
   const [isSaving, setIsSaving] = useState(false);
   let userDates = store.get('userDates');
 
   const confirmCheckout = async e => {
     e.preventDefault();
+
+    // If the date already has an ID, that means it's an edit (not creation).
+    const isEditing = Boolean(editDate.id);
+
     // Do not allow saving without a date name
     if (!name) {
       return;
     }
+
     setIsSaving(true);
+
     const newUserDate = {
-      userDateId: editDate ? editDate.id : 1234,
+      id: editDate.id,
       dateId: checkoutDate.id || editDate.dateId,
       name,
       startTime: dateTime.toISOString(),
       notes,
     };
-    const userDateObj = await api.createUserDate(newUserDate);
+
+    if (isEditing) {
+      await api.updateUserDate(newUserDate);
+    } else {
+      await api.createUserDate(newUserDate);
+    }
+
     if (editDate) {
-      userDates = userDates.filter(date => date.dateId !== editDate.dateId);
+      userDates = userDates.filter(date => date.id !== editDate.id);
     }
 
     store.set('userDates')(userDates.concat([newUserDate]));
@@ -91,11 +103,18 @@ function AddDateForm({ classes }) {
     store.set('editDate')(false);
   };
 
-  const deleteDate = () => {
-    userDates = userDates.filter(date => date.dateId !== editDate.dateId);
+  const deleteDate = async () => {
+    const confirm = window.confirm('Are you sure you want to delete this date?');
+    if (!confirm) {
+      return;
+    }
+    setIsSaving(true);
+    await api.deleteUserDate(editDate);
+    userDates = userDates.filter(date => date.id !== editDate.id);
     store.set('userDates')(userDates);
     store.set('checkoutDate')(false);
     store.set('editDate')(false);
+    setIsSaving(false);
   };
 
   const renderButtons = () => {

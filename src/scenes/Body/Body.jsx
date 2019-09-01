@@ -14,6 +14,8 @@ const { TABS } = CONSTANTS;
 function Body() {
   const store = Store.useStore();
   const currentTab = store.get('currentTab');
+  const editDate = store.get('editDate');
+  const checkoutDate = store.get('checkoutDate');
   let contentToRender;
 
   function renderDiscover() {
@@ -36,7 +38,7 @@ function Body() {
   }
   return (
     <main>
-      <AddDateForm />
+      {(editDate || checkoutDate) && <AddDateForm />}
       <LoginDialog />
       {contentToRender}
     </main>

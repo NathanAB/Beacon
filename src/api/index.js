@@ -10,9 +10,9 @@ const fetchGet = async url => {
   return null;
 };
 
-const fetchPost = async ({ url, body }) => {
+const fetchVia = async ({ url, method, body }) => {
   const res = await fetch(url, {
-    method: 'POST',
+    method,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -24,6 +24,18 @@ const fetchPost = async ({ url, body }) => {
     return res.json();
   }
   return null;
+};
+
+const fetchPost = async ({ url, body }) => {
+  return fetchVia({ url, body, method: 'POST' });
+};
+
+const fetchPatch = async ({ url, body }) => {
+  return fetchVia({ url, body, method: 'PATCH' });
+};
+
+const fetchDelete = async ({ url, body }) => {
+  return fetchVia({ url, body, method: 'DELETE' });
 };
 
 export const getDates = async () => {
@@ -48,4 +60,12 @@ export const getUserDates = async () => {
 
 export const createUserDate = async userDateObj => {
   return fetchPost({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
+};
+
+export const updateUserDate = async userDateObj => {
+  return fetchPatch({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
+};
+
+export const deleteUserDate = async userDateObj => {
+  return fetchDelete({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
 };
