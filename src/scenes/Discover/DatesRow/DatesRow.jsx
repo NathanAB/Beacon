@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 
-import DateCard from '../../../components/DateCard/DateCard';
+import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
 import Store from '../../../store';
 
-const styles = () => ({
+const styles = theme => ({
   container: {
     margin: '1rem 0',
   },
@@ -16,9 +15,12 @@ const styles = () => ({
     '-ms-overflow-style': 'none',
     overflow: '-moz-scrollbars-none',
     '&::-webkit-scrollbar': { width: '0 !important' },
+    [theme.breakpoints.up('sm')]: {
+      width: '100%',
+    },
   },
   row: {
-    width: '1200px',
+    whiteSpace: 'nowrap',
   },
   dateContainer: {
     display: 'inline-block',
@@ -44,7 +46,7 @@ function DatesRow({ classes }) {
     return DateObjs.map(date => {
       return (
         <div className={classes.dateContainer} key={date.id}>
-          <DateCard
+          <DateCardPreview
             dateObj={date}
             onClick={() => {
               store.set('focusedDate')(date.id);

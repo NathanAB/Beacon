@@ -1,15 +1,17 @@
 import { createConnectedStore } from 'undux';
-import tags from './mocks/tags';
-import neighborhoods from './mocks/neighborhoods';
-import dates from './mocks/dates';
+import mockTags from './mocks/tags';
+import mockNeighborhoods from './mocks/neighborhoods';
+import mockDates from './mocks/dates';
 // import userDates from './mocks/userDates';
 import constants from './constants';
 
+const USE_MOCKS = false;
+
 // Create a store with an initial value.
 export default createConnectedStore({
-  tags,
-  neighborhoods,
-  dates,
+  tags: USE_MOCKS ? mockTags : [],
+  neighborhoods: USE_MOCKS ? mockNeighborhoods : [],
+  dates: USE_MOCKS ? mockDates : [],
   filters: [],
   isFilterPageOpen: false,
   isLoginDialogOpen: false,

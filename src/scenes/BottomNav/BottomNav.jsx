@@ -5,7 +5,6 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Icon from '@material-ui/core/Icon';
 
-import './BottomNav.css';
 import CONSTANTS from '../../constants';
 import Store from '../../store';
 
@@ -18,6 +17,11 @@ const styles = {
     bottom: '0px',
     left: '0px',
     boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.1)',
+  },
+  navItem: {
+    fontSize: '16px !important',
+    fontWeight: '600',
+    fontFamily: 'Raleway',
   },
 };
 
@@ -36,8 +40,18 @@ function BottomNav({ classes }) {
       }}
       className={classes.root}
     >
-      <BottomNavigationAction label="Discover" value={TABS.DISCOVER} icon={<Icon>explore</Icon>} />
-      <BottomNavigationAction label="My Dates" value={TABS.MY_DATES} icon={<Icon>favorite</Icon>} />
+      <BottomNavigationAction
+        classes={{ label: classes.navItem }}
+        label="Discover"
+        value={TABS.DISCOVER}
+        icon={<Icon>explore</Icon>}
+      />
+      <BottomNavigationAction
+        classes={{ label: classes.navItem }}
+        label="My Dates"
+        value={TABS.MY_DATES}
+        icon={<Icon>favorite</Icon>}
+      />
     </BottomNavigation>
   );
 }

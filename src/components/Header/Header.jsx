@@ -13,6 +13,7 @@ import { Typography, Divider } from '@material-ui/core';
 
 import CONSTANTS from '../../constants';
 import Store from '../../store';
+import constants from '../../constants';
 
 const styles = theme => ({
   root: {
@@ -31,17 +32,6 @@ const styles = theme => ({
     color: 'inherit',
     width: '100%',
   },
-  inputInput: {
-    paddingTop: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    paddingLeft: theme.spacing(10),
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: 200,
-    },
-  },
   icon: {
     height: '25px',
     marginRight: '5px',
@@ -51,7 +41,11 @@ const styles = theme => ({
   },
   title: {
     fontWeight: 800,
-    letterSpacing: '0.3rem',
+    letterSpacing: '5px',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '28px',
+      letterSpacing: '6px',
+    },
   },
 });
 
@@ -67,6 +61,14 @@ function Header(props) {
   function handleClose() {
     setAnchorEl(null);
   }
+
+  const goToDiscover = () => {
+    store.set('currentTab')(constants.TABS.DISCOVER);
+    store.set('filters')([]);
+    store.set('focusedDate')(false);
+    store.set('isFilterPageOpen')(false);
+  };
+
   const { classes } = props;
   return (
     <AppBar position="fixed" color="inherit">
@@ -75,7 +77,7 @@ function Header(props) {
           <Icon></Icon>
         </IconButton>
         <Button>
-          <Typography variant="h5" color="primary" className={classes.title}>
+          <Typography variant="h5" color="primary" className={classes.title} onClick={goToDiscover}>
             Beacon
           </Typography>
         </Button>

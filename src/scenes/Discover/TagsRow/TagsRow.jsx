@@ -4,9 +4,15 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography, Chip } from '@material-ui/core';
 import Store from '../../../store';
 
-const styles = () => ({
+const styles = theme => ({
   tagChip: {
-    margin: '0.7rem 0.7rem 0 0',
+    margin: '14px 14px 0 0',
+    padding: '14px 6px',
+    [theme.breakpoints.up('sm')]: {
+      margin: '18px 18px 0 0',
+      padding: '18px 10px',
+      fontSize: '15px',
+    },
   },
 });
 

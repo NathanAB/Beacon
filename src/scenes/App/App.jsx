@@ -31,6 +31,11 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: 'Open Sans',
   },
+  breakpoints: {
+    values: {
+      sm: 768,
+    },
+  },
 });
 
 function App() {

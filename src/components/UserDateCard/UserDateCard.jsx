@@ -1,8 +1,9 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, useTheme } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Chip, IconButton, Icon } from '@material-ui/core';
 import moment from 'moment';
 import { uniq, uniqBy, map } from 'lodash';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Store from '../../store';
 import { costToString } from '../../utils';
@@ -15,9 +16,17 @@ const styles = theme => ({
     overflow: 'visible',
     margin: 'auto',
     border: '1px solid lightgray',
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      width: '100%',
+      marginBottom: '50px',
+    },
   },
   cardHeader: {
     backgroundColor: theme.palette.primary.main,
+    [theme.breakpoints.up('sm')]: {
+      width: '350px',
+    },
   },
   cardHeaderText: {
     color: theme.palette.primary.contrastText,
@@ -43,6 +52,8 @@ const styles = theme => ({
 });
 
 function UserDateCard({ classes, userDate }) {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const store = Store.useStore();
   const dateObjs = store.get('dates');
   const dateObj = dateObjs.find(d => d.id === userDate.dateId);
@@ -73,8 +84,12 @@ function UserDateCard({ classes, userDate }) {
   return (
     <Card elevation={3} className={classes.card}>
       <CardContent className={classes.cardHeader}>
-        <IconButton className={classes.editButton} onClick={editDate}>
-          <Icon>edit</Icon>
+        <IconButton
+          className={classes.editButton}
+          onClick={editDate}
+          color={isDesktop ? 'primary' : ''}
+        >
+          <Icon color={isDesktop ? 'primary' : ''}>edit</Icon>
         </IconButton>
         <Typography variant="h5" className={classes.cardHeaderText}>
           {userDate.name}

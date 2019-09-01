@@ -1,3 +1,5 @@
 main {
-  margin: 76px 25px 64px 25px;
+  padding: 76px 25px 64px 25px;
+  margin: auto;
+  max-width: 1000px;
 }

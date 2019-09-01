@@ -6,15 +6,12 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-import Collapse from '@material-ui/core/Collapse';
-import { CardActions } from '@material-ui/core';
+
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import placeholderImg from '../../assets/img/placeholder.png';
-import Store from '../../store';
 import { costToString } from '../../utils';
 
 const styles = theme => ({
@@ -29,20 +26,12 @@ const styles = theme => ({
     overflow: 'visible',
     margin: 'auto',
     border: '1px solid lightgray',
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-    },
   },
   cardContent: {
     width: '318px',
     maxWidth: 'calc(100% - 32px)',
     padding: '0.5rem 1rem',
     backgroundColor: theme.palette.primary.contrastText,
-    [theme.breakpoints.up('sm')]: {
-      display: 'inline-block',
-      width: 'auto',
-      maxWidth: 'auto',
-    },
   },
   cardHeader: {
     'text-transform': 'uppercase',
@@ -70,32 +59,15 @@ const styles = theme => ({
   activityCost: {
     textTransform: 'capitalize',
   },
-  planDateButton: {
-    display: 'block',
-    margin: 'auto',
-    marginBottom: '1em',
-    textTransform: 'uppercase',
-  },
   actionArea: {
     width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      display: 'flex',
-    },
   },
   media: {
     height: '160px',
-    [theme.breakpoints.up('sm')]: {
-      width: '400px',
-      height: '400px',
-    },
   },
   thumbnailContainer: {
     height: '100%',
     display: 'flex',
-    [theme.breakpoints.up('sm')]: {
-      flexDirection: 'column',
-      width: '200px',
-    },
   },
   thumbnailImage: {
     'flex-shrink': 1,
@@ -108,31 +80,13 @@ const styles = theme => ({
     marginTop: '5px',
     height: '1.5rem',
   },
-  expandedContent: {
-    padding: 0,
-    paddingTop: '1rem',
-  },
-  cardActions: {
-    paddingTop: 0,
-  },
 });
 
 const DateCard = React.forwardRef(
   ({ dateObj, classes, noExpand, onClick, defaultExpanded }, ref) => {
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
-    const store = Store.useStore();
-    const user = store.get('user');
     const [isExpanded, setIsExpanded] = useState(defaultExpanded);
-
-    function checkoutDate(e) {
-      e.stopPropagation();
-      if (user) {
-        store.set('checkoutDate')(dateObj);
-      } else {
-        store.set('isLoginDialogOpen')(true);
-      }
-    }
 
     function renderAllTags() {
       let tags = [];
@@ -157,32 +111,6 @@ const DateCard = React.forwardRef(
         );
       });
       return <div className={classes.thumbnailContainer}>{thumbnails}</div>;
-    }
-
-    function renderExpanded() {
-      const sectionList = dateObj.sections.map(section => {
-        const duration = Math.round(section.minutes / 30) / 2; // Round to the nearest half-hour
-        const costString = costToString(section.cost);
-        return (
-          <div className={classes.activitySection} key={section.spot.name}>
-            <Typography variant="body2" className={classes.activityTitle}>
-              <span className={classes.activityName}>{section.spot.name}</span>
-              <span className={classes.activityCost}>
-                {costString} • {duration} hours
-              </span>
-            </Typography>
-            <Typography variant="body2">{section.description}</Typography>
-          </div>
-        );
-      });
-      return (
-        <Collapse in={isExpanded}>
-          <CardContent className={classes.expandedContent}>
-            <Typography variant="body2">{dateObj.description}</Typography>
-            {sectionList}
-          </CardContent>
-        </Collapse>
-      );
     }
 
     function renderMain() {
@@ -210,7 +138,6 @@ const DateCard = React.forwardRef(
               {`${dateLocations} • ${dateHours} hrs • ${dateCostString}`}
             </Typography>
             {renderAllTags()}
-            {renderExpanded()}
           </CardContent>
         </CardActionArea>
       );
@@ -220,20 +147,6 @@ const DateCard = React.forwardRef(
       <div className={classes.container} ref={ref}>
         <Card className={classes.card} elevation={3}>
           {renderMain()}
-          <Collapse in={isExpanded}>
-            <CardActions className={classes.cardActions}>
-              <Button
-                variant="contained"
-                aria-label="Add this spot"
-                color="primary"
-                size="medium"
-                className={classes.planDateButton}
-                onClick={checkoutDate}
-              >
-                Add this Date
-              </Button>
-            </CardActions>
-          </Collapse>
         </Card>
       </div>
     );

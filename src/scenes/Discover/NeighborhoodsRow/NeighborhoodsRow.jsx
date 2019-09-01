@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 import Store from '../../../store';
 import placeholderImg from '../../../assets/img/placeholder.png';
 
-const styles = () => ({
+const styles = theme => ({
   container: {
     margin: '1rem 0',
   },
@@ -16,28 +16,43 @@ const styles = () => ({
     '-ms-overflow-style': 'none',
     overflow: '-moz-scrollbars-none',
     '&::-webkit-scrollbar': { width: '0 !important' },
+    [theme.breakpoints.up('sm')]: {
+      width: '100%',
+    },
   },
   row: {
     whiteSpace: 'nowrap',
   },
   neighborhood: {
     display: 'inline-block',
-    'text-align': 'center',
+    textAlign: 'center',
     padding: 0,
-    'margin-right': '1.5rem',
-    width: '80px',
+    marginRight: '25px',
+    width: '70px',
+    [theme.breakpoints.up('sm')]: {
+      width: '100px',
+      marginRight: '30px',
+    },
   },
   icon: {
-    width: '5rem',
-    height: '5rem',
-    'background-size': 'cover',
-    'border-radius': '2.5rem',
+    width: '70px',
+    height: '70px',
+    backgroundSize: 'cover',
+    borderRadius: '35px',
+    [theme.breakpoints.up('sm')]: {
+      height: '100px',
+      width: '100px',
+      borderRadius: '50px',
+    },
   },
   title: {
     fontWeight: 600,
   },
   caption: {
     whiteSpace: 'normal',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: '14px',
+    },
   },
 });
 

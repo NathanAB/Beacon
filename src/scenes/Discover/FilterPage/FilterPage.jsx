@@ -5,7 +5,7 @@ import { withStyles, Typography, Chip, Button } from '@material-ui/core';
 import Store from '../../../store';
 import TagsRow from '../TagsRow/TagsRow';
 
-const styles = {
+const styles = theme => ({
   filtersContainer: {
     margin: '20px 32px',
   },
@@ -13,7 +13,13 @@ const styles = {
     margin: 'auto',
   },
   tagChip: {
-    margin: '0.3rem 0.7rem 0 0',
+    margin: '14px 14px 0 0',
+    padding: '14px 6px',
+    [theme.breakpoints.up('sm')]: {
+      margin: '18px 18px 0 0',
+      padding: '18px 10px',
+      fontSize: '15px',
+    },
   },
   filtersText: {
     'vertical-align': 'middle',
@@ -61,9 +67,12 @@ const styles = {
     width: '100%',
   },
   filterSection: {
-    'margin-bottom': '1rem',
+    marginBottom: '25px',
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: '35px',
+    },
   },
-};
+});
 
 function FilterPage({ classes }) {
   const store = Store.useStore();
