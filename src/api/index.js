@@ -1,7 +1,9 @@
 import CONSTANTS from '../constants';
 
 const fetchGet = async url => {
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    credentials: 'include',
+  });
   if (res.ok) {
     return res.json();
   }
