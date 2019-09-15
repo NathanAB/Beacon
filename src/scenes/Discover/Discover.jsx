@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Typography } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 import Store from '../../store';
 import FilterBar from './FilterBar/FilterBar';
@@ -47,6 +49,8 @@ function Discover() {
   const [tagFilters, setTagFilters] = useState([]);
   const [locationFilters, setLocationFilters] = useState([]);
   const [costFilters, setCostFilters] = useState([]);
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const focusedRef = useRef(null);
 
   const store = Store.useStore();
@@ -62,7 +66,7 @@ function Discover() {
       <DateCard
         key={date.id}
         dateObj={date}
-        defaultExpanded={isFocusedDate}
+        defaultExpanded={isDesktop || isFocusedDate}
         ref={isFocusedDate ? focusedRef : null}
       />
     );
