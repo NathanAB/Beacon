@@ -8,10 +8,11 @@ const styles = theme => ({
   tagChip: {
     margin: '14px 14px 0 0',
     padding: '14px 6px',
+    fontFamily: 'Raleway',
     [theme.breakpoints.up('sm')]: {
       margin: '18px 18px 0 0',
       padding: '18px 10px',
-      fontSize: '15px',
+      fontSize: '16px',
     },
   },
 });

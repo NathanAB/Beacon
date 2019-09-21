@@ -28,17 +28,18 @@ const styles = theme => ({
     textAlign: 'center',
     padding: 0,
     marginRight: '25px',
-    width: '70px',
+    width: '90px',
     [theme.breakpoints.up('sm')]: {
       width: '100px',
       marginRight: '30px',
     },
   },
   icon: {
-    width: '70px',
-    height: '70px',
+    width: '90px',
+    height: '90px',
+    borderRadius: '45px',
     backgroundSize: 'cover',
-    borderRadius: '35px',
+    backgroundPosition: 'center center',
     [theme.breakpoints.up('sm')]: {
       height: '100px',
       width: '100px',
@@ -50,9 +51,11 @@ const styles = theme => ({
   },
   caption: {
     whiteSpace: 'normal',
+    fontSize: '13px',
     [theme.breakpoints.up('sm')]: {
-      fontSize: '14px',
+      fontSize: '16px',
     },
+    fontFamily: 'Raleway',
   },
 });
 
@@ -77,11 +80,9 @@ function NeighborhoodsRow({ classes }) {
             className={classes.icon}
             style={{
               backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
-              backgroundSize: 'contain',
-              backgroundPosition: 'center',
             }}
           />
-          <Typography variant="caption" className={classes.caption}>
+          <Typography variant="subtitle1" className={classes.caption}>
             {neighborhood.name}
           </Typography>
         </button>
