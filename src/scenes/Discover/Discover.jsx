@@ -61,7 +61,7 @@ function Discover() {
 
   const filteredDates = filterDates(dates, filters);
   const dateCards = filteredDates.map(date => {
-    const isFocusedDate = focusedDate === date.id;
+    const isFocusedDate = parseInt(focusedDate, 10) === date.id;
     return (
       <DateCard
         key={date.id}
@@ -75,9 +75,9 @@ function Discover() {
   // Scroll to focused date when clicked on Discover landing page
   useEffect(() => {
     if (focusedDate) {
-      window.scrollTo(0, focusedRef.current.offsetTop);
+      window.scrollTo(0, focusedRef.current ? focusedRef.current.offsetTop - 100 : 0);
     }
-  }, [focusedDate]);
+  }, [focusedDate, focusedRef]);
 
   const toggleTag = value => () => {
     const currentIndex = tagFilters.indexOf(value);

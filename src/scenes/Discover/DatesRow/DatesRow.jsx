@@ -1,26 +1,15 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { withStyles, useTheme } from '@material-ui/core/styles';
+import { Typography, IconButton, Icon } from '@material-ui/core';
+import ScrollMenu from 'react-horizontal-scrolling-menu';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
 import Store from '../../../store';
 
-const styles = theme => ({
+const styles = () => ({
   container: {
     margin: '1rem 0',
-  },
-  rowContainer: {
-    width: 'calc(100vw - 25px)',
-    'overflow-x': 'scroll',
-    '-ms-overflow-style': 'none',
-    overflow: '-moz-scrollbars-none',
-    '&::-webkit-scrollbar': { width: '0 !important' },
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-    },
-  },
-  row: {
-    whiteSpace: 'nowrap',
   },
   dateContainer: {
     display: 'inline-block',
@@ -41,18 +30,14 @@ const styles = theme => ({
 function DatesRow({ classes }) {
   const store = Store.useStore();
   const DateObjs = store.get('dates');
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   function renderDates() {
     return DateObjs.map(date => {
       return (
         <div className={classes.dateContainer} key={date.id}>
-          <DateCardPreview
-            dateObj={date}
-            onClick={() => {
-              store.set('focusedDate')(date.id);
-            }}
-            noExpand
-          />
+          <DateCardPreview dateObj={date} noExpand />
         </div>
       );
     });
@@ -63,9 +48,28 @@ function DatesRow({ classes }) {
       <Typography variant="h6" className={classes.title}>
         Discover Dates
       </Typography>
-      <div className={classes.rowContainer}>
-        <div className={classes.row}>{renderDates(classes)}</div>
-      </div>
+      <ScrollMenu
+        data={renderDates(classes)}
+        wheel={false}
+        translate={1}
+        onSelect={dateId => {
+          store.set('focusedDate')(dateId);
+        }}
+        arrowLeft={
+          isDesktop && (
+            <IconButton>
+              <Icon>chevron_left</Icon>
+            </IconButton>
+          )
+        }
+        arrowRight={
+          isDesktop && (
+            <IconButton>
+              <Icon>chevron_right</Icon>
+            </IconButton>
+          )
+        }
+      />
     </section>
   );
 }
