@@ -66,6 +66,18 @@ function LoginDialog({ classes }) {
             <img src={googleIcon} alt="Google Icon" className={classes.google} /> Login with Google
           </Button>
         </a>
+        <a href={Constants.API.LOGIN_FACEBOOK} className={classes.loginLink}>
+          <Button
+            variant="contained"
+            aria-label="Login with Facebook"
+            color="secondary"
+            size="medium"
+            fullWidth
+            className={classes.loginButton}
+          >
+            Login with Facebook
+          </Button>
+        </a>
       </DialogContent>
     </Dialog>
   );

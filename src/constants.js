@@ -11,6 +11,7 @@ export default {
     AUTH: `${API_URL}/api/auth`,
     ROOT: API_URL,
     LOGIN_GOOGLE: `${API_URL}/login/google`,
+    LOGIN_FACEBOOK: `${API_URL}/login/facebook`,
     LOGOUT: `${API_URL}/logout`,
     DATES: `${API_URL}/api/dates`,
     NEIGHBORHOODS: `${API_URL}/api/neighborhoods`,

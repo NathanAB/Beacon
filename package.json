@@ -14,12 +14,13 @@
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-ga": "^2.5.7",
+    "react-horizontal-scrolling-menu": "^0.7.3",
     "react-scripts": "2.1.5",
     "typeface-roboto": "0.0.54",
     "undux": "^5.0.0-beta.22"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=443 HOST='local.beacondates.com' HTTPS=true react-scripts start -- https://local.beacondates.com",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "prettify": "eslint . --fix",
