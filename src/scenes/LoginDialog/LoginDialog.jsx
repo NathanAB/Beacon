@@ -7,6 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Store from '../../store';
 import Constants from '../../constants';
 import googleIcon from '../../assets/img/googleIcon.png';
+import facebookIcon from '../../assets/img/facebookIcon.png';
 
 const styles = theme => ({
   closeButton: {
@@ -22,16 +23,12 @@ const styles = theme => ({
   dialogTitle: {
     padding: '16px 46px 16px 24px',
   },
-  google: {
+  loginIcon: {
     height: '32px',
     marginRight: '8px',
   },
-  loginLink: {
-    textDecoration: 'none',
-    marginBottom: '16px',
-    display: 'block',
-  },
   loginButton: {
+    marginBottom: '16px',
     margin: '15px 0',
     padding: '10px 0',
   },
@@ -54,30 +51,32 @@ function LoginDialog({ classes }) {
         Sign in or sign up!
       </DialogTitle>
       <DialogContent className={classes.content}>
-        <a href={Constants.API.LOGIN_GOOGLE} className={classes.loginLink}>
-          <Button
-            variant="contained"
-            aria-label="Login with Google"
-            color="secondary"
-            size="medium"
-            fullWidth
-            className={classes.loginButton}
-          >
-            <img src={googleIcon} alt="Google Icon" className={classes.google} /> Login with Google
-          </Button>
-        </a>
-        <a href={Constants.API.LOGIN_FACEBOOK} className={classes.loginLink}>
-          <Button
-            variant="contained"
-            aria-label="Login with Facebook"
-            color="secondary"
-            size="medium"
-            fullWidth
-            className={classes.loginButton}
-          >
-            Login with Facebook
-          </Button>
-        </a>
+        <Button
+          variant="contained"
+          aria-label="Login with Google"
+          size="medium"
+          fullWidth
+          className={classes.loginButton}
+          onClick={() => {
+            window.location = Constants.API.LOGIN_GOOGLE;
+          }}
+        >
+          <img src={googleIcon} alt="Google Icon" className={classes.loginIcon} />
+          Login with Google
+        </Button>
+        <Button
+          variant="contained"
+          aria-label="Login with Facebook"
+          size="medium"
+          fullWidth
+          className={classes.loginButton}
+          onClick={() => {
+            window.location = Constants.API.FACEBOOK;
+          }}
+        >
+          <img src={facebookIcon} alt="Facebook Icon" className={classes.loginIcon} />
+          Login with Facebook
+        </Button>
       </DialogContent>
     </Dialog>
   );
