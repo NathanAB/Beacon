@@ -105,7 +105,7 @@ function Header(props) {
             <MenuList>
               <MenuItem disabled>
                 <Typography variant="subtitle1">
-                  Logged in as {user.name} <br /> ({user.email})
+                  Logged in as {user.name || ''} <br /> ({user.email || ''})
                 </Typography>
               </MenuItem>
               <Divider />
@@ -114,7 +114,7 @@ function Header(props) {
               </a>
             </MenuList>
           ) : (
-            <>
+            <MenuList>
               <MenuItem
                 onClick={() => {
                   window.location = CONSTANTS.API.LOGIN_GOOGLE;
@@ -131,7 +131,7 @@ function Header(props) {
                 <img src={facebookIcon} alt="Facebook Icon" className={classes.loginIcon} />
                 Login with Facebook
               </MenuItem>
-            </>
+            </MenuList>
           )}
         </Menu>
       </Toolbar>
