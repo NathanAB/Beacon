@@ -4,7 +4,7 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
 import * as api from '../../api';
-import Header from '../../components/Header/Header';
+import Header from '../Header/Header';
 import BottomNav from '../BottomNav/BottomNav';
 import CONSTANTS from '../../constants';
 import Body from '../Body/Body';

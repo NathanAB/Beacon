@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import { Typography, Divider } from '@material-ui/core';
+import { Typography, Divider, Link } from '@material-ui/core';
 
 import CONSTANTS from '../../constants';
 import Store from '../../store';
@@ -109,9 +109,9 @@ function Header(props) {
                 </Typography>
               </MenuItem>
               <Divider />
-              <a href={CONSTANTS.API.LOGOUT}>
+              <Link href={CONSTANTS.API.LOGOUT}>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
-              </a>
+              </Link>
             </MenuList>
           ) : (
             <MenuList>

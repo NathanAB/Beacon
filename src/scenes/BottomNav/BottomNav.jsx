@@ -32,6 +32,7 @@ function BottomNav({ classes }) {
   return (
     <BottomNavigation
       value={currentTab}
+      showLabels
       onChange={(event, value) => {
         store.set('currentTab')(value);
         store.set('filters')([]);
