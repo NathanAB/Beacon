@@ -94,6 +94,8 @@ const DateCard = React.forwardRef(
         tags.push(...section.tags);
       });
       tags = uniqBy(tags, tag => tag.name);
+
+      // Don't show all the tags
       tags = tags.slice(0, 3);
 
       return tags.map(tag => <Chip key={tag.name} label={tag.name} className={classes.tagChip} />);
@@ -102,11 +104,25 @@ const DateCard = React.forwardRef(
     function renderThumbnails() {
       // eslint-disable-next-line arrow-body-style
       const thumbnails = dateObj.sections.map(section => {
+        const testImages = [
+          'B3SmuPzFijg',
+          'B3SmsUDlZf_',
+          'B3Smq1Tl0hc',
+          'B3Smoh8l6AY',
+          'B3Smm19le66',
+          'B3Smks7lZXU',
+          'B3SmimgFJrr',
+          'B3Smg32lZJ4',
+          'B3SmeUhFcZm',
+        ];
+        const imageUrl = `https://instagram.com/p/${
+          testImages[Math.floor(Math.random() * testImages.length)]
+        }/media/?size=m`;
         return (
           <div
             className={classes.thumbnailImage}
             key={section.spot.name}
-            style={{ backgroundImage: `url(${section.image || placeholderImg})` }}
+            style={{ backgroundImage: `url(${imageUrl || placeholderImg})` }}
           />
         );
       });

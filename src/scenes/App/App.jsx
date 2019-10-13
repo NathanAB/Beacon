@@ -9,6 +9,7 @@ import BottomNav from '../BottomNav/BottomNav';
 import CONSTANTS from '../../constants';
 import Body from '../Body/Body';
 import Store from '../../store';
+import neighborhoods from '../../mocks/neighborhoods';
 
 const theme = createMuiTheme({
   palette: {
@@ -17,9 +18,9 @@ const theme = createMuiTheme({
       contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#e8e8e8',
+      main: '#eaeaea',
       dark: '#E0E0E0',
-      contrastText: '#7e1d4c',
+      contrastText: '#333333',
       text: '#525252',
     },
   },
@@ -64,7 +65,9 @@ function App() {
       }
     };
     const getNeighborhoods = async () => {
-      const neigborhoods = await api.getNeighborhoods();
+      let neigborhoods = await api.getNeighborhoods();
+      neigborhoods = neigborhoods.filter(n => !n.disabled);
+
       if (neigborhoods) {
         store.set('neighborhoods')(neigborhoods);
       }

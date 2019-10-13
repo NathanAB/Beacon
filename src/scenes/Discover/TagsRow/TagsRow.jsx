@@ -15,6 +15,9 @@ const styles = theme => ({
       fontSize: '16px',
     },
   },
+  tagChipDisabled: {
+    opacity: '0.5',
+  },
 });
 
 function TagsRow({ classes }) {
@@ -23,7 +26,7 @@ function TagsRow({ classes }) {
   const filters = store.get('filters');
 
   function addTagFilter(tag) {
-    filters.push({ type: 'tag', value: tag.name });
+    filters.push({ type: 'tag', value: tag.name, categoryId: tag.categoryId });
     store.set('filters')(filters);
   }
 
@@ -33,14 +36,26 @@ function TagsRow({ classes }) {
       if (isTagToggled) {
         return '';
       }
-      const color = isTagToggled ? 'primary' : 'default';
+
+      // If a tag in this category has already been picked then grey it out
+      const toggledCategories = filters.length
+        ? filters.reduce((cats, curr) => {
+            return { ...cats, [curr.categoryId]: true };
+          }, {})
+        : [];
+      const isCategoryToggled = !!toggledCategories[tag.categoryId];
+      const chipClasses = [classes.tagChip];
+      if (isCategoryToggled) {
+        chipClasses.push(classes.tagChipDisabled);
+      }
+
       return (
         <Chip
           key={tag.name}
-          color={color}
           label={tag.name}
-          className={classes.tagChip}
-          onClick={() => addTagFilter(tag, isTagToggled)}
+          className={chipClasses}
+          disabled={isCategoryToggled}
+          onClick={isCategoryToggled ? null : () => addTagFilter(tag, isTagToggled)}
         />
       );
     });

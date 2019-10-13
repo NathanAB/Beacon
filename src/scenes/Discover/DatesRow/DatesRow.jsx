@@ -12,9 +12,7 @@ const styles = () => ({
     margin: '1rem 0',
   },
   dateContainer: {
-    display: 'inline-block',
     'margin-right': '1.5rem',
-    'vertical-align': 'top',
   },
   icon: {
     width: '5rem',

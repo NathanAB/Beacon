@@ -73,28 +73,29 @@ const styles = theme => ({
   planDateButton: {
     display: 'block',
     margin: 'auto',
-    marginBottom: '1em',
+    marginTop: '2em',
     textTransform: 'uppercase',
   },
   actionArea: {
     width: '100%',
     [theme.breakpoints.up('sm')]: {
+      alignItems: 'stretch',
       display: 'flex',
     },
   },
   media: {
-    height: '160px',
+    minHeight: '160px',
     [theme.breakpoints.up('sm')]: {
       width: '400px',
-      height: '400px',
     },
   },
   thumbnailContainer: {
+    minHeight: '160px',
     height: '100%',
     display: 'flex',
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'column',
-      width: '200px',
+      width: '350px',
     },
   },
   thumbnailImage: {
@@ -140,19 +141,37 @@ const DateCard = React.forwardRef(
         tags.push(...section.tags);
       });
       tags = uniqBy(tags, tag => tag.name);
-      tags = tags.slice(0, 3);
-
       return tags.map(tag => <Chip key={tag.name} label={tag.name} className={classes.tagChip} />);
     }
 
     function renderThumbnails() {
       // eslint-disable-next-line arrow-body-style
       const thumbnails = dateObj.sections.map(section => {
+        // TODO - Example code ONLY, replace when instagram imgs are ready
+        const testImages = [
+          'B3SmuPzFijg',
+          'B3SmsUDlZf_',
+          'B3Smq1Tl0hc',
+          'B3Smoh8l6AY',
+          'B3Smm19le66',
+          'B3Smks7lZXU',
+          'B3SmimgFJrr',
+          'B3Smg32lZJ4',
+          'B3SmeUhFcZm',
+        ];
+        const imageUrl = `https://instagram.com/p/${
+          testImages[Math.floor(Math.random() * testImages.length)]
+        }/media/?size=l`;
+
+        // TODO - Uncomment once instagram imgs are ready
+        // const imageUrl = section.image
+        //   ? `https://instagram.com/p/${section.image}/media/?size=m`
+        //   : placeholderImg;
         return (
           <div
             className={classes.thumbnailImage}
             key={section.spot.name}
-            style={{ backgroundImage: `url(${section.image || placeholderImg})` }}
+            style={{ backgroundImage: `url(${imageUrl || placeholderImg})` }}
           />
         );
       });
@@ -180,6 +199,16 @@ const DateCard = React.forwardRef(
           <CardContent className={classes.expandedContent}>
             <Typography variant="body2">{dateObj.description}</Typography>
             {sectionList}
+            <Button
+              variant="contained"
+              aria-label="Add this spot"
+              color="primary"
+              size="medium"
+              className={classes.planDateButton}
+              onClick={checkoutDate}
+            >
+              Add this Date
+            </Button>
           </CardContent>
         </Collapse>
       );
@@ -220,20 +249,6 @@ const DateCard = React.forwardRef(
       <div className={classes.container} ref={ref}>
         <Card className={classes.card} elevation={3}>
           {renderMain()}
-          <Collapse in={isExpanded}>
-            <CardActions className={classes.cardActions}>
-              <Button
-                variant="contained"
-                aria-label="Add this spot"
-                color="primary"
-                size="medium"
-                className={classes.planDateButton}
-                onClick={checkoutDate}
-              >
-                Add this Date
-              </Button>
-            </CardActions>
-          </Collapse>
         </Card>
       </div>
     );
