@@ -9,7 +9,6 @@ import BottomNav from '../BottomNav/BottomNav';
 import CONSTANTS from '../../constants';
 import Body from '../Body/Body';
 import Store from '../../store';
-import neighborhoods from '../../mocks/neighborhoods';
 
 const theme = createMuiTheme({
   palette: {

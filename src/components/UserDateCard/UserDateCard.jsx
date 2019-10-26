@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withStyles, useTheme } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Chip, IconButton, Icon } from '@material-ui/core';
 import moment from 'moment';
 import { uniq, uniqBy, map } from 'lodash';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import GoogleMapsLoader from 'google-maps';
 
 import Store from '../../store';
 import { costToString } from '../../utils';
@@ -57,6 +58,20 @@ function UserDateCard({ classes, userDate }) {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
   const dateObj = dateObjs.find(d => d.id === userDate.dateId);
+
+  useEffect(() => {
+    GoogleMapsLoader.load(google => {
+      const service = new google.maps.places.PlacesService(document.createElement('div'));
+      const req = {
+        query: '1345 Connecticut Ave NW, Washington, DC 20036',
+        fields: ['name', 'geometry'],
+      };
+      service.findPlaceFromQuery(req, (results, status) => {
+        console.log(status, results);
+        console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
+      });
+    });
+  }, []);
 
   // TODO - dedupe below with DateCard
   const { sections } = dateObj;

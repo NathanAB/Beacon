@@ -1,6 +1,7 @@
 const API_URL = process.env.REACT_APP_API_URL || '';
-
-console.log('env:', process.env);
+const KEYS = {
+  MAPS_API_KEY: process.env.REACT_APP_MAPS_API_KEY,
+};
 
 export default {
   TABS: {
@@ -18,4 +19,5 @@ export default {
     TAGS: `${API_URL}/api/tags`,
     USER_DATES: `${API_URL}/api/userDates`,
   },
+  KEYS,
 };
