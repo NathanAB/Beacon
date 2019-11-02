@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withStyles, useTheme } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Chip, IconButton, Icon } from '@material-ui/core';
+import { Card, CardContent, Divider, Typography, Chip, IconButton, Icon } from '@material-ui/core';
 import moment from 'moment';
 import { uniq, uniqBy, map } from 'lodash';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import GoogleMapsLoader from 'google-maps';
 
 import Store from '../../store';
 import { costToString } from '../../utils';
+import DateMap from './components/DateMap/DateMap';
 
 const styles = theme => ({
   card: {
@@ -24,14 +24,19 @@ const styles = theme => ({
     },
   },
   cardHeader: {
-    backgroundColor: theme.palette.primary.main,
+    height: '220px',
     [theme.breakpoints.up('sm')]: {
-      width: '350px',
+      height: 'auto',
+      width: '50%',
     },
+    position: 'relative',
   },
   cardHeaderText: {
-    color: theme.palette.primary.contrastText,
+    // color: theme.palette.primary.contrastText,
     marginRight: '28px',
+  },
+  cardHeaderDivider: {
+    margin: '10px 0',
   },
   italic: {
     fontStyle: 'italic',
@@ -59,22 +64,9 @@ function UserDateCard({ classes, userDate }) {
   const dateObjs = store.get('dates');
   const dateObj = dateObjs.find(d => d.id === userDate.dateId);
 
-  useEffect(() => {
-    GoogleMapsLoader.load(google => {
-      const service = new google.maps.places.PlacesService(document.createElement('div'));
-      const req = {
-        query: '1345 Connecticut Ave NW, Washington, DC 20036',
-        fields: ['name', 'geometry'],
-      };
-      service.findPlaceFromQuery(req, (results, status) => {
-        console.log(status, results);
-        console.log(results[0].geometry.location.lat(), results[0].geometry.location.lng());
-      });
-    });
-  }, []);
-
   // TODO - dedupe below with DateCard
   const { sections } = dateObj;
+  const placeIds = sections.map(s => s.spot.placeId);
   const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
   const dateHours = Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
   const dateCost = sections.reduce((total, section) => total + section.cost, 0) / sections.length;
@@ -98,6 +90,9 @@ function UserDateCard({ classes, userDate }) {
 
   return (
     <Card elevation={3} className={classes.card}>
+      <div className={classes.cardHeader}>
+        <DateMap placeIds={placeIds} />
+      </div>
       <CardContent className={classes.cardHeader}>
         <IconButton
           className={classes.editButton}
@@ -118,8 +113,7 @@ function UserDateCard({ classes, userDate }) {
         <Typography variant="body2" className={[classes.cardHeaderText, classes.italic].join(' ')}>
           {userDate.notes}
         </Typography>
-      </CardContent>
-      <CardContent>
+        <Divider className={classes.cardHeaderDivider} />
         <Typography variant="subtitle2" className={classes.dateTitle}>
           {dateObj.name}
         </Typography>
