@@ -53,7 +53,7 @@ function TagsRow({ classes }) {
         <Chip
           key={tag.name}
           label={tag.name}
-          className={chipClasses}
+          className={chipClasses.join(' ')}
           disabled={isCategoryToggled}
           onClick={isCategoryToggled ? null : () => addTagFilter(tag, isTagToggled)}
         />

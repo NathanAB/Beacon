@@ -15,7 +15,6 @@ const styles = theme => ({
     fontWeight: 600,
   },
   container: {
-    maxWidth: '768px',
     margin: 'auto',
   },
 });

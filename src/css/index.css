@@ -24,3 +24,24 @@ button {
 .MuiChip-root {
   border-radius: 4px !important;
 }
+
+.gm-style button {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+.gm-style [role="button"] {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+.gm-bundled-control {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+.gm-style-mtc {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}

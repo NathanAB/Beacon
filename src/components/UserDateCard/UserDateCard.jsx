@@ -1,6 +1,19 @@
 import React from 'react';
 import { withStyles, useTheme } from '@material-ui/core/styles';
-import { Card, CardContent, Divider, Typography, Chip, IconButton, Icon } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  Divider,
+  Paper,
+  Typography,
+  Chip,
+  IconButton,
+  Icon,
+} from '@material-ui/core';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import StepContent from '@material-ui/core/StepContent';
 import moment from 'moment';
 import { uniq, uniqBy, map } from 'lodash';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -55,6 +68,9 @@ const styles = theme => ({
     right: '5px',
     color: 'white',
   },
+  dateSteps: {
+    padding: '10px 0',
+  },
 });
 
 function UserDateCard({ classes, userDate }) {
@@ -88,10 +104,27 @@ function UserDateCard({ classes, userDate }) {
     store.set('editDate')(userDate);
   };
 
+  const renderSections = () => {
+    return (
+      <Stepper nonLinear orientation="vertical" className={classes.dateSteps}>
+        {sections.map(section => {
+          return (
+            <Step active key={section.spot.name}>
+              <StepLabel>{section.spot.name}</StepLabel>
+              <StepContent>
+                <Typography variant="body2">{section.description}</Typography>
+              </StepContent>
+            </Step>
+          );
+        })}
+      </Stepper>
+    );
+  };
+
   return (
     <Card elevation={3} className={classes.card}>
       <div className={classes.cardHeader}>
-        <DateMap placeIds={placeIds} />
+        <DateMap className={classes.cardHeader} placeIds={placeIds} />
       </div>
       <CardContent className={classes.cardHeader}>
         <IconButton
@@ -114,13 +147,11 @@ function UserDateCard({ classes, userDate }) {
           {userDate.notes}
         </Typography>
         <Divider className={classes.cardHeaderDivider} />
-        <Typography variant="subtitle2" className={classes.dateTitle}>
+        {/* <Typography variant="h6" className={classes.dateTitle}>
           {dateObj.name}
-        </Typography>
-        <Typography variant="subtitle2" gutterBottom>
-          {`${dateLocations} • ${dateHours} hrs • ${dateCostString}`}
-        </Typography>
-        {renderAllTags()}
+        </Typography> */}
+        <Typography variant="body2">{dateObj.description}</Typography>
+        {renderSections()}
       </CardContent>
     </Card>
   );

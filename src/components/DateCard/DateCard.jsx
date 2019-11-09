@@ -232,7 +232,7 @@ const DateCard = React.forwardRef(
         >
           <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
           <CardContent className={classes.cardContent}>
-            <Typography variant="subtitle1" className={classes.cardHeader}>
+            <Typography variant="h6" className={classes.cardHeader}>
               {dateObj.name}
             </Typography>
             <Typography variant="subtitle2" gutterBottom className={classes.cardSubheader}>

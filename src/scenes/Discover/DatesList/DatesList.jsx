@@ -23,7 +23,7 @@ function DatesList({ children, isMyDates }) {
   const gridCards = children.map((child, i) => <Grid key={i} item xs>{ child }</Grid>);
 
   return (
-    <Grid container direction="row" justify="space-around" alignItems="flex-start" spacing={2}>
+    <Grid container direction="row" justify="space-around" alignItems="flex-start" spacing={3}>
       {gridCards}
     </Grid>
   );
