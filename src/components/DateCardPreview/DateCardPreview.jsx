@@ -116,7 +116,7 @@ const DateCard = React.forwardRef(
           'B3SmeUhFcZm',
         ];
         const imageUrl = `https://instagram.com/p/${
-          testImages[Math.floor(Math.random() * testImages.length)]
+          testImages[Math.floor(section.spotId % 9)]
         }/media/?size=m`;
         return (
           <div
