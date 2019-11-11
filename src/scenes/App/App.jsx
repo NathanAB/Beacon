@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
+import ReactGA from 'react-ga';
 
 import * as api from '../../api';
 import Header from '../Header/Header';
@@ -54,6 +55,7 @@ function App() {
       const authData = await api.auth();
       if (authData) {
         store.set('user')(authData);
+        ReactGA.set({ userEmail: authData.email });
         getUserDates();
       }
     };
