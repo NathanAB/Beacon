@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Typography } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -46,9 +46,6 @@ function filterDates(dateObjs, filters) {
 }
 
 function Discover() {
-  const [tagFilters, setTagFilters] = useState([]);
-  const [locationFilters, setLocationFilters] = useState([]);
-  const [costFilters, setCostFilters] = useState([]);
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const focusedRef = useRef(null);
@@ -79,45 +76,6 @@ function Discover() {
     }
   }, [focusedDate, focusedRef]);
 
-  const toggleTag = value => () => {
-    const currentIndex = tagFilters.indexOf(value);
-    const newTagFilters = [...tagFilters];
-
-    if (currentIndex === -1) {
-      newTagFilters.push(value);
-    } else {
-      newTagFilters.splice(currentIndex, 1);
-    }
-
-    setTagFilters(newTagFilters);
-  };
-
-  const toggleLocationFilter = value => () => {
-    const currentIndex = locationFilters.indexOf(value);
-    const newLocationFilters = [...locationFilters];
-
-    if (currentIndex === -1) {
-      newLocationFilters.push(value);
-    } else {
-      newLocationFilters.splice(currentIndex, 1);
-    }
-
-    setLocationFilters(newLocationFilters);
-  };
-
-  const toggleCostFilter = value => () => {
-    const currentIndex = costFilters.indexOf(value);
-    const newCostFilters = [...costFilters];
-
-    if (currentIndex === -1) {
-      newCostFilters.push(value);
-    } else {
-      newCostFilters.splice(currentIndex, 1);
-    }
-
-    setCostFilters(newCostFilters);
-  };
-
   function renderContent() {
     if (isFilterPageOpen) {
       return <FilterPage />;
@@ -135,21 +93,14 @@ function Discover() {
         <Typography variant="h6" style={{ fontWeight: 600 }}>
           Explore by Characteristic
         </Typography>
-        <TagsRow />
+        <TagsRow isDiscover />
       </>
     );
   }
 
   return (
     <React.Fragment>
-      <FilterBar
-        toggleTag={toggleTag}
-        tagFilters={tagFilters}
-        toggleLocationFilter={toggleLocationFilter}
-        locationFilters={locationFilters}
-        toggleCostFilter={toggleCostFilter}
-        costFilters={costFilters}
-      />
+      <FilterBar />
       {renderContent()}
     </React.Fragment>
   );

@@ -7,9 +7,9 @@ import ReactGA from 'react-ga';
 import * as api from '../../api';
 import Header from '../Header/Header';
 import BottomNav from '../BottomNav/BottomNav';
-import CONSTANTS from '../../constants';
 import Body from '../Body/Body';
 import Store from '../../store';
+import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
 
 const theme = createMuiTheme({
   palette: {
@@ -85,25 +85,15 @@ function App() {
     getTags();
   }, []);
 
-  function onChangeTab(newTab) {
-    if (newTab === CONSTANTS.TABS.DISCOVER) {
-      store.set('filters')([]);
-      store.set('isFilterPageOpen')(false);
-    }
-
-    store.set('currentTab')(newTab);
-  }
-
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <Header />
-          <Body
-            currentTab={currentTab}
-            cancelCheckout={() => {}} // TODO
-          />
-          <BottomNav onChange={onChangeTab} />
+          <ErrorBoundary>
+            <Header />
+            <Body currentTab={currentTab} />
+            <BottomNav />
+          </ErrorBoundary>
         </MuiPickersUtilsProvider>
       </MuiThemeProvider>
     </div>

@@ -6,6 +6,7 @@ import { DateTimePicker } from '@material-ui/pickers';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
+import ReactGA from 'react-ga';
 
 import Store from '../../store';
 import Constants from '../../constants';
@@ -82,8 +83,18 @@ function AddDateForm({ classes }) {
     };
 
     if (isEditing) {
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Save User Date',
+        label: editDate.id.toString(),
+      });
       await api.updateUserDate(newUserDate);
     } else {
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Create User Date',
+        label: checkoutDate.name,
+      });
       await api.createUserDate(newUserDate);
     }
 
@@ -95,10 +106,17 @@ function AddDateForm({ classes }) {
     store.set('currentTab')(Constants.TABS.MY_DATES);
     store.set('checkoutDate')(false);
     store.set('editDate')(false);
+    ReactGA.pageview(Constants.TABS.MY_DATES);
     setIsSaving(false);
   };
 
   const cancelCheckout = () => {
+    console.log(editDate, checkoutDate);
+    ReactGA.event({
+      category: 'Interaction',
+      action: editDate ? 'Cancel Edit User Date' : 'Cancel Checkout',
+      label: editDate ? editDate.id.toString() : checkoutDate.name,
+    });
     store.set('checkoutDate')(false);
     store.set('editDate')(false);
   };
@@ -108,6 +126,11 @@ function AddDateForm({ classes }) {
     if (!confirm) {
       return;
     }
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Delete User Date',
+      label: editDate.id.toString(),
+    });
     setIsSaving(true);
     await api.deleteUserDate(editDate);
     userDates = userDates.filter(date => date.id !== editDate.id);

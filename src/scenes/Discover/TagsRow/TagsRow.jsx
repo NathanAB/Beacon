@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Chip } from '@material-ui/core';
+import { Chip } from '@material-ui/core';
+import ReactGA from 'react-ga';
 import Store from '../../../store';
 
 const styles = theme => ({
@@ -20,12 +20,24 @@ const styles = theme => ({
   },
 });
 
-function TagsRow({ classes }) {
+function TagsRow({ classes, isDiscover }) {
   const store = Store.useStore();
   const tags = store.get('tags');
   const filters = store.get('filters');
 
   function addTagFilter(tag) {
+    if (isDiscover) {
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Focus Tag',
+        label: tag.name,
+      });
+    }
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Toggle Filter On',
+      label: tag.name,
+    });
     filters.push({ type: 'tag', value: tag.name, categoryId: tag.categoryId });
     store.set('filters')(filters);
   }
@@ -49,13 +61,17 @@ function TagsRow({ classes }) {
         chipClasses.push(classes.tagChipDisabled);
       }
 
+      const focusTag = () => {
+        addTagFilter(tag, isTagToggled);
+      };
+
       return (
         <Chip
           key={tag.name}
           label={tag.name}
           className={chipClasses.join(' ')}
           disabled={isCategoryToggled}
-          onClick={isCategoryToggled ? null : () => addTagFilter(tag, isTagToggled)}
+          onClick={isCategoryToggled ? null : focusTag}
         />
       );
     });

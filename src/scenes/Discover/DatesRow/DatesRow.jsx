@@ -3,6 +3,7 @@ import { withStyles, useTheme } from '@material-ui/core/styles';
 import { Typography, IconButton, Icon } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ReactGA from 'react-ga';
 
 import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
 import Store from '../../../store';
@@ -51,6 +52,11 @@ function DatesRow({ classes }) {
         wheel={false}
         translate={1}
         onSelect={dateId => {
+          ReactGA.event({
+            category: 'Interaction',
+            action: 'Focus Date',
+            label: dateId.toString(),
+          });
           store.set('focusedDate')(dateId);
         }}
         arrowLeft={

@@ -2,13 +2,14 @@ import React from 'react';
 import { withStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import moment from 'moment';
+import ReactGA from 'react-ga';
 
-import { Typography, Link, Button } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import Store from '../../store';
 import DatesList from '../Discover/DatesList/DatesList';
 import UserDateCard from '../../components/UserDateCard/UserDateCard';
 
-const styles = theme => ({
+const styles = () => ({
   title: {
     marginTop: '10px',
     marginBottom: '25px',
@@ -43,6 +44,11 @@ function MyDates({ classes }) {
         color="primary"
         type="button"
         onClick={() => {
+          ReactGA.event({
+            category: 'Interaction',
+            action: 'Open Login Dialog',
+            label: 'My Dates Page',
+          });
           store.set('isLoginDialogOpen')(true);
         }}
       >

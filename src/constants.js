@@ -5,8 +5,8 @@ const KEYS = {
 
 export default {
   TABS: {
-    DISCOVER: 'discover',
-    MY_DATES: 'my-dates',
+    DISCOVER: '/discover',
+    MY_DATES: '/my-dates',
   },
   API: {
     AUTH: `${API_URL}/api/auth`,

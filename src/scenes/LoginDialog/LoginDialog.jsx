@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Dialog, DialogTitle, DialogContent, Button, IconButton } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import ReactGA from 'react-ga';
 
 import Store from '../../store';
 import Constants from '../../constants';
@@ -39,6 +40,10 @@ function LoginDialog({ classes }) {
   const isLoginDialogOpen = store.get('isLoginDialogOpen');
 
   const closeDialog = () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Close Login Dialog',
+    });
     store.set('isLoginDialogOpen')(false);
   };
 
@@ -58,6 +63,11 @@ function LoginDialog({ classes }) {
           fullWidth
           className={classes.loginButton}
           onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Login with Google',
+              label: 'Login Dialog',
+            });
             window.location = Constants.API.LOGIN_GOOGLE;
           }}
         >
@@ -71,6 +81,11 @@ function LoginDialog({ classes }) {
           fullWidth
           className={classes.loginButton}
           onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Login with Facebook',
+              label: 'Login Dialog',
+            });
             window.location = Constants.API.FACEBOOK;
           }}
         >

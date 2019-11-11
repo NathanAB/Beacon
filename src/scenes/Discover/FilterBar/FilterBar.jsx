@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { withStyles, Typography, Icon, Chip } from '@material-ui/core';
+import ReactGA from 'react-ga';
 
 import Store from '../../../store';
 
@@ -44,11 +45,16 @@ const styles = {
   },
 };
 
-function Filters({ classes }) {
+function FilterBar({ classes }) {
   const store = Store.useStore();
   const filters = store.get('filters');
 
   const removeFilter = filterToRemove => () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Toggle Filter Off',
+      label: filterToRemove.value,
+    });
     const newFilters = filters.filter(filter => filter.value !== filterToRemove.value);
     store.set('filters')(newFilters);
   };
@@ -77,7 +83,13 @@ function Filters({ classes }) {
     <button
       type="button"
       className={classes.search}
-      onClick={() => store.set('isFilterPageOpen')(true)}
+      onClick={() => {
+        ReactGA.event({
+          category: 'Interaction',
+          action: 'Open Filter Page',
+        });
+        store.set('isFilterPageOpen')(true);
+      }}
     >
       <span className={classes.searchIcon}>
         <Icon>filter_list</Icon>
@@ -87,8 +99,8 @@ function Filters({ classes }) {
   );
 }
 
-Filters.propTypes = {
+FilterBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Filters);
+export default withStyles(styles)(FilterBar);

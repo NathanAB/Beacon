@@ -1,12 +1,12 @@
 import React from 'react';
-import { withStyles, useTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Divider, Typography, IconButton, Icon } from '@material-ui/core';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import StepContent from '@material-ui/core/StepContent';
 import moment from 'moment';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ReactGA from 'react-ga';
 
 import Store from '../../store';
 import DateMap from './components/DateMap/DateMap';
@@ -64,8 +64,6 @@ const styles = theme => ({
 });
 
 function UserDateCard({ classes, userDate }) {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const store = Store.useStore();
   const dateObjs = store.get('dates');
   const dateObj = dateObjs.find(d => d.id === userDate.dateId);
@@ -75,6 +73,11 @@ function UserDateCard({ classes, userDate }) {
   const placeIds = sections.map(s => s.spot.placeId);
 
   const editDate = () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Edit User Date',
+      label: userDate.dateId.toString(),
+    });
     store.set('editDate')(userDate);
   };
 

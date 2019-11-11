@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Icon from '@material-ui/core/Icon';
+import ReactGA from 'react-ga';
 
 import CONSTANTS from '../../constants';
 import Store from '../../store';
@@ -34,6 +35,7 @@ function BottomNav({ classes }) {
       value={currentTab}
       showLabels
       onChange={(event, value) => {
+        ReactGA.pageview(value);
         store.set('currentTab')(value);
         store.set('filters')([]);
         store.set('focusedDate')(false);

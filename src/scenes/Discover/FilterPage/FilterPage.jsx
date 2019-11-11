@@ -1,6 +1,7 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { withStyles, Typography, Chip, Button } from '@material-ui/core';
+import ReactGA from 'react-ga';
 
 import Store from '../../../store';
 import TagsRow from '../TagsRow/TagsRow';
@@ -82,6 +83,11 @@ function FilterPage({ classes }) {
   const neighborhoods = store.get('neighborhoods');
 
   function toggleFilter(type, value) {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Toggle Filter On',
+      label: value.toString(),
+    });
     const newFilters = filters.concat({ type, value });
     store.set('filters')(newFilters);
   }
@@ -95,6 +101,7 @@ function FilterPage({ classes }) {
       const color = isTagToggled ? 'primary' : 'default';
       return (
         <Chip
+          key={option}
           color={color}
           label={option}
           className={classes.tagChip}
@@ -129,7 +136,13 @@ function FilterPage({ classes }) {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => store.set('isFilterPageOpen')(false)}
+        onClick={() => {
+          ReactGA.event({
+            category: 'Interaction',
+            action: 'Close Filter Page',
+          });
+          store.set('isFilterPageOpen')(false);
+        }}
       >
         Search
       </Button>

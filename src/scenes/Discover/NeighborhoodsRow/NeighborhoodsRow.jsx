@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles, useTheme } from '@material-ui/core/styles';
 import { Typography, IconButton, Icon } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ReactGA from 'react-ga';
 
 import Store from '../../../store';
 import placeholderImg from '../../../assets/img/placeholder.png';
@@ -56,6 +56,17 @@ function NeighborhoodsRow({ classes }) {
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   function addFilter(neighborhood) {
+    console.log(neighborhood);
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Focus Neighborhood',
+      label: neighborhood.name,
+    });
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Toggle Filter On',
+      label: neighborhood.name,
+    });
     store.set('filters')([{ type: 'neighborhood', value: neighborhood }]);
   }
 
@@ -85,7 +96,9 @@ function NeighborhoodsRow({ classes }) {
       <ScrollMenu
         data={renderNeighborhoods(classes)}
         wheel={false}
-        onSelect={neighborhood => addFilter(neighborhood)}
+        onSelect={neighborhood => {
+          addFilter(neighborhood);
+        }}
         translate={1}
         arrowLeft={
           isDesktop && (

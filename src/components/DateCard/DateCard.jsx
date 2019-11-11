@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Collapse from '@material-ui/core/Collapse';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ReactGA from 'react-ga';
 
 import Store from '../../store';
 import { costToString } from '../../utils';
@@ -135,8 +136,18 @@ const DateCard = React.forwardRef(
     function checkoutDate(e) {
       e.stopPropagation();
       if (user) {
+        ReactGA.event({
+          category: 'Interaction',
+          action: 'Begin Checkout',
+          label: dateObj.name,
+        });
         store.set('checkoutDate')(dateObj);
       } else {
+        ReactGA.event({
+          category: 'Interaction',
+          action: 'Open Login Dialog',
+          label: 'Discover Page',
+        });
         store.set('isLoginDialogOpen')(true);
       }
     }
@@ -220,6 +231,11 @@ const DateCard = React.forwardRef(
         <CardActionArea
           onClick={() => {
             onClick();
+            ReactGA.event({
+              category: 'Interaction',
+              action: isExpanded ? 'Collapse Date' : 'Expand Date',
+              label: dateObj.name,
+            });
             return !noExpand && !isDesktop && setIsExpanded(!isExpanded);
           }}
           className={classes.actionArea}

@@ -10,6 +10,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { Typography, Divider, Link } from '@material-ui/core';
+import ReactGA from 'react-ga';
 
 import CONSTANTS from '../../constants';
 import Store from '../../store';
@@ -68,6 +69,7 @@ function Header(props) {
   }
 
   const goToDiscover = () => {
+    ReactGA.pageview(CONSTANTS.TABS.DISCOVER);
     store.set('currentTab')(CONSTANTS.TABS.DISCOVER);
     store.set('filters')([]);
     store.set('focusedDate')(false);
@@ -110,13 +112,29 @@ function Header(props) {
               </MenuItem>
               <Divider />
               <Link href={CONSTANTS.API.LOGOUT}>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    ReactGA.event({
+                      category: 'Interaction',
+                      action: 'Logout',
+                      label: 'Dropdown Menu',
+                    });
+                    handleClose();
+                  }}
+                >
+                  Logout
+                </MenuItem>
               </Link>
             </MenuList>
           ) : (
             <MenuList>
               <MenuItem
                 onClick={() => {
+                  ReactGA.event({
+                    category: 'Interaction',
+                    action: 'Login with Google',
+                    label: 'Dropdown Menu',
+                  });
                   window.location = CONSTANTS.API.LOGIN_GOOGLE;
                 }}
               >
@@ -125,6 +143,11 @@ function Header(props) {
               </MenuItem>
               <MenuItem
                 onClick={() => {
+                  ReactGA.event({
+                    category: 'Interaction',
+                    action: 'Login with Facebook',
+                    label: 'Dropdown Menu',
+                  });
                   window.location = CONSTANTS.API.LOGIN_FACEBOOK;
                 }}
               >
