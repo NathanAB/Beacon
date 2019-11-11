@@ -11,8 +11,19 @@ import Chip from '@material-ui/core/Chip';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import placeholderImg from '../../assets/img/placeholder.png';
 import { costToString } from '../../utils';
+
+const testImages = [
+  'B3SmuPzFijg',
+  'B3SmsUDlZf_',
+  'B3Smq1Tl0hc',
+  'B3Smoh8l6AY',
+  'B3Smm19le66',
+  'B3Smks7lZXU',
+  'B3SmimgFJrr',
+  'B3Smg32lZJ4',
+  'B3SmeUhFcZm',
+];
 
 const styles = theme => ({
   container: {
@@ -104,25 +115,19 @@ const DateCard = React.forwardRef(
     function renderThumbnails() {
       // eslint-disable-next-line arrow-body-style
       const thumbnails = dateObj.sections.map(section => {
-        const testImages = [
-          'B3SmuPzFijg',
-          'B3SmsUDlZf_',
-          'B3Smq1Tl0hc',
-          'B3Smoh8l6AY',
-          'B3Smm19le66',
-          'B3Smks7lZXU',
-          'B3SmimgFJrr',
-          'B3Smg32lZJ4',
-          'B3SmeUhFcZm',
-        ];
-        const imageUrl = `https://instagram.com/p/${
+        const placeholderImg = `https://instagram.com/p/${
           testImages[Math.floor(section.spotId % 9)]
-        }/media/?size=m`;
+        }/media/?size=l`;
+
+        const imageUrl = section.image
+          ? `https://instagram.com/p/${section.image}/media/?size=l`
+          : placeholderImg;
+
         return (
           <div
             className={classes.thumbnailImage}
             key={section.spot.name}
-            style={{ backgroundImage: `url(${imageUrl || placeholderImg})` }}
+            style={{ backgroundImage: `url(${imageUrl})` }}
           />
         );
       });

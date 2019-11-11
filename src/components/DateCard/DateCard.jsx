@@ -10,12 +10,22 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Collapse from '@material-ui/core/Collapse';
-import { CardActions } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import placeholderImg from '../../assets/img/placeholder.png';
 import Store from '../../store';
 import { costToString } from '../../utils';
+
+const testImages = [
+  'B3SmuPzFijg',
+  'B3SmsUDlZf_',
+  'B3Smq1Tl0hc',
+  'B3Smoh8l6AY',
+  'B3Smm19le66',
+  'B3Smks7lZXU',
+  'B3SmimgFJrr',
+  'B3Smg32lZJ4',
+  'B3SmeUhFcZm',
+];
 
 const styles = theme => ({
   container: {
@@ -23,18 +33,14 @@ const styles = theme => ({
     minHeight: '278px',
   },
   card: {
-    width: '320px',
-    'max-width': '100%',
+    width: '100%',
     position: 'relative',
     overflow: 'visible',
     margin: 'auto',
     border: '1px solid lightgray',
-    [theme.breakpoints.up('sm')]: {
-      width: '100%',
-    },
   },
   cardContent: {
-    width: '318px',
+    width: '100%',
     maxWidth: 'calc(100% - 32px)',
     padding: '0.5rem 1rem',
     backgroundColor: theme.palette.primary.contrastText,
@@ -147,26 +153,14 @@ const DateCard = React.forwardRef(
     function renderThumbnails() {
       // eslint-disable-next-line arrow-body-style
       const thumbnails = dateObj.sections.map(section => {
-        // TODO - Example code ONLY, replace when instagram imgs are ready
-        const testImages = [
-          'B3SmuPzFijg',
-          'B3SmsUDlZf_',
-          'B3Smq1Tl0hc',
-          'B3Smoh8l6AY',
-          'B3Smm19le66',
-          'B3Smks7lZXU',
-          'B3SmimgFJrr',
-          'B3Smg32lZJ4',
-          'B3SmeUhFcZm',
-        ];
-        const imageUrl = `https://instagram.com/p/${
+        const placeholderImg = `https://instagram.com/p/${
           testImages[Math.floor(section.spotId % 9)]
         }/media/?size=l`;
 
-        // TODO - Uncomment once instagram imgs are ready
-        // const imageUrl = section.image
-        //   ? `https://instagram.com/p/${section.image}/media/?size=m`
-        //   : placeholderImg;
+        const imageUrl = section.image
+          ? `https://instagram.com/p/${section.image}/media/?size=l`
+          : placeholderImg;
+
         return (
           <div
             className={classes.thumbnailImage}
