@@ -2,10 +2,5 @@
   "root": "build/",
   "routes": {
     "/**": "index.html"
-  },
-  "headers": {
-    "/**": {
-      "Cache-Control": "no-store, no-cache"
-    }
   }
 }
