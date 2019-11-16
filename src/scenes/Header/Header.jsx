@@ -5,11 +5,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import { Typography, Divider, Link } from '@material-ui/core';
+import { ButtonBase, Typography, Divider, Link, Menu, MenuItem, MenuList } from '@material-ui/core';
+
 import ReactGA from 'react-ga';
 
 import CONSTANTS from '../../constants';
@@ -25,6 +22,7 @@ const styles = theme => ({
     marginLeft: theme.spacing(1),
   },
   accountButton: {
+    color: 'black',
     marginRight: theme.spacing(1),
   },
   toolbar: {
@@ -48,6 +46,11 @@ const styles = theme => ({
   title: {
     fontWeight: 800,
     letterSpacing: '5px',
+    textTransform: 'uppercase',
+    transition: '0.25s',
+    '&:hover': {
+      color: 'black',
+    },
     [theme.breakpoints.up('sm')]: {
       fontSize: '28px',
       letterSpacing: '6px',
@@ -83,18 +86,18 @@ function Header(props) {
         <IconButton className={classes.accountButton}>
           <Icon></Icon>
         </IconButton>
-        <Button>
+        <ButtonBase>
           <Typography variant="h5" color="primary" className={classes.title} onClick={goToDiscover}>
             Beacon
           </Typography>
-        </Button>
+        </ButtonBase>
         <IconButton
           aria-controls="simple-menu"
           aria-haspopup="true"
           onClick={handleClick}
           className={classes.accountButton}
         >
-          <Icon>account_circle</Icon>
+          <Icon>person</Icon>
         </IconButton>
         <Menu
           id="simple-menu"

@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, IconButton, Icon } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ReactGA from 'react-ga';
@@ -10,16 +10,21 @@ import Store from '../../../store';
 
 const styles = () => ({
   container: {
-    margin: '1rem 0',
+    margin: '12px 0',
   },
   dateContainer: {
-    'margin-right': '1.5rem',
+    marginRight: '1.5rem',
   },
   icon: {
     width: '5rem',
     height: '5rem',
     'background-size': 'cover',
     'border-radius': '2.5rem',
+  },
+  titleBar: {
+    marginBottom: '5px',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   title: {
     fontWeight: 600,
@@ -29,8 +34,6 @@ const styles = () => ({
 function DatesRow({ classes }) {
   const store = Store.useStore();
   const DateObjs = store.get('dates');
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   function renderDates() {
     return DateObjs.map(date => {
@@ -44,13 +47,17 @@ function DatesRow({ classes }) {
 
   return (
     <section className={classes.container}>
-      <Typography variant="h6" className={classes.title}>
-        Discover Dates
-      </Typography>
+      <div className={classes.titleBar}>
+        <Typography variant="h6" className={classes.title}>
+          Discover Dates
+        </Typography>
+        <Button variant="subtitle1" onClick={() => store.set('focusedDate')(-1)}>
+          View All
+        </Button>
+      </div>
       <ScrollMenu
         data={renderDates(classes)}
         wheel={false}
-        translate={1}
         onSelect={dateId => {
           ReactGA.event({
             category: 'Interaction',
@@ -59,20 +66,6 @@ function DatesRow({ classes }) {
           });
           store.set('focusedDate')(dateId);
         }}
-        arrowLeft={
-          isDesktop && (
-            <IconButton>
-              <Icon>chevron_left</Icon>
-            </IconButton>
-          )
-        }
-        arrowRight={
-          isDesktop && (
-            <IconButton>
-              <Icon>chevron_right</Icon>
-            </IconButton>
-          )
-        }
       />
     </section>
   );

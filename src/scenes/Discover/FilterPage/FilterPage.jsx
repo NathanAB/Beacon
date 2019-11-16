@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { withStyles, Typography, Chip, Button } from '@material-ui/core';
+import { withStyles, Typography, Chip, Button, Box } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
 import Store from '../../../store';
@@ -73,6 +73,12 @@ const styles = theme => ({
       marginBottom: '35px',
     },
   },
+  sectionTitle: {
+    fontWeight: 600,
+  },
+  searchButton: {
+    textAlign: 'right',
+  },
 });
 
 function FilterPage({ classes }) {
@@ -114,38 +120,49 @@ function FilterPage({ classes }) {
   return (
     <div>
       <section className={classes.filterSection}>
-        <Typography variant="h6">Cost</Typography>
+        <Typography variant="h6" className={classes.sectionTitle}>
+          Cost
+        </Typography>
         {renderFilterSection(costs, 'cost')}
       </section>
 
       <section className={classes.filterSection}>
-        <Typography variant="h6">Duration</Typography>
+        <Typography variant="h6" className={classes.sectionTitle}>
+          Duration
+        </Typography>
         {renderFilterSection(durations, 'duration')}
       </section>
 
       <section className={classes.filterSection}>
-        <Typography variant="h6">Location</Typography>
+        <Typography variant="h6" className={classes.sectionTitle}>
+          Location
+        </Typography>
         {renderFilterSection(neighborhoods.map(n => n.name), 'neighborhood')}
       </section>
 
       <section className={classes.filterSection}>
-        <Typography variant="h6">Characteristic</Typography>
+        <Typography variant="h6" className={classes.sectionTitle}>
+          Characteristic
+        </Typography>
         <TagsRow />
       </section>
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          ReactGA.event({
-            category: 'Interaction',
-            action: 'Close Filter Page',
-          });
-          store.set('isFilterPageOpen')(false);
-        }}
-      >
-        Search
-      </Button>
+      <Box display="flex" flexDirection="row-reverse">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.searchButton}
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Close Filter Page',
+            });
+            store.set('isFilterPageOpen')(false);
+          }}
+        >
+          Search
+        </Button>
+      </Box>
     </div>
   );
 }

@@ -9,7 +9,7 @@ const styles = {
   search: {
     position: 'relative',
     borderRadius: '12px',
-    border: '1px solid gray',
+    border: '1px solid lightgray',
     width: '100%',
     padding: '0.2rem 0',
     textAlign: 'left',
@@ -73,7 +73,7 @@ function FilterBar({ classes }) {
       });
     }
     return (
-      <Typography variant="body2" className={classes.placeholder}>
+      <Typography variant="subtitle1" className={classes.placeholder}>
         Have a specific thing in mind?
       </Typography>
     );

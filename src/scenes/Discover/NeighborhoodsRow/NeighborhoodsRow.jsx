@@ -1,8 +1,7 @@
 import React from 'react';
-import { withStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, IconButton, Icon } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { Typography, Button, ButtonBase } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ReactGA from 'react-ga';
 
 import Store from '../../../store';
@@ -10,7 +9,7 @@ import placeholderImg from '../../../assets/img/placeholder.png';
 
 const styles = theme => ({
   container: {
-    margin: '1rem 0',
+    margin: '12px 0',
   },
   neighborhood: {
     display: 'inline-block',
@@ -30,30 +29,36 @@ const styles = theme => ({
     borderRadius: '45px',
     backgroundSize: 'cover',
     backgroundPosition: 'center center',
+    marginBottom: '5px',
     [theme.breakpoints.up('sm')]: {
       height: '100px',
       width: '100px',
       borderRadius: '50px',
     },
   },
+  titleBar: {
+    marginBottom: '5px',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
   title: {
     fontWeight: 600,
   },
   caption: {
+    fontWeight: 600,
     whiteSpace: 'normal',
     fontSize: '13px',
+    lineHeight: '22px',
+    fontFamily: 'Raleway',
     [theme.breakpoints.up('sm')]: {
       fontSize: '16px',
     },
-    fontFamily: 'Raleway',
   },
 });
 
 function NeighborhoodsRow({ classes }) {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
   function addFilter(neighborhood) {
     console.log(neighborhood);
@@ -73,7 +78,7 @@ function NeighborhoodsRow({ classes }) {
   function renderNeighborhoods() {
     return neighborhoods.map(neighborhood => {
       return (
-        <span key={neighborhood.name} className={classes.neighborhood}>
+        <ButtonBase type="button" key={neighborhood.name} className={classes.neighborhood}>
           <div
             className={classes.icon}
             style={{
@@ -83,16 +88,21 @@ function NeighborhoodsRow({ classes }) {
           <Typography variant="subtitle1" className={classes.caption}>
             {neighborhood.name}
           </Typography>
-        </span>
+        </ButtonBase>
       );
     });
   }
 
   return (
     <section className={classes.container}>
-      <Typography variant="h6" className={classes.title}>
-        Browse by Neighborhood
-      </Typography>
+      <div className={classes.titleBar}>
+        <Typography variant="h6" className={classes.title}>
+          Browse Dates by Neighborhood
+        </Typography>
+        <Button variant="subtitle1" onClick={() => store.set('focusedDate')(-1)}>
+          View All
+        </Button>
+      </div>
       <ScrollMenu
         data={renderNeighborhoods(classes)}
         wheel={false}
@@ -100,20 +110,6 @@ function NeighborhoodsRow({ classes }) {
           addFilter(neighborhood);
         }}
         translate={1}
-        arrowLeft={
-          isDesktop && (
-            <IconButton>
-              <Icon>chevron_left</Icon>
-            </IconButton>
-          )
-        }
-        arrowRight={
-          isDesktop && (
-            <IconButton>
-              <Icon>chevron_right</Icon>
-            </IconButton>
-          )
-        }
       />
     </section>
   );

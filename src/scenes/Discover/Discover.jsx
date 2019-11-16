@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import { withStyles, useTheme } from '@material-ui/core/styles';
 
 import Store from '../../store';
+import { filterDates } from '../../utils';
 import FilterBar from './FilterBar/FilterBar';
 import DatesList from './DatesList/DatesList';
 import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
@@ -12,40 +13,17 @@ import TagsRow from './TagsRow/TagsRow';
 import DateCard from '../../components/DateCard/DateCard';
 import FilterPage from './FilterPage/FilterPage';
 
-function filterDates(dateObjs, filters) {
-  if (!filters.length) {
-    return dateObjs;
-  }
+const styles = {
+  titleBar: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  title: {
+    fontWeight: 600,
+  },
+};
 
-  return dateObjs.filter(date => {
-    const filtersMet = filters.filter(filter => {
-      const totalTime = date.sections.reduce((total, section) => total + section.minutes, 0);
-      switch (filter.type) {
-        // Filter condition met if one of the date sections contains the criterion
-        case 'tag':
-          return date.sections.find(section => section.tags.find(tag => tag.name === filter.value));
-        case 'neighborhood':
-          return date.sections.find(section => section.spot.neighborhood.name === filter.value);
-        case 'cost':
-          return date.sections.find(section => {
-            if (filter.value === 'Free' && section.cost === 0) {
-              return true;
-            }
-            return section.cost === filter.value.length;
-          });
-        case 'duration':
-          // eslint-disable-next-line
-          const filterMinutes = parseInt(filter.value.slice(0, 1)) * 60;
-          return totalTime <= filterMinutes + 30 && totalTime >= filterMinutes - 30;
-        default:
-          return false;
-      }
-    }).length;
-    return filtersMet === filters.length;
-  });
-}
-
-function Discover() {
+function Discover({ classes }) {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const focusedRef = useRef(null);
@@ -63,7 +41,7 @@ function Discover() {
       <DateCard
         key={date.id}
         dateObj={date}
-        defaultExpanded={isDesktop || isFocusedDate}
+        defaultExpanded={isDesktop}
         ref={isFocusedDate ? focusedRef : null}
       />
     );
@@ -90,9 +68,14 @@ function Discover() {
         <DatesRow />
         <NeighborhoodsRow />
 
-        <Typography variant="h6" style={{ fontWeight: 600 }}>
-          Explore by Characteristic
-        </Typography>
+        <div className={classes.titleBar}>
+          <Typography variant="h6" className={classes.title}>
+            Explore Dates by Characteristic
+          </Typography>
+          <Button variant="subtitle1" onClick={() => store.set('focusedDate')(-1)}>
+            View All
+          </Button>
+        </div>
         <TagsRow isDiscover />
       </>
     );
@@ -106,4 +89,4 @@ function Discover() {
   );
 }
 
-export default Discover;
+export default withStyles(styles)(Discover);

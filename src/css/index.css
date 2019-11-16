@@ -45,3 +45,16 @@ button {
   pointer-events: none;
   visibility: hidden;
 }
+
+.MuiChip-root {
+  font-family: Raleway !important;
+}
+
+.MuiButton-label {
+  font-family: Raleway !important;
+}
+
+.MuiButton-contained {
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}

@@ -12,7 +12,7 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       margin: '18px 18px 0 0',
       padding: '18px 10px',
-      fontSize: '16px',
+      fontSize: '15px',
     },
   },
   tagChipDisabled: {

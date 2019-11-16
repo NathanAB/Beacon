@@ -53,10 +53,11 @@ const styles = theme => ({
     textTransform: 'uppercase',
   },
   editButton: {
+    color: 'black',
     top: '5px',
     position: 'absolute',
     right: '5px',
-    color: 'white',
+    backgroundColor: 'transparent !important',
   },
   dateSteps: {
     padding: '10px 0',
@@ -99,13 +100,13 @@ function UserDateCard({ classes, userDate }) {
   };
 
   return (
-    <Card elevation={3} className={classes.card}>
+    <Card elevation={0} className={classes.card} square>
       <div className={classes.cardHeader}>
         <DateMap className={classes.cardHeader} placeIds={placeIds} />
       </div>
       <CardContent className={classes.cardHeader}>
         <IconButton className={classes.editButton} onClick={editDate} color="primary">
-          <Icon color="primary">edit</Icon>
+          <Icon>edit</Icon>
         </IconButton>
         <Typography variant="h5" className={classes.cardHeaderText}>
           {userDate.name}

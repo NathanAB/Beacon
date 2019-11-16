@@ -17,9 +17,11 @@ const styles = {
     position: 'fixed',
     bottom: '0px',
     left: '0px',
-    boxShadow: '0px 0px 20px 0px rgba(0,0,0,0.1)',
   },
   navItem: {
+    color: 'black',
+  },
+  navLabel: {
     fontSize: '16px !important',
     fontWeight: '600',
     fontFamily: 'Raleway',
@@ -44,13 +46,13 @@ function BottomNav({ classes }) {
       className={classes.root}
     >
       <BottomNavigationAction
-        classes={{ label: classes.navItem }}
+        classes={{ label: classes.navLabel, root: classes.navItem }}
         label="Discover"
         value={TABS.DISCOVER}
         icon={<Icon>explore</Icon>}
       />
       <BottomNavigationAction
-        classes={{ label: classes.navItem }}
+        classes={{ label: classes.navLabel, root: classes.navItem }}
         label="My Dates"
         value={TABS.MY_DATES}
         icon={<Icon>favorite</Icon>}

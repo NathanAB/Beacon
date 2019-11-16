@@ -67,18 +67,17 @@ function MyDates({ classes }) {
     ) : (
       <Typography>You have no dates planned yet</Typography>
     );
-    // const dateCards = [<UserDateCard />];
     return isDesktop ? (
       <div className={classes.container}>
         <Typography align="center" className={classes.title} variant="h6">
-          My Dates
+          Upcoming Dates
         </Typography>
         {user ? dateCards : renderGuest()}
       </div>
     ) : (
       <>
         <Typography align="center" className={classes.title} variant="h6" display="block">
-          My Dates
+          Upcoming Dates
         </Typography>
         <DatesList isMyDates>{dateCards}</DatesList>
       </>

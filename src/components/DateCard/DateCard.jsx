@@ -257,7 +257,7 @@ const DateCard = React.forwardRef(
 
     return (
       <div className={classes.container} ref={ref}>
-        <Card className={classes.card} elevation={3}>
+        <Card className={classes.card} elevation={0} square>
           {renderMain()}
         </Card>
       </div>
