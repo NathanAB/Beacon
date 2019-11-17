@@ -43,8 +43,10 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary.contrastText,
   },
   cardHeader: {
-    'text-transform': 'uppercase',
-    'font-weight': 400,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    padding: '2px 12px',
+    'font-weight': 600,
   },
   cardSubheader: {
     'font-weight': 300,
@@ -137,10 +139,10 @@ const DateCard = React.forwardRef(({ dateObj, classes }, ref) => {
     return (
       <CardActionArea className={classes.actionArea}>
         <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
+        <Typography variant="subtitle1" className={classes.cardHeader}>
+          {dateObj.name}
+        </Typography>
         <CardContent className={classes.cardContent}>
-          <Typography variant="subtitle1" className={classes.cardHeader}>
-            {dateObj.name}
-          </Typography>
           <Typography variant="subtitle2" gutterBottom className={classes.cardSubheader}>
             {`${dateLocations} • ${dateHours} hrs • ${dateCostString}`}
           </Typography>

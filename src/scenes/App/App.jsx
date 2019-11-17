@@ -14,7 +14,8 @@ import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#fec838',
+      // main: '#fec838',
+      main: '#ff5228',
       contrastText: '#FFFFFF',
     },
     secondary: {
