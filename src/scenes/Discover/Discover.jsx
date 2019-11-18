@@ -70,7 +70,7 @@ function Discover({ classes }) {
 
         <div className={classes.titleBar}>
           <Typography variant="h6" className={classes.title}>
-            Explore Dates by Characteristic
+            Dates by Characteristic
           </Typography>
           <Button variant="subtitle1" onClick={() => store.set('focusedDate')(-1)}>
             View All

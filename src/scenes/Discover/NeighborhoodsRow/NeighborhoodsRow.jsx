@@ -97,7 +97,7 @@ function NeighborhoodsRow({ classes }) {
     <section className={classes.container}>
       <div className={classes.titleBar}>
         <Typography variant="h6" className={classes.title}>
-          Browse Dates by Neighborhood
+          Dates by Neighborhood
         </Typography>
         <Button variant="subtitle1" onClick={() => store.set('focusedDate')(-1)}>
           View All

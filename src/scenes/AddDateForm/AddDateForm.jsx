@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Dialog, DialogTitle, DialogContent, Button, IconButton } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, Button, IconButton, Box } from '@material-ui/core';
 import { DateTimePicker } from '@material-ui/pickers';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
@@ -37,13 +37,6 @@ const styles = theme => ({
   },
   textInput: {
     width: '100%',
-  },
-  confirmButton: {
-    margin: '24px 0',
-  },
-  deleteButton: {
-    margin: '24px 0',
-    marginLeft: '12px',
   },
   formTitle: {
     padding: '16px 46px 16px 24px',
@@ -143,16 +136,7 @@ function AddDateForm({ classes }) {
   const renderButtons = () => {
     if (isSaving) return 'Saving date...';
     return (
-      <>
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          type="submit"
-          className={classes.confirmButton}
-        >
-          {editDate ? 'Change Date' : 'Add this Date'}
-        </Button>
+      <Box margin="24px 0" display="flex" justifyContent="space-between">
         {editDate && (
           <Button
             onClick={deleteDate}
@@ -164,7 +148,16 @@ function AddDateForm({ classes }) {
             Delete Date
           </Button>
         )}
-      </>
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          type="submit"
+          className={classes.confirmButton}
+        >
+          {editDate ? 'Save Changes' : 'Add this Date'}
+        </Button>
+      </Box>
     );
   };
 
