@@ -13,6 +13,7 @@ import CONSTANTS from '../../constants';
 import Store from '../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
+import { ReactComponent as Logo } from '../../assets/img/logo.svg';
 
 const styles = theme => ({
   root: {
@@ -23,7 +24,6 @@ const styles = theme => ({
   },
   accountButton: {
     color: 'black',
-    marginRight: theme.spacing(1),
   },
   toolbar: {
     justifyContent: 'space-between',
@@ -32,16 +32,12 @@ const styles = theme => ({
     color: 'inherit',
     width: '100%',
   },
-  icon: {
-    height: '25px',
-    marginRight: '5px',
-  },
   loginIcon: {
     height: '32px',
     marginRight: '8px',
   },
   logo: {
-    height: '18px',
+    height: '52px',
   },
   title: {
     fontWeight: 800,
@@ -56,12 +52,17 @@ const styles = theme => ({
       letterSpacing: '6px',
     },
   },
+  menuItem: {
+    fontFamily: 'Raleway',
+  },
 });
 
 function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const store = Store.useStore();
   const user = store.get('user');
+  const focusedDate = store.get('focusedDate');
+  const isFilterPageOpen = store.get('isFilterPageOpen');
 
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -83,13 +84,23 @@ function Header(props) {
   return (
     <AppBar position="fixed" color="inherit">
       <Toolbar className={classes.toolbar}>
-        <IconButton className={classes.accountButton}>
-          <Icon></Icon>
-        </IconButton>
-        <ButtonBase>
-          <Typography variant="h5" color="primary" className={classes.title} onClick={goToDiscover}>
-            Beacon
-          </Typography>
+        {focusedDate || isFilterPageOpen ? (
+          <IconButton
+            className={classes.accountButton}
+            onClick={() => {
+              store.set('focusedDate')(false);
+              store.set('isFilterPageOpen')(false);
+            }}
+          >
+            <Icon>arrow_back</Icon>
+          </IconButton>
+        ) : (
+          <IconButton className={classes.accountButton}>
+            <Icon></Icon>
+          </IconButton>
+        )}
+        <ButtonBase className={classes.title} onClick={goToDiscover}>
+          <Logo className={classes.logo} />
         </ButtonBase>
         <IconButton
           aria-controls="simple-menu"
@@ -109,13 +120,14 @@ function Header(props) {
           {user ? (
             <MenuList>
               <MenuItem disabled>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" className={classes.menuItem}>
                   Logged in as {user.name || ''} <br /> ({user.email || ''})
                 </Typography>
               </MenuItem>
               <Divider />
               <Link href={CONSTANTS.API.LOGOUT}>
                 <MenuItem
+                  className={classes.menuItem}
                   onClick={() => {
                     ReactGA.event({
                       category: 'Interaction',
@@ -132,6 +144,7 @@ function Header(props) {
           ) : (
             <MenuList>
               <MenuItem
+                className={classes.menuItem}
                 onClick={() => {
                   ReactGA.event({
                     category: 'Interaction',
@@ -145,6 +158,7 @@ function Header(props) {
                 Login with Google
               </MenuItem>
               <MenuItem
+                className={classes.menuItem}
                 onClick={() => {
                   ReactGA.event({
                     category: 'Interaction',

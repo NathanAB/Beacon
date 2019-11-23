@@ -10,6 +10,7 @@ import ReactGA from 'react-ga';
 
 import Store from '../../store';
 import DateMap from './components/DateMap/DateMap';
+import DateTags from '../DateTags/DateTags';
 
 const styles = theme => ({
   card: {
@@ -69,7 +70,19 @@ function UserDateCard({ classes, userDate }) {
   const dateObjs = store.get('dates');
   const dateObj = dateObjs.find(d => d.id === userDate.dateId);
 
-  // TODO - dedupe below with DateCard
+  if (!dateObj) {
+    return (
+      <Card elevation={0} className={classes.card} square>
+        <div className={classes.cardHeader}>
+          <DateMap className={classes.cardHeader} placeIds={[]} />
+        </div>
+        <CardContent className={classes.cardHeader}>
+          <Typography variant="h6">Loading date...</Typography>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const { sections } = dateObj;
   const placeIds = sections.map(s => s.spot.placeId);
 
@@ -121,9 +134,7 @@ function UserDateCard({ classes, userDate }) {
           {userDate.notes}
         </Typography>
         <Divider className={classes.cardHeaderDivider} />
-        {/* <Typography variant="h6" className={classes.dateTitle}>
-          {dateObj.name}
-        </Typography> */}
+        <DateTags dateObj={dateObj} maxTags={0} paddingBottom="10px" />
         <Typography variant="body2">{dateObj.description}</Typography>
         {renderSections()}
       </CardContent>

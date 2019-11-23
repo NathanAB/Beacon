@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Chip } from '@material-ui/core';
+import { Chip, CircularProgress } from '@material-ui/core';
 import ReactGA from 'react-ga';
 import Store from '../../../store';
 
@@ -24,6 +24,7 @@ function TagsRow({ classes, isDiscover }) {
   const store = Store.useStore();
   const tags = store.get('tags');
   const filters = store.get('filters');
+  const isFilterPageOpen = store.get('isFilterPageOpen');
 
   function addTagFilter(tag) {
     if (isDiscover) {
@@ -43,38 +44,45 @@ function TagsRow({ classes, isDiscover }) {
   }
 
   function renderTags() {
-    return tags.map(tag => {
-      const isTagToggled = filters.some(filter => filter.value === tag.name);
-      if (isTagToggled) {
-        return '';
-      }
+    return tags.length ? (
+      tags.map(tag => {
+        const isTagToggled = filters.some(filter => filter.value === tag.name);
+        if (isTagToggled) {
+          return '';
+        }
 
-      // If a tag in this category has already been picked then grey it out
-      const toggledCategories = filters.length
-        ? filters.reduce((cats, curr) => {
-            return { ...cats, [curr.categoryId]: true };
-          }, {})
-        : [];
-      const isCategoryToggled = !!toggledCategories[tag.categoryId];
-      const chipClasses = [classes.tagChip];
-      if (isCategoryToggled) {
-        chipClasses.push(classes.tagChipDisabled);
-      }
+        // If a tag in this category has already been picked then grey it out
+        const toggledCategories = filters.length
+          ? filters.reduce((cats, curr) => {
+              return { ...cats, [curr.categoryId]: true };
+            }, {})
+          : [];
+        const isCategoryToggled = !!toggledCategories[tag.categoryId];
+        const chipClasses = [classes.tagChip];
+        if (isCategoryToggled) {
+          chipClasses.push(classes.tagChipDisabled);
+        }
 
-      const focusTag = () => {
-        addTagFilter(tag, isTagToggled);
-      };
+        const focusTag = () => {
+          addTagFilter(tag, isTagToggled);
+          if (!isFilterPageOpen) {
+            window.scrollTo(0, 0);
+          }
+        };
 
-      return (
-        <Chip
-          key={tag.name}
-          label={tag.name}
-          className={chipClasses.join(' ')}
-          disabled={isCategoryToggled}
-          onClick={isCategoryToggled ? null : focusTag}
-        />
-      );
-    });
+        return (
+          <Chip
+            key={tag.name}
+            label={tag.name}
+            className={chipClasses.join(' ')}
+            disabled={isCategoryToggled}
+            onClick={isCategoryToggled ? null : focusTag}
+          />
+        );
+      })
+    ) : (
+      <CircularProgress />
+    );
   }
 
   return <section>{renderTags()}</section>;

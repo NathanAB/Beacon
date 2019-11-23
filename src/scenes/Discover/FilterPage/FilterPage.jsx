@@ -5,6 +5,7 @@ import ReactGA from 'react-ga';
 
 import Store from '../../../store';
 import TagsRow from '../TagsRow/TagsRow';
+import { getIsDesktop } from '../../../utils';
 
 const styles = theme => ({
   filtersContainer: {
@@ -87,6 +88,7 @@ function FilterPage({ classes }) {
   const filters = store.get('filters');
   const durations = store.get('durations');
   const neighborhoods = store.get('neighborhoods');
+  const isDesktop = getIsDesktop();
 
   function toggleFilter(type, value) {
     ReactGA.event({
@@ -152,12 +154,14 @@ function FilterPage({ classes }) {
           variant="contained"
           color="primary"
           className={classes.searchButton}
+          fullWidth={!isDesktop}
           onClick={() => {
             ReactGA.event({
               category: 'Interaction',
               action: 'Close Filter Page',
             });
             store.set('isFilterPageOpen')(false);
+            window.scrollTo(0, 0);
           }}
         >
           Search

@@ -58,3 +58,7 @@ button {
   font-weight: 600 !important;
   box-shadow: none !important;
 }
+
+.menu-item-wrapper {
+  margin: 0px 10px;
+}

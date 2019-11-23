@@ -1,6 +1,5 @@
 import React from 'react';
-import { withStyles, useTheme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import ReactGA from 'react-ga';
 
@@ -8,6 +7,7 @@ import { Typography, Button } from '@material-ui/core';
 import Store from '../../store';
 import DatesList from '../Discover/DatesList/DatesList';
 import UserDateCard from '../../components/UserDateCard/UserDateCard';
+import { getIsDesktop } from '../../utils';
 
 const styles = () => ({
   title: {
@@ -24,6 +24,7 @@ function MyDates({ classes }) {
   const store = Store.useStore();
   const userDates = store.get('userDates');
   const user = store.get('user');
+  const isDesktop = getIsDesktop();
 
   const dateSorter = (date1, date2) => {
     const time1 = moment(date1.startTime).toISOString();
@@ -58,8 +59,6 @@ function MyDates({ classes }) {
     </Typography>
   );
   const renderMyDates = () => {
-    const theme = useTheme();
-    const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
     const dateCards = userDates.length ? (
       userDates
         .sort(dateSorter)

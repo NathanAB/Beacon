@@ -1,10 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { Typography, Button } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { withStyles, useTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 import Store from '../../store';
-import { filterDates } from '../../utils';
+import { filterDates, getIsDesktop } from '../../utils';
 import FilterBar from './FilterBar/FilterBar';
 import DatesList from './DatesList/DatesList';
 import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
@@ -24,9 +23,8 @@ const styles = {
 };
 
 function Discover({ classes }) {
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
   const focusedRef = useRef(null);
+  const isDesktop = getIsDesktop();
 
   const store = Store.useStore();
   const filters = store.get('filters');
@@ -72,8 +70,10 @@ function Discover({ classes }) {
           <Typography variant="h6" className={classes.title}>
             Dates by Characteristic
           </Typography>
-          <Button variant="subtitle1" onClick={() => store.set('focusedDate')(-1)}>
-            View All
+          <Button onClick={() => store.set('focusedDate')(-1)}>
+            <Typography variant="subtitle2">
+              <strong>VIEW ALL</strong>
+            </Typography>
           </Button>
         </div>
         <TagsRow isDiscover />

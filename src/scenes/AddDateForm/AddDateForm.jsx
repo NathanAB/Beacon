@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Dialog, DialogTitle, DialogContent, Button, IconButton, Box } from '@material-ui/core';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Button,
+  IconButton,
+  Box,
+  Typography,
+} from '@material-ui/core';
 import { DateTimePicker } from '@material-ui/pickers';
 import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
@@ -134,7 +142,13 @@ function AddDateForm({ classes }) {
   };
 
   const renderButtons = () => {
-    if (isSaving) return 'Saving date...';
+    if (isSaving)
+      return (
+        <Box margin="24px 0" display="flex" flexDirection="row-reverse">
+          <Typography variant="subtitle1">Saving date...</Typography>
+        </Box>
+      );
+
     return (
       <Box margin="24px 0" display="flex" justifyContent="space-between">
         {editDate && (

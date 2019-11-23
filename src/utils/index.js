@@ -1,3 +1,6 @@
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 // eslint-disable-next-line import/prefer-default-export
 export const costToString = cost => {
   if (cost === 0) {
@@ -42,4 +45,9 @@ export const filterDates = (dateObjs, filters) => {
     }).length;
     return filtersMet === filters.length;
   });
+};
+
+export const getIsDesktop = () => {
+  const theme = useTheme();
+  return useMediaQuery(theme.breakpoints.up('sm'));
 };

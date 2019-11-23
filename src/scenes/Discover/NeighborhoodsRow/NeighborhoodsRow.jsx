@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Button, ButtonBase } from '@material-ui/core';
+import { Typography, Button, ButtonBase, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
 
@@ -15,12 +15,10 @@ const styles = theme => ({
     display: 'inline-block',
     textAlign: 'center',
     padding: 0,
-    marginRight: '25px',
     width: '90px',
     verticalAlign: 'top',
     [theme.breakpoints.up('sm')]: {
       width: '100px',
-      marginRight: '30px',
     },
   },
   icon: {
@@ -73,6 +71,7 @@ function NeighborhoodsRow({ classes }) {
       label: neighborhood.name,
     });
     store.set('filters')([{ type: 'neighborhood', value: neighborhood }]);
+    window.scrollTo(0, 0);
   }
 
   function renderNeighborhoods() {
@@ -99,18 +98,25 @@ function NeighborhoodsRow({ classes }) {
         <Typography variant="h6" className={classes.title}>
           Dates by Neighborhood
         </Typography>
-        <Button variant="subtitle1" onClick={() => store.set('focusedDate')(-1)}>
-          View All
+        <Button onClick={() => store.set('focusedDate')(-1)}>
+          <Typography variant="subtitle2">
+            <strong>VIEW ALL</strong>
+          </Typography>
         </Button>
       </div>
-      <ScrollMenu
-        data={renderNeighborhoods(classes)}
-        wheel={false}
-        onSelect={neighborhood => {
-          addFilter(neighborhood);
-        }}
-        translate={1}
-      />
+      {neighborhoods.length ? (
+        <ScrollMenu
+          alignOnResize={false}
+          translate={1}
+          data={renderNeighborhoods(classes)}
+          wheel={false}
+          onSelect={neighborhood => {
+            addFilter(neighborhood);
+          }}
+        />
+      ) : (
+        <CircularProgress />
+      )}
     </section>
   );
 }

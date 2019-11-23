@@ -1,8 +1,7 @@
 import React from 'react';
-import { withStyles, useTheme } from '@material-ui/core/styles';
-import { Typography, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import { Typography, Button, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import ReactGA from 'react-ga';
 
 import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
@@ -11,9 +10,6 @@ import Store from '../../../store';
 const styles = () => ({
   container: {
     margin: '12px 0',
-  },
-  dateContainer: {
-    marginRight: '1.5rem',
   },
   icon: {
     width: '5rem',
@@ -33,17 +29,15 @@ const styles = () => ({
 
 function DatesRow({ classes }) {
   const store = Store.useStore();
-  const DateObjs = store.get('dates');
+  const dateObjs = store.get('dates');
 
-  function renderDates() {
-    return DateObjs.map(date => {
-      return (
-        <div className={classes.dateContainer} key={date.id}>
-          <DateCardPreview dateObj={date} noExpand />
-        </div>
-      );
-    });
-  }
+  const dateCards = dateObjs.map(date => {
+    return (
+      <div className={classes.dateContainer} key={date.id}>
+        <DateCardPreview dateObj={date} noExpand />
+      </div>
+    );
+  });
 
   return (
     <section className={classes.container}>
@@ -51,22 +45,30 @@ function DatesRow({ classes }) {
         <Typography variant="h6" className={classes.title}>
           Discover Dates
         </Typography>
-        <Button variant="subtitle1" onClick={() => store.set('focusedDate')(-1)}>
-          View All
+        <Button onClick={() => store.set('focusedDate')(-1)}>
+          <Typography variant="subtitle2">
+            <strong>VIEW ALL</strong>
+          </Typography>
         </Button>
       </div>
-      <ScrollMenu
-        data={renderDates(classes)}
-        wheel={false}
-        onSelect={dateId => {
-          ReactGA.event({
-            category: 'Interaction',
-            action: 'Focus Date',
-            label: dateId.toString(),
-          });
-          store.set('focusedDate')(dateId);
-        }}
-      />
+      {dateObjs.length ? (
+        <ScrollMenu
+          data={dateCards}
+          wheel={false}
+          alignOnResize={false}
+          translate={1}
+          onSelect={dateId => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Focus Date',
+              label: dateId.toString(),
+            });
+            store.set('focusedDate')(dateId);
+          }}
+        />
+      ) : (
+        <CircularProgress />
+      )}
     </section>
   );
 }
