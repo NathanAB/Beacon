@@ -22,9 +22,6 @@ const testImages = [
 ];
 
 const styles = theme => ({
-  container: {
-    minHeight: '278px',
-  },
   card: {
     width: '280px',
     border: '1px solid lightgray',
@@ -122,7 +119,7 @@ const DateCard = React.forwardRef(({ dateObj, classes }, ref) => {
   }
 
   return (
-    <div className={classes.container} ref={ref}>
+    <div ref={ref}>
       <Card className={classes.card} elevation={0} square>
         {renderMain()}
       </Card>
