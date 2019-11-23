@@ -57,6 +57,9 @@ function DatesRow({ classes }) {
           wheel={false}
           alignOnResize={false}
           translate={1}
+          itemStyle={{
+            paddingRight: '20px',
+          }}
           onSelect={dateId => {
             ReactGA.event({
               category: 'Interaction',

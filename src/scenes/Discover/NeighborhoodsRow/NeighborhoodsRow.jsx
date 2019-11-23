@@ -46,10 +46,11 @@ const styles = theme => ({
     fontWeight: 600,
     whiteSpace: 'normal',
     fontSize: '13px',
-    lineHeight: '22px',
+    lineHeight: '18px',
     fontFamily: 'Raleway',
     [theme.breakpoints.up('sm')]: {
       fontSize: '16px',
+      lineHeight: '22px',
     },
   },
 });
@@ -110,6 +111,9 @@ function NeighborhoodsRow({ classes }) {
           translate={1}
           data={renderNeighborhoods(classes)}
           wheel={false}
+          itemStyle={{
+            paddingRight: '20px',
+          }}
           onSelect={neighborhood => {
             addFilter(neighborhood);
           }}
