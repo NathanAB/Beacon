@@ -42,6 +42,7 @@ function BottomNav({ classes }) {
         store.set('filters')([]);
         store.set('focusedDate')(false);
         store.set('isFilterPageOpen')(false);
+        window.scrollTo(0, 0);
       }}
       className={classes.root}
     >

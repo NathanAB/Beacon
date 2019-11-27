@@ -19,18 +19,11 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginLeft: theme.spacing(1),
-  },
   accountButton: {
     color: 'black',
   },
   toolbar: {
     justifyContent: 'space-between',
-  },
-  inputRoot: {
-    color: 'inherit',
-    width: '100%',
   },
   loginIcon: {
     height: '32px',
@@ -78,6 +71,7 @@ function Header(props) {
     store.set('filters')([]);
     store.set('focusedDate')(false);
     store.set('isFilterPageOpen')(false);
+    window.scrollTo(0, 0);
   };
 
   const { classes } = props;

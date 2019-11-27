@@ -14,7 +14,7 @@ const styles = theme => ({
   },
 });
 
-const DateTags = ({ dateObj, classes, maxTags, paddingBottom }) => {
+const DateTags = ({ dateObj, classes, maxTags, paddingBottom, variant, color, tagsOnly }) => {
   const { sections } = dateObj;
   const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
   const dateHours = Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
@@ -35,11 +35,28 @@ const DateTags = ({ dateObj, classes, maxTags, paddingBottom }) => {
 
   return (
     <Box paddingBottom={paddingBottom}>
-      <Box paddingBottom="5px">
-        <Chip label={dateLocations[0]} className={classes.tagChip}></Chip>
-        <Chip label={`${dateHours} hrs`} className={classes.tagChip}></Chip>
-        <Chip label={dateCostString} className={classes.tagChip}></Chip>
-      </Box>
+      {tagsOnly || (
+        <Box paddingBottom="5px">
+          <Chip
+            variant={variant}
+            color={color}
+            label={dateLocations[0]}
+            className={classes.tagChip}
+          ></Chip>
+          <Chip
+            variant={variant}
+            color={color}
+            label={`${dateHours} hrs`}
+            className={classes.tagChip}
+          ></Chip>
+          <Chip
+            color={color}
+            variant={variant}
+            label={dateCostString}
+            className={classes.tagChip}
+          ></Chip>
+        </Box>
+      )}
       {tags.map(tag => (
         <Chip key={tag.name} label={tag.name} className={classes.tagChip} />
       ))}

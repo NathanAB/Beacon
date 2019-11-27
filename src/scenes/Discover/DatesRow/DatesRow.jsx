@@ -11,12 +11,6 @@ const styles = () => ({
   container: {
     margin: '12px 0',
   },
-  icon: {
-    width: '5rem',
-    height: '5rem',
-    'background-size': 'cover',
-    'border-radius': '2.5rem',
-  },
   titleBar: {
     marginBottom: '5px',
     display: 'flex',

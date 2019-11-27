@@ -26,17 +26,6 @@ const styles = theme => ({
     position: 'relative',
     overflow: 'auto',
   },
-  listHeader: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-  },
-  listItem: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText,
-  },
-  noDate: {
-    padding: '10px',
-  },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
@@ -99,16 +88,19 @@ function AddDateForm({ classes }) {
       await api.createUserDate(newUserDate);
     }
 
+    const refreshedDates = await api.getUserDates();
+
     if (editDate) {
       userDates = userDates.filter(date => date.id !== editDate.id);
     }
 
-    store.set('userDates')(userDates.concat([newUserDate]));
+    store.set('userDates')(refreshedDates);
     store.set('currentTab')(Constants.TABS.MY_DATES);
     store.set('checkoutDate')(false);
     store.set('editDate')(false);
     ReactGA.pageview(Constants.TABS.MY_DATES);
     setIsSaving(false);
+    window.scrollTo(0, 0);
   };
 
   const cancelCheckout = () => {
@@ -127,15 +119,17 @@ function AddDateForm({ classes }) {
     if (!confirm) {
       return;
     }
+    console.log(editDate);
     ReactGA.event({
       category: 'Interaction',
       action: 'Delete User Date',
       label: editDate.id.toString(),
     });
+
     setIsSaving(true);
     await api.deleteUserDate(editDate);
-    userDates = userDates.filter(date => date.id !== editDate.id);
-    store.set('userDates')(userDates);
+    const refreshedDates = await api.getUserDates();
+    store.set('userDates')(refreshedDates);
     store.set('checkoutDate')(false);
     store.set('editDate')(false);
     setIsSaving(false);

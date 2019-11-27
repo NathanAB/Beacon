@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
@@ -27,36 +26,14 @@ const styles = theme => ({
     border: '1px solid lightgray',
   },
   cardContent: {
-    padding: '12px',
+    padding: '16px',
     backgroundColor: theme.palette.primary.contrastText,
   },
   cardHeader: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
-    padding: '2px 16px',
+    padding: '6px 16px',
     fontWeight: 600,
-  },
-  cardSubheader: {
-    fontWeight: 300,
-  },
-  activitySection: {
-    marginTop: '15px',
-  },
-  activityTitle: {
-    padding: '0.5rem 1rem',
-    margin: '1rem 0',
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.text,
-    borderRadius: '0.5rem',
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontWeight: 600,
-  },
-  activityName: {
-    textTransform: 'uppercase',
-  },
-  activityCost: {
-    textTransform: 'capitalize',
   },
   actionArea: {
     width: '100%',
@@ -73,11 +50,6 @@ const styles = theme => ({
     flexBasis: '100%',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-  },
-  tagChip: {
-    marginRight: theme.spacing(1),
-    marginTop: '5px',
-    height: '1.5rem',
   },
 });
 
@@ -109,11 +81,12 @@ const DateCard = React.forwardRef(({ dateObj, classes }, ref) => {
       <CardActionArea className={classes.actionArea}>
         <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
         <Typography variant="subtitle1" className={classes.cardHeader}>
-          {dateObj.name}
+          {dateObj.name} <br />
+          <DateTags variant="outlined" color="secondary" dateObj={dateObj} maxTags={0} />
         </Typography>
-        <CardContent className={classes.cardContent}>
-          <DateTags dateObj={dateObj} maxTags={3} />
-        </CardContent>
+        {/* <CardContent className={classes.cardContent}>
+          <DateTags dateObj={dateObj} maxTags={3} tagsOnly />
+        </CardContent> */}
       </CardActionArea>
     );
   }

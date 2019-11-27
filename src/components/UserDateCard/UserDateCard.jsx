@@ -45,14 +45,6 @@ const styles = theme => ({
   italic: {
     fontStyle: 'italic',
   },
-  tagChip: {
-    marginRight: theme.spacing(1),
-    marginTop: '5px',
-    height: '1.5rem',
-  },
-  dateTitle: {
-    textTransform: 'uppercase',
-  },
   editButton: {
     color: 'black',
     top: '5px',

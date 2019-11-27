@@ -30,7 +30,6 @@ const testImages = [
 const styles = theme => ({
   container: {
     position: 'relative',
-    minHeight: '278px',
   },
   card: {
     width: '100%',
@@ -56,28 +55,6 @@ const styles = theme => ({
     color: theme.palette.primary.contrastText,
     padding: '2px 16px',
     'font-weight': 600,
-  },
-  cardSubheader: {
-    'font-weight': 300,
-  },
-  activitySection: {
-    'margin-top': '15px',
-  },
-  activityTitle: {
-    padding: '0.5rem 1rem',
-    margin: '1rem 0',
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.text,
-    borderRadius: '0.5rem',
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontWeight: 600,
-  },
-  activityName: {
-    textTransform: 'uppercase',
-  },
-  activityCost: {
-    textTransform: 'capitalize',
   },
   planDateButton: {
     display: 'block',
@@ -111,9 +88,6 @@ const styles = theme => ({
     'flex-basis': '100%',
     'background-position': 'center',
     'background-size': 'cover',
-  },
-  cardActions: {
-    paddingTop: 0,
   },
   dateSteps: {
     padding: '10px 0',
@@ -170,6 +144,7 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
   function renderExpanded() {
     return (
       <Collapse in={isExpanded}>
+        <DateTags dateObj={dateObj} tagsOnly />
         <Typography variant="body2">{dateObj.description}</Typography>
         <Stepper nonLinear orientation="vertical" className={classes.dateSteps}>
           {dateObj.sections.map(section => {
@@ -211,11 +186,9 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
           <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
           <Box display="flex" flexDirection="column">
             <Typography variant={isDesktop ? 'h6' : 'subtitle1'} className={classes.cardHeader}>
-              {dateObj.name}
+              {dateObj.name} <br />{' '}
+              <DateTags variant="outlined" color="secondary" dateObj={dateObj} maxTags={0} />
             </Typography>
-            <CardContent className={classes.cardContent}>
-              <DateTags dateObj={dateObj} />
-            </CardContent>
             <CardContent className={classes.cardContent}>{renderExpanded()}</CardContent>
           </Box>
         </Box>
@@ -235,11 +208,9 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
         >
           <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
           <Typography variant={isDesktop ? 'h6' : 'subtitle1'} className={classes.cardHeader}>
-            {dateObj.name}
+            {dateObj.name} <br />
+            <DateTags variant="outlined" color="secondary" dateObj={dateObj} maxTags={0} />
           </Typography>
-          <CardContent className={classes.cardContent}>
-            <DateTags dateObj={dateObj} />
-          </CardContent>
         </CardActionArea>
         <CardContent className={classes.cardContent}>{renderExpanded()}</CardContent>
       </>
