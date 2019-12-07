@@ -19,7 +19,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
   },
-  accountButton: {
+  headerButton: {
     color: 'black',
   },
   toolbar: {
@@ -80,7 +80,7 @@ function Header(props) {
       <Toolbar className={classes.toolbar}>
         {focusedDate || isFilterPageOpen ? (
           <IconButton
-            className={classes.accountButton}
+            className={classes.headerButton}
             onClick={() => {
               store.set('focusedDate')(false);
               store.set('isFilterPageOpen')(false);
@@ -89,7 +89,7 @@ function Header(props) {
             <Icon>arrow_back</Icon>
           </IconButton>
         ) : (
-          <IconButton className={classes.accountButton}>
+          <IconButton className={classes.headerButton}>
             <Icon></Icon>
           </IconButton>
         )}
@@ -100,7 +100,7 @@ function Header(props) {
           aria-controls="simple-menu"
           aria-haspopup="true"
           onClick={handleClick}
-          className={classes.accountButton}
+          className={classes.headerButton}
         >
           <Icon>person</Icon>
         </IconButton>

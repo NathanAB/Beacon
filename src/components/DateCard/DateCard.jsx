@@ -8,7 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
-import { Stepper, Step, StepLabel, StepContent, Box } from '@material-ui/core';
+import { Stepper, Step, StepLabel, StepContent, Box, IconButton, Icon } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
 import Store from '../../store';
@@ -92,6 +92,19 @@ const styles = theme => ({
   dateSteps: {
     padding: '10px 0',
   },
+  tagsContainer: {
+    paddingBottom: '10px',
+  },
+  expando: {
+    margin: 'auto',
+    fontSize: '32px',
+    lineHeight: '18px',
+    height: '20px',
+  },
+  expandoContainer: {
+    lineHeight: '12px',
+    textAlign: 'center',
+  },
 });
 
 const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded }, ref) => {
@@ -144,37 +157,39 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
   function renderExpanded() {
     return (
       <Collapse in={isExpanded}>
-        <DateTags dateObj={dateObj} tagsOnly />
-        <Typography variant="body2">{dateObj.description}</Typography>
-        <Stepper nonLinear orientation="vertical" className={classes.dateSteps}>
-          {dateObj.sections.map(section => {
-            const duration = Math.round(section.minutes / 30) / 2; // Round to the nearest half-hour
-            const costString = costToString(section.cost);
-            return (
-              <Step active key={section.spot.name}>
-                <StepLabel>
-                  <Typography variant="subtitle2">
-                    <strong>{section.spot.name}</strong> <br /> {costString} | {duration} hours
-                  </Typography>
-                </StepLabel>
-                <StepContent>
-                  <Typography variant="body2">{section.description}</Typography>
-                </StepContent>
-              </Step>
-            );
-          })}
-        </Stepper>
-        <Button
-          variant="contained"
-          aria-label="Add this spot"
-          color="primary"
-          size="medium"
-          className={classes.planDateButton}
-          onClick={checkoutDate}
-          fullWidth={!isDesktop}
-        >
-          Add this Date
-        </Button>
+        <CardContent className={classes.cardContent}>
+          <Typography variant="body2">{dateObj.description}</Typography>
+          <Stepper nonLinear orientation="vertical" className={classes.dateSteps}>
+            {dateObj.sections.map(section => {
+              const duration = Math.round(section.minutes / 30) / 2; // Round to the nearest half-hour
+              const costString = costToString(section.cost);
+              return (
+                <Step active key={section.spot.name}>
+                  <StepLabel>
+                    <Typography variant="subtitle2">
+                      <strong>{section.spot.name}</strong> <br />{' '}
+                    </Typography>
+                  </StepLabel>
+                  <StepContent>
+                    <DateTags paddingBottom="8px" singleRow sectionObj={section} />
+                    <Typography variant="body2">{section.description}</Typography>
+                  </StepContent>
+                </Step>
+              );
+            })}
+          </Stepper>
+          <Button
+            variant="contained"
+            aria-label="Add this spot"
+            color="primary"
+            size="medium"
+            className={classes.planDateButton}
+            onClick={checkoutDate}
+            fullWidth={!isDesktop}
+          >
+            Add this Date
+          </Button>
+        </CardContent>
       </Collapse>
     );
   }
@@ -189,7 +204,8 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
               {dateObj.name} <br />{' '}
               <DateTags variant="outlined" color="secondary" dateObj={dateObj} maxTags={0} />
             </Typography>
-            <CardContent className={classes.cardContent}>{renderExpanded()}</CardContent>
+
+            {renderExpanded()}
           </Box>
         </Box>
       </>
@@ -207,12 +223,21 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
           className={classes.actionArea}
         >
           <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
-          <Typography variant={isDesktop ? 'h6' : 'subtitle1'} className={classes.cardHeader}>
-            {dateObj.name} <br />
-            <DateTags variant="outlined" color="secondary" dateObj={dateObj} maxTags={0} />
-          </Typography>
+          <Box className={classes.cardHeader}>
+            <Typography variant={isDesktop ? 'h6' : 'subtitle1'}>
+              {dateObj.name} <br />
+              <DateTags variant="outlined" color="secondary" dateObj={dateObj} maxTags={0} />
+            </Typography>
+            <Box className={classes.expandoContainer}>
+              {isExpanded ? (
+                <Icon className={classes.expando}>expand_less</Icon>
+              ) : (
+                <Icon className={classes.expando}>expand_more</Icon>
+              )}
+            </Box>
+          </Box>
         </CardActionArea>
-        <CardContent className={classes.cardContent}>{renderExpanded()}</CardContent>
+        {renderExpanded()}
       </>
     );
   }

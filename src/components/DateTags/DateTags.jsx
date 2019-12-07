@@ -14,18 +14,38 @@ const styles = theme => ({
   },
 });
 
-const DateTags = ({ dateObj, classes, maxTags, paddingBottom, variant, color, tagsOnly }) => {
-  const { sections } = dateObj;
-  const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
-  const dateHours = Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
-  const dateCost = sections.reduce((total, section) => total + section.cost, 0) / sections.length;
-  const dateCostString = costToString(dateCost);
-  const dateLocations = uniq(map(sections, 'spot.neighborhood.name'));
+const DateTags = ({
+  dateObj,
+  sectionObj,
+  classes,
+  maxTags,
+  paddingBottom,
+  variant,
+  color,
+  tagsOnly,
+  singleRow,
+}) => {
   let tags = [];
+  let dateHours;
+  let dateCostString;
+  let dateLocations = [];
 
-  dateObj.sections.forEach(section => {
-    tags.push(...section.tags);
-  });
+  if (dateObj) {
+    const { sections } = dateObj;
+    const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
+    dateHours = Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
+    const dateCost = sections.reduce((total, section) => total + section.cost, 0) / sections.length;
+    dateCostString = costToString(dateCost);
+    dateLocations = uniq(map(sections, 'spot.neighborhood.name'));
+    dateObj.sections.forEach(section => {
+      tags.push(...section.tags);
+    });
+  } else if (sectionObj) {
+    dateHours = Math.round(sectionObj.minutes / 30) / 2; // Round to the nearest half-hour
+    dateCostString = costToString(sectionObj.cost);
+    dateLocations.push(sectionObj.spot.neighborhood.name);
+    tags.push(...sectionObj.tags);
+  }
 
   tags = uniqBy(tags, tag => tag.name);
 
@@ -33,30 +53,23 @@ const DateTags = ({ dateObj, classes, maxTags, paddingBottom, variant, color, ta
     tags = tags.slice(0, maxTags);
   }
 
+  const renderMetaChips = () => (
+    <>
+      <Chip variant={variant} color={color} label={dateLocations[0]} className={classes.tagChip} />
+      <Chip
+        variant={variant}
+        color={color}
+        label={`${dateHours} hrs`}
+        className={classes.tagChip}
+      />
+      <Chip color={color} variant={variant} label={dateCostString} className={classes.tagChip} />
+    </>
+  );
+
   return (
     <Box paddingBottom={paddingBottom}>
-      {tagsOnly || (
-        <Box paddingBottom="5px">
-          <Chip
-            variant={variant}
-            color={color}
-            label={dateLocations[0]}
-            className={classes.tagChip}
-          ></Chip>
-          <Chip
-            variant={variant}
-            color={color}
-            label={`${dateHours} hrs`}
-            className={classes.tagChip}
-          ></Chip>
-          <Chip
-            color={color}
-            variant={variant}
-            label={dateCostString}
-            className={classes.tagChip}
-          ></Chip>
-        </Box>
-      )}
+      {singleRow && !tagsOnly && renderMetaChips()}
+      {!singleRow && !tagsOnly && <Box paddingBottom="5px">{renderMetaChips()}</Box>}
       {tags.map(tag => (
         <Chip key={tag.name} label={tag.name} className={classes.tagChip} />
       ))}
