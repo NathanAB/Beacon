@@ -3,14 +3,10 @@ import { Typography, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import Store from '../../store';
-import { filterDates, getIsDesktop } from '../../utils';
-import FilterBar from './FilterBar/FilterBar';
-import DatesList from './DatesList/DatesList';
+import FilterBar from '../FilterBar/FilterBar';
 import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
 import DatesRow from './DatesRow/DatesRow';
-import TagsRow from './TagsRow/TagsRow';
-import DateCard from '../../components/DateCard/DateCard';
-import FilterPage from './FilterPage/FilterPage';
+import TagsRow from '../TagsRow/TagsRow';
 
 const styles = {
   titleBar: {
@@ -24,26 +20,9 @@ const styles = {
 
 function Discover({ classes }) {
   const focusedRef = useRef(null);
-  const isDesktop = getIsDesktop();
 
   const store = Store.useStore();
-  const filters = store.get('filters');
-  const isFilterPageOpen = store.get('isFilterPageOpen');
-  const dates = store.get('dates');
   const focusedDate = store.get('focusedDate');
-
-  const filteredDates = filterDates(dates, filters);
-  const dateCards = filteredDates.map(date => {
-    const isFocusedDate = parseInt(focusedDate, 10) === date.id;
-    return (
-      <DateCard
-        key={date.id}
-        dateObj={date}
-        defaultExpanded={isDesktop}
-        ref={isFocusedDate ? focusedRef : null}
-      />
-    );
-  });
 
   // Scroll to focused date when clicked on Discover landing page
   useEffect(() => {
@@ -53,14 +32,6 @@ function Discover({ classes }) {
   }, [focusedDate, focusedRef]);
 
   function renderContent() {
-    if (isFilterPageOpen) {
-      return <FilterPage />;
-    }
-
-    if (filters.length || focusedDate) {
-      return <DatesList>{dateCards}</DatesList>;
-    }
-
     return (
       <>
         <DatesRow />

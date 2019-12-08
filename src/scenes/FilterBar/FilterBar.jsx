@@ -2,8 +2,9 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { withStyles, Typography, Icon, Chip } from '@material-ui/core';
 import ReactGA from 'react-ga';
+import { Link } from 'react-router-dom';
 
-import Store from '../../../store';
+import Store from '../../store';
 
 const styles = {
   search: {
@@ -80,22 +81,21 @@ function FilterBar({ classes }) {
   }
 
   return (
-    <button
-      type="button"
+    <Link
       className={classes.search}
       onClick={() => {
         ReactGA.event({
           category: 'Interaction',
           action: 'Open Filter Page',
         });
-        store.set('isFilterPageOpen')(true);
       }}
+      to="/filters"
     >
       <span className={classes.searchIcon}>
         <Icon>filter_list</Icon>
       </span>
       <span className={classes.filterChips}>{renderChips()}</span>
-    </button>
+    </Link>
   );
 }
 

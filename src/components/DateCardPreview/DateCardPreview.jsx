@@ -6,6 +6,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import DateTags from '../DateTags/DateTags';
 
@@ -107,13 +108,15 @@ const DateCard = React.forwardRef(({ dateObj, classes }, ref) => {
   function renderMain() {
     return (
       <CardActionArea className={classes.actionArea}>
-        <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
-        <Typography variant="subtitle1" className={classes.cardHeader}>
-          {dateObj.name}
-        </Typography>
-        <CardContent className={classes.cardContent}>
-          <DateTags dateObj={dateObj} maxTags={3} />
-        </CardContent>
+        <Link to="/dates">
+          <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
+          <Typography variant="subtitle1" className={classes.cardHeader}>
+            {dateObj.name}
+          </Typography>
+          <CardContent className={classes.cardContent}>
+            <DateTags dateObj={dateObj} maxTags={3} />
+          </CardContent>
+        </Link>
       </CardActionArea>
     );
   }

@@ -10,7 +10,7 @@ const styles = () => ({
   },
 });
 
-function DatesList({ children, isMyDates }) {
+function DateList({ children, isMyDates }) {
   const emptyMessage = isMyDates
     ? 'You have no dates planned.'
     : 'No dates match your filters. Try something else?';
@@ -29,13 +29,13 @@ function DatesList({ children, isMyDates }) {
   );
 }
 
-DatesList.propTypes = {
+DateList.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object).isRequired,
   isMyDates: PropTypes.bool,
 };
 
-DatesList.defaultProps = {
+DateList.defaultProps = {
   isMyDates: false,
 };
 
-export default withStyles(styles)(DatesList);
+export default withStyles(styles)(DateList);

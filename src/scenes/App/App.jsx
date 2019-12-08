@@ -3,6 +3,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import ReactGA from 'react-ga';
+import { BrowserRouter as Router, Redirect, Switch, Route, Link } from 'react-router-dom';
 
 import * as api from '../../api';
 import Header from '../Header/Header';
@@ -87,17 +88,20 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <MuiThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-          <ErrorBoundary>
-            <Header />
-            <Body currentTab={currentTab} />
-            <BottomNav />
-          </ErrorBoundary>
-        </MuiPickersUtilsProvider>
-      </MuiThemeProvider>
-    </div>
+    <Router>
+      <Redirect from="/" to="/discover" />
+      <div className="App">
+        <MuiThemeProvider theme={theme}>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <ErrorBoundary>
+              <Header />
+              <Body currentTab={currentTab} />
+              <BottomNav />
+            </ErrorBoundary>
+          </MuiPickersUtilsProvider>
+        </MuiThemeProvider>
+      </div>
+    </Router>
   );
 }
 

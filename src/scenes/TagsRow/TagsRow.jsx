@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Chip, CircularProgress } from '@material-ui/core';
 import ReactGA from 'react-ga';
-import Store from '../../../store';
+import Store from '../../store';
 
 const styles = theme => ({
   tagChip: {
@@ -24,7 +24,6 @@ function TagsRow({ classes, isDiscover }) {
   const store = Store.useStore();
   const tags = store.get('tags');
   const filters = store.get('filters');
-  const isFilterPageOpen = store.get('isFilterPageOpen');
 
   function addTagFilter(tag) {
     if (isDiscover) {
@@ -65,9 +64,6 @@ function TagsRow({ classes, isDiscover }) {
 
         const focusTag = () => {
           addTagFilter(tag, isTagToggled);
-          if (!isFilterPageOpen) {
-            window.scrollTo(0, 0);
-          }
         };
 
         return (

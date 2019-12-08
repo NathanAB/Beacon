@@ -6,6 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import { ButtonBase, Typography, Divider, Link, Menu, MenuItem, MenuList } from '@material-ui/core';
+import * as ReactRouter from 'react-router-dom';
 
 import ReactGA from 'react-ga';
 
@@ -62,7 +63,6 @@ function Header(props) {
   const store = Store.useStore();
   const user = store.get('user');
   const focusedDate = store.get('focusedDate');
-  const isFilterPageOpen = store.get('isFilterPageOpen');
 
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -84,16 +84,12 @@ function Header(props) {
   return (
     <AppBar position="fixed" color="inherit">
       <Toolbar className={classes.toolbar}>
-        {focusedDate || isFilterPageOpen ? (
-          <IconButton
-            className={classes.accountButton}
-            onClick={() => {
-              store.set('focusedDate')(false);
-              store.set('isFilterPageOpen')(false);
-            }}
-          >
-            <Icon>arrow_back</Icon>
-          </IconButton>
+        {['filters', 'dates'].includes(window.location.pathname) ? (
+          <ReactRouter.Link to="/discover">
+            <IconButton className={classes.accountButton}>
+              <Icon>arrow_back</Icon>
+            </IconButton>
+          </ReactRouter.Link>
         ) : (
           <IconButton className={classes.accountButton}>
             <Icon></Icon>

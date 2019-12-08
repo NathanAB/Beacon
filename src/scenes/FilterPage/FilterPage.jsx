@@ -3,9 +3,10 @@ import { PropTypes } from 'prop-types';
 import { withStyles, Typography, Chip, Button, Box } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
-import Store from '../../../store';
+import Store from '../../store';
 import TagsRow from '../TagsRow/TagsRow';
-import { getIsDesktop } from '../../../utils';
+import FilterBar from '../FilterBar/FilterBar';
+import { getIsDesktop } from '../../utils';
 
 const styles = theme => ({
   filtersContainer: {
@@ -121,6 +122,7 @@ function FilterPage({ classes }) {
 
   return (
     <div>
+      <FilterBar />
       <section className={classes.filterSection}>
         <Typography variant="h6" className={classes.sectionTitle}>
           Cost

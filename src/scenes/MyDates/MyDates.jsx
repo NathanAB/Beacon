@@ -5,7 +5,7 @@ import ReactGA from 'react-ga';
 
 import { Typography, Button } from '@material-ui/core';
 import Store from '../../store';
-import DatesList from '../Discover/DatesList/DatesList';
+import DateList from '../../components/DateList/DateList';
 import UserDateCard from '../../components/UserDateCard/UserDateCard';
 import { getIsDesktop } from '../../utils';
 
@@ -78,7 +78,7 @@ function MyDates({ classes }) {
         <Typography align="center" className={classes.title} variant="h6" display="block">
           Upcoming Dates
         </Typography>
-        <DatesList isMyDates>{dateCards}</DatesList>
+        <DateList isMyDates>{dateCards}</DateList>
       </>
     );
   };

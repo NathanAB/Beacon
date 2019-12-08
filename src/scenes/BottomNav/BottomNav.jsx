@@ -5,6 +5,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Icon from '@material-ui/core/Icon';
 import ReactGA from 'react-ga';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import CONSTANTS from '../../constants';
 import Store from '../../store';
@@ -38,25 +39,27 @@ function BottomNav({ classes }) {
       showLabels
       onChange={(event, value) => {
         ReactGA.pageview(value);
-        store.set('currentTab')(value);
         store.set('filters')([]);
         store.set('focusedDate')(false);
-        store.set('isFilterPageOpen')(false);
       }}
       className={classes.root}
     >
-      <BottomNavigationAction
-        classes={{ label: classes.navLabel, root: classes.navItem }}
-        label="Discover"
-        value={TABS.DISCOVER}
-        icon={<Icon>explore</Icon>}
-      />
-      <BottomNavigationAction
-        classes={{ label: classes.navLabel, root: classes.navItem }}
-        label="My Dates"
-        value={TABS.MY_DATES}
-        icon={<Icon>favorite</Icon>}
-      />
+      <Link to="/discover">
+        <BottomNavigationAction
+          classes={{ label: classes.navLabel, root: classes.navItem }}
+          label="Discover"
+          value={TABS.DISCOVER}
+          icon={<Icon>explore</Icon>}
+        />
+      </Link>
+      <Link to="/my-dates">
+        <BottomNavigationAction
+          classes={{ label: classes.navLabel, root: classes.navItem }}
+          label="My Dates"
+          value={TABS.MY_DATES}
+          icon={<Icon>favorite</Icon>}
+        />
+      </Link>
     </BottomNavigation>
   );
 }

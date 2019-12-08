@@ -1,6 +1,6 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import CONSTANTS from '../../constants';
 import AddDateForm from '../AddDateForm/AddDateForm';
 import LoginDialog from '../LoginDialog/LoginDialog';
 import Discover from '../Discover/Discover';
@@ -8,39 +8,32 @@ import MyDates from '../MyDates/MyDates';
 import Store from '../../store';
 
 import './Body.css';
-
-const { TABS } = CONSTANTS;
+import DateSearch from '../DateSearch/DateSearch';
+import FilterPage from '../FilterPage/FilterPage';
 
 function Body() {
   const store = Store.useStore();
-  const currentTab = store.get('currentTab');
   const editDate = store.get('editDate');
   const checkoutDate = store.get('checkoutDate');
-  let contentToRender;
 
-  function renderDiscover() {
-    return <Discover />;
-  }
-
-  function renderMyDates() {
-    return <MyDates />;
-  }
-
-  switch (currentTab) {
-    case TABS.DISCOVER:
-      contentToRender = renderDiscover();
-      break;
-    case TABS.MY_DATES:
-      contentToRender = renderMyDates();
-      break;
-    default:
-      break;
-  }
   return (
     <main>
       {(editDate || checkoutDate) && <AddDateForm />}
       <LoginDialog />
-      {contentToRender}
+      <Switch>
+        <Route path="/my-dates">
+          <MyDates />
+        </Route>
+        <Route path="/discover">
+          <Discover />
+        </Route>
+        <Route path="/dates">
+          <DateSearch />
+        </Route>
+        <Route path="/filters">
+          <FilterPage />
+        </Route>
+      </Switch>
     </main>
   );
 }
