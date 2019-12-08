@@ -24,6 +24,7 @@ const DateTags = ({
   color,
   tagsOnly,
   singleRow,
+  align,
 }) => {
   let tags = [];
   let dateHours;
@@ -67,7 +68,7 @@ const DateTags = ({
   );
 
   return (
-    <Box paddingBottom={paddingBottom}>
+    <Box paddingBottom={paddingBottom} textAlign={align}>
       {singleRow && !tagsOnly && renderMetaChips()}
       {!singleRow && !tagsOnly && <Box paddingBottom="5px">{renderMetaChips()}</Box>}
       {tags.map(tag => (

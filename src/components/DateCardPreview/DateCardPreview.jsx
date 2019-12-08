@@ -59,10 +59,10 @@ const DateCard = React.forwardRef(({ dateObj, classes }, ref) => {
     const thumbnails = dateObj.sections.map(section => {
       const placeholderImg = `https://instagram.com/p/${
         testImages[Math.floor(section.spotId % 9)]
-      }/media/?size=l`;
+      }/media/?size=m`;
 
       const imageUrl = section.image
-        ? `https://instagram.com/p/${section.image}/media/?size=l`
+        ? `https://instagram.com/p/${section.image}/media/?size=m`
         : placeholderImg;
 
       return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,7 +8,16 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
-import { Stepper, Step, StepLabel, StepContent, Box, IconButton, Icon } from '@material-ui/core';
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  StepContent,
+  Box,
+  IconButton,
+  Icon,
+  Link,
+} from '@material-ui/core';
 import ReactGA from 'react-ga';
 
 import Store from '../../store';
@@ -54,7 +63,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
     padding: '2px 16px',
-    'font-weight': 600,
+    fontWeight: 600,
   },
   planDateButton: {
     display: 'block',
@@ -84,10 +93,11 @@ const styles = theme => ({
     },
   },
   thumbnailImage: {
-    'flex-shrink': 1,
-    'flex-basis': '100%',
-    'background-position': 'center',
-    'background-size': 'cover',
+    position: 'relative',
+    flexShrink: 1,
+    flexBasis: '100%',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
   },
   dateSteps: {
     padding: '10px 0',
@@ -104,6 +114,19 @@ const styles = theme => ({
   expandoContainer: {
     lineHeight: '12px',
     textAlign: 'center',
+  },
+  imageAuthor: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    overflow: 'auto',
+    textOverflow: 'ellipsis',
+    maxWidth: '90%',
+    opacity: 0.85,
+    fontSize: '14px',
+    position: 'absolute',
+    left: '0px',
+    top: '0px',
+    padding: '2px 5px',
   },
 });
 
@@ -135,20 +158,34 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
   function renderThumbnails() {
     // eslint-disable-next-line arrow-body-style
     const thumbnails = dateObj.sections.map(section => {
-      const placeholderImg = `https://instagram.com/p/${
-        testImages[Math.floor(section.spotId % 9)]
-      }/media/?size=l`;
+      let imageUrl;
+      let imageAuthor;
 
-      const imageUrl = section.image
-        ? `https://instagram.com/p/${section.image}/media/?size=l`
-        : placeholderImg;
+      if (section.image) {
+        imageUrl = `https://instagram.com/p/${section.image}/media/?size=m`;
+        imageAuthor = section.imageAuthor; // eslint-disable-line prefer-destructuring
+      } else {
+        // Use placeholder
+        imageUrl = `https://instagram.com/p/${
+          testImages[Math.floor(section.spotId % 9)]
+        }/media/?size=m`;
+      }
 
       return (
         <div
           className={classes.thumbnailImage}
           key={section.spot.name}
-          style={{ backgroundImage: `url(${imageUrl || placeholderImg})` }}
-        />
+          style={{ backgroundImage: `url(${imageUrl})` }}
+        >
+          {imageAuthor && (
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              className={classes.imageAuthor}
+              href={`https://www.instagram.com/p/${section.image}`}
+            >{`@${imageAuthor}`}</Link>
+          )}
+        </div>
       );
     });
     return <div className={classes.thumbnailContainer}>{thumbnails}</div>;
@@ -161,8 +198,6 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
           <Typography variant="body2">{dateObj.description}</Typography>
           <Stepper nonLinear orientation="vertical" className={classes.dateSteps}>
             {dateObj.sections.map(section => {
-              const duration = Math.round(section.minutes / 30) / 2; // Round to the nearest half-hour
-              const costString = costToString(section.cost);
               return (
                 <Step active key={section.spot.name}>
                   <StepLabel>
@@ -171,8 +206,8 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
                     </Typography>
                   </StepLabel>
                   <StepContent>
-                    <DateTags paddingBottom="8px" singleRow sectionObj={section} />
                     <Typography variant="body2">{section.description}</Typography>
+                    <DateTags align="right" paddingBottom="8px" singleRow sectionObj={section} />
                   </StepContent>
                 </Step>
               );
