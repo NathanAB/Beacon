@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,20 +8,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
-import {
-  Stepper,
-  Step,
-  StepLabel,
-  StepContent,
-  Box,
-  IconButton,
-  Icon,
-  Link,
-} from '@material-ui/core';
+import { Stepper, Step, StepLabel, StepContent, Box, Icon, Link } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
 import Store from '../../store';
-import { costToString, getIsDesktop } from '../../utils';
+import { getIsDesktop } from '../../utils';
 import DateTags from '../DateTags/DateTags';
 
 const testImages = [
@@ -62,7 +53,10 @@ const styles = theme => ({
   cardHeader: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
-    padding: '2px 16px',
+    padding: '6px 16px',
+    fontWeight: 600,
+  },
+  cardHeaderText: {
     fontWeight: 600,
   },
   planDateButton: {
@@ -106,14 +100,7 @@ const styles = theme => ({
     paddingBottom: '10px',
   },
   expando: {
-    margin: 'auto',
     fontSize: '32px',
-    lineHeight: '18px',
-    height: '20px',
-  },
-  expandoContainer: {
-    lineHeight: '12px',
-    textAlign: 'center',
   },
   imageAuthor: {
     backgroundColor: theme.palette.primary.main,
@@ -259,17 +246,18 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
         >
           <CardMedia className={classes.media}>{renderThumbnails()}</CardMedia>
           <Box className={classes.cardHeader}>
-            <Typography variant={isDesktop ? 'h6' : 'subtitle1'}>
-              {dateObj.name} <br />
-              <DateTags variant="outlined" color="secondary" dateObj={dateObj} maxTags={0} />
+            <Typography className={classes.cardHeaderText} variant={isDesktop ? 'h6' : 'subtitle1'}>
+              {dateObj.name}
+              <Box display="flex" justifyContent="space-between">
+                <DateTags variant="outlined" color="secondary" dateObj={dateObj} maxTags={0} />
+                {isExpanded ? (
+                  <Icon className={classes.expando}>expand_less</Icon>
+                ) : (
+                  <Icon className={classes.expando}>expand_more</Icon>
+                )}
+              </Box>
             </Typography>
-            <Box className={classes.expandoContainer}>
-              {isExpanded ? (
-                <Icon className={classes.expando}>expand_less</Icon>
-              ) : (
-                <Icon className={classes.expando}>expand_more</Icon>
-              )}
-            </Box>
+            <Box className={classes.expandoContainer}></Box>
           </Box>
         </CardActionArea>
         {renderExpanded()}
