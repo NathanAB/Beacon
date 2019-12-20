@@ -39,11 +39,11 @@ function DatesRow({ classes }) {
         <Typography variant="h6" className={classes.title}>
           Discover Dates
         </Typography>
-        <Button onClick={() => store.set('focusedDate')(-1)}>
+        {/* <Button onClick={() => store.set('focusedDate')(-1)}>
           <Typography variant="subtitle2">
             <strong>VIEW ALL</strong>
           </Typography>
-        </Button>
+        </Button> */}
       </div>
       {dateObjs.length ? (
         <ScrollMenu

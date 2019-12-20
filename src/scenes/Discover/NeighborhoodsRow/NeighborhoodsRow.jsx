@@ -99,11 +99,11 @@ function NeighborhoodsRow({ classes }) {
         <Typography variant="h6" className={classes.title}>
           Dates by Neighborhood
         </Typography>
-        <Button onClick={() => store.set('focusedDate')(-1)}>
+        {/* <Button onClick={() => store.set('focusedDate')(-1)}>
           <Typography variant="subtitle2">
             <strong>VIEW ALL</strong>
           </Typography>
-        </Button>
+        </Button> */}
       </div>
       {neighborhoods.length ? (
         <ScrollMenu
