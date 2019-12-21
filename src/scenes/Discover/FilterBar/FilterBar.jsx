@@ -1,17 +1,20 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import { withStyles, Typography, Icon, Chip } from '@material-ui/core';
+import { withStyles, Box, Typography, Icon, Chip } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
 import Store from '../../../store';
 
 const styles = {
+  container: {
+    padding: '0px 20px',
+  },
   search: {
     position: 'relative',
     borderRadius: '12px',
     border: '1px solid lightgray',
     width: '100%',
-    padding: '0.2rem 0',
+    padding: '8px 0',
     textAlign: 'left',
     outline: 'none',
     color: 'gray',
@@ -80,22 +83,24 @@ function FilterBar({ classes }) {
   }
 
   return (
-    <button
-      type="button"
-      className={classes.search}
-      onClick={() => {
-        ReactGA.event({
-          category: 'Interaction',
-          action: 'Open Filter Page',
-        });
-        store.set('isFilterPageOpen')(true);
-      }}
-    >
-      <span className={classes.searchIcon}>
-        <Icon>filter_list</Icon>
-      </span>
-      <span className={classes.filterChips}>{renderChips()}</span>
-    </button>
+    <Box className={classes.container}>
+      <button
+        type="button"
+        className={classes.search}
+        onClick={() => {
+          ReactGA.event({
+            category: 'Interaction',
+            action: 'Open Filter Page',
+          });
+          store.set('isFilterPageOpen')(true);
+        }}
+      >
+        <span className={classes.searchIcon}>
+          <Icon>filter_list</Icon>
+        </span>
+        <span className={classes.filterChips}>{renderChips()}</span>
+      </button>
+    </Box>
   );
 }
 

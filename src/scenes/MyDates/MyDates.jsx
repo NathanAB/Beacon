@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
 import { Typography, Button } from '@material-ui/core';
 import Store from '../../store';
 import DatesList from '../Discover/DatesList/DatesList';
-import UserDateCard from '../../components/UserDateCard/UserDateCard';
+import MyDateCard from '../../components/MyDateCard/MyDateCard';
 import { getIsDesktop } from '../../utils';
 
 const styles = () => ({
@@ -62,7 +62,7 @@ function MyDates({ classes }) {
     const dateCards = userDates.length ? (
       userDates
         .sort(dateSorter)
-        .map(userDate => <UserDateCard key={userDate.dateId} userDate={userDate} />)
+        .map(userDate => <MyDateCard key={userDate.id} userDate={userDate} />)
     ) : (
       <Typography>You have no dates planned yet</Typography>
     );

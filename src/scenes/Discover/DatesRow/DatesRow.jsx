@@ -1,9 +1,10 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Button, CircularProgress } from '@material-ui/core';
+import { Icon, IconButton, Typography, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
 
+import { getIsDesktop } from '../../../utils';
 import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
 import Store from '../../../store';
 
@@ -17,6 +18,7 @@ const styles = () => ({
     justifyContent: 'space-between',
   },
   title: {
+    paddingLeft: '20px',
     fontWeight: 600,
   },
 });
@@ -24,6 +26,7 @@ const styles = () => ({
 function DatesRow({ classes }) {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
+  const isDesktop = getIsDesktop();
 
   const dateCards = dateObjs.map(date => {
     return (
@@ -50,10 +53,24 @@ function DatesRow({ classes }) {
           data={dateCards}
           wheel={false}
           alignOnResize={false}
-          translate={1}
+          translate={20}
           itemStyle={{
             paddingRight: '20px',
           }}
+          arrowLeft={
+            isDesktop && (
+              <IconButton>
+                <Icon>chevron_left</Icon>
+              </IconButton>
+            )
+          }
+          arrowRight={
+            isDesktop && (
+              <IconButton>
+                <Icon>chevron_right</Icon>
+              </IconButton>
+            )
+          }
           onSelect={dateId => {
             ReactGA.event({
               category: 'Interaction',

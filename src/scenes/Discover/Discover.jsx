@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Typography, Button } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import Store from '../../store';
@@ -12,15 +12,21 @@ import TagsRow from './TagsRow/TagsRow';
 import DateCard from '../../components/DateCard/DateCard';
 import FilterPage from './FilterPage/FilterPage';
 
-const styles = {
+const styles = theme => ({
+  container: {
+    [theme.breakpoints.up('sm')]: {},
+  },
   titleBar: {
     display: 'flex',
     justifyContent: 'space-between',
   },
+  tagsContainer: {
+    padding: '0px 20px',
+  },
   title: {
     fontWeight: 600,
   },
-};
+});
 
 function Discover({ classes }) {
   const focusedRef = useRef(null);
@@ -62,31 +68,22 @@ function Discover({ classes }) {
     }
 
     return (
-      <>
+      <Box className={classes.container}>
+        <FilterBar />
         <DatesRow />
         <NeighborhoodsRow />
 
-        <div className={classes.titleBar}>
+        <Box className={classes.tagsContainer}>
           <Typography variant="h6" className={classes.title}>
             Dates by Characteristic
           </Typography>
-          {/* <Button onClick={() => store.set('focusedDate')(-1)}>
-            <Typography variant="subtitle2">
-              <strong>VIEW ALL</strong>
-            </Typography>
-          </Button> */}
-        </div>
-        <TagsRow isDiscover />
-      </>
+          <TagsRow isDiscover />
+        </Box>
+      </Box>
     );
   }
 
-  return (
-    <React.Fragment>
-      <FilterBar />
-      {renderContent()}
-    </React.Fragment>
-  );
+  return <React.Fragment>{renderContent()}</React.Fragment>;
 }
 
 export default withStyles(styles)(Discover);

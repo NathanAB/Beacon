@@ -6,7 +6,8 @@
   ],
   "rules": {
     "react/forbid-prop-types": "off",
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "react/prop-types": "off",
   },
   "plugins": [
     "prettier",

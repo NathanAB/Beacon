@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Divider, Typography, IconButton, Icon } from '@material-ui/core';
+import { Card, CardContent, Typography, IconButton, Icon, Box } from '@material-ui/core';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -36,8 +36,9 @@ const styles = theme => ({
     position: 'relative',
   },
   cardHeaderText: {
-    // color: theme.palette.primary.contrastText,
-    marginRight: '28px',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    paddingRight: '28px',
   },
   cardHeaderDivider: {
     margin: '10px 0',
@@ -46,7 +47,7 @@ const styles = theme => ({
     fontStyle: 'italic',
   },
   editButton: {
-    color: 'black',
+    color: 'white',
     top: '5px',
     position: 'absolute',
     right: '5px',
@@ -57,7 +58,7 @@ const styles = theme => ({
   },
 });
 
-function UserDateCard({ classes, userDate }) {
+function MyDateCard({ classes, userDate }) {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
   const dateObj = dateObjs.find(d => d.id === userDate.dateId);
@@ -109,29 +110,31 @@ function UserDateCard({ classes, userDate }) {
       <div className={classes.cardHeader}>
         <DateMap className={classes.cardHeader} placeIds={placeIds} />
       </div>
-      <CardContent className={classes.cardHeader}>
-        <IconButton className={classes.editButton} onClick={editDate} color="primary">
-          <Icon>edit</Icon>
-        </IconButton>
-        <Typography variant="h5" className={classes.cardHeaderText}>
-          {userDate.name}
-        </Typography>
-        <Typography variant="subtitle2" className={classes.cardHeaderText}>
-          {moment(userDate.startTime).format('dddd, MMMM Do')}
-        </Typography>
-        <Typography variant="subtitle2" className={classes.cardHeaderText}>
-          {moment(userDate.startTime).format('h:mm a')}
-        </Typography>
-        <Typography variant="body2" className={[classes.cardHeaderText, classes.italic].join(' ')}>
-          {userDate.notes}
-        </Typography>
-        <Divider className={classes.cardHeaderDivider} />
-        <DateTags dateObj={dateObj} maxTags={0} paddingBottom="10px" />
-        <Typography variant="body2">{dateObj.description}</Typography>
-        {renderSections()}
-      </CardContent>
+      <Box className={classes.cardHeader}>
+        <CardContent className={classes.cardHeaderText}>
+          <Typography variant="h5">{userDate.name}</Typography>
+          <Typography variant="subtitle2">
+            {moment(userDate.startTime).format('dddd, MMMM Do')}
+          </Typography>
+          <Typography variant="subtitle2">{moment(userDate.startTime).format('h:mm a')}</Typography>
+          <Typography
+            variant="body2"
+            className={[classes.cardHeaderText, classes.italic].join(' ')}
+          >
+            {userDate.notes}
+          </Typography>
+        </CardContent>
+        <CardContent>
+          <IconButton className={classes.editButton} onClick={editDate} color="primary">
+            <Icon>edit</Icon>
+          </IconButton>
+          <DateTags dateObj={dateObj} maxTags={0} paddingBottom="10px" />
+          <Typography variant="body2">{dateObj.description}</Typography>
+          {renderSections()}
+        </CardContent>
+      </Box>
     </Card>
   );
 }
 
-export default withStyles(styles)(UserDateCard);
+export default withStyles(styles)(MyDateCard);

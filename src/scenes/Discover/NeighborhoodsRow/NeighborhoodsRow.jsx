@@ -1,9 +1,10 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Button, ButtonBase, CircularProgress } from '@material-ui/core';
+import { IconButton, Icon, Typography, ButtonBase, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
 
+import { getIsDesktop } from '../../../utils';
 import Store from '../../../store';
 import placeholderImg from '../../../assets/img/placeholder.png';
 
@@ -40,6 +41,7 @@ const styles = theme => ({
     justifyContent: 'space-between',
   },
   title: {
+    paddingLeft: '20px',
     fontWeight: 600,
   },
   caption: {
@@ -58,6 +60,7 @@ const styles = theme => ({
 function NeighborhoodsRow({ classes }) {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
+  const isDesktop = getIsDesktop();
 
   function addFilter(neighborhood) {
     console.log(neighborhood);
@@ -108,12 +111,26 @@ function NeighborhoodsRow({ classes }) {
       {neighborhoods.length ? (
         <ScrollMenu
           alignOnResize={false}
-          translate={1}
+          translate={20}
           data={renderNeighborhoods(classes)}
           wheel={false}
           itemStyle={{
             paddingRight: '20px',
           }}
+          arrowLeft={
+            isDesktop && (
+              <IconButton>
+                <Icon>chevron_left</Icon>
+              </IconButton>
+            )
+          }
+          arrowRight={
+            isDesktop && (
+              <IconButton>
+                <Icon>chevron_right</Icon>
+              </IconButton>
+            )
+          }
           onSelect={neighborhood => {
             addFilter(neighborhood);
           }}

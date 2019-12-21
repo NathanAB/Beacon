@@ -5,9 +5,13 @@ import ReactGA from 'react-ga';
 
 import Store from '../../../store';
 import TagsRow from '../TagsRow/TagsRow';
+import FilterBar from '../FilterBar/FilterBar';
 import { getIsDesktop } from '../../../utils';
 
 const styles = theme => ({
+  container: {
+    padding: '0px 20px',
+  },
   tagChip: {
     margin: '14px 14px 0 0',
     padding: '14px 6px',
@@ -77,54 +81,57 @@ function FilterPage({ classes }) {
   }
 
   return (
-    <div>
-      <section className={classes.filterSection}>
-        <Typography variant="h6" className={classes.sectionTitle}>
-          Cost
-        </Typography>
-        {renderFilterSection(costs, 'cost')}
-      </section>
+    <>
+      <FilterBar />
+      <Box className={classes.container}>
+        <section className={classes.filterSection}>
+          <Typography variant="h6" className={classes.sectionTitle}>
+            Cost
+          </Typography>
+          {renderFilterSection(costs, 'cost')}
+        </section>
 
-      <section className={classes.filterSection}>
-        <Typography variant="h6" className={classes.sectionTitle}>
-          Duration
-        </Typography>
-        {renderFilterSection(durations, 'duration')}
-      </section>
+        <section className={classes.filterSection}>
+          <Typography variant="h6" className={classes.sectionTitle}>
+            Duration
+          </Typography>
+          {renderFilterSection(durations, 'duration')}
+        </section>
 
-      <section className={classes.filterSection}>
-        <Typography variant="h6" className={classes.sectionTitle}>
-          Location
-        </Typography>
-        {renderFilterSection(neighborhoods.map(n => n.name), 'neighborhood')}
-      </section>
+        <section className={classes.filterSection}>
+          <Typography variant="h6" className={classes.sectionTitle}>
+            Location
+          </Typography>
+          {renderFilterSection(neighborhoods.map(n => n.name), 'neighborhood')}
+        </section>
 
-      <section className={classes.filterSection}>
-        <Typography variant="h6" className={classes.sectionTitle}>
-          Characteristic
-        </Typography>
-        <TagsRow />
-      </section>
+        <section className={classes.filterSection}>
+          <Typography variant="h6" className={classes.sectionTitle}>
+            Characteristic
+          </Typography>
+          <TagsRow />
+        </section>
 
-      <Box display="flex" flexDirection="row-reverse">
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.searchButton}
-          fullWidth={!isDesktop}
-          onClick={() => {
-            ReactGA.event({
-              category: 'Interaction',
-              action: 'Close Filter Page',
-            });
-            store.set('isFilterPageOpen')(false);
-            window.scrollTo(0, 0);
-          }}
-        >
-          Search
-        </Button>
+        <Box display="flex" flexDirection="row-reverse">
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.searchButton}
+            fullWidth={!isDesktop}
+            onClick={() => {
+              ReactGA.event({
+                category: 'Interaction',
+                action: 'Close Filter Page',
+              });
+              store.set('isFilterPageOpen')(false);
+              window.scrollTo(0, 0);
+            }}
+          >
+            Search
+          </Button>
+        </Box>
       </Box>
-    </div>
+    </>
   );
 }
 

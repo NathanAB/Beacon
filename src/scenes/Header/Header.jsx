@@ -13,7 +13,6 @@ import CONSTANTS from '../../constants';
 import Store from '../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
-import { ReactComponent as Logo } from '../../assets/img/logo.svg';
 
 const styles = theme => ({
   root: {
@@ -33,15 +32,17 @@ const styles = theme => ({
     height: '52px',
   },
   title: {
-    fontWeight: 800,
+    color: theme.palette.primary.main,
+    fontFamily: 'sofia-pro, sans-serif',
+    fontWeight: 900,
     letterSpacing: '5px',
-    textTransform: 'uppercase',
-    transition: '0.25s',
+    transition: '0.2s',
     '&:hover': {
-      color: 'black',
+      opacity: 0.8,
     },
+    fontSize: '28px',
     [theme.breakpoints.up('sm')]: {
-      fontSize: '28px',
+      fontSize: '32px',
       letterSpacing: '6px',
     },
   },
@@ -94,7 +95,7 @@ function Header(props) {
           </IconButton>
         )}
         <ButtonBase className={classes.title} onClick={goToDiscover}>
-          <Logo className={classes.logo} />
+          BEACON
         </ButtonBase>
         <IconButton
           aria-controls="simple-menu"
