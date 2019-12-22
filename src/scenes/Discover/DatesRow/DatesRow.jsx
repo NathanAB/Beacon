@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Icon, IconButton, Typography, CircularProgress } from '@material-ui/core';
+import { Box, Icon, IconButton, Typography, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
 
@@ -11,6 +11,9 @@ import Store from '../../../store';
 const styles = () => ({
   container: {
     margin: '12px 0',
+  },
+  loadingContainer: {
+    textAlign: 'center',
   },
   titleBar: {
     marginBottom: '5px',
@@ -42,11 +45,6 @@ function DatesRow({ classes }) {
         <Typography variant="h6" className={classes.title}>
           Discover Dates
         </Typography>
-        {/* <Button onClick={() => store.set('focusedDate')(-1)}>
-          <Typography variant="subtitle2">
-            <strong>VIEW ALL</strong>
-          </Typography>
-        </Button> */}
       </div>
       {dateObjs.length ? (
         <ScrollMenu
@@ -81,7 +79,9 @@ function DatesRow({ classes }) {
           }}
         />
       ) : (
-        <CircularProgress />
+        <Box className={classes.loadingContainer}>
+          <CircularProgress />
+        </Box>
       )}
     </section>
   );

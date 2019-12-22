@@ -95,7 +95,9 @@ function MyDateCard({ classes, userDate }) {
           return (
             <Step active key={section.spot.name}>
               <StepLabel>
-                <Typography variant="subtitle1">{section.spot.name}</Typography>
+                <Typography variant="subtitle2">
+                  <strong>{section.spot.name}</strong>
+                </Typography>
               </StepLabel>
               <StepContent>
                 <Typography variant="body2">{section.description}</Typography>

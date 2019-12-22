@@ -62,7 +62,7 @@ const styles = theme => ({
   planDateButton: {
     display: 'block',
     margin: '16px auto',
-    textTransform: 'uppercase',
+    textTransform: 'none',
   },
   actionArea: {
     width: '100%',
@@ -154,36 +154,6 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
     return <div className={classes.thumbnailContainer}>{thumbnails}</div>;
   }
 
-  function renderImageAuthors() {
-    const links = [];
-    dateObj.sections.forEach(section => {
-      if (section.imageAuthor && section.image) {
-        if (links.length) {
-          links.push(<span>, </span>);
-        }
-        links.push(
-          <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            className={classes.imageAuthor}
-            href={`https://www.instagram.com/p/${section.image}`}
-          >{`@${section.imageAuthor}`}</Link>,
-        );
-      }
-      return null;
-    });
-    if (links.length) {
-      return (
-        <Box textAlign="right">
-          <Typography variant="caption">
-            <i>Photography by {links}</i>
-          </Typography>
-        </Box>
-      );
-    }
-    return null;
-  }
-
   function renderExpanded() {
     return (
       <Collapse in={isExpanded}>
@@ -200,6 +170,19 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
                   </StepLabel>
                   <StepContent>
                     <Typography variant="body2">{section.description}</Typography>
+                    {section.image && section.imageAuthor && (
+                      <Typography variant="caption">
+                        <i>
+                          Photo:{' '}
+                          <Link
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={classes.imageAuthor}
+                            href={`https://www.instagram.com/p/${section.image}`}
+                          >{`@${section.imageAuthor}`}</Link>
+                        </i>
+                      </Typography>
+                    )}
                     <DateTags paddingBottom="8px" singleRow sectionObj={section} />
                   </StepContent>
                 </Step>
@@ -215,9 +198,8 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
             onClick={checkoutDate}
             fullWidth={!isDesktop}
           >
-            Add this Date
+            Add This Date
           </Button>
-          {renderImageAuthors()}
         </CardContent>
       </Collapse>
     );

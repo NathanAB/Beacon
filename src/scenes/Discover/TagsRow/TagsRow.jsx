@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Chip, CircularProgress } from '@material-ui/core';
+import { Box, Chip, CircularProgress } from '@material-ui/core';
 import ReactGA from 'react-ga';
 import Store from '../../../store';
 
@@ -14,6 +14,9 @@ const styles = theme => ({
       padding: '18px 10px',
       fontSize: '15px',
     },
+  },
+  loadingContainer: {
+    textAlign: 'center',
   },
   tagChipDisabled: {
     opacity: '0.5',
@@ -81,7 +84,9 @@ function TagsRow({ classes, isDiscover }) {
         );
       })
     ) : (
-      <CircularProgress />
+      <Box className={classes.loadingContainer}>
+        <CircularProgress />
+      </Box>
     );
   }
 

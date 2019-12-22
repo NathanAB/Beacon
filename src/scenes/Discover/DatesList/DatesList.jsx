@@ -12,7 +12,7 @@ const styles = () => ({
 
 function DatesList({ children, isMyDates }) {
   const emptyMessage = isMyDates
-    ? 'You have no dates planned.'
+    ? `Hmm... it looks like you don't have any dates planned. Click Discover to get started!`
     : 'Sorry, no dates match your filters. Check back soon as we add new dates weekly!';
 
   if (!children.length) {

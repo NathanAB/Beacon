@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { IconButton, Icon, Typography, ButtonBase, CircularProgress } from '@material-ui/core';
+import { Box, IconButton, Icon, Typography, ButtonBase, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
 
@@ -55,6 +55,9 @@ const styles = theme => ({
       lineHeight: '22px',
     },
   },
+  loadingContainer: {
+    textAlign: 'center',
+  },
 });
 
 function NeighborhoodsRow({ classes }) {
@@ -102,11 +105,6 @@ function NeighborhoodsRow({ classes }) {
         <Typography variant="h6" className={classes.title}>
           Dates by Neighborhood
         </Typography>
-        {/* <Button onClick={() => store.set('focusedDate')(-1)}>
-          <Typography variant="subtitle2">
-            <strong>VIEW ALL</strong>
-          </Typography>
-        </Button> */}
       </div>
       {neighborhoods.length ? (
         <ScrollMenu
@@ -136,7 +134,9 @@ function NeighborhoodsRow({ classes }) {
           }}
         />
       ) : (
-        <CircularProgress />
+        <Box className={classes.loadingContainer}>
+          <CircularProgress />
+        </Box>
       )}
     </section>
   );
