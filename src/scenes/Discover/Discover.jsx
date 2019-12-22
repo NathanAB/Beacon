@@ -13,8 +13,8 @@ import DateCard from '../../components/DateCard/DateCard';
 import FilterPage from './FilterPage/FilterPage';
 
 const styles = theme => ({
-  container: {
-    [theme.breakpoints.up('sm')]: {},
+  listContainer: {
+    padding: '0px 20px',
   },
   titleBar: {
     display: 'flex',
@@ -64,11 +64,18 @@ function Discover({ classes }) {
     }
 
     if (filters.length || focusedDate) {
-      return <DatesList>{dateCards}</DatesList>;
+      return (
+        <>
+          <FilterBar />
+          <Box className={classes.listContainer}>
+            <DatesList>{dateCards}</DatesList>
+          </Box>
+        </>
+      );
     }
 
     return (
-      <Box className={classes.container}>
+      <Box>
         <FilterBar />
         <DatesRow />
         <NeighborhoodsRow />

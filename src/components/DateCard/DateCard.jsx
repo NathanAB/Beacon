@@ -102,19 +102,6 @@ const styles = theme => ({
   expando: {
     fontSize: '32px',
   },
-  imageAuthor: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    overflow: 'auto',
-    textOverflow: 'ellipsis',
-    maxWidth: '90%',
-    opacity: 0.85,
-    fontSize: '14px',
-    position: 'absolute',
-    left: '0px',
-    top: '0px',
-    padding: '2px 5px',
-  },
 });
 
 const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded }, ref) => {
@@ -146,11 +133,9 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
     // eslint-disable-next-line arrow-body-style
     const thumbnails = dateObj.sections.map(section => {
       let imageUrl;
-      let imageAuthor;
 
       if (section.image) {
         imageUrl = `https://instagram.com/p/${section.image}/media/?size=m`;
-        imageAuthor = section.imageAuthor; // eslint-disable-line prefer-destructuring
       } else {
         // Use placeholder
         imageUrl = `https://instagram.com/p/${
@@ -163,19 +148,40 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
           className={classes.thumbnailImage}
           key={section.spot.name}
           style={{ backgroundImage: `url(${imageUrl})` }}
-        >
-          {imageAuthor && (
-            <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              className={classes.imageAuthor}
-              href={`https://www.instagram.com/p/${section.image}`}
-            >{`@${imageAuthor}`}</Link>
-          )}
-        </div>
+        ></div>
       );
     });
     return <div className={classes.thumbnailContainer}>{thumbnails}</div>;
+  }
+
+  function renderImageAuthors() {
+    const links = [];
+    dateObj.sections.forEach(section => {
+      if (section.imageAuthor && section.image) {
+        if (links.length) {
+          links.push(<span>, </span>);
+        }
+        links.push(
+          <Link
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.imageAuthor}
+            href={`https://www.instagram.com/p/${section.image}`}
+          >{`@${section.imageAuthor}`}</Link>,
+        );
+      }
+      return null;
+    });
+    if (links.length) {
+      return (
+        <Box textAlign="right">
+          <Typography variant="caption">
+            <i>Photography by {links}</i>
+          </Typography>
+        </Box>
+      );
+    }
+    return null;
   }
 
   function renderExpanded() {
@@ -194,7 +200,7 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
                   </StepLabel>
                   <StepContent>
                     <Typography variant="body2">{section.description}</Typography>
-                    <DateTags align="right" paddingBottom="8px" singleRow sectionObj={section} />
+                    <DateTags paddingBottom="8px" singleRow sectionObj={section} />
                   </StepContent>
                 </Step>
               );
@@ -211,6 +217,7 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
           >
             Add this Date
           </Button>
+          {renderImageAuthors()}
         </CardContent>
       </Collapse>
     );

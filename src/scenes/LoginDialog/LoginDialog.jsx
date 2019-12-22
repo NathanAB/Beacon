@@ -53,7 +53,7 @@ function LoginDialog({ classes }) {
         <CloseIcon />
       </IconButton>
       <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
-        Sign in or sign up!
+        Sign in or sign up to start saving dates
       </DialogTitle>
       <DialogContent className={classes.content}>
         <Button

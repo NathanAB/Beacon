@@ -13,6 +13,7 @@ import CONSTANTS from '../../constants';
 import Store from '../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
+import constants from '../../constants';
 
 const styles = theme => ({
   root: {
@@ -47,6 +48,7 @@ const styles = theme => ({
     },
   },
   menuItem: {
+    fontWeight: 600,
     fontFamily: 'Raleway',
   },
 });
@@ -55,7 +57,9 @@ function Header(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const store = Store.useStore();
   const user = store.get('user');
+  const filters = store.get('filters');
   const focusedDate = store.get('focusedDate');
+  const currentTab = store.get('currentTab');
   const isFilterPageOpen = store.get('isFilterPageOpen');
 
   function handleClick(event) {
@@ -79,11 +83,13 @@ function Header(props) {
   return (
     <AppBar position="fixed" color="inherit">
       <Toolbar className={classes.toolbar}>
-        {focusedDate || isFilterPageOpen ? (
+        {(focusedDate || filters.length || isFilterPageOpen) &&
+        currentTab !== constants.TABS.MY_DATES ? (
           <IconButton
             className={classes.headerButton}
             onClick={() => {
               store.set('focusedDate')(false);
+              store.set('filters')([]);
               store.set('isFilterPageOpen')(false);
             }}
           >

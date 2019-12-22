@@ -94,7 +94,9 @@ function MyDateCard({ classes, userDate }) {
         {sections.map(section => {
           return (
             <Step active key={section.spot.name}>
-              <StepLabel>{section.spot.name}</StepLabel>
+              <StepLabel>
+                <Typography variant="subtitle1">{section.spot.name}</Typography>
+              </StepLabel>
               <StepContent>
                 <Typography variant="body2">{section.description}</Typography>
               </StepContent>

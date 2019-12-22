@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import ReactGA from 'react-ga';
 
-import { Typography, Button } from '@material-ui/core';
+import { Box, Typography, Button } from '@material-ui/core';
 import Store from '../../store';
 import DatesList from '../Discover/DatesList/DatesList';
 import MyDateCard from '../../components/MyDateCard/MyDateCard';
@@ -11,12 +11,14 @@ import { getIsDesktop } from '../../utils';
 
 const styles = () => ({
   title: {
-    marginTop: '10px',
     marginBottom: '25px',
     fontWeight: 600,
   },
   container: {
     margin: 'auto',
+  },
+  container2: {
+    padding: '0px 20px',
   },
 });
 
@@ -58,6 +60,7 @@ function MyDates({ classes }) {
       to start saving dates
     </Typography>
   );
+
   const renderMyDates = () => {
     const dateCards = userDates.length ? (
       userDates
@@ -83,7 +86,7 @@ function MyDates({ classes }) {
     );
   };
 
-  return <>{renderMyDates()}</>;
+  return <Box className={classes.container2}>{renderMyDates()}</Box>;
 }
 
 export default withStyles(styles)(MyDates);

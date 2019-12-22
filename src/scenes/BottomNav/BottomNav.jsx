@@ -17,6 +17,7 @@ const styles = {
     position: 'fixed',
     bottom: '0px',
     left: '0px',
+    borderTop: '1px solid lightgray',
   },
   navItem: {
     color: 'black',

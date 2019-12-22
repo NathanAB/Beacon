@@ -19,6 +19,7 @@ import ReactGA from 'react-ga';
 import Store from '../../store';
 import Constants from '../../constants';
 import * as api from '../../api';
+import { getIsDesktop } from '../../utils';
 
 const styles = theme => ({
   root: {
@@ -31,6 +32,9 @@ const styles = theme => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500],
+  },
+  deleteButton: {
+    fontWeight: 600,
   },
   textInput: {
     width: '100%',
@@ -49,6 +53,7 @@ function AddDateForm({ classes }) {
   const [dateTime, setDateTime] = useState(editDate ? moment(editDate.startTime) : moment());
   const [notes, setNotes] = useState(editDate ? editDate.notes : '');
   const [isSaving, setIsSaving] = useState(false);
+  const isDesktop = getIsDesktop();
   let userDates = store.get('userDates');
 
   const confirmCheckout = async e => {
@@ -144,33 +149,32 @@ function AddDateForm({ classes }) {
       );
 
     return (
-      <Box margin="24px 0" display="flex" justifyContent="space-between">
+      <Box
+        margin="24px 0"
+        display="flex"
+        justifyContent="space-between"
+        flexDirection="row-reverse"
+      >
+        <Button variant="contained" color="primary" type="submit" className={classes.confirmButton}>
+          {editDate ? 'Save Changes' : 'Add this Date'}
+        </Button>
         {editDate && (
           <Button
             onClick={deleteDate}
             color="primary"
-            size="small"
             type="button"
             className={classes.deleteButton}
           >
             Delete Date
           </Button>
         )}
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          type="submit"
-          className={classes.confirmButton}
-        >
-          {editDate ? 'Save Changes' : 'Add this Date'}
-        </Button>
       </Box>
     );
   };
 
   return (
     <Dialog
+      fullScreen={!isDesktop}
       open={!!checkoutDate || !!editDate}
       onClose={cancelCheckout}
       aria-labelledby="form-dialog-title"
