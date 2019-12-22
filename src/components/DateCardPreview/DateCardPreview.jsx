@@ -9,15 +9,15 @@ import Typography from '@material-ui/core/Typography';
 import DateTags from '../DateTags/DateTags';
 
 const testImages = [
-  'B3SmuPzFijg',
-  'B3SmsUDlZf_',
-  'B3Smq1Tl0hc',
-  'B3Smoh8l6AY',
-  'B3Smm19le66',
-  'B3Smks7lZXU',
-  'B3SmimgFJrr',
-  'B3Smg32lZJ4',
-  'B3SmeUhFcZm',
+  'B6YkdLGHhoV',
+  'B6YkcEfnVdC',
+  'B6Ykaq1Hoay',
+  'B6YkZrxH8LT',
+  'B6YkYtHH57R',
+  'B6YkXxKnUw8',
+  'B6YkWzZH1P3',
+  'B6YkVw9nE6q',
+  'B6YkUhWnZ95',
 ];
 
 const styles = theme => ({
