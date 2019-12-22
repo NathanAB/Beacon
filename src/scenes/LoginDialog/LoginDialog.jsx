@@ -74,7 +74,7 @@ function LoginDialog({ classes }) {
           <img src={googleIcon} alt="Google Icon" className={classes.loginIcon} />
           Login with Google
         </Button>
-        <Button
+        {/* <Button
           variant="contained"
           aria-label="Login with Facebook"
           size="medium"
@@ -91,7 +91,7 @@ function LoginDialog({ classes }) {
         >
           <img src={facebookIcon} alt="Facebook Icon" className={classes.loginIcon} />
           Login with Facebook
-        </Button>
+        </Button> */}
       </DialogContent>
     </Dialog>
   );
