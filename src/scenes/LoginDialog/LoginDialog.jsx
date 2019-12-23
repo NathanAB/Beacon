@@ -7,7 +7,7 @@ import ReactGA from 'react-ga';
 
 import Store from '../../store';
 import Constants from '../../constants';
-import googleIcon from '../../assets/img/googleIcon.png';
+import googleIcon from '../../assets/img/google-icon-white.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
 
 const styles = theme => ({
@@ -19,10 +19,12 @@ const styles = theme => ({
   },
   content: {
     textAlign: 'center',
-    minWidth: '250px',
   },
   dialogTitle: {
-    padding: '16px 46px 16px 24px',
+    maxWidth: '222px',
+    padding: '16px 46px',
+    margin: 'auto',
+    textAlign: 'center',
   },
   loginIcon: {
     height: '32px',
@@ -58,6 +60,7 @@ function LoginDialog({ classes }) {
       <DialogContent className={classes.content}>
         <Button
           variant="contained"
+          color="primary"
           aria-label="Login with Google"
           size="medium"
           fullWidth
