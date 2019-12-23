@@ -158,7 +158,7 @@ function Header(props) {
                 <img src={googleIcon} alt="Google Icon" className={classes.loginIcon} />
                 Login with Google
               </MenuItem>
-              {/* <MenuItem
+              <MenuItem
                 className={classes.menuItem}
                 onClick={() => {
                   ReactGA.event({
@@ -171,7 +171,7 @@ function Header(props) {
               >
                 <img src={facebookIcon} alt="Facebook Icon" className={classes.loginIcon} />
                 Login with Facebook
-              </MenuItem> */}
+              </MenuItem>
             </MenuList>
           )}
         </Menu>
