@@ -9,7 +9,7 @@ import ReactGA from 'react-ga';
 import CONSTANTS from '../../constants';
 import Store from '../../store';
 
-const { TABS } = CONSTANTS;
+const { TABS, ADMINS } = CONSTANTS;
 
 const styles = {
   root: {
@@ -32,6 +32,7 @@ const styles = {
 function BottomNav({ classes }) {
   const store = Store.useStore();
   const currentTab = store.get('currentTab');
+  const user = store.get('user');
 
   return (
     <BottomNavigation
@@ -59,6 +60,14 @@ function BottomNav({ classes }) {
         value={TABS.MY_DATES}
         icon={<Icon>favorite</Icon>}
       />
+      {ADMINS.includes(user.email) && (
+        <BottomNavigationAction
+          classes={{ label: classes.navLabel, root: classes.navItem }}
+          label="Admin Mode"
+          value={TABS.ADMIN}
+          icon={<Icon>remove_from_queue</Icon>}
+        />
+      )}
     </BottomNavigation>
   );
 }

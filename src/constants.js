@@ -7,6 +7,7 @@ export default {
   TABS: {
     DISCOVER: '/discover',
     MY_DATES: '/my-dates',
+    ADMIN: '/admin',
   },
   API: {
     AUTH: `${API_URL}/api/auth`,
@@ -20,4 +21,5 @@ export default {
     USER_DATES: `${API_URL}/api/userDates`,
   },
   KEYS,
+  ADMINS: ['nathanb92@gmail.com'],
 };

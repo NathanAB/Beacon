@@ -95,7 +95,6 @@ function Header({ classes }) {
   const renderUserMenuItems = () => {
     return user ? (
       <>
-        {' '}
         <MenuItem disabled>
           <Typography variant="subtitle1" className={classes.menuItem}>
             Logged in as {user.name || ''} <br /> ({user.email || ''})
