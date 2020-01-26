@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Dialog,
@@ -13,10 +13,10 @@ import {
   Select,
   MenuItem,
   Typography,
-  Divider,
 } from '@material-ui/core';
 
 import Store from '../../../../store';
+import { createDatePlan } from '../../../../api';
 
 const styles = theme => ({
   control: {
@@ -34,14 +34,29 @@ function EditDateForm({ classes }) {
   const setIsEditingDate = store.set('adminEditingDate');
   const neighborhoods = store.get('neighborhoods');
 
+  const [formData, setFormData] = useState({});
+
+  const updateFormData = (e, field) => {
+    const newValue = e.currentTarget.value;
+    formData[field] = newValue;
+    setFormData(Object.assign({}, formData));
+  };
+
+  const saveDate = () => {
+    createDatePlan(formData);
+  };
+
+  useEffect(() => {
+    setFormData(currentDate);
+  }, [currentDate]);
+
   const renderSection = section => {
     return (
       <>
-        <FormControl className={classes.controlSmall}>
-          <InputLabel id="date-neighborhood-label">Neighborhood</InputLabel>
+        <Typography variant="h6">Section</Typography>
+        <FormControl className={classes.controlSmall} fullWidth>
+          <InputLabel>Neighborhood</InputLabel>
           <Select
-            labelid="date-neighborhood-label"
-            id="date-neighborhood"
             value={section.spot.neighborhoodId}
             // onChange={handleChange}
             input={<Input />}
@@ -56,11 +71,9 @@ function EditDateForm({ classes }) {
             ))}
           </Select>
         </FormControl>
-        <FormControl className={classes.controlSmall}>
-          <InputLabel id="date-length-label">Length</InputLabel>
+        <FormControl className={classes.controlSmall} fullWidth>
+          <InputLabel>Length</InputLabel>
           <Select
-            labelid="date-length-label"
-            id="date-length"
             value={section.minutes}
             // onChange={handleChange}
             input={<Input />}
@@ -82,11 +95,9 @@ function EditDateForm({ classes }) {
             </MenuItem>
           </Select>
         </FormControl>
-        <FormControl className={classes.controlSmall}>
-          <InputLabel id="date-cost-label">Cost</InputLabel>
+        <FormControl className={classes.controlSmall} fullWidth>
+          <InputLabel>Cost</InputLabel>
           <Select
-            labelid="date-cost-label"
-            id="date-cost"
             value={section.cost}
             // onChange={handleChange}
             input={<Input />}
@@ -110,7 +121,6 @@ function EditDateForm({ classes }) {
         </FormControl>
         <TextField
           className={classes.control}
-          id="date-section-description"
           label="Section Description"
           multiline
           rows="4"
@@ -120,7 +130,6 @@ function EditDateForm({ classes }) {
         />
         <TextField
           className={classes.control}
-          id="date-section-tips"
           label="Section Tips"
           multiline
           rows="4"
@@ -131,7 +140,6 @@ function EditDateForm({ classes }) {
         <TextField
           className={classes.control}
           value={section.image}
-          id="section-image"
           label="Section Instagram Image ID"
           variant="outlined"
           fullWidth
@@ -139,7 +147,6 @@ function EditDateForm({ classes }) {
         <TextField
           className={classes.control}
           value={section.imageAuthor}
-          id="section-image"
           label="Section Instagram Image Author (do not include '@')"
           variant="outlined"
           fullWidth
@@ -159,11 +166,12 @@ function EditDateForm({ classes }) {
       <DialogContent>
         <TextField
           className={classes.control}
-          value={currentDate.name}
+          value={formData.name}
           id="date-title"
           label="Date Title"
           variant="outlined"
           fullWidth
+          onChange={e => updateFormData(e, 'name')}
         />
         <TextField
           className={classes.control}
@@ -171,17 +179,45 @@ function EditDateForm({ classes }) {
           label="Date Description"
           multiline
           rows="8"
-          value={currentDate.description}
+          value={formData.description}
           variant="outlined"
           fullWidth
+          onChange={e => updateFormData(e, 'description')}
         />
 
-        <Typography variant="h6">Section 1</Typography>
-        {renderSection(currentDate.sections[0])}
+        {formData.sections &&
+          formData.sections.length &&
+          formData.sections.map(section => renderSection(section))}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            const newFormData = Object.assign({}, formData);
+            if (formData.sections) {
+              newFormData.sections.push({
+                spot: {},
+              });
+            } else {
+              newFormData.sections = [
+                {
+                  spot: {},
+                },
+              ];
+            }
+            setFormData(newFormData);
+          }}
+        >
+          Add New Section
+        </Button>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setIsEditingDate(false)} color="primary">
           Cancel
+        </Button>
+      </DialogActions>
+      <DialogActions>
+        <Button variant="contained" onClick={saveDate} color="primary">
+          Save Date
         </Button>
       </DialogActions>
     </Dialog>

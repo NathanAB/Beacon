@@ -62,6 +62,10 @@ export const createUserDate = async userDateObj => {
   return fetchPost({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
 };
 
+export const createDatePlan = async datePlan => {
+  return fetchPost({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
+};
+
 export const updateUserDate = async userDateObj => {
   return fetchPatch({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
 };

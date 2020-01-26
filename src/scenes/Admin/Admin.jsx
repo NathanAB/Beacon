@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { Table, TableHead, TableRow, TableCell, TableBody, Button } from '@material-ui/core';
 
 import Store from '../../store';
 import EditDateForm from './scenes/EditDateForm/EditDateForm';
@@ -16,6 +16,9 @@ function Admin({ classes }) {
   return (
     <>
       {isEditingDate && <EditDateForm />}
+      <Button variant="contained" color="primary" onClick={() => setIsEditingDate({})}>
+        Create New Date Plan
+      </Button>
       <Table>
         <TableHead>
           <TableRow>

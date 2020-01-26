@@ -19,6 +19,9 @@ export default {
     NEIGHBORHOODS: `${API_URL}/api/neighborhoods`,
     TAGS: `${API_URL}/api/tags`,
     USER_DATES: `${API_URL}/api/userDates`,
+    ADMIN: {
+      DATE_PLAN: `${API_URL}/api/admin/datePlan`,
+    },
   },
   KEYS,
   ADMINS: ['nathanb92@gmail.com'],
