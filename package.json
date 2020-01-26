@@ -28,7 +28,7 @@
     "prettify": "eslint . --fix",
     "eject": "react-scripts eject",
     "deploy": "git push production master; heroku open --remote production",
-    "deploy-staging": "git push staging staging:master;  heroku open --remote staging"
+    "deploy-staging": "git push staging staging:master; heroku open --remote staging"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^17.1.0",
