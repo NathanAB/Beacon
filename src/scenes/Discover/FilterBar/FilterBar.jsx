@@ -77,7 +77,7 @@ function FilterBar({ classes }) {
     }
     return (
       <Typography variant="subtitle1" className={classes.placeholder}>
-        Have a specific thing in mind?
+        <b>Filter dates by</b> <i>cost, atmosphere, vibe...</i>
       </Typography>
     );
   }

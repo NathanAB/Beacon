@@ -1,11 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
-import { ButtonBase, Typography, Divider, Link, Menu, MenuItem, MenuList } from '@material-ui/core';
+import {
+  Box,
+  IconButton,
+  Button,
+  Toolbar,
+  AppBar,
+  ButtonBase,
+  Typography,
+  Divider,
+  Link,
+  Menu,
+  MenuItem,
+  MenuList,
+  Icon,
+} from '@material-ui/core';
 
 import ReactGA from 'react-ga';
 
@@ -13,16 +23,29 @@ import CONSTANTS from '../../constants';
 import Store from '../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
+import { getIsDesktop } from '../../utils';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  accountDivider: {
+    marginLeft: '5px',
+    height: '43px',
+  },
   headerButton: {
     color: 'black',
   },
+  container: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
   toolbar: {
     justifyContent: 'space-between',
+    maxWidth: '1020px',
+    // padding: '0 20px',
+    width: '100%',
+    // margin: 'auto',
   },
   menuItemText: {
     verticalAlign: 'middle',
@@ -50,6 +73,10 @@ const styles = theme => ({
       letterSpacing: '6px',
     },
   },
+  menuList: {
+    outline: 'none',
+    padding: '0px',
+  },
   menuLink: {
     '&:hover': {
       textDecoration: 'none',
@@ -59,10 +86,15 @@ const styles = theme => ({
     fontWeight: 600,
     fontFamily: 'Raleway',
     color: 'black',
+    height: '50px',
   },
   menuItemOrange: {
+    height: '50px',
     fontWeight: 600,
     fontFamily: 'Raleway',
+  },
+  userButton: {
+    paddingLeft: '5px',
   },
 });
 
@@ -74,6 +106,7 @@ function Header({ classes }) {
   const focusedDate = store.get('focusedDate');
   const currentTab = store.get('currentTab');
   const isFilterPageOpen = store.get('isFilterPageOpen');
+  const isDesktop = getIsDesktop();
 
   function handleClick(event) {
     setAnchorEl(event.currentTarget);
@@ -107,14 +140,14 @@ function Header({ classes }) {
             onClick={() => {
               ReactGA.event({
                 category: 'Interaction',
-                action: 'Logout',
+                action: 'Log Out',
                 label: 'Dropdown Menu',
               });
               handleClose();
             }}
           >
             <Icon className={classes.menuIcon}>logout</Icon>{' '}
-            <span className={classes.menuItemText}>Logout</span>
+            <span className={classes.menuItemText}>Log out</span>
           </MenuItem>
         </Link>
       </>
@@ -132,7 +165,7 @@ function Header({ classes }) {
             }}
           >
             <img src={googleIcon} alt="Google Icon" className={classes.menuIcon} />
-            Login with Google
+            Log in with Google
           </MenuItem>
         </Link>
         <Link href={CONSTANTS.API.LOGIN_FACEBOOK} className={classes.menuLink}>
@@ -148,7 +181,7 @@ function Header({ classes }) {
             }}
           >
             <img src={facebookIcon} alt="Facebook Icon" className={classes.menuIcon} />
-            Login with Facebook
+            Log in with Facebook
           </MenuItem>
         </Link>
       </>
@@ -156,36 +189,52 @@ function Header({ classes }) {
   };
 
   return (
-    <AppBar position="fixed" color="inherit">
+    <AppBar position="fixed" color="inherit" className={classes.container}>
       <Toolbar className={classes.toolbar}>
-        {(focusedDate || filters.length || isFilterPageOpen) &&
-        currentTab !== CONSTANTS.TABS.MY_DATES ? (
-          <IconButton
-            className={classes.headerButton}
-            onClick={() => {
-              store.set('focusedDate')(false);
-              store.set('filters')([]);
-              store.set('isFilterPageOpen')(false);
-            }}
-          >
-            <Icon>arrow_back</Icon>
-          </IconButton>
-        ) : (
-          <IconButton className={classes.headerButton}>
-            <Icon></Icon>
-          </IconButton>
-        )}
+        {!isDesktop &&
+          ((focusedDate || filters.length || isFilterPageOpen) &&
+          currentTab !== CONSTANTS.TABS.MY_DATES ? (
+            <IconButton
+              className={classes.headerButton}
+              onClick={() => {
+                store.set('focusedDate')(false);
+                store.set('filters')([]);
+                store.set('isFilterPageOpen')(false);
+              }}
+            >
+              <Icon>arrow_back</Icon>
+            </IconButton>
+          ) : (
+            <IconButton className={classes.headerButton}>
+              <Icon></Icon>
+            </IconButton>
+          ))}
         <ButtonBase className={classes.title} onClick={goToDiscover}>
           BEACON
         </ButtonBase>
-        <IconButton
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-          className={classes.headerButton}
-        >
-          <Icon>person</Icon>
-        </IconButton>
+        <Box display="flex">
+          {user && isDesktop && (
+            <>
+              <Button color="primary">
+                <Icon>favorite</Icon>
+                <span className={classes.userButton}>My Dates</span>
+              </Button>
+              <Divider orientation="vertical" className={classes.accountDivider} />
+            </>
+          )}
+          <Button
+            size="large"
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+            className={classes.headerButton}
+          >
+            <Icon>person</Icon>{' '}
+            {isDesktop && (
+              <span className={classes.userButton}>{(user && user.name) || 'Log In'}</span>
+            )}
+          </Button>
+        </Box>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
@@ -193,7 +242,7 @@ function Header({ classes }) {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuList>
+          <MenuList className={classes.menuList}>
             {renderUserMenuItems()}
             <Link
               href="mailto:contact@beacondates.com"

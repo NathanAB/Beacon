@@ -10,6 +10,8 @@ import BottomNav from '../BottomNav/BottomNav';
 import Body from '../Body/Body';
 import Store from '../../store';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
+import { getIsDesktop } from '../../utils';
+import Footer from '../Footer/Footer';
 
 const theme = createMuiTheme({
   palette: {
@@ -20,7 +22,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#FFFFFF',
-      dark: '#E0E0E0',
+      dark: '#2E2E2E',
       contrastText: '#333333',
       text: '#525252',
     },
@@ -43,6 +45,7 @@ const theme = createMuiTheme({
 function App() {
   const store = Store.useStore();
   const currentTab = store.get('currentTab');
+  const isDesktop = getIsDesktop();
 
   // Make initial API requests
   useEffect(() => {
@@ -93,7 +96,7 @@ function App() {
           <ErrorBoundary>
             <Header />
             <Body currentTab={currentTab} />
-            <BottomNav />
+            {isDesktop ? <Footer /> : <BottomNav />}
           </ErrorBoundary>
         </MuiPickersUtilsProvider>
       </MuiThemeProvider>
