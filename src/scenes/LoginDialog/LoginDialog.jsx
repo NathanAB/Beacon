@@ -8,7 +8,7 @@ import ReactGA from 'react-ga';
 import Store from '../../store';
 import Constants from '../../constants';
 import googleIcon from '../../assets/img/google-icon-white.png';
-import facebookIcon from '../../assets/img/facebookIcon.png';
+import facebookIcon from '../../assets/img/fb-white-2.png';
 
 const styles = theme => ({
   closeButton: {
@@ -31,8 +31,7 @@ const styles = theme => ({
     marginRight: '8px',
   },
   loginButton: {
-    marginBottom: '16px',
-    margin: '15px 0',
+    marginBottom: '20px',
     padding: '10px 0',
   },
 });
@@ -55,7 +54,7 @@ function LoginDialog({ classes }) {
         <CloseIcon />
       </IconButton>
       <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
-        Sign in or sign up to start saving dates
+        Sign in or sign up to start saving dates!
       </DialogTitle>
       <DialogContent className={classes.content}>
         <Button
@@ -75,10 +74,11 @@ function LoginDialog({ classes }) {
           }}
         >
           <img src={googleIcon} alt="Google Icon" className={classes.loginIcon} />
-          Login with Google
+          Log in with Google
         </Button>
         <Button
           variant="contained"
+          color="primary"
           aria-label="Login with Facebook"
           size="medium"
           fullWidth
@@ -93,7 +93,7 @@ function LoginDialog({ classes }) {
           }}
         >
           <img src={facebookIcon} alt="Facebook Icon" className={classes.loginIcon} />
-          Login with Facebook
+          Log in with Facebook
         </Button>
       </DialogContent>
     </Dialog>
