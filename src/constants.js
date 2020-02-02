@@ -21,5 +21,6 @@ export default {
     USER_DATES: `${API_URL}/api/userDates`,
   },
   KEYS,
-  ADMINS: ['nathanb92@gmail.com'],
+  // ADMINS: ['nathanb92@gmail.com'],
+  ADMINS: [],
 };

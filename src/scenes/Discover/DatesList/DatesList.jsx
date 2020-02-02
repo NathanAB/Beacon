@@ -11,9 +11,8 @@ const styles = () => ({
 });
 
 function DatesList({ children, isMyDates }) {
-  const emptyMessage = isMyDates
-    ? `Hmm... it looks like you don't have any dates planned. Click Discover to get started!`
-    : 'Sorry, no dates match your filters. Check back soon as we add new dates weekly!';
+  const emptyMessage =
+    'Sorry, no dates match your filters. Check back soon as we add new dates weekly!';
 
   if (!children.length) {
     return <Typography variant="h6">{emptyMessage}</Typography>;
@@ -31,11 +30,6 @@ function DatesList({ children, isMyDates }) {
 
 DatesList.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isMyDates: PropTypes.bool,
-};
-
-DatesList.defaultProps = {
-  isMyDates: false,
 };
 
 export default withStyles(styles)(DatesList);

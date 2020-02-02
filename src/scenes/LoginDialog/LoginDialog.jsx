@@ -7,7 +7,7 @@ import ReactGA from 'react-ga';
 
 import Store from '../../store';
 import Constants from '../../constants';
-import googleIcon from '../../assets/img/google-icon-white.png';
+import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
 
 const styles = theme => ({
@@ -60,7 +60,6 @@ function LoginDialog({ classes }) {
       <DialogContent className={classes.content}>
         <Button
           variant="contained"
-          color="primary"
           aria-label="Login with Google"
           size="medium"
           fullWidth
@@ -75,7 +74,7 @@ function LoginDialog({ classes }) {
           }}
         >
           <img src={googleIcon} alt="Google Icon" className={classes.loginIcon} />
-          Login with Google
+          Log in with Google
         </Button>
         <Button
           variant="contained"
@@ -93,7 +92,7 @@ function LoginDialog({ classes }) {
           }}
         >
           <img src={facebookIcon} alt="Facebook Icon" className={classes.loginIcon} />
-          Login with Facebook
+          Log in with Facebook
         </Button>
       </DialogContent>
     </Dialog>

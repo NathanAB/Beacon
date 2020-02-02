@@ -6,6 +6,7 @@ const DateMap = ({ placeIds }) => {
   mapSrc += `origin=place_id:${placeIds[0]}&`;
   mapSrc += `destination=place_id:${placeIds[1]}&`;
   mapSrc += 'mode=walking&';
+  mapSrc += 'zoom=14&';
   mapSrc += `key=${Constants.KEYS.MAPS_API_KEY}`;
   return (
     <iframe

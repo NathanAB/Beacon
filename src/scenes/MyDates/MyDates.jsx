@@ -5,7 +5,6 @@ import ReactGA from 'react-ga';
 
 import { Box, Typography, Button } from '@material-ui/core';
 import Store from '../../store';
-import DatesList from '../Discover/DatesList/DatesList';
 import MyDateCard from '../../components/MyDateCard/MyDateCard';
 import { getIsDesktop } from '../../utils';
 
@@ -67,7 +66,9 @@ function MyDates({ classes }) {
         .sort(dateSorter)
         .map(userDate => <MyDateCard key={userDate.id} userDate={userDate} />)
     ) : (
-      <Typography>You have no dates planned yet</Typography>
+      <Typography align="center">
+        Hmm... it looks like you don&#39;t have any dates planned. Click Discover to get started!
+      </Typography>
     );
     return isDesktop ? (
       <div className={classes.container}>
@@ -81,7 +82,7 @@ function MyDates({ classes }) {
         <Typography align="center" className={classes.title} variant="h6" display="block">
           Upcoming Dates
         </Typography>
-        <DatesList isMyDates>{dateCards}</DatesList>
+        {user ? dateCards : renderGuest()}
       </>
     );
   };

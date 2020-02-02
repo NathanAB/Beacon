@@ -90,7 +90,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="app">
       <MuiThemeProvider theme={theme}>
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <ErrorBoundary>

@@ -77,6 +77,12 @@ const styles = theme => ({
     outline: 'none',
     padding: '0px',
   },
+  menuLinkBlack: {
+    color: 'black',
+    '&:hover': {
+      textDecoration: 'none',
+    },
+  },
   menuLink: {
     '&:hover': {
       textDecoration: 'none',
@@ -85,16 +91,17 @@ const styles = theme => ({
   menuItem: {
     fontWeight: 600,
     fontFamily: 'Raleway',
-    color: 'black',
     height: '50px',
   },
   menuItemOrange: {
+    color: theme.palette.primary.main,
     height: '50px',
     fontWeight: 600,
     fontFamily: 'Raleway',
   },
   userButton: {
     paddingLeft: '5px',
+    fontWeight: 600,
   },
 });
 
@@ -104,8 +111,11 @@ function Header({ classes }) {
   const user = store.get('user');
   const filters = store.get('filters');
   const focusedDate = store.get('focusedDate');
+
   const currentTab = store.get('currentTab');
+  const setCurrentTab = store.set('currentTab');
   const isFilterPageOpen = store.get('isFilterPageOpen');
+
   const isDesktop = getIsDesktop();
 
   function handleClick(event) {
@@ -117,12 +127,18 @@ function Header({ classes }) {
   }
 
   const goToDiscover = () => {
-    ReactGA.pageview(CONSTANTS.TABS.DISCOVER);
-    store.set('currentTab')(CONSTANTS.TABS.DISCOVER);
+    setCurrentTab(CONSTANTS.TABS.DISCOVER);
     store.set('filters')([]);
     store.set('focusedDate')(false);
     store.set('isFilterPageOpen')(false);
     window.scrollTo(0, 0);
+    ReactGA.pageview(CONSTANTS.TABS.DISCOVER);
+  };
+
+  const goToMyDates = () => {
+    setCurrentTab(CONSTANTS.TABS.MY_DATES);
+    window.scrollTo(0, 0);
+    ReactGA.pageview(CONSTANTS.TABS.MY_DATES);
   };
 
   const renderUserMenuItems = () => {
@@ -134,56 +150,56 @@ function Header({ classes }) {
           </Typography>
         </MenuItem>
         <Divider />
-        <Link href={CONSTANTS.API.LOGOUT} className={classes.menuLink}>
-          <MenuItem
-            className={classes.menuItem}
-            onClick={() => {
-              ReactGA.event({
-                category: 'Interaction',
-                action: 'Log Out',
-                label: 'Dropdown Menu',
-              });
-              handleClose();
-            }}
-          >
+        <MenuItem
+          className={classes.menuItem}
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Log Out',
+              label: 'Dropdown Menu',
+            });
+            handleClose();
+          }}
+        >
+          <Link href={CONSTANTS.API.LOGOUT} className={classes.menuLinkBlack}>
             <Icon className={classes.menuIcon}>logout</Icon>{' '}
             <span className={classes.menuItemText}>Log out</span>
-          </MenuItem>
-        </Link>
+          </Link>
+        </MenuItem>
       </>
     ) : (
       <>
-        <Link href={CONSTANTS.API.LOGIN_GOOGLE} className={classes.menuLink}>
-          <MenuItem
-            className={classes.menuItem}
-            onClick={() => {
-              ReactGA.event({
-                category: 'Interaction',
-                action: 'Login with Google',
-                label: 'Dropdown Menu',
-              });
-            }}
-          >
+        <MenuItem
+          className={classes.menuItem}
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Login with Google',
+              label: 'Dropdown Menu',
+            });
+          }}
+        >
+          <Link href={CONSTANTS.API.LOGIN_GOOGLE} className={classes.menuLinkBlack}>
             <img src={googleIcon} alt="Google Icon" className={classes.menuIcon} />
             Log in with Google
-          </MenuItem>
-        </Link>
-        <Link href={CONSTANTS.API.LOGIN_FACEBOOK} className={classes.menuLink}>
-          <MenuItem
-            className={classes.menuItem}
-            onClick={() => {
-              ReactGA.event({
-                category: 'Interaction',
-                action: 'Login with Facebook',
-                label: 'Dropdown Menu',
-              });
-              window.location = CONSTANTS.API.LOGIN_FACEBOOK;
-            }}
-          >
+          </Link>
+        </MenuItem>
+        <MenuItem
+          className={classes.menuItem}
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Login with Facebook',
+              label: 'Dropdown Menu',
+            });
+            window.location = CONSTANTS.API.LOGIN_FACEBOOK;
+          }}
+        >
+          <Link href={CONSTANTS.API.LOGIN_FACEBOOK} className={classes.menuLinkBlack}>
             <img src={facebookIcon} alt="Facebook Icon" className={classes.menuIcon} />
             Log in with Facebook
-          </MenuItem>
-        </Link>
+          </Link>
+        </MenuItem>
       </>
     );
   };
@@ -213,9 +229,19 @@ function Header({ classes }) {
           BEACON
         </ButtonBase>
         <Box display="flex">
-          {user && isDesktop && (
+          {isDesktop && (
             <>
-              <Button color="primary">
+              <Button
+                color={currentTab === CONSTANTS.TABS.DISCOVER ? 'primary' : ''}
+                onClick={goToDiscover}
+              >
+                <Icon>explore</Icon>
+                <span className={classes.userButton}>Discover</span>
+              </Button>
+              <Button
+                color={currentTab === CONSTANTS.TABS.MY_DATES ? 'primary' : ''}
+                onClick={goToMyDates}
+              >
                 <Icon>favorite</Icon>
                 <span className={classes.userButton}>My Dates</span>
               </Button>
@@ -244,39 +270,39 @@ function Header({ classes }) {
         >
           <MenuList className={classes.menuList}>
             {renderUserMenuItems()}
-            <Link
-              href="mailto:contact@beacondates.com"
-              className={classes.menuLink}
-              target="_blank"
-              rel="noopener"
-            >
-              <MenuItem className={classes.menuItem}>
+            <MenuItem className={classes.menuItem}>
+              <Link
+                href="mailto:contact@beacondates.com"
+                className={classes.menuLinkBlack}
+                target="_blank"
+                rel="noopener"
+              >
                 <Icon className={classes.menuIcon}>email</Icon>{' '}
                 <span className={classes.menuItemText}>Contact us</span>
-              </MenuItem>
-            </Link>
-            <Link
-              href="https://forms.gle/ebaqVd2TMTw47RjW8"
-              className={classes.menuLink}
-              target="_blank"
-              rel="noopener"
-            >
-              <MenuItem className={classes.menuItem}>
+              </Link>
+            </MenuItem>
+            <MenuItem className={classes.menuItem}>
+              <Link
+                href="https://forms.gle/ebaqVd2TMTw47RjW8"
+                className={classes.menuLinkBlack}
+                target="_blank"
+                rel="noopener"
+              >
                 <Icon className={classes.menuIcon}>feedback</Icon>{' '}
                 <span className={classes.menuItemText}>Give us Feedback</span>
-              </MenuItem>
-            </Link>
-            <Link
-              href="https://forms.gle/6pwD9m24Uz94PFXr8"
-              className={classes.menuLink}
-              target="_blank"
-              rel="noopener"
-            >
-              <MenuItem className={classes.menuItemOrange}>
+              </Link>
+            </MenuItem>
+            <MenuItem className={classes.menuItemOrange}>
+              <Link
+                href="https://forms.gle/6pwD9m24Uz94PFXr8"
+                className={classes.menuLink}
+                target="_blank"
+                rel="noopener"
+              >
                 <Icon className={classes.menuIcon}>lightbulb_outline</Icon>{' '}
                 <span className={classes.menuItemText}>Submit a Date Idea</span>
-              </MenuItem>
-            </Link>
+              </Link>
+            </MenuItem>
           </MenuList>
         </Menu>
       </Toolbar>
