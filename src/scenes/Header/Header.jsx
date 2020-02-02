@@ -16,6 +16,7 @@ import {
   MenuList,
   Icon,
 } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import ReactGA from 'react-ga';
 
@@ -24,6 +25,7 @@ import Store from '../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
 import { getIsDesktop } from '../../utils';
+import MobileDrawer from '../../components/MobileDrawer/MobileDrawer';
 
 const styles = theme => ({
   root: {
@@ -105,14 +107,12 @@ const styles = theme => ({
 
 function Header({ classes }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isDrawerOpen, setDrawerOpen] = React.useState(null);
   const store = Store.useStore();
   const user = store.get('user');
-  const filters = store.get('filters');
-  const focusedDate = store.get('focusedDate');
 
   const currentTab = store.get('currentTab');
   const setCurrentTab = store.set('currentTab');
-  const isFilterPageOpen = store.get('isFilterPageOpen');
 
   const isDesktop = getIsDesktop();
 
@@ -204,25 +204,21 @@ function Header({ classes }) {
 
   return (
     <AppBar position="fixed" color="inherit" className={classes.container}>
+      <MobileDrawer isOpen={isDrawerOpen} close={() => setDrawerOpen(false)} />
       <Toolbar className={classes.toolbar}>
-        {!isDesktop &&
-          ((focusedDate || filters.length || isFilterPageOpen) &&
-          currentTab !== CONSTANTS.TABS.MY_DATES ? (
-            <IconButton
-              className={classes.headerButton}
-              onClick={() => {
-                store.set('focusedDate')(false);
-                store.set('filters')([]);
-                store.set('isFilterPageOpen')(false);
-              }}
-            >
-              <Icon>arrow_back</Icon>
-            </IconButton>
-          ) : (
-            <IconButton className={classes.headerButton}>
-              <Icon></Icon>
-            </IconButton>
-          ))}
+        {!isDesktop && (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => {
+              setDrawerOpen(true);
+            }}
+            edge="start"
+            // className={}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
         <ButtonBase className={classes.title} onClick={goToDiscover}>
           BEACON
         </ButtonBase>
@@ -268,28 +264,6 @@ function Header({ classes }) {
         >
           <MenuList className={classes.menuList}>
             {renderUserMenuItems()}
-            <MenuItem className={classes.menuItem}>
-              <Link
-                href="mailto:contact@beacondates.com"
-                className={classes.menuLinkBlack}
-                target="_blank"
-                rel="noopener"
-              >
-                <Icon className={classes.menuIcon}>email</Icon>{' '}
-                <span className={classes.menuItemText}>Contact us</span>
-              </Link>
-            </MenuItem>
-            <MenuItem className={classes.menuItem}>
-              <Link
-                href="https://forms.gle/ebaqVd2TMTw47RjW8"
-                className={classes.menuLinkBlack}
-                target="_blank"
-                rel="noopener"
-              >
-                <Icon className={classes.menuIcon}>feedback</Icon>{' '}
-                <span className={classes.menuItemText}>Give us Feedback</span>
-              </Link>
-            </MenuItem>
             <MenuItem className={classes.menuItemOrange}>
               <Link
                 href="https://forms.gle/6pwD9m24Uz94PFXr8"
