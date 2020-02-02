@@ -42,10 +42,8 @@ const styles = theme => ({
   },
   toolbar: {
     justifyContent: 'space-between',
-    maxWidth: '1020px',
-    // padding: '0 20px',
+    maxWidth: '1060px',
     width: '100%',
-    // margin: 'auto',
   },
   menuItemText: {
     verticalAlign: 'middle',

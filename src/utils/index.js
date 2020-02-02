@@ -48,6 +48,5 @@ export const filterDates = (dateObjs, filters) => {
 };
 
 export const getIsDesktop = () => {
-  const theme = useTheme();
-  return useMediaQuery(theme.breakpoints.up('sm'));
+  return useMediaQuery('(min-width:768px)');
 };
