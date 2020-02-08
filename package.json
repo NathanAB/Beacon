@@ -27,7 +27,7 @@
     "test": "react-scripts test --env=jsdom",
     "prettify": "eslint . --fix",
     "eject": "react-scripts eject",
-    "deploy": "git push heroku master; heroku open"
+    "deploy-production": "git push production master; heroku open"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^17.1.0",
