@@ -11,6 +11,7 @@ import DatesRow from './DatesRow/DatesRow';
 import TagsRow from './TagsRow/TagsRow';
 import DateCard from '../../components/DateCard/DateCard';
 import FilterPage from './FilterPage/FilterPage';
+import HeroImage from '../../assets/img/dc.jpg';
 
 const styles = theme => ({
   listContainer: {
@@ -25,6 +26,41 @@ const styles = theme => ({
   },
   title: {
     fontWeight: 600,
+  },
+  hero: {
+    top: '55px',
+    height: '350px',
+    position: 'absolute',
+    left: '0px',
+    right: '0px',
+    display: 'flex',
+    justifyContent: 'center',
+    '&::before': {
+      content: '""',
+      top: '0px',
+      height: '100%',
+      position: 'absolute',
+      left: '0px',
+      right: '0px',
+      background: `linear-gradient(to bottom, rgba(186,48,13,0.5) 0%, rgba(186,48,13,0.5) 100%), url(${HeroImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    },
+  },
+  heroContent: {
+    width: '100%',
+    maxWidth: '1050px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+  },
+  heroTitle: {
+    zIndex: 2,
+    fontWeight: 600,
+    lineHeight: '64px',
+  },
+  spacer: {
+    height: '350px',
   },
 });
 
@@ -76,7 +112,15 @@ function Discover({ classes }) {
 
     return (
       <Box>
-        <FilterBar />
+        <Box className={classes.hero}>
+          <Box className={classes.heroContent}>
+            <Typography color="secondary" align="center" variant="h3" className={classes.heroTitle}>
+              Got a date? <br /> We got you covered.
+            </Typography>
+            <FilterBar />
+          </Box>
+        </Box>
+        <Box className={classes.spacer} />
         <DatesRow />
         <NeighborhoodsRow />
 

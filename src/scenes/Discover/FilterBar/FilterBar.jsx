@@ -22,6 +22,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     minHeight: '47px',
+    backgroundColor: 'white',
   },
   searchIcon: {
     'margin-left': '1rem',
