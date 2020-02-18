@@ -15,9 +15,11 @@ const styles = () => ({
   },
   container: {
     margin: 'auto',
+    height: '100%',
   },
   container2: {
     padding: '0px 20px',
+    height: '100%',
   },
 });
 
@@ -40,24 +42,27 @@ function MyDates({ classes }) {
   };
 
   const renderGuest = () => (
-    <Typography align="center">
-      <Button
-        variant="contained"
-        color="primary"
-        type="button"
-        onClick={() => {
-          ReactGA.event({
-            category: 'Interaction',
-            action: 'Open Login Dialog',
-            label: 'My Dates Page',
-          });
-          store.set('isLoginDialogOpen')(true);
-        }}
-      >
-        Sign in
-      </Button>{' '}
-      to start saving dates
-    </Typography>
+    <Box height="100%" display="flex" flexDirection="column" justifyContent="center">
+      <Typography align="center" variant="h5">
+        <Button
+          variant="contained"
+          color="primary"
+          type="button"
+          size="large"
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Open Login Dialog',
+              label: 'My Dates Page',
+            });
+            store.set('isLoginDialogOpen')(true);
+          }}
+        >
+          Log in
+        </Button>{' '}
+        to start saving dates
+      </Typography>
+    </Box>
   );
 
   const renderMyDates = () => {
@@ -72,16 +77,20 @@ function MyDates({ classes }) {
     );
     return isDesktop ? (
       <div className={classes.container}>
-        <Typography align="center" className={classes.title} variant="h6">
-          Upcoming Dates
-        </Typography>
+        {user && (
+          <Typography align="center" className={classes.title} variant="h6">
+            Upcoming Dates
+          </Typography>
+        )}
         {user ? dateCards : renderGuest()}
       </div>
     ) : (
       <>
-        <Typography align="center" className={classes.title} variant="h6" display="block">
-          Upcoming Dates
-        </Typography>
+        {user && (
+          <Typography align="center" className={classes.title} variant="h6" display="block">
+            Upcoming Dates
+          </Typography>
+        )}
         {user ? dateCards : renderGuest()}
       </>
     );

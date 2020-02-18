@@ -11,7 +11,7 @@ import DatesRow from './DatesRow/DatesRow';
 import TagsRow from './TagsRow/TagsRow';
 import DateCard from '../../components/DateCard/DateCard';
 import FilterPage from './FilterPage/FilterPage';
-import HeroImage from '../../assets/img/dc.jpg';
+import HeroImage from '../../assets/img/dc-3.jpeg';
 
 const styles = theme => ({
   listContainer: {
@@ -28,9 +28,8 @@ const styles = theme => ({
     fontWeight: 600,
   },
   hero: {
-    top: '55px',
-    height: '350px',
-    position: 'absolute',
+    top: '0px',
+    height: '370px',
     left: '0px',
     right: '0px',
     display: 'flex',
@@ -38,13 +37,15 @@ const styles = theme => ({
     '&::before': {
       content: '""',
       top: '0px',
-      height: '100%',
+      height: '440px',
       position: 'absolute',
       left: '0px',
       right: '0px',
-      background: `linear-gradient(to bottom, rgba(186,48,13,0.5) 0%, rgba(186,48,13,0.5) 100%), url(${HeroImage})`,
+      // background: `linear-gradient(to bottom, rgba(186,48,13,0.5) 0%, rgba(186,48,13,0.5) 100%), url(${HeroImage})`,
+      background: `linear-gradient(to bottom, rgba(186,48,13,0.2) 0%, rgba(186,48,13,0.2) 100%), url(${HeroImage})`,
+      // background: `url(${HeroImage})`,
       backgroundSize: 'cover',
-      backgroundPosition: 'center',
+      backgroundPosition: 'top',
     },
   },
   heroContent: {
@@ -53,6 +54,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-evenly',
+    paddingBottom: '20px',
   },
   heroTitle: {
     zIndex: 2,
@@ -115,12 +117,11 @@ function Discover({ classes }) {
         <Box className={classes.hero}>
           <Box className={classes.heroContent}>
             <Typography color="secondary" align="center" variant="h3" className={classes.heroTitle}>
-              Got a date? <br /> We got you covered.
+              Got a date? <br /> We've got you covered
             </Typography>
             <FilterBar />
           </Box>
         </Box>
-        <Box className={classes.spacer} />
         <DatesRow />
         <NeighborhoodsRow />
 

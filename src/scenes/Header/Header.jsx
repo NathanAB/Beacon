@@ -32,20 +32,27 @@ const styles = theme => ({
     flexGrow: 1,
   },
   accountDivider: {
-    marginLeft: '5px',
+    margin: '0 5px',
     height: '43px',
+    width: '1px',
   },
   headerButton: {
     color: 'black',
+    minWidth: '48px',
   },
   container: {
     justifyContent: 'center',
     flexDirection: 'row',
+    maxWidth: '1600px',
+    left: '0px',
+    right: '0px',
+    margin: 'auto',
   },
   toolbar: {
     justifyContent: 'space-between',
     maxWidth: '1060px',
     width: '100%',
+    padding: '0px 8px',
   },
   menuItemText: {
     verticalAlign: 'middle',
@@ -110,6 +117,7 @@ function Header({ classes }) {
   const [isDrawerOpen, setDrawerOpen] = React.useState(null);
   const store = Store.useStore();
   const user = store.get('user');
+  const setIsLoginOpen = store.set('isLoginDialogOpen');
 
   const currentTab = store.get('currentTab');
   const setCurrentTab = store.set('currentTab');
@@ -117,6 +125,10 @@ function Header({ classes }) {
   const isDesktop = getIsDesktop();
 
   function handleClick(event) {
+    if (!user.email) {
+      setIsLoginOpen(true);
+      return;
+    }
     setAnchorEl(event.currentTarget);
   }
 
@@ -213,8 +225,6 @@ function Header({ classes }) {
             onClick={() => {
               setDrawerOpen(true);
             }}
-            edge="start"
-            // className={}
           >
             <MenuIcon />
           </IconButton>
@@ -228,12 +238,14 @@ function Header({ classes }) {
               <Button
                 color={currentTab === CONSTANTS.TABS.DISCOVER ? 'primary' : ''}
                 onClick={goToDiscover}
+                size="medium"
               >
                 <Icon>explore</Icon>
                 <span className={classes.userButton}>Discover</span>
               </Button>
               <Button
                 color={currentTab === CONSTANTS.TABS.MY_DATES ? 'primary' : ''}
+                size="medium"
                 onClick={goToMyDates}
               >
                 <Icon>favorite</Icon>
@@ -243,7 +255,7 @@ function Header({ classes }) {
             </>
           )}
           <Button
-            size="large"
+            size="medium"
             aria-controls="simple-menu"
             aria-haspopup="true"
             onClick={handleClick}

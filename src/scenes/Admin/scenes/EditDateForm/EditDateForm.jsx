@@ -13,7 +13,6 @@ import {
   Select,
   MenuItem,
   Typography,
-  Divider,
 } from '@material-ui/core';
 
 import Store from '../../../../store';

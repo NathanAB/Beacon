@@ -7,7 +7,7 @@ import Store from '../../../store';
 
 const styles = {
   container: {
-    padding: '0px 20px',
+    padding: '10px 20px',
   },
   search: {
     position: 'relative',

@@ -198,7 +198,7 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
             onClick={checkoutDate}
             fullWidth={!isDesktop}
           >
-            Add This Date
+            Go on this Date
           </Button>
         </CardContent>
       </Collapse>

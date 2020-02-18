@@ -6,11 +6,7 @@
 // Sign up for the Newsletter
 
 import React from 'react';
-import { Box, Button, Typography, Link, withStyles, Input, TextField } from '@material-ui/core';
-import MailchimpSubscribe from 'react-mailchimp-subscribe';
-
-const url =
-  'https://beacondates.us4.list-manage.com/subscribe/post?u=004fa114757b8134c34c5f7d1&amp;id=a96536c7f6';
+import { Box, Typography, Link, withStyles } from '@material-ui/core';
 
 const styles = theme => ({
   footer: {
