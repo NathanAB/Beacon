@@ -42,7 +42,7 @@ function MyDates({ classes }) {
   };
 
   const renderGuest = () => (
-    <Box height="100%" display="flex" flexDirection="column" justifyContent="center">
+    <Box paddingTop="calc(50vh - 200px)">
       <Typography align="center" variant="h5">
         <Button
           variant="contained"
