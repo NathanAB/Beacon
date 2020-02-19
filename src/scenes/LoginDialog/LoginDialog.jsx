@@ -89,7 +89,7 @@ function LoginDialog({ classes }) {
               action: 'Login with Facebook',
               label: 'Login Dialog',
             });
-            window.location = Constants.API.FACEBOOK;
+            window.location = Constants.API.LOGIN_FACEBOOK;
           }}
         >
           <img src={facebookIcon} alt="Facebook Icon" className={classes.loginIcon} />
