@@ -23,7 +23,7 @@ function MobileDrawer({ classes, isOpen, close }) {
             color="secondary"
             target="_blank"
             rel="noopener"
-            href="https://beacondates.com"
+            href="https://about.beacondates.com"
           >
             About Us
           </Link>
