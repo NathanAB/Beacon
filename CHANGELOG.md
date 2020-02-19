@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.1] - 2020-02-19
+- Fix Facebook login url
+
 ## [v1.1.0] - 2020-02-18
 - Refactor desktop layout
   - Create footer with links
