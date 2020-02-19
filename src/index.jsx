@@ -7,6 +7,10 @@ import App from './scenes/App/App';
 import { unregister } from './registerServiceWorker';
 import Store from './store';
 
+if (window.location.host === 'beacondates.com' || window.location.host === 'app.beacondates.com') {
+  window.location.replace('https://www.beacondates.com');
+}
+
 ReactGA.initialize('UA-54887334-4', {
   debug: true,
 });
