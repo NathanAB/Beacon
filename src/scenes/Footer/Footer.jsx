@@ -57,7 +57,7 @@ const Footer = ({ classes }) => {
             color="secondary"
             target="_blank"
             rel="noopener"
-            href="https://beacondates.com"
+            href="https://about.beacondates.com"
             gutterBottom
           >
             About Us

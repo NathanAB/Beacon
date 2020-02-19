@@ -6,8 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v1.1.4] - 2020-02-19
+- Fix footer "about" link href
+
 ## [v1.1.3] - 2020-02-19
-- Fix "about" link href
+- Fix mobile menu "about" link href
 
 ## [v1.1.2] - 2020-02-19
 - Add redirect to www
