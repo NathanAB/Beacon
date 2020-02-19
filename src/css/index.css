@@ -77,6 +77,10 @@ button {
   margin-bottom: 30px;
 }
 
+.MuiButton-root {
+  text-transform: none !important;
+}
+
 header .MuiButton-text:hover {
   background-color: rgba(241, 95, 58, 0.08) !important;
 }

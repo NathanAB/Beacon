@@ -155,8 +155,8 @@ function AddDateForm({ classes }) {
         justifyContent="space-between"
         flexDirection="row-reverse"
       >
-        <Button variant="contained" color="primary" type="submit" className={classes.confirmButton}>
-          {editDate ? 'Save Changes' : 'Add this Date'}
+        <Button variant="contained" color="primary" type="submit">
+          {editDate ? 'Save Changes' : 'Save My Details'}
         </Button>
         {editDate && (
           <Button
