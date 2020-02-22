@@ -3,7 +3,7 @@ import { Box, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import Store from '../../store';
-import { filterDates, getIsDesktop } from '../../utils';
+import { filterDates, useDesktop } from '../../utils';
 import FilterBar from './FilterBar/FilterBar';
 import DatesList from './DatesList/DatesList';
 import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
@@ -68,7 +68,7 @@ const styles = theme => ({
 
 function Discover({ classes }) {
   const focusedRef = useRef(null);
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
 
   const store = Store.useStore();
   const filters = store.get('filters');

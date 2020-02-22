@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
+  Box,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -16,7 +17,8 @@ import {
 } from '@material-ui/core';
 
 import Store from '../../../../store';
-import { createDatePlan } from '../../../../api';
+import { updateDatePlan, getDates } from '../../../../api';
+import Spinner from '../../../../components/Spinner/Spinner';
 
 const styles = theme => ({
   control: {
@@ -26,15 +28,28 @@ const styles = theme => ({
     margin: '10px 0px',
     marginRight: '30px',
   },
+  sectionHeader: {
+    paddingTop: '30px',
+  },
+  dialogTitle: {
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.main,
+  },
+  dialogContent: {
+    padding: '8px 34px',
+  },
 });
 
 function EditDateForm({ classes }) {
   const store = Store.useStore();
+  const setDates = store.set('dates');
   const currentDate = store.get('adminEditingDate');
   const setIsEditingDate = store.set('adminEditingDate');
   const neighborhoods = store.get('neighborhoods');
+  const activities = store.get('activities');
 
   const [formData, setFormData] = useState({});
+  const [isSavingDate, setSavingDate] = useState(false);
 
   const updateFormData = (e, field) => {
     const newValue = e.currentTarget.value;
@@ -42,22 +57,39 @@ function EditDateForm({ classes }) {
     setFormData(Object.assign({}, formData));
   };
 
-  const saveDate = () => {
-    createDatePlan(formData);
+  const saveDate = async () => {
+    setSavingDate(true);
+    try {
+      console.log('update', await updateDatePlan(formData));
+      const dates = await getDates();
+      console.log('dates', dates);
+      if (dates) {
+        setDates(dates);
+      }
+      setIsEditingDate(false);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSavingDate(false);
+    }
   };
 
   useEffect(() => {
-    setFormData(currentDate);
+    if (currentDate) {
+      setFormData(JSON.parse(JSON.stringify(currentDate)));
+    }
   }, [currentDate]);
 
-  const renderSection = section => {
+  const renderSection = (section, sectionNum) => {
     return (
       <>
-        <Typography variant="h6">Section</Typography>
+        <Typography variant="h6" className={classes.sectionHeader}>
+          <b>Section {sectionNum}</b>
+        </Typography>
         <FormControl className={classes.controlSmall} fullWidth>
           <InputLabel>Neighborhood</InputLabel>
           <Select
-            value={section.spot.neighborhoodId}
+            value={section?.spot?.neighborhoodId}
             // onChange={handleChange}
             input={<Input />}
           >
@@ -72,9 +104,26 @@ function EditDateForm({ classes }) {
           </Select>
         </FormControl>
         <FormControl className={classes.controlSmall} fullWidth>
+          <InputLabel>Activity</InputLabel>
+          <Select
+            value={section?.activityId}
+            // onChange={handleChange}
+            input={<Input />}
+          >
+            <MenuItem value={-1}>
+              <em>None</em>
+            </MenuItem>
+            {activities.map(a => (
+              <MenuItem key={a.activityId} value={a.activityId}>
+                {a.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <FormControl className={classes.controlSmall} fullWidth>
           <InputLabel>Length</InputLabel>
           <Select
-            value={section.minutes}
+            value={section?.minutes}
             // onChange={handleChange}
             input={<Input />}
           >
@@ -98,7 +147,7 @@ function EditDateForm({ classes }) {
         <FormControl className={classes.controlSmall} fullWidth>
           <InputLabel>Cost</InputLabel>
           <Select
-            value={section.cost}
+            value={section?.cost}
             // onChange={handleChange}
             input={<Input />}
           >
@@ -124,7 +173,7 @@ function EditDateForm({ classes }) {
           label="Section Description"
           multiline
           rows="4"
-          value={section.description}
+          value={section?.description}
           variant="outlined"
           fullWidth
         />
@@ -133,20 +182,20 @@ function EditDateForm({ classes }) {
           label="Section Tips"
           multiline
           rows="4"
-          value={section.tips}
+          value={section?.tips}
           variant="outlined"
           fullWidth
         />
         <TextField
           className={classes.control}
-          value={section.image}
+          value={section?.image}
           label="Section Instagram Image ID"
           variant="outlined"
           fullWidth
         />
         <TextField
           className={classes.control}
-          value={section.imageAuthor}
+          value={section?.imageAuthor}
           label="Section Instagram Image Author (do not include '@')"
           variant="outlined"
           fullWidth
@@ -155,18 +204,27 @@ function EditDateForm({ classes }) {
     );
   };
 
-  return (
+  console.log(formData);
+
+  return isSavingDate ? (
+    <Spinner />
+  ) : (
     <Dialog
-      fullWidth
+      fullScreen
       open={!!currentDate}
       onClose={() => setIsEditingDate(false)}
       aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Edit Date</DialogTitle>
-      <DialogContent>
+      <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
+        Edit Date
+      </DialogTitle>
+      <DialogContent className={classes.dialogContent}>
+        <Typography variant="h6" className={classes.sectionHeader}>
+          <b>Main Info</b>
+        </Typography>
         <TextField
           className={classes.control}
-          value={formData.name}
+          value={formData?.name}
           id="date-title"
           label="Date Title"
           variant="outlined"
@@ -179,47 +237,33 @@ function EditDateForm({ classes }) {
           label="Date Description"
           multiline
           rows="8"
-          value={formData.description}
+          value={formData?.description}
           variant="outlined"
           fullWidth
           onChange={e => updateFormData(e, 'description')}
         />
 
-        {formData.sections &&
-          formData.sections.length &&
-          formData.sections.map(section => renderSection(section))}
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            const newFormData = Object.assign({}, formData);
-            if (formData.sections) {
-              newFormData.sections.push({
-                spot: {},
-              });
-            } else {
-              newFormData.sections = [
-                {
-                  spot: {},
-                },
-              ];
-            }
-            setFormData(newFormData);
-          }}
-        >
-          Add New Section
-        </Button>
+        {renderSection(formData?.sections?.[0], 1)}
+        {renderSection(formData?.sections?.[1], 2)}
+        {renderSection(formData?.sections?.[2], 3)}
       </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setIsEditingDate(false)} color="primary">
-          Cancel
-        </Button>
-      </DialogActions>
-      <DialogActions>
-        <Button variant="contained" onClick={saveDate} color="primary">
-          Save Date
-        </Button>
-      </DialogActions>
+      <Box
+        display="flex"
+        flexDirection="row-reverse"
+        padding="6px 12px"
+        borderTop="1px solid lightGray"
+      >
+        <DialogActions>
+          <Button variant="contained" onClick={saveDate} color="primary">
+            Save Date
+          </Button>
+        </DialogActions>
+        <DialogActions>
+          <Button onClick={() => setIsEditingDate(false)} color="primary">
+            Cancel
+          </Button>
+        </DialogActions>
+      </Box>
     </Dialog>
   );
 }

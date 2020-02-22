@@ -12,7 +12,7 @@ import { Stepper, Step, StepLabel, StepContent, Box, Icon, Link } from '@materia
 import ReactGA from 'react-ga';
 
 import Store from '../../store';
-import { getIsDesktop } from '../../utils';
+import { useDesktop } from '../../utils';
 import DateTags from '../DateTags/DateTags';
 
 const testImages = [
@@ -106,7 +106,7 @@ const styles = theme => ({
 
 const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded }, ref) => {
   const store = Store.useStore();
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
   const user = store.get('user');
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
 

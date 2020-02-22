@@ -24,7 +24,7 @@ import CONSTANTS from '../../constants';
 import Store from '../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
-import { getIsDesktop } from '../../utils';
+import { useDesktop } from '../../utils';
 import MobileDrawer from '../../components/MobileDrawer/MobileDrawer';
 
 const styles = theme => ({
@@ -122,7 +122,7 @@ function Header({ classes }) {
   const currentTab = store.get('currentTab');
   const setCurrentTab = store.set('currentTab');
 
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
 
   function handleClick(event) {
     if (!user.email) {
@@ -149,6 +149,12 @@ function Header({ classes }) {
     setCurrentTab(CONSTANTS.TABS.MY_DATES);
     window.scrollTo(0, 0);
     ReactGA.pageview(CONSTANTS.TABS.MY_DATES);
+  };
+
+  const goToAdmin = () => {
+    setCurrentTab(CONSTANTS.TABS.ADMIN);
+    window.scrollTo(0, 0);
+    ReactGA.pageview(CONSTANTS.TABS.ADMIN);
   };
 
   const renderUserMenuItems = () => {
@@ -236,7 +242,7 @@ function Header({ classes }) {
           {isDesktop && (
             <>
               <Button
-                color={currentTab === CONSTANTS.TABS.DISCOVER ? 'primary' : ''}
+                color={currentTab === CONSTANTS.TABS.DISCOVER ? 'primary' : null}
                 onClick={goToDiscover}
                 size="medium"
               >
@@ -244,12 +250,20 @@ function Header({ classes }) {
                 <span className={classes.userButton}>Discover</span>
               </Button>
               <Button
-                color={currentTab === CONSTANTS.TABS.MY_DATES ? 'primary' : ''}
+                color={currentTab === CONSTANTS.TABS.MY_DATES ? 'primary' : null}
                 size="medium"
                 onClick={goToMyDates}
               >
                 <Icon>favorite</Icon>
                 <span className={classes.userButton}>My Dates</span>
+              </Button>
+              <Button
+                color={currentTab === CONSTANTS.TABS.ADMIN ? 'primary' : null}
+                size="medium"
+                onClick={goToAdmin}
+              >
+                <Icon>remove_from_queue</Icon>
+                <span className={classes.userButton}>Admin</span>
               </Button>
               <Divider orientation="vertical" className={classes.accountDivider} />
             </>

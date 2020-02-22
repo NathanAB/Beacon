@@ -18,12 +18,12 @@ export default {
     DATES: `${API_URL}/api/dates`,
     NEIGHBORHOODS: `${API_URL}/api/neighborhoods`,
     TAGS: `${API_URL}/api/tags`,
+    ACTIVITIES: `${API_URL}/api/activities`,
     USER_DATES: `${API_URL}/api/userDates`,
     ADMIN: {
       DATE_PLAN: `${API_URL}/api/admin/datePlan`,
     },
   },
   KEYS,
-  // ADMINS: ['nathanb92@gmail.com'],
-  ADMINS: [],
+  ADMINS: ['nathanb92@gmail.com'],
 };

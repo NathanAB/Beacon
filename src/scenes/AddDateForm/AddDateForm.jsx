@@ -19,7 +19,7 @@ import ReactGA from 'react-ga';
 import Store from '../../store';
 import Constants from '../../constants';
 import * as api from '../../api';
-import { getIsDesktop } from '../../utils';
+import { useDesktop } from '../../utils';
 
 const styles = theme => ({
   root: {
@@ -53,7 +53,7 @@ function AddDateForm({ classes }) {
   const [dateTime, setDateTime] = useState(editDate ? moment(editDate.startTime) : moment());
   const [notes, setNotes] = useState(editDate ? editDate.notes : '');
   const [isSaving, setIsSaving] = useState(false);
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
   let userDates = store.get('userDates');
 
   const confirmCheckout = async e => {

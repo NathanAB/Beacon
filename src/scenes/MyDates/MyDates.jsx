@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
 import { Box, Typography, Button } from '@material-ui/core';
 import Store from '../../store';
 import MyDateCard from '../../components/MyDateCard/MyDateCard';
-import { getIsDesktop } from '../../utils';
+import { useDesktop } from '../../utils';
 
 const styles = () => ({
   title: {
@@ -27,7 +27,7 @@ function MyDates({ classes }) {
   const store = Store.useStore();
   const userDates = store.get('userDates');
   const user = store.get('user');
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
 
   const dateSorter = (date1, date2) => {
     const time1 = moment(date1.startTime).toISOString();

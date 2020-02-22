@@ -4,7 +4,7 @@ import { Box, Icon, IconButton, Typography, CircularProgress } from '@material-u
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
 
-import { getIsDesktop } from '../../../utils';
+import { useDesktop } from '../../../utils';
 import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
 import Store from '../../../store';
 
@@ -29,7 +29,7 @@ const styles = () => ({
 function DatesRow({ classes }) {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
 
   const dateCards = dateObjs.map(date => {
     return (

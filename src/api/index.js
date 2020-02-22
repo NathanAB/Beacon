@@ -20,10 +20,9 @@ const fetchVia = async ({ url, method, body }) => {
     body: JSON.stringify(body),
     credentials: 'include',
   });
-  if (res.ok) {
-    return res.json();
+  if (!res.ok) {
+    throw new Error('request failed');
   }
-  return null;
 };
 
 const fetchPost = async ({ url, body }) => {
@@ -54,6 +53,10 @@ export const getTags = async () => {
   return fetchGet(CONSTANTS.API.TAGS);
 };
 
+export const getActivities = async () => {
+  return fetchGet(CONSTANTS.API.ACTIVITIES);
+};
+
 export const getUserDates = async () => {
   return fetchGet(CONSTANTS.API.USER_DATES);
 };
@@ -62,8 +65,8 @@ export const createUserDate = async userDateObj => {
   return fetchPost({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
 };
 
-export const createDatePlan = async datePlan => {
-  return fetchPost({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
+export const updateDatePlan = async datePlan => {
+  return fetchPatch({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
 };
 
 export const updateUserDate = async userDateObj => {

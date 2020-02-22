@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
 import Store from '../../../store';
 import TagsRow from '../TagsRow/TagsRow';
 import FilterBar from '../FilterBar/FilterBar';
-import { getIsDesktop } from '../../../utils';
+import { useDesktop } from '../../../utils';
 
 const styles = theme => ({
   container: {
@@ -49,7 +49,7 @@ function FilterPage({ classes }) {
   const filters = store.get('filters');
   const durations = store.get('durations');
   const neighborhoods = store.get('neighborhoods');
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
 
   function toggleFilter(type, value) {
     ReactGA.event({

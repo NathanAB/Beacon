@@ -4,7 +4,7 @@ import { Box, IconButton, Icon, Typography, ButtonBase, CircularProgress } from 
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
 
-import { getIsDesktop } from '../../../utils';
+import { useDesktop } from '../../../utils';
 import Store from '../../../store';
 import placeholderImg from '../../../assets/img/placeholder.png';
 
@@ -63,7 +63,7 @@ const styles = theme => ({
 function NeighborhoodsRow({ classes }) {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
 
   function addFilter(neighborhood) {
     console.log(neighborhood);

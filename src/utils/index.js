@@ -46,6 +46,6 @@ export const filterDates = (dateObjs, filters) => {
   });
 };
 
-export const getIsDesktop = () => {
+export const useDesktop = () => {
   return useMediaQuery('(min-width:768px)');
 };

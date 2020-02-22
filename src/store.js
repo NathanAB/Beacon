@@ -10,6 +10,7 @@ const USE_MOCKS = false;
 // Create a store with an initial value.
 export default createConnectedStore({
   tags: USE_MOCKS ? mockTags : [],
+  activities: [],
   neighborhoods: USE_MOCKS ? mockNeighborhoods : [],
   dates: USE_MOCKS ? mockDates : [],
   filters: [],

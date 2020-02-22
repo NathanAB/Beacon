@@ -10,7 +10,7 @@ import BottomNav from '../BottomNav/BottomNav';
 import Body from '../Body/Body';
 import Store from '../../store';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
-import { getIsDesktop } from '../../utils';
+import { useDesktop } from '../../utils';
 import Footer from '../Footer/Footer';
 
 const theme = createMuiTheme({
@@ -45,7 +45,7 @@ const theme = createMuiTheme({
 function App() {
   const store = Store.useStore();
   const currentTab = store.get('currentTab');
-  const isDesktop = getIsDesktop();
+  const isDesktop = useDesktop();
 
   // Make initial API requests
   useEffect(() => {
@@ -83,10 +83,17 @@ function App() {
         store.set('tags')(tags);
       }
     };
+    const getActivities = async () => {
+      const activities = await api.getActivities();
+      if (activities) {
+        store.set('activities')(activities);
+      }
+    };
     initialReqs();
     getDates();
     getNeighborhoods();
     getTags();
+    getActivities();
   }, []);
 
   return (

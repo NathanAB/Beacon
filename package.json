@@ -17,13 +17,13 @@
     "react-ga": "^2.5.7",
     "react-horizontal-scrolling-menu": "^0.7.3",
     "react-mailchimp-subscribe": "^2.1.0",
-    "react-scripts": "2.1.5",
+    "react-scripts": "3.4.0",
     "typeface-roboto": "0.0.54",
     "undux": "^5.0.0-beta.22"
   },
   "scripts": {
     "start": "PORT=443 HOST='local.beacondates.com' HTTPS=true react-scripts start -- https://local.beacondates.com",
-    "start-dev": "PORT=443 HOST='local.beacondates.com' HTTPS=true REACT_APP_MAPS_API_KEY=$(eval 'cat ./maps-api-key.txt') react-scripts start -- https://local.beacondates.com",
+    "start-dev": "HOST='local.beacondates.com' REACT_APP_MAPS_API_KEY=$(eval 'cat ./maps-api-key.txt') react-scripts start -- https://local.beacondates.com",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "prettify": "eslint . --fix",
