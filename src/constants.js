@@ -24,5 +24,6 @@ export default {
     },
   },
   KEYS,
-  ADMINS: ['nathanb92@gmail.com'],
+  // ADMINS: ['nathanb92@gmail.com'],
+  ADMINS: [],
 };

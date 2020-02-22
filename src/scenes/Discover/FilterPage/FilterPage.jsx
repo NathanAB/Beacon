@@ -100,7 +100,7 @@ function FilterPage({ classes }) {
 
         <section className={classes.filterSection}>
           <Typography variant="h6" className={classes.sectionTitle}>
-            Location
+            Neighborhood
           </Typography>
           {renderFilterSection(neighborhoods.map(n => n.name), 'neighborhood')}
         </section>

@@ -1,7 +1,15 @@
+html {
+  background-color: lightgray;
+  height: 100%;
+}
+
 body {
-  margin: 0;
+  margin: auto;
   padding: 0;
   font-family: 'Open Sans' !important;
+  background-color: white;
+  max-width: 1600px;
+  position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -15,6 +23,12 @@ p {
 button {
   border: none;
   background: none;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .MuiCardActionArea-focusHighlight {
@@ -61,4 +75,16 @@ button {
 
 .horizontal-menu {
   margin-bottom: 30px;
+}
+
+.MuiButton-root {
+  text-transform: none !important;
+}
+
+header .MuiButton-text:hover {
+  background-color: rgba(241, 95, 58, 0.08) !important;
+}
+
+header .MuiButton-textPrimary:hover {
+  background-color: rgba(0, 0, 0, 0.00) !important;
 }

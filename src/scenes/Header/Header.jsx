@@ -1,11 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
-import { ButtonBase, Typography, Divider, Link, Menu, MenuItem, MenuList } from '@material-ui/core';
+import {
+  Box,
+  IconButton,
+  Button,
+  Toolbar,
+  AppBar,
+  ButtonBase,
+  Typography,
+  Divider,
+  Link,
+  Menu,
+  MenuItem,
+  MenuList,
+  Icon,
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 
 import ReactGA from 'react-ga';
 
@@ -13,16 +24,35 @@ import CONSTANTS from '../../constants';
 import Store from '../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
+import { getIsDesktop } from '../../utils';
+import MobileDrawer from '../../components/MobileDrawer/MobileDrawer';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
   },
+  accountDivider: {
+    margin: '0 5px',
+    height: '43px',
+    width: '1px',
+  },
   headerButton: {
     color: 'black',
+    minWidth: '48px',
+  },
+  container: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    maxWidth: '1600px',
+    left: '0px',
+    right: '0px',
+    margin: 'auto',
   },
   toolbar: {
     justifyContent: 'space-between',
+    maxWidth: '1060px',
+    width: '100%',
+    padding: '0px 8px',
   },
   menuItemText: {
     verticalAlign: 'middle',
@@ -50,6 +80,16 @@ const styles = theme => ({
       letterSpacing: '6px',
     },
   },
+  menuList: {
+    outline: 'none',
+    padding: '0px',
+  },
+  menuLinkBlack: {
+    color: 'black',
+    '&:hover': {
+      textDecoration: 'none',
+    },
+  },
   menuLink: {
     '&:hover': {
       textDecoration: 'none',
@@ -58,24 +98,37 @@ const styles = theme => ({
   menuItem: {
     fontWeight: 600,
     fontFamily: 'Raleway',
-    color: 'black',
+    height: '50px',
   },
   menuItemOrange: {
+    color: theme.palette.primary.main,
+    height: '50px',
     fontWeight: 600,
     fontFamily: 'Raleway',
+  },
+  userButton: {
+    paddingLeft: '5px',
+    fontWeight: 600,
   },
 });
 
 function Header({ classes }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isDrawerOpen, setDrawerOpen] = React.useState(null);
   const store = Store.useStore();
   const user = store.get('user');
-  const filters = store.get('filters');
-  const focusedDate = store.get('focusedDate');
+  const setIsLoginOpen = store.set('isLoginDialogOpen');
+
   const currentTab = store.get('currentTab');
-  const isFilterPageOpen = store.get('isFilterPageOpen');
+  const setCurrentTab = store.set('currentTab');
+
+  const isDesktop = getIsDesktop();
 
   function handleClick(event) {
+    if (!user.email) {
+      setIsLoginOpen(true);
+      return;
+    }
     setAnchorEl(event.currentTarget);
   }
 
@@ -84,12 +137,18 @@ function Header({ classes }) {
   }
 
   const goToDiscover = () => {
-    ReactGA.pageview(CONSTANTS.TABS.DISCOVER);
-    store.set('currentTab')(CONSTANTS.TABS.DISCOVER);
+    setCurrentTab(CONSTANTS.TABS.DISCOVER);
     store.set('filters')([]);
     store.set('focusedDate')(false);
     store.set('isFilterPageOpen')(false);
     window.scrollTo(0, 0);
+    ReactGA.pageview(CONSTANTS.TABS.DISCOVER);
+  };
+
+  const goToMyDates = () => {
+    setCurrentTab(CONSTANTS.TABS.MY_DATES);
+    window.scrollTo(0, 0);
+    ReactGA.pageview(CONSTANTS.TABS.MY_DATES);
   };
 
   const renderUserMenuItems = () => {
@@ -101,91 +160,113 @@ function Header({ classes }) {
           </Typography>
         </MenuItem>
         <Divider />
-        <Link href={CONSTANTS.API.LOGOUT} className={classes.menuLink}>
-          <MenuItem
-            className={classes.menuItem}
-            onClick={() => {
-              ReactGA.event({
-                category: 'Interaction',
-                action: 'Logout',
-                label: 'Dropdown Menu',
-              });
-              handleClose();
-            }}
-          >
+        <MenuItem
+          className={classes.menuItem}
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Log Out',
+              label: 'Dropdown Menu',
+            });
+            handleClose();
+          }}
+        >
+          <Link href={CONSTANTS.API.LOGOUT} className={classes.menuLinkBlack}>
             <Icon className={classes.menuIcon}>logout</Icon>{' '}
-            <span className={classes.menuItemText}>Logout</span>
-          </MenuItem>
-        </Link>
+            <span className={classes.menuItemText}>Log out</span>
+          </Link>
+        </MenuItem>
       </>
     ) : (
       <>
-        <Link href={CONSTANTS.API.LOGIN_GOOGLE} className={classes.menuLink}>
-          <MenuItem
-            className={classes.menuItem}
-            onClick={() => {
-              ReactGA.event({
-                category: 'Interaction',
-                action: 'Login with Google',
-                label: 'Dropdown Menu',
-              });
-            }}
-          >
+        <MenuItem
+          className={classes.menuItem}
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Login with Google',
+              label: 'Dropdown Menu',
+            });
+          }}
+        >
+          <Link href={CONSTANTS.API.LOGIN_GOOGLE} className={classes.menuLinkBlack}>
             <img src={googleIcon} alt="Google Icon" className={classes.menuIcon} />
-            Login with Google
-          </MenuItem>
-        </Link>
-        <Link href={CONSTANTS.API.LOGIN_FACEBOOK} className={classes.menuLink}>
-          <MenuItem
-            className={classes.menuItem}
-            onClick={() => {
-              ReactGA.event({
-                category: 'Interaction',
-                action: 'Login with Facebook',
-                label: 'Dropdown Menu',
-              });
-              window.location = CONSTANTS.API.LOGIN_FACEBOOK;
-            }}
-          >
+            Log in with Google
+          </Link>
+        </MenuItem>
+        <MenuItem
+          className={classes.menuItem}
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Login with Facebook',
+              label: 'Dropdown Menu',
+            });
+            window.location = CONSTANTS.API.LOGIN_FACEBOOK;
+          }}
+        >
+          <Link href={CONSTANTS.API.LOGIN_FACEBOOK} className={classes.menuLinkBlack}>
             <img src={facebookIcon} alt="Facebook Icon" className={classes.menuIcon} />
-            Login with Facebook
-          </MenuItem>
-        </Link>
+            Log in with Facebook
+          </Link>
+        </MenuItem>
       </>
     );
   };
 
   return (
-    <AppBar position="fixed" color="inherit">
+    <AppBar position="fixed" color="inherit" className={classes.container}>
+      <MobileDrawer isOpen={isDrawerOpen} close={() => setDrawerOpen(false)} />
       <Toolbar className={classes.toolbar}>
-        {(focusedDate || filters.length || isFilterPageOpen) &&
-        currentTab !== CONSTANTS.TABS.MY_DATES ? (
+        {!isDesktop && (
           <IconButton
-            className={classes.headerButton}
+            color="inherit"
+            aria-label="open drawer"
             onClick={() => {
-              store.set('focusedDate')(false);
-              store.set('filters')([]);
-              store.set('isFilterPageOpen')(false);
+              setDrawerOpen(true);
             }}
           >
-            <Icon>arrow_back</Icon>
-          </IconButton>
-        ) : (
-          <IconButton className={classes.headerButton}>
-            <Icon></Icon>
+            <MenuIcon />
           </IconButton>
         )}
         <ButtonBase className={classes.title} onClick={goToDiscover}>
           BEACON
         </ButtonBase>
-        <IconButton
-          aria-controls="simple-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-          className={classes.headerButton}
-        >
-          <Icon>person</Icon>
-        </IconButton>
+        <Box display="flex">
+          {isDesktop && (
+            <>
+              <Button
+                color={currentTab === CONSTANTS.TABS.DISCOVER ? 'primary' : ''}
+                onClick={goToDiscover}
+                size="medium"
+              >
+                <Icon>explore</Icon>
+                <span className={classes.userButton}>Discover</span>
+              </Button>
+              <Button
+                color={currentTab === CONSTANTS.TABS.MY_DATES ? 'primary' : ''}
+                size="medium"
+                onClick={goToMyDates}
+              >
+                <Icon>favorite</Icon>
+                <span className={classes.userButton}>My Dates</span>
+              </Button>
+              <Divider orientation="vertical" className={classes.accountDivider} />
+            </>
+          )}
+          <Button
+            size="medium"
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={handleClick}
+            className={classes.headerButton}
+          >
+            <Icon>person</Icon>{' '}
+            {isDesktop && (
+              <span className={classes.userButton}>{(user && user.name) || 'Log In'}</span>
+            )}
+          </Button>
+        </Box>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
@@ -193,41 +274,19 @@ function Header({ classes }) {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuList>
+          <MenuList className={classes.menuList}>
             {renderUserMenuItems()}
-            <Link
-              href="mailto:contact@beacondates.com"
-              className={classes.menuLink}
-              target="_blank"
-              rel="noopener"
-            >
-              <MenuItem className={classes.menuItem}>
-                <Icon className={classes.menuIcon}>email</Icon>{' '}
-                <span className={classes.menuItemText}>Contact us</span>
-              </MenuItem>
-            </Link>
-            <Link
-              href="https://forms.gle/ebaqVd2TMTw47RjW8"
-              className={classes.menuLink}
-              target="_blank"
-              rel="noopener"
-            >
-              <MenuItem className={classes.menuItem}>
-                <Icon className={classes.menuIcon}>feedback</Icon>{' '}
-                <span className={classes.menuItemText}>Give us Feedback</span>
-              </MenuItem>
-            </Link>
-            <Link
-              href="https://forms.gle/6pwD9m24Uz94PFXr8"
-              className={classes.menuLink}
-              target="_blank"
-              rel="noopener"
-            >
-              <MenuItem className={classes.menuItemOrange}>
+            <MenuItem className={classes.menuItemOrange}>
+              <Link
+                href="https://forms.gle/6pwD9m24Uz94PFXr8"
+                className={classes.menuLink}
+                target="_blank"
+                rel="noopener"
+              >
                 <Icon className={classes.menuIcon}>lightbulb_outline</Icon>{' '}
                 <span className={classes.menuItemText}>Submit a Date Idea</span>
-              </MenuItem>
-            </Link>
+              </Link>
+            </MenuItem>
           </MenuList>
         </Menu>
       </Toolbar>

@@ -7,7 +7,7 @@ import Store from '../../../store';
 
 const styles = {
   container: {
-    padding: '0px 20px',
+    padding: '10px 20px',
   },
   search: {
     position: 'relative',
@@ -22,6 +22,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     minHeight: '47px',
+    backgroundColor: 'white',
   },
   searchIcon: {
     'margin-left': '1rem',
@@ -77,7 +78,7 @@ function FilterBar({ classes }) {
     }
     return (
       <Typography variant="subtitle1" className={classes.placeholder}>
-        Have a specific thing in mind?
+        <b>Filter dates by</b> <i>cost, activity, vibe...</i>
       </Typography>
     );
   }
