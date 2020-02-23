@@ -27,6 +27,8 @@ import facebookIcon from '../../assets/img/facebookIcon.png';
 import { useDesktop } from '../../utils';
 import MobileDrawer from '../../components/MobileDrawer/MobileDrawer';
 
+const { ADMINS } = CONSTANTS;
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -257,14 +259,18 @@ function Header({ classes }) {
                 <Icon>favorite</Icon>
                 <span className={classes.userButton}>My Dates</span>
               </Button>
-              <Button
-                color={currentTab === CONSTANTS.TABS.ADMIN ? 'primary' : null}
-                size="medium"
-                onClick={goToAdmin}
-              >
-                <Icon>remove_from_queue</Icon>
-                <span className={classes.userButton}>Admin</span>
-              </Button>
+              {isDesktop &&
+                ADMINS.includes(user.email) &&
+                window.location.hostname !== 'www.beacondates.com' && (
+                  <Button
+                    color={currentTab === CONSTANTS.TABS.ADMIN ? 'primary' : null}
+                    size="medium"
+                    onClick={goToAdmin}
+                  >
+                    <Icon>remove_from_queue</Icon>
+                    <span className={classes.userButton}>Admin</span>
+                  </Button>
+                )}
               <Divider orientation="vertical" className={classes.accountDivider} />
             </>
           )}

@@ -60,7 +60,7 @@ function BottomNav({ classes }) {
         value={TABS.MY_DATES}
         icon={<Icon>favorite</Icon>}
       />
-      {ADMINS.includes(user.email) && (
+      {ADMINS.includes(user.email) && window.location.hostname !== 'www.beacondates.com' && (
         <BottomNavigationAction
           classes={{ label: classes.navLabel, root: classes.navItem }}
           label="Admin Mode"
