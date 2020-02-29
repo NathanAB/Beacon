@@ -24,6 +24,17 @@ function Admin({ classes }) {
   return (
     <>
       {isEditingDate && <EditDateForm />}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          setIsEditingDate({
+            sections: [{}, {}],
+          });
+        }}
+      >
+        Create New Date
+      </Button>
       <Table>
         <TableHead>
           <TableRow>

@@ -19,7 +19,7 @@ import {
 import { set } from 'lodash';
 
 import Store from '../../../../store';
-import { updateDatePlan, getDates } from '../../../../api';
+import { createDatePlan, updateDatePlan, getDates } from '../../../../api';
 import Spinner from '../../../../components/Spinner/Spinner';
 
 const styles = theme => ({
@@ -50,9 +50,15 @@ function EditDateForm({ classes }) {
   const neighborhoods = store.get('neighborhoods');
   const activities = store.get('activities');
   const tags = store.get('tags');
+  const isNew = !currentDate.id;
 
   const [formData, setFormData] = useState({});
   const [isSavingDate, setSavingDate] = useState(false);
+
+  const addSection3 = () => {
+    formData.sections[2] = {};
+    setFormData(Object.assign({}, formData));
+  };
 
   const updateFormData = (e, field) => {
     const newValue = e.target.value;
@@ -69,7 +75,7 @@ function EditDateForm({ classes }) {
   const saveDate = async () => {
     setSavingDate(true);
     try {
-      await updateDatePlan(formData);
+      await (isNew ? createDatePlan(formData) : updateDatePlan(formData));
       const dates = await getDates();
       if (dates) {
         setDates(dates);
@@ -77,6 +83,7 @@ function EditDateForm({ classes }) {
       setIsEditingDate(false);
     } catch (err) {
       console.error(err);
+      alert(err);
     } finally {
       setSavingDate(false);
     }
@@ -282,7 +289,7 @@ neighborhoodId: 5 */}
       aria-labelledby="form-dialog-title"
     >
       <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
-        Edit Date
+        {isNew ? 'Create New Date' : 'Edit Date'}
       </DialogTitle>
       <DialogContent className={classes.dialogContent}>
         <Typography variant="h6" className={classes.sectionHeader}>
@@ -311,7 +318,13 @@ neighborhoodId: 5 */}
 
         {renderSection(formData?.sections?.[0], 0)}
         {renderSection(formData?.sections?.[1], 1)}
-        {renderSection(formData?.sections?.[2], 2)}
+        {formData?.sections?.[2] ? (
+          renderSection(formData?.sections?.[2], 2)
+        ) : (
+          <Button variant="contained" color="primary" onClick={addSection3}>
+            Add Section 3
+          </Button>
+        )}
       </DialogContent>
       <Box
         display="flex"
@@ -321,7 +334,7 @@ neighborhoodId: 5 */}
       >
         <DialogActions>
           <Button variant="contained" onClick={saveDate} color="primary">
-            Save Date
+            {isNew ? 'Create Date' : 'Save Date'}
           </Button>
         </DialogActions>
         <DialogActions>

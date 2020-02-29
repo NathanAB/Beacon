@@ -23,13 +23,13 @@
   },
   "scripts": {
     "start": "PORT=443 HOST='local.beacondates.com' HTTPS=true react-scripts start -- https://local.beacondates.com",
-    "start-dev": "HOST='local.beacondates.com' REACT_APP_MAPS_API_KEY=$(eval 'cat ./maps-api-key.txt') react-scripts start -- https://local.beacondates.com",
+    "start-dev": "PORT=443 HTTPS=true HOST='local.beacondates.com' REACT_APP_MAPS_API_KEY=$(eval 'cat ./maps-api-key.txt') react-scripts start -- https://local.beacondates.com",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "prettify": "eslint . --fix",
     "eject": "react-scripts eject",
     "deploy-production": "git push production master; heroku open --remote production",
-    "deploy-staging": "git push staging staging:master; heroku open --remote staging"
+    "deploy-staging": "git push staging admin-mode:master; heroku open --remote staging"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^17.1.0",
