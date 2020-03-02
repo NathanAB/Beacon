@@ -10,7 +10,7 @@ import BottomNav from '../BottomNav/BottomNav';
 import Body from '../Body/Body';
 import Store from '../../store';
 import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
-import { useDesktop } from '../../utils';
+import { useDesktop, loadDates } from '../../utils';
 import Footer from '../Footer/Footer';
 
 const theme = createMuiTheme({
@@ -63,12 +63,6 @@ function App() {
         getUserDates();
       }
     };
-    const getDates = async () => {
-      const dates = await api.getDates();
-      if (dates) {
-        store.set('dates')(dates);
-      }
-    };
     const getNeighborhoods = async () => {
       let neigborhoods = await api.getNeighborhoods();
       neigborhoods = neigborhoods.filter(n => !n.disabled);
@@ -90,7 +84,7 @@ function App() {
       }
     };
     initialReqs();
-    getDates();
+    loadDates(store);
     getNeighborhoods();
     getTags();
     getActivities();

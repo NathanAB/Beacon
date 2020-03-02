@@ -13,6 +13,7 @@ export default createConnectedStore({
   activities: [],
   neighborhoods: USE_MOCKS ? mockNeighborhoods : [],
   dates: USE_MOCKS ? mockDates : [],
+  adminDates: [],
   filters: [],
   isFilterPageOpen: false,
   isLoginDialogOpen: false,

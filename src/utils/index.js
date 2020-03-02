@@ -1,5 +1,7 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import { getDates } from '../api';
+
 // eslint-disable-next-line import/prefer-default-export
 export const costToString = cost => {
   if (cost === 0) {
@@ -48,4 +50,46 @@ export const filterDates = (dateObjs, filters) => {
 
 export const useDesktop = () => {
   return useMediaQuery('(min-width:768px)');
+};
+
+export const shuffleArray = array => {
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+
+    /* eslint-disable no-param-reassign */
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+    /* eslint-enable no-param-reassign */
+  }
+
+  return array;
+};
+
+export const loadDates = async store => {
+  let adminDates = await getDates();
+  const dates = adminDates.filter(date => date.active);
+  shuffleArray(dates);
+  adminDates = adminDates.sort((a, b) => {
+    if ((a.active && b.active) || (!a.active && !b.active)) {
+      return 0;
+    }
+    if (a.active) {
+      return -1;
+    }
+    if (b.active) {
+      return 1;
+    }
+  });
+  store.set('adminDates')(adminDates);
+  store.set('dates')(dates);
 };
