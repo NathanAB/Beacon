@@ -21,6 +21,7 @@ import { set } from 'lodash';
 import Store from '../../../../store';
 import { createDatePlan, updateDatePlan, getDates } from '../../../../api';
 import Spinner from '../../../../components/Spinner/Spinner';
+import { loadDates } from '../../../../utils';
 
 const styles = theme => ({
   control: {
@@ -45,7 +46,6 @@ const styles = theme => ({
 
 function EditDateForm({ classes }) {
   const store = Store.useStore();
-  const setDates = store.set('dates');
   const currentDate = store.get('adminEditingDate');
   const setIsEditingDate = store.set('adminEditingDate');
   const neighborhoods = store.get('neighborhoods');
@@ -78,10 +78,8 @@ function EditDateForm({ classes }) {
     setSavingDate(true);
     try {
       await (isNew ? createDatePlan(formData) : updateDatePlan(formData));
-      const dates = await getDates();
-      if (dates) {
-        setDates(dates);
-      }
+      await loadDates(store);
+      setIsEditingDate(false);
     } catch (err) {
       console.error(err);
       alert(err);
