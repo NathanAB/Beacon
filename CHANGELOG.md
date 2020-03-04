@@ -30,8 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Add hero image
   - Remove account dropdown when not logged in
 
-## [v1.0.1] - 2020-02-02
+## [v1.0.1](https://github.com/nathanab/beacon/compare/v1.0.0...v1.0.1) - 2020-02-02
 - Fix button stylings in login dialog
 
-## [v1.0.0] - 2019-12-25
+## v1.0.0 - 2019-12-25
 - Initial release!
