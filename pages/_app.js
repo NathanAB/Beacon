@@ -4,14 +4,16 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import ReactGA from 'react-ga';
 
-import * as api from '../../api';
-import Header from '../Header/Header';
-import BottomNav from '../BottomNav/BottomNav';
-import Body from '../Body/Body';
-import Store from '../../store';
-import ErrorBoundary from '../../components/ErrorBoundary/ErrorBoundary';
-import { useDesktop, loadDates } from '../../utils';
-import Footer from '../Footer/Footer';
+import * as api from '../api';
+import Header from '../scenes/Header/Header';
+import BottomNav from '../scenes/BottomNav/BottomNav';
+import Body from '../scenes/Body/Body';
+import Store from '../store';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import { useDesktop, loadDates } from '../utils';
+import Footer from '../scenes/Footer/Footer';
+
+import '../css/index.css';
 
 const theme = createMuiTheme({
   palette: {
@@ -91,18 +93,18 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <MuiThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-          <ErrorBoundary>
-            <Header />
-            <Body currentTab={currentTab} />
-            {isDesktop ? <Footer /> : <BottomNav />}
-          </ErrorBoundary>
-        </MuiPickersUtilsProvider>
-      </MuiThemeProvider>
-    </div>
+      <div className="app">
+        <MuiThemeProvider theme={theme}>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <ErrorBoundary>
+              <Header />
+              <Body currentTab={currentTab} />
+              {isDesktop ? <Footer /> : <BottomNav />}
+            </ErrorBoundary>
+          </MuiPickersUtilsProvider>
+        </MuiThemeProvider>
+      </div>
   );
 }
 
-export default App;
+export default () => (<Store.Container><App /></Store.Container>);
