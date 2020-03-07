@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -31,16 +30,15 @@ const styles = {
 
 function BottomNav({ classes }) {
   const store = Store.useStore();
-  const currentTab = store.get('currentTab');
   const user = store.get('user');
 
   return (
     <BottomNavigation
-      value={currentTab}
+      // TODO - Use nextjs router.pathname here
+      value=""
       showLabels
       onChange={(event, value) => {
         ReactGA.pageview(value);
-        store.set('currentTab')(value);
         store.set('filters')([]);
         store.set('focusedDate')(false);
         store.set('isFilterPageOpen')(false);
@@ -71,9 +69,5 @@ function BottomNav({ classes }) {
     </BottomNavigation>
   );
 }
-
-BottomNav.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(BottomNav);

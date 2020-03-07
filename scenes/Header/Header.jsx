@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import InternalLink from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Box,
   IconButton,
@@ -120,9 +121,7 @@ function Header({ classes }) {
   const store = Store.useStore();
   const user = store.get('user');
   const setIsLoginOpen = store.set('isLoginDialogOpen');
-
-  const currentTab = store.get('currentTab');
-  const setCurrentTab = store.set('currentTab');
+  const router = useRouter();
 
   const isDesktop = useDesktop();
 
@@ -139,23 +138,17 @@ function Header({ classes }) {
   }
 
   const goToDiscover = () => {
-    setCurrentTab(CONSTANTS.TABS.DISCOVER);
     store.set('filters')([]);
     store.set('focusedDate')(false);
     store.set('isFilterPageOpen')(false);
-    window.scrollTo(0, 0);
     ReactGA.pageview(CONSTANTS.TABS.DISCOVER);
   };
 
   const goToMyDates = () => {
-    setCurrentTab(CONSTANTS.TABS.MY_DATES);
-    window.scrollTo(0, 0);
     ReactGA.pageview(CONSTANTS.TABS.MY_DATES);
   };
 
   const goToAdmin = () => {
-    setCurrentTab(CONSTANTS.TABS.ADMIN);
-    window.scrollTo(0, 0);
     ReactGA.pageview(CONSTANTS.TABS.ADMIN);
   };
 
@@ -237,39 +230,45 @@ function Header({ classes }) {
             <MenuIcon />
           </IconButton>
         )}
-        <ButtonBase className={classes.title} onClick={goToDiscover}>
-          BEACON
-        </ButtonBase>
+        <InternalLink href="/">
+          <ButtonBase className={classes.title}>BEACON</ButtonBase>
+        </InternalLink>
         <Box display="flex">
           {isDesktop && (
             <>
-              <Button
-                color={currentTab === CONSTANTS.TABS.DISCOVER ? 'primary' : null}
-                onClick={goToDiscover}
-                size="medium"
-              >
-                <Icon>explore</Icon>
-                <span className={classes.userButton}>Discover</span>
-              </Button>
-              <Button
-                color={currentTab === CONSTANTS.TABS.MY_DATES ? 'primary' : null}
-                size="medium"
-                onClick={goToMyDates}
-              >
-                <Icon>favorite</Icon>
-                <span className={classes.userButton}>My Dates</span>
-              </Button>
+              <InternalLink href="/">
+                <Button
+                  color={router.pathname === '/' ? 'primary' : 'default'}
+                  onClick={goToDiscover}
+                  size="medium"
+                >
+                  <Icon>explore</Icon>
+                  <span className={classes.userButton}>Discover</span>
+                </Button>
+              </InternalLink>
+              <InternalLink href="/my-dates">
+                <Button
+                  color={router.pathname.includes(CONSTANTS.TABS.MY_DATES) ? 'primary' : 'default'}
+                  size="medium"
+                  onClick={goToMyDates}
+                >
+                  <Icon>favorite</Icon>
+                  <span className={classes.userButton}>My Dates</span>
+                </Button>
+              </InternalLink>
               {isDesktop &&
                 ADMINS.includes(user.email) &&
                 window.location.hostname !== 'www.beacondates.com' && (
-                  <Button
-                    color={currentTab === CONSTANTS.TABS.ADMIN ? 'primary' : null}
-                    size="medium"
-                    onClick={goToAdmin}
-                  >
-                    <Icon>remove_from_queue</Icon>
-                    <span className={classes.userButton}>Admin</span>
-                  </Button>
+                  <InternalLink href="/admin">
+                    <Button
+                      color={router.pathname.includes(CONSTANTS.TABS.ADMIN) ? 'primary' : 'default'}
+                      size="medium"
+                      onClick={goToAdmin}
+                    >
+                      <Icon>remove_from_queue</Icon>
+                      <span className={classes.userButton}>Admin</span>
+                    </Button>
+                  </InternalLink>
                 )}
               <Divider orientation="vertical" className={classes.accountDivider} />
             </>
@@ -313,9 +312,5 @@ function Header({ classes }) {
     </AppBar>
   );
 }
-
-Header.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(Header);

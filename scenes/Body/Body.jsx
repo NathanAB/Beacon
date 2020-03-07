@@ -1,56 +1,77 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Box } from '@material-ui/core';
+import ReactGA from 'react-ga';
 
-import CONSTANTS from '../../constants';
-import AddDateForm from '../AddDateForm/AddDateForm';
-import LoginDialog from '../LoginDialog/LoginDialog';
-import Discover from '../Discover/Discover';
-import MyDates from '../MyDates/MyDates';
-import Admin from '../Admin/Admin';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import BottomNav from '../BottomNav/BottomNav';
+
+import * as api from '../../api';
 import Store from '../../store';
+import { useDesktop, loadDates } from '../../utils';
 
-import './Body.css';
-
-const { TABS } = CONSTANTS;
-
-function Body() {
+export default ({ Component, pageProps }) => {
   const store = Store.useStore();
-  const currentTab = store.get('currentTab');
-  const editDate = store.get('editDate');
-  const checkoutDate = store.get('checkoutDate');
-  let contentToRender;
+  const isDesktop = useDesktop();
 
-  function renderDiscover() {
-    return <Discover />;
-  }
+  // Make initial API requests
+  useEffect(() => {
+    const getUserDates = async () => {
+      const userDates = await api.getUserDates();
+      if (userDates) {
+        store.set('userDates')(userDates);
+      }
+    };
+    const initialReqs = async () => {
+      const authData = await api.auth();
+      if (authData) {
+        store.set('user')(authData);
+        ReactGA.set({ userEmail: authData.email });
+        getUserDates();
+      }
+    };
+    const getNeighborhoods = async () => {
+      let neighborhoods = await api.getNeighborhoods();
+      neighborhoods = neighborhoods.filter(n => !n.disabled);
 
-  function renderMyDates() {
-    return <MyDates />;
-  }
+      if (neighborhoods) {
+        store.set('neighborhoods')(neighborhoods);
+      }
+    };
+    const getTags = async () => {
+      const tags = await api.getTags();
+      if (tags) {
+        store.set('tags')(tags);
+      }
+    };
+    const getActivities = async () => {
+      const activities = await api.getActivities();
+      if (activities) {
+        store.set('activities')(activities);
+      }
+    };
+    initialReqs();
+    loadDates(store);
+    getNeighborhoods();
+    getTags();
+    getActivities();
+  }, []);
 
-  function renderAdmin() {
-    return <Admin />;
-  }
-
-  switch (currentTab) {
-    case TABS.DISCOVER:
-      contentToRender = renderDiscover();
-      break;
-    case TABS.MY_DATES:
-      contentToRender = renderMyDates();
-      break;
-    case TABS.ADMIN:
-      contentToRender = renderAdmin();
-      break;
-    default:
-      break;
-  }
   return (
-    <main>
-      {(editDate || checkoutDate) && <AddDateForm />}
-      <LoginDialog />
-      {contentToRender}
-    </main>
+    <Box display="flex" flexDirection="column" minHeight="100vh">
+      <Header />
+      <Box
+        margin="auto"
+        paddingTop="80px"
+        paddingBottom="80px"
+        maxWidth="1100px"
+        width="100%"
+        flexGrow="2"
+      >
+        <Component {...pageProps} />
+      </Box>
+      {/* TODO - Add responsiveness for BottomNav */}
+      {isDesktop ? <Footer /> : <BottomNav />}
+    </Box>
   );
-}
-
-export default Body;
+};

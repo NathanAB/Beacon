@@ -100,7 +100,6 @@ function AddDateForm({ classes }) {
     }
 
     store.set('userDates')(refreshedDates);
-    store.set('currentTab')(Constants.TABS.MY_DATES);
     store.set('checkoutDate')(false);
     store.set('editDate')(false);
     ReactGA.pageview(Constants.TABS.MY_DATES);
