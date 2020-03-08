@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v1.2.0](https://github.com/nathanab/beacon/compare/v1.1.4...v1.2.0) - TBD
 - Add admin mode with date builder
 - Filter dates on new `active` field
+- Add inertia scrolling to horizontal menus
 
 ## [v1.1.4](https://github.com/nathanab/beacon/compare/v1.1.3...v1.1.4) - 2020-02-19
 - Fix footer "about" link href

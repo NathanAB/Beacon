@@ -109,6 +109,7 @@ function NeighborhoodsRow({ classes }) {
       {neighborhoods.length ? (
         <ScrollMenu
           alignOnResize={false}
+          inertiaScrolling
           translate={20}
           data={renderNeighborhoods(classes)}
           wheel={false}
