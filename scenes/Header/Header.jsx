@@ -1,14 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import InternalLink from 'next/link';
-import { useRouter } from 'next/router';
 import {
   Box,
   IconButton,
   Button,
   Toolbar,
   AppBar,
-  ButtonBase,
   Typography,
   Divider,
   Link,
@@ -27,6 +25,7 @@ import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
 import { useDesktop } from '../../utils';
 import MobileDrawer from '../../components/MobileDrawer/MobileDrawer';
+import HeaderLink from './components/HeaderLink/HeaderLink';
 
 const { ADMINS } = CONSTANTS;
 
@@ -121,11 +120,10 @@ function Header({ classes }) {
   const store = Store.useStore();
   const user = store.get('user');
   const setIsLoginOpen = store.set('isLoginDialogOpen');
-  const router = useRouter();
 
   const isDesktop = useDesktop();
 
-  function handleClick(event) {
+  function login(event) {
     if (!user.email) {
       setIsLoginOpen(true);
       return;
@@ -231,60 +229,44 @@ function Header({ classes }) {
           </IconButton>
         )}
         <InternalLink href="/">
-          <ButtonBase className={classes.title}>BEACON</ButtonBase>
+          <a className={classes.title} onClick={goToDiscover}>
+            BEACON
+          </a>
         </InternalLink>
-        <Box display="flex">
+        <Box display="flex" alignItems="center">
           {isDesktop && (
             <>
-              <InternalLink href="/">
-                <Button
-                  color={router.pathname === '/' ? 'primary' : 'default'}
-                  onClick={goToDiscover}
-                  size="medium"
-                >
-                  <Icon>explore</Icon>
-                  <span className={classes.userButton}>Discover</span>
-                </Button>
-              </InternalLink>
-              <InternalLink href="/my-dates">
-                <Button
-                  color={router.pathname.includes(CONSTANTS.TABS.MY_DATES) ? 'primary' : 'default'}
-                  size="medium"
-                  onClick={goToMyDates}
-                >
-                  <Icon>favorite</Icon>
-                  <span className={classes.userButton}>My Dates</span>
-                </Button>
-              </InternalLink>
+              <HeaderLink
+                path={CONSTANTS.TABS.DISCOVER}
+                text="Discover"
+                icon="explore"
+                onClick={goToDiscover}
+              />
+              <HeaderLink
+                path={CONSTANTS.TABS.MY_DATES}
+                text="My Dates"
+                icon="favorite"
+                onClick={goToMyDates}
+              />
               {isDesktop &&
                 ADMINS.includes(user.email) &&
                 window.location.hostname !== 'www.beacondates.com' && (
-                  <InternalLink href="/admin">
-                    <Button
-                      color={router.pathname.includes(CONSTANTS.TABS.ADMIN) ? 'primary' : 'default'}
-                      size="medium"
-                      onClick={goToAdmin}
-                    >
-                      <Icon>remove_from_queue</Icon>
-                      <span className={classes.userButton}>Admin</span>
-                    </Button>
-                  </InternalLink>
+                  <HeaderLink
+                    path={CONSTANTS.TABS.ADMIN}
+                    text="Admin"
+                    icon="remove_from_queue"
+                    onClick={goToAdmin}
+                  />
                 )}
               <Divider orientation="vertical" className={classes.accountDivider} />
             </>
           )}
-          <Button
-            size="medium"
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-            className={classes.headerButton}
-          >
-            <Icon>person</Icon>{' '}
-            {isDesktop && (
-              <span className={classes.userButton}>{(user && user.name) || 'Log In'}</span>
-            )}
-          </Button>
+          <HeaderLink
+            path=""
+            text={isDesktop && ((user && user.name) || 'Log In')}
+            icon="person"
+            onClick={login}
+          />
         </Box>
         <Menu
           id="simple-menu"

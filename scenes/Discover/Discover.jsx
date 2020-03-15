@@ -10,10 +10,9 @@ import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
 import DatesRow from './DatesRow/DatesRow';
 import TagsRow from './TagsRow/TagsRow';
 import DateCard from '../../components/DateCard/DateCard';
-import FilterPage from './FilterPage/FilterPage';
 import HeroImage from '../../assets/img/dc-3.jpeg';
 
-const styles = theme => ({
+const styles = () => ({
   listContainer: {
     padding: '0px 20px',
   },
@@ -72,7 +71,6 @@ function Discover({ classes }) {
 
   const store = Store.useStore();
   const filters = store.get('filters');
-  const isFilterPageOpen = store.get('isFilterPageOpen');
   const dates = store.get('dates');
   const focusedDate = store.get('focusedDate');
 
@@ -97,10 +95,6 @@ function Discover({ classes }) {
   }, [focusedDate, focusedRef]);
 
   function renderContent() {
-    if (isFilterPageOpen) {
-      return <FilterPage />;
-    }
-
     if (filters.length || focusedDate) {
       return (
         <>
@@ -117,7 +111,7 @@ function Discover({ classes }) {
         <Box className={classes.hero}>
           <Box className={classes.heroContent}>
             <Typography color="secondary" align="center" variant="h3" className={classes.heroTitle}>
-              Got a date? <br /> We've got you covered
+              Got a date? <br /> We&apos;ve got you covered
             </Typography>
             <FilterBar />
           </Box>

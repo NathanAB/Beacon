@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { withStyles, Box, Typography, Icon, Chip } from '@material-ui/core';
 import ReactGA from 'react-ga';
+import InternalLink from 'next/link';
 
 import Store from '../../../store';
 
@@ -85,22 +86,23 @@ function FilterBar({ classes }) {
 
   return (
     <Box className={classes.container}>
-      <button
-        type="button"
-        className={classes.search}
-        onClick={() => {
-          ReactGA.event({
-            category: 'Interaction',
-            action: 'Open Filter Page',
-          });
-          store.set('isFilterPageOpen')(true);
-        }}
-      >
-        <span className={classes.searchIcon}>
-          <Icon>filter_list</Icon>
-        </span>
-        <span className={classes.filterChips}>{renderChips()}</span>
-      </button>
+      <InternalLink href="/filters">
+        <a
+          className={classes.search}
+          onClick={() => {
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Open Filter Page',
+            });
+            store.set('isFilterPageOpen')(true);
+          }}
+        >
+          <span className={classes.searchIcon}>
+            <Icon>filter_list</Icon>
+          </span>
+          <span className={classes.filterChips}>{renderChips()}</span>
+        </a>
+      </InternalLink>
     </Box>
   );
 }

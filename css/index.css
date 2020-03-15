@@ -20,65 +20,66 @@ p {
   font-family: 'Open Sans' !important;
 }
 
+a {
+  text-decoration: none;
+  color: initial;
+}
+
 button {
   border: none;
   background: none;
 }
 
-.MuiCardActionArea-focusHighlight {
+:global(.MuiCardActionArea-focusHighlight) {
   display: none;
 }
 
-.MuiChip-root {
-  /* border-radius: 4px !important; */
-}
-
-.gm-style button {
+:global(.gm-style) button {
   display: none;
   pointer-events: none;
   visibility: hidden;
 }
-.gm-style [role="button"] {
+:global(.gm-style) [role="button"] {
   display: none;
   pointer-events: none;
   visibility: hidden;
 }
-.gm-bundled-control {
+:global(.gm-bundled-control) {
   display: none;
   pointer-events: none;
   visibility: hidden;
 }
-.gm-style-mtc {
+:global(.gm-style-mtc) {
   display: none;
   pointer-events: none;
   visibility: hidden;
 }
 
-.MuiChip-root {
+:global(.MuiChip-root) {
   font-family: Raleway !important;
 }
 
-.MuiButton-label {
+:global(.MuiButton-label) {
   font-family: Raleway !important;
 }
 
-.MuiButton-contained {
+:global(.MuiButton-contained) {
   font-weight: 600 !important;
   box-shadow: none !important;
 }
 
-.horizontal-menu {
+:global(.horizontal-menu) {
   margin-bottom: 30px;
 }
 
-.MuiButton-root {
+:global(.MuiButton-root) {
   text-transform: none !important;
 }
 
-header .MuiButton-text:hover {
+header :global(.MuiButton-text:hover) {
   background-color: rgba(241, 95, 58, 0.08) !important;
 }
 
-header .MuiButton-textPrimary:hover {
+header :global(.MuiButton-textPrimary:hover) {
   background-color: rgba(0, 0, 0, 0.00) !important;
 }

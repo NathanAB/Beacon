@@ -5,7 +5,7 @@ const KEYS = {
 
 export default {
   TABS: {
-    DISCOVER: '/discover',
+    DISCOVER: '/',
     MY_DATES: '/my-dates',
     ADMIN: '/admin',
   },

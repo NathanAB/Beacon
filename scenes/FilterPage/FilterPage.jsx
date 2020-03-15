@@ -1,12 +1,12 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import { withStyles, Typography, Chip, Button, Box } from '@material-ui/core';
 import ReactGA from 'react-ga';
+import InternalLink from 'next/link';
 
-import Store from '../../../store';
-import TagsRow from '../TagsRow/TagsRow';
-import FilterBar from '../FilterBar/FilterBar';
-import { useDesktop } from '../../../utils';
+import Store from '../../store';
+import TagsRow from '../Discover/TagsRow/TagsRow';
+import FilterBar from '../Discover/FilterBar/FilterBar';
+import { useDesktop } from '../../utils';
 
 const styles = theme => ({
   container: {
@@ -102,7 +102,10 @@ function FilterPage({ classes }) {
           <Typography variant="h6" className={classes.sectionTitle}>
             Neighborhood
           </Typography>
-          {renderFilterSection(neighborhoods.map(n => n.name), 'neighborhood')}
+          {renderFilterSection(
+            neighborhoods.map(n => n.name),
+            'neighborhood',
+          )}
         </section>
 
         <section className={classes.filterSection}>
@@ -113,30 +116,28 @@ function FilterPage({ classes }) {
         </section>
 
         <Box display="flex" flexDirection="row-reverse">
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.searchButton}
-            fullWidth={!isDesktop}
-            onClick={() => {
-              ReactGA.event({
-                category: 'Interaction',
-                action: 'Close Filter Page',
-              });
-              store.set('isFilterPageOpen')(false);
-              window.scrollTo(0, 0);
-            }}
-          >
-            Search
-          </Button>
+          <InternalLink href="/">
+            <a>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.searchButton}
+                fullWidth={!isDesktop}
+                onClick={() => {
+                  ReactGA.event({
+                    category: 'Interaction',
+                    action: 'Close Filter Page',
+                  });
+                }}
+              >
+                Search
+              </Button>
+            </a>
+          </InternalLink>
         </Box>
       </Box>
     </>
   );
 }
-
-FilterPage.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(FilterPage);

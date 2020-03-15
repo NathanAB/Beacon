@@ -68,9 +68,13 @@ const DateTags = ({
   );
 
   return (
-    <Box paddingBottom={paddingBottom} textAlign={align}>
+    <Box paddingBottom={paddingBottom} textAlign={align} display="flex">
       {singleRow && !tagsOnly && renderMetaChips()}
-      {!singleRow && !tagsOnly && <Box paddingBottom="5px">{renderMetaChips()}</Box>}
+      {!singleRow && !tagsOnly && (
+        <Box paddingBottom="5px" display="flex">
+          {renderMetaChips()}
+        </Box>
+      )}
       {tags.map(tag => (
         <Chip key={tag.name} label={tag.name} className={classes.tagChip} />
       ))}

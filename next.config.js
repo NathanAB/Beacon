@@ -1,5 +1,11 @@
-const withCSS = require('@zeit/next-css')
-const withImages = require('next-images')
-module.exports = withImages(withCSS({
-  cssModules: true
-}));
+const withCSS = require('@zeit/next-css');
+const withImages = require('next-images');
+
+module.exports = withImages(
+  withCSS({
+    cssModules: true,
+    env: {
+      REACT_APP_MAPS_API_KEY: process.env.REACT_APP_MAPS_API_KEY,
+    },
+  }),
+);
