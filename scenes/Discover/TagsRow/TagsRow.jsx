@@ -2,6 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Box, Chip, CircularProgress } from '@material-ui/core';
 import ReactGA from 'react-ga';
+
+import InternalLink from 'next/link';
 import Store from '../../../store';
 
 const styles = theme => ({
@@ -27,7 +29,6 @@ function TagsRow({ classes, isDiscover }) {
   const store = Store.useStore();
   const tags = store.get('tags');
   const filters = store.get('filters');
-  const isFilterPageOpen = store.get('isFilterPageOpen');
 
   function addTagFilter(tag) {
     if (isDiscover) {
@@ -68,19 +69,21 @@ function TagsRow({ classes, isDiscover }) {
 
         const focusTag = () => {
           addTagFilter(tag, isTagToggled);
-          if (!isFilterPageOpen) {
-            window.scrollTo(0, 0);
-          }
         };
 
         return (
-          <Chip
-            key={tag.name}
-            label={tag.name}
-            className={chipClasses.join(' ')}
-            disabled={isCategoryToggled}
-            onClick={isCategoryToggled ? null : focusTag}
-          />
+          <span key={tag.name}>
+            <InternalLink href="/search">
+              <a>
+                <Chip
+                  label={tag.name}
+                  className={chipClasses.join(' ')}
+                  disabled={isCategoryToggled}
+                  onClick={isCategoryToggled ? null : focusTag}
+                />
+              </a>
+            </InternalLink>
+          </span>
         );
       })
     ) : (

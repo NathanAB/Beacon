@@ -86,6 +86,7 @@ function MyDateCard({ classes, userDate }) {
       label: userDate.dateId.toString(),
     });
     store.set('editDate')(userDate);
+    store.set('isDateFormOpen')(true);
   };
 
   const renderSections = () => {

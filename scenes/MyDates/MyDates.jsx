@@ -7,6 +7,7 @@ import { Box, Typography, Button } from '@material-ui/core';
 import Store from '../../store';
 import MyDateCard from '../../components/MyDateCard/MyDateCard';
 import { useDesktop } from '../../utils';
+import AddDateForm from '../AddDateForm/AddDateForm';
 
 const styles = () => ({
   title: {
@@ -96,7 +97,12 @@ function MyDates({ classes }) {
     );
   };
 
-  return <Box className={classes.container2}>{renderMyDates()}</Box>;
+  return (
+    <>
+      <AddDateForm />
+      <Box className={classes.container2}>{renderMyDates()}</Box>
+    </>
+  );
 }
 
 export default withStyles(styles)(MyDates);

@@ -1,10 +1,9 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import { withStyles, Box, Typography, Icon, Chip } from '@material-ui/core';
 import ReactGA from 'react-ga';
 import InternalLink from 'next/link';
 
-import Store from '../../../store';
+import Store from '../../store';
 
 const styles = {
   container: {
@@ -50,11 +49,13 @@ const styles = {
   },
 };
 
-function FilterBar({ classes }) {
+function FilterBar({ classes, isStatic }) {
   const store = Store.useStore();
   const filters = store.get('filters');
 
-  const removeFilter = filterToRemove => () => {
+  const removeFilter = filterToRemove => e => {
+    e.stopPropagation();
+    e.preventDefault();
     ReactGA.event({
       category: 'Interaction',
       action: 'Toggle Filter Off',
@@ -65,7 +66,7 @@ function FilterBar({ classes }) {
   };
 
   function renderChips() {
-    if (filters.length) {
+    if (filters.length && !isStatic) {
       return filters.map(filter => {
         return (
           <Chip
@@ -84,17 +85,21 @@ function FilterBar({ classes }) {
     );
   }
 
+  const onClick = () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Open Filter Page',
+    });
+  };
+
   return (
     <Box className={classes.container}>
       <InternalLink href="/filters">
         <a
           className={classes.search}
-          onClick={() => {
-            ReactGA.event({
-              category: 'Interaction',
-              action: 'Open Filter Page',
-            });
-            store.set('isFilterPageOpen')(true);
+          onClick={onClick}
+          onKeyDown={e => {
+            if (e.keyCode === 13) onClick();
           }}
         >
           <span className={classes.searchIcon}>
@@ -106,9 +111,5 @@ function FilterBar({ classes }) {
     </Box>
   );
 }
-
-FilterBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(FilterBar);

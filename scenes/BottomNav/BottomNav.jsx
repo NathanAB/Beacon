@@ -8,7 +8,7 @@ import ReactGA from 'react-ga';
 import CONSTANTS from '../../constants';
 import Store from '../../store';
 
-const { TABS, ADMINS } = CONSTANTS;
+const { PAGES, ADMINS } = CONSTANTS;
 
 const styles = {
   root: {
@@ -41,28 +41,26 @@ function BottomNav({ classes }) {
         ReactGA.pageview(value);
         store.set('filters')([]);
         store.set('focusedDate')(false);
-        store.set('isFilterPageOpen')(false);
-        window.scrollTo(0, 0);
       }}
       className={classes.root}
     >
       <BottomNavigationAction
         classes={{ label: classes.navLabel, root: classes.navItem }}
         label="Discover"
-        value={TABS.DISCOVER}
+        value={PAGES.DISCOVER}
         icon={<Icon>explore</Icon>}
       />
       <BottomNavigationAction
         classes={{ label: classes.navLabel, root: classes.navItem }}
         label="My Dates"
-        value={TABS.MY_DATES}
+        value={PAGES.MY_DATES}
         icon={<Icon>favorite</Icon>}
       />
       {ADMINS.includes(user.email) && window.location.hostname !== 'www.beacondates.com' && (
         <BottomNavigationAction
           classes={{ label: classes.navLabel, root: classes.navItem }}
           label="Admin Mode"
-          value={TABS.ADMIN}
+          value={PAGES.ADMIN}
           icon={<Icon>remove_from_queue</Icon>}
         />
       )}

@@ -5,7 +5,7 @@ import InternalLink from 'next/link';
 
 import Store from '../../store';
 import TagsRow from '../Discover/TagsRow/TagsRow';
-import FilterBar from '../Discover/FilterBar/FilterBar';
+import FilterBar from '../FilterBar/FilterBar';
 import { useDesktop } from '../../utils';
 
 const styles = theme => ({
@@ -116,7 +116,7 @@ function FilterPage({ classes }) {
         </section>
 
         <Box display="flex" flexDirection="row-reverse">
-          <InternalLink href="/">
+          <InternalLink href="/search">
             <a>
               <Button
                 variant="contained"

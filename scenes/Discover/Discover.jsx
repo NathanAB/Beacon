@@ -1,21 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import Store from '../../store';
-import { filterDates, useDesktop } from '../../utils';
-import FilterBar from './FilterBar/FilterBar';
-import DatesList from './DatesList/DatesList';
+import FilterBar from '../FilterBar/FilterBar';
 import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
 import DatesRow from './DatesRow/DatesRow';
 import TagsRow from './TagsRow/TagsRow';
-import DateCard from '../../components/DateCard/DateCard';
 import HeroImage from '../../assets/img/dc-3.jpeg';
 
 const styles = () => ({
-  listContainer: {
-    padding: '0px 20px',
-  },
   titleBar: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -66,70 +60,32 @@ const styles = () => ({
 });
 
 function Discover({ classes }) {
-  const focusedRef = useRef(null);
-  const isDesktop = useDesktop();
-
   const store = Store.useStore();
-  const filters = store.get('filters');
-  const dates = store.get('dates');
-  const focusedDate = store.get('focusedDate');
-
-  const filteredDates = filterDates(dates, filters);
-  const dateCards = filteredDates.map(date => {
-    const isFocusedDate = parseInt(focusedDate, 10) === date.id;
-    return (
-      <DateCard
-        key={date.id}
-        dateObj={date}
-        defaultExpanded={isDesktop}
-        ref={isFocusedDate ? focusedRef : null}
-      />
-    );
-  });
-
-  // Scroll to focused date when clicked on Discover landing page
   useEffect(() => {
-    if (focusedDate) {
-      window.scrollTo(0, focusedRef.current ? focusedRef.current.offsetTop - 100 : 0);
-    }
-  }, [focusedDate, focusedRef]);
+    store.set('filters')([]);
+  }, []);
 
-  function renderContent() {
-    if (filters.length || focusedDate) {
-      return (
-        <>
-          <FilterBar />
-          <Box className={classes.listContainer}>
-            <DatesList>{dateCards}</DatesList>
-          </Box>
-        </>
-      );
-    }
-
-    return (
-      <Box>
-        <Box className={classes.hero}>
-          <Box className={classes.heroContent}>
-            <Typography color="secondary" align="center" variant="h3" className={classes.heroTitle}>
-              Got a date? <br /> We&apos;ve got you covered
-            </Typography>
-            <FilterBar />
-          </Box>
-        </Box>
-        <DatesRow />
-        <NeighborhoodsRow />
-
-        <Box className={classes.tagsContainer}>
-          <Typography variant="h6" className={classes.title}>
-            Dates by Characteristic
+  return (
+    <Box>
+      <Box className={classes.hero}>
+        <Box className={classes.heroContent}>
+          <Typography color="secondary" align="center" variant="h3" className={classes.heroTitle}>
+            Got a date? <br /> We&apos;ve got you covered
           </Typography>
-          <TagsRow isDiscover />
+          <FilterBar isStatic />
         </Box>
       </Box>
-    );
-  }
+      <DatesRow />
+      <NeighborhoodsRow />
 
-  return <React.Fragment>{renderContent()}</React.Fragment>;
+      <Box className={classes.tagsContainer}>
+        <Typography variant="h6" className={classes.title}>
+          Dates by Characteristic
+        </Typography>
+        <TagsRow isDiscover />
+      </Box>
+    </Box>
+  );
 }
 
 export default withStyles(styles)(Discover);

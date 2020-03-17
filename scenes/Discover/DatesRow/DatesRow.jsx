@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Box, Icon, IconButton, Typography, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
+import InternalLink from 'next/link';
 
 import { useDesktop } from '../../../utils';
 import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
@@ -33,8 +34,14 @@ function DatesRow({ classes }) {
 
   const dateCards = dateObjs.map(date => {
     return (
-      <div className={classes.dateContainer} key={date.id}>
-        <DateCardPreview dateObj={date} noExpand />
+      <div key={date.id}>
+        <InternalLink href="/search">
+          <a>
+            <div className={classes.dateContainer}>
+              <DateCardPreview dateObj={date} noExpand />
+            </div>
+          </a>
+        </InternalLink>
       </div>
     );
   });

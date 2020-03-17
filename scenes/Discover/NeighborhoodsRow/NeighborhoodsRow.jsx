@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Box, IconButton, Icon, Typography, ButtonBase, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
+import InternalLink from 'next/link';
 
 import { useDesktop } from '../../../utils';
 import Store from '../../../store';
@@ -66,7 +67,6 @@ function NeighborhoodsRow({ classes }) {
   const isDesktop = useDesktop();
 
   function addFilter(neighborhood) {
-    console.log(neighborhood);
     ReactGA.event({
       category: 'Interaction',
       action: 'Focus Neighborhood',
@@ -78,23 +78,26 @@ function NeighborhoodsRow({ classes }) {
       label: neighborhood.name,
     });
     store.set('filters')([{ type: 'neighborhood', value: neighborhood }]);
-    window.scrollTo(0, 0);
   }
 
   function renderNeighborhoods() {
     return neighborhoods.map(neighborhood => {
       return (
-        <ButtonBase type="button" key={neighborhood.name} className={classes.neighborhood}>
-          <div
-            className={classes.icon}
-            style={{
-              backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
-            }}
-          />
-          <Typography variant="subtitle1" className={classes.caption}>
-            {neighborhood.name}
-          </Typography>
-        </ButtonBase>
+        <div key={neighborhood.name} className={classes.neighborhood}>
+          <InternalLink href="/search">
+            <a>
+              <div
+                className={classes.icon}
+                style={{
+                  backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
+                }}
+              />
+              <Typography variant="subtitle1" className={classes.caption}>
+                {neighborhood.name}
+              </Typography>
+            </a>
+          </InternalLink>
+        </div>
       );
     });
   }

@@ -14,7 +14,6 @@ export default createConnectedStore({
   dates: USE_MOCKS ? mockDates : [],
   adminDates: [],
   filters: [],
-  isFilterPageOpen: false,
   isLoginDialogOpen: false,
   costs: ['Free', '$', '$$', '$$$'],
   durations: ['1 Hour', '2 Hours', '3 Hours'],
@@ -24,4 +23,5 @@ export default createConnectedStore({
   focusedDate: false,
   user: false,
   adminEditingDate: false,
+  isDateFormOpen: false,
 });

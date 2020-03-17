@@ -9,6 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Store from '../store';
 import Body from '../scenes/Body/Body';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import LoginDialog from '../scenes/LoginDialog/LoginDialog'
 import theme from '../theme';
 
 import '../css/index.css';
@@ -34,6 +35,7 @@ export default class BeaconApp extends App {
           <CssBaseline />
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <ErrorBoundary>
+              <LoginDialog />
               <Body {...this.props} />
             </ErrorBoundary>
           </MuiPickersUtilsProvider>

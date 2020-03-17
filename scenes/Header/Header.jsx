@@ -138,16 +138,15 @@ function Header({ classes }) {
   const goToDiscover = () => {
     store.set('filters')([]);
     store.set('focusedDate')(false);
-    store.set('isFilterPageOpen')(false);
-    ReactGA.pageview(CONSTANTS.TABS.DISCOVER);
+    ReactGA.pageview(CONSTANTS.PAGES.DISCOVER);
   };
 
   const goToMyDates = () => {
-    ReactGA.pageview(CONSTANTS.TABS.MY_DATES);
+    ReactGA.pageview(CONSTANTS.PAGES.MY_DATES);
   };
 
   const goToAdmin = () => {
-    ReactGA.pageview(CONSTANTS.TABS.ADMIN);
+    ReactGA.pageview(CONSTANTS.PAGES.ADMIN);
   };
 
   const renderUserMenuItems = () => {
@@ -229,7 +228,11 @@ function Header({ classes }) {
           </IconButton>
         )}
         <InternalLink href="/">
-          <a className={classes.title} onClick={goToDiscover}>
+          <a
+            className={classes.title}
+            onClick={goToDiscover}
+            onKeyPress={e => e.keyCode === 13 && goToDiscover()}
+          >
             BEACON
           </a>
         </InternalLink>
@@ -237,13 +240,13 @@ function Header({ classes }) {
           {isDesktop && (
             <>
               <HeaderLink
-                path={CONSTANTS.TABS.DISCOVER}
+                path={CONSTANTS.PAGES.DISCOVER}
                 text="Discover"
                 icon="explore"
                 onClick={goToDiscover}
               />
               <HeaderLink
-                path={CONSTANTS.TABS.MY_DATES}
+                path={CONSTANTS.PAGES.MY_DATES}
                 text="My Dates"
                 icon="favorite"
                 onClick={goToMyDates}
@@ -252,7 +255,7 @@ function Header({ classes }) {
                 ADMINS.includes(user.email) &&
                 window.location.hostname !== 'www.beacondates.com' && (
                   <HeaderLink
-                    path={CONSTANTS.TABS.ADMIN}
+                    path={CONSTANTS.PAGES.ADMIN}
                     text="Admin"
                     icon="remove_from_queue"
                     onClick={goToAdmin}

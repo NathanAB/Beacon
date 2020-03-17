@@ -119,6 +119,7 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
         label: dateObj.name,
       });
       store.set('checkoutDate')(dateObj);
+      store.set('isDateFormOpen')(true);
     } else {
       ReactGA.event({
         category: 'Interaction',

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Dialog,
@@ -15,6 +14,7 @@ import TextField from '@material-ui/core/TextField';
 import CloseIcon from '@material-ui/icons/Close';
 import moment from 'moment';
 import ReactGA from 'react-ga';
+import { useRouter } from 'next/router';
 
 import Store from '../../store';
 import Constants from '../../constants';
@@ -49,12 +49,22 @@ function AddDateForm({ classes }) {
   const store = Store.useStore();
   const checkoutDate = store.get('checkoutDate');
   const editDate = store.get('editDate');
+  const isDateFormOpen = store.get('isDateFormOpen');
   const [name, setName] = useState(editDate ? editDate.name : '');
   const [dateTime, setDateTime] = useState(editDate ? moment(editDate.startTime) : moment());
   const [notes, setNotes] = useState(editDate ? editDate.notes : '');
   const [isSaving, setIsSaving] = useState(false);
   const isDesktop = useDesktop();
+  const router = useRouter();
   let userDates = store.get('userDates');
+
+  useEffect(() => {
+    if (editDate) {
+      setName(editDate.name);
+      setDateTime(editDate.startTime);
+      setNotes(editDate.notes);
+    }
+  }, [editDate]);
 
   const confirmCheckout = async e => {
     e.preventDefault();
@@ -100,22 +110,27 @@ function AddDateForm({ classes }) {
     }
 
     store.set('userDates')(refreshedDates);
-    store.set('checkoutDate')(false);
-    store.set('editDate')(false);
-    ReactGA.pageview(Constants.TABS.MY_DATES);
+    store.set('isDateFormOpen')(false);
+    ReactGA.pageview(Constants.PAGES.MY_DATES);
     setIsSaving(false);
-    window.scrollTo(0, 0);
+    setTimeout(() => {
+      store.set('editDate')(false);
+      store.set('checkoutDate')(false);
+    }, 1000);
+    router.push(Constants.PAGES.MY_DATES).then(() => window.scrollTo(0, 0));
   };
 
   const cancelCheckout = () => {
-    console.log(editDate, checkoutDate);
     ReactGA.event({
       category: 'Interaction',
       action: editDate ? 'Cancel Edit User Date' : 'Cancel Checkout',
       label: editDate ? editDate.id.toString() : checkoutDate.name,
     });
-    store.set('checkoutDate')(false);
-    store.set('editDate')(false);
+    store.set('isDateFormOpen')(false);
+    setTimeout(() => {
+      store.set('editDate')(false);
+      store.set('checkoutDate')(false);
+    }, 1000);
   };
 
   const deleteDate = async () => {
@@ -123,7 +138,6 @@ function AddDateForm({ classes }) {
     if (!confirm) {
       return;
     }
-    console.log(editDate);
     ReactGA.event({
       category: 'Interaction',
       action: 'Delete User Date',
@@ -134,8 +148,11 @@ function AddDateForm({ classes }) {
     await api.deleteUserDate(editDate);
     const refreshedDates = await api.getUserDates();
     store.set('userDates')(refreshedDates);
-    store.set('checkoutDate')(false);
-    store.set('editDate')(false);
+    store.set('isDateFormOpen')(false);
+    setTimeout(() => {
+      store.set('editDate')(false);
+      store.set('checkoutDate')(false);
+    }, 1000);
     setIsSaving(false);
   };
 
@@ -174,7 +191,7 @@ function AddDateForm({ classes }) {
   return (
     <Dialog
       fullScreen={!isDesktop}
-      open={!!checkoutDate || !!editDate}
+      open={isDateFormOpen}
       onClose={cancelCheckout}
       aria-labelledby="form-dialog-title"
     >
@@ -224,9 +241,5 @@ function AddDateForm({ classes }) {
     </Dialog>
   );
 }
-
-AddDateForm.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(AddDateForm);

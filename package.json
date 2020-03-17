@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "env REACT_APP_MAPS_API_KEY=$(eval 'cat ./maps-api-key.txt') next dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },

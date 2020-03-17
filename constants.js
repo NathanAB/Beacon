@@ -4,9 +4,10 @@ const KEYS = {
 };
 
 export default {
-  TABS: {
+  PAGES: {
     DISCOVER: '/',
     MY_DATES: '/my-dates',
+    SEARCH: '/search',
     ADMIN: '/admin',
   },
   API: {
