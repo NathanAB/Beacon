@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT",
+    "prettify": "eslint . --fix",
+    "deploy-production": "git push production master; heroku open --remote production",
+    "deploy-staging": "git push staging staging:master; heroku open --remote staging",
+    "deploy-current-branch-to-staging": "git push staging HEAD:master; heroku open --remote staging"
   },
   "dependencies": {
     "@date-io/moment": "^1.3.8",
