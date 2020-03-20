@@ -9,7 +9,7 @@ import { costToString } from '../../utils';
 const styles = theme => ({
   tagChip: {
     marginRight: theme.spacing(1),
-    marginTop: '5px',
+    marginTop: '8px',
     height: '1.5rem',
   },
 });
@@ -68,7 +68,7 @@ const DateTags = ({
   );
 
   return (
-    <Box paddingBottom={paddingBottom} textAlign={align} display="flex">
+    <Box paddingBottom={paddingBottom} textAlign={align}>
       {singleRow && !tagsOnly && renderMetaChips()}
       {!singleRow && !tagsOnly && (
         <Box paddingBottom="5px" display="flex">

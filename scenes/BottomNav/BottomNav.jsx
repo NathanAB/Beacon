@@ -3,10 +3,10 @@ import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Icon from '@material-ui/core/Icon';
-import ReactGA from 'react-ga';
 
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import CONSTANTS from '../../constants';
-import Store from '../../store';
 
 const { PAGES, ADMINS } = CONSTANTS;
 
@@ -29,19 +29,17 @@ const styles = {
 };
 
 function BottomNav({ classes }) {
-  const store = Store.useStore();
-  const user = store.get('user');
+  const router = useRouter();
+
+  const handleChange = (event, newValue) => {
+    router.push(newValue);
+  };
 
   return (
     <BottomNavigation
-      // TODO - Use nextjs router.pathname here
-      value=""
+      value={router.pathname}
+      onChange={handleChange}
       showLabels
-      onChange={(event, value) => {
-        ReactGA.pageview(value);
-        store.set('filters')([]);
-        store.set('focusedDate')(false);
-      }}
       className={classes.root}
     >
       <BottomNavigationAction
@@ -49,21 +47,14 @@ function BottomNav({ classes }) {
         label="Discover"
         value={PAGES.DISCOVER}
         icon={<Icon>explore</Icon>}
-      />
+      ></BottomNavigationAction>
+
       <BottomNavigationAction
         classes={{ label: classes.navLabel, root: classes.navItem }}
         label="My Dates"
         value={PAGES.MY_DATES}
         icon={<Icon>favorite</Icon>}
       />
-      {ADMINS.includes(user.email) && window.location.hostname !== 'www.beacondates.com' && (
-        <BottomNavigationAction
-          classes={{ label: classes.navLabel, root: classes.navItem }}
-          label="Admin Mode"
-          value={PAGES.ADMIN}
-          icon={<Icon>remove_from_queue</Icon>}
-        />
-      )}
     </BottomNavigation>
   );
 }

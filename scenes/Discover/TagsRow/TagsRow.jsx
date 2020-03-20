@@ -3,8 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { Box, Chip, CircularProgress } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
-import InternalLink from 'next/link';
+import { useRouter } from 'next/router';
 import Store from '../../../store';
+import Constants from '../../../constants';
 
 const styles = theme => ({
   tagChip: {
@@ -26,18 +27,12 @@ const styles = theme => ({
 });
 
 function TagsRow({ classes, isDiscover }) {
+  const router = useRouter();
   const store = Store.useStore();
   const tags = store.get('tags');
   const filters = store.get('filters');
 
   function addTagFilter(tag) {
-    if (isDiscover) {
-      ReactGA.event({
-        category: 'Interaction',
-        action: 'Focus Tag',
-        label: tag.name,
-      });
-    }
     ReactGA.event({
       category: 'Interaction',
       action: 'Toggle Filter On',
@@ -45,6 +40,14 @@ function TagsRow({ classes, isDiscover }) {
     });
     filters.push({ type: 'tag', value: tag.name, categoryId: tag.categoryId });
     store.set('filters')(filters);
+    if (isDiscover) {
+      router.push(Constants.PAGES.SEARCH).then(() => window.scrollTo(0, 0));
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Focus Tag',
+        label: tag.name,
+      });
+    }
   }
 
   function renderTags() {
@@ -67,22 +70,14 @@ function TagsRow({ classes, isDiscover }) {
           chipClasses.push(classes.tagChipDisabled);
         }
 
-        const focusTag = () => {
-          addTagFilter(tag, isTagToggled);
-        };
-
         return (
           <span key={tag.name}>
-            <InternalLink href="/search">
-              <a>
-                <Chip
-                  label={tag.name}
-                  className={chipClasses.join(' ')}
-                  disabled={isCategoryToggled}
-                  onClick={isCategoryToggled ? null : focusTag}
-                />
-              </a>
-            </InternalLink>
+            <Chip
+              label={tag.name}
+              className={chipClasses.join(' ')}
+              disabled={isCategoryToggled}
+              onClick={isCategoryToggled ? null : () => addTagFilter(tag, isTagToggled)}
+            />
           </span>
         );
       })

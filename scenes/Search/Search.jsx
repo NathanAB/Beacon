@@ -39,7 +39,7 @@ const Search = ({ classes }) => {
       <DateCard
         key={date.id}
         dateObj={date}
-        defaultExpanded={isDesktop}
+        defaultExpanded={isDesktop || isFocusedDate}
         ref={isFocusedDate ? focusedRef : null}
       />
     );

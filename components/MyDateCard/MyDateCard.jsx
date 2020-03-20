@@ -19,12 +19,13 @@ const styles = theme => ({
     maxWidth: '100%',
     position: 'relative',
     overflow: 'visible',
-    margin: 'auto',
     border: '1px solid lightgray',
+    margin: '30px 0',
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
       width: '100%',
       marginBottom: '50px',
+      margin: 'auto',
     },
   },
   cardHeader: {
