@@ -3,11 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import { Box, Icon, IconButton, Typography, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
-import InternalLink from 'next/link';
+import { useRouter } from 'next/router';
 
 import { useDesktop } from '../../../utils';
 import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
 import Store from '../../../store';
+import Constants from '../../../constants';
 
 const styles = () => ({
   container: {
@@ -31,17 +32,14 @@ function DatesRow({ classes }) {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
   const isDesktop = useDesktop();
+  const router = useRouter();
 
   const dateCards = dateObjs.map(date => {
     return (
       <div key={date.id}>
-        <InternalLink href="/search">
-          <a>
-            <div className={classes.dateContainer}>
-              <DateCardPreview dateObj={date} noExpand />
-            </div>
-          </a>
-        </InternalLink>
+        <div className={classes.dateContainer}>
+          <DateCardPreview dateObj={date} noExpand />
+        </div>
       </div>
     );
   });
@@ -55,6 +53,7 @@ function DatesRow({ classes }) {
       </div>
       {dateObjs.length ? (
         <ScrollMenu
+          inertiaScrolling
           data={dateCards}
           wheel={false}
           alignOnResize={false}
@@ -83,6 +82,7 @@ function DatesRow({ classes }) {
               label: dateId.toString(),
             });
             store.set('focusedDate')(dateId);
+            router.push(Constants.PAGES.SEARCH);
           }}
         />
       ) : (

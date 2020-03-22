@@ -1,13 +1,14 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Box, IconButton, Icon, Typography, ButtonBase, CircularProgress } from '@material-ui/core';
+import { Box, IconButton, Icon, Typography, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
-import InternalLink from 'next/link';
+import { useRouter } from 'next/router';
 
 import { useDesktop } from '../../../utils';
 import Store from '../../../store';
 import placeholderImg from '../../../assets/img/placeholder.png';
+import Constants from '../../../constants';
 
 const styles = theme => ({
   container: {
@@ -65,6 +66,7 @@ function NeighborhoodsRow({ classes }) {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
   const isDesktop = useDesktop();
+  const router = useRouter();
 
   function addFilter(neighborhood) {
     ReactGA.event({
@@ -78,25 +80,22 @@ function NeighborhoodsRow({ classes }) {
       label: neighborhood.name,
     });
     store.set('filters')([{ type: 'neighborhood', value: neighborhood }]);
+    router.push(Constants.PAGES.SEARCH);
   }
 
   function renderNeighborhoods() {
     return neighborhoods.map(neighborhood => {
       return (
         <div key={neighborhood.name} className={classes.neighborhood}>
-          <InternalLink href="/search">
-            <a>
-              <div
-                className={classes.icon}
-                style={{
-                  backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
-                }}
-              />
-              <Typography variant="subtitle1" className={classes.caption}>
-                {neighborhood.name}
-              </Typography>
-            </a>
-          </InternalLink>
+          <div
+            className={classes.icon}
+            style={{
+              backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
+            }}
+          />
+          <Typography variant="subtitle1" className={classes.caption}>
+            {neighborhood.name}
+          </Typography>
         </div>
       );
     });
@@ -111,6 +110,7 @@ function NeighborhoodsRow({ classes }) {
       </div>
       {neighborhoods.length ? (
         <ScrollMenu
+          inertiaScrolling
           alignOnResize={false}
           translate={20}
           data={renderNeighborhoods(classes)}
