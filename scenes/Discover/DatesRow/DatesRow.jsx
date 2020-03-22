@@ -55,6 +55,7 @@ function DatesRow({ classes }) {
         <ScrollMenu
           inertiaScrolling
           data={dateCards}
+          inertiaScrolling
           wheel={false}
           alignOnResize={false}
           translate={20}

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
 ## [v2.0.0](https://github.com/nathanab/beacon/compare/v1.2.0...v2.0.0)
 - Refactor app to use server-side rendering via next.js
@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [v1.2.0](https://github.com/nathanab/beacon/compare/v1.1.4...v1.2.0)
 - Add admin mode with date builder
 - Filter dates on new `active` field
+- Add inertia scrolling to horizontal menus
 
 ## [v1.1.4](https://github.com/nathanab/beacon/compare/v1.1.3...v1.1.4) - 2020-02-19
 - Fix footer "about" link href
