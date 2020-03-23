@@ -136,7 +136,9 @@ const DateCard = React.forwardRef(({ dateObj, classes, noExpand, defaultExpanded
       let imageUrl;
 
       if (section.image) {
-        imageUrl = `https://instagram.com/p/${section.image}/media/?size=m`;
+        imageUrl = section.image.includes('http')
+          ? section.image // Use raw image URL
+          : `https://instagram.com/p/${section.image}/media/?size=m`; // Imply image url from Instagram ID
       } else {
         // Use placeholder
         imageUrl = `https://instagram.com/p/${

@@ -222,7 +222,7 @@ function EditDateForm({ classes }) {
             className={classes.control}
             value={section?.image || ''}
             onChange={e => updateFormData(e, `sections[${sectionNum}].image`)}
-            label="Section Instagram Image ID"
+            label="Section Instagram Image ID - OR - full image URL"
             variant="outlined"
             fullWidth
           />
@@ -231,7 +231,7 @@ function EditDateForm({ classes }) {
             className={classes.control}
             value={section?.imageAuthor || ''}
             onChange={e => updateFormData(e, `sections[${sectionNum}].imageAuthor`)}
-            label="Section Instagram Image Author (do not include '@')"
+            label="Section Instagram Image Author (if applicable - do NOT include '@')"
             variant="outlined"
             fullWidth
           />

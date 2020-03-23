@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 - Add support for `At Home` dates
+- Add support for non-Instagram date images, i.e. full image urls
 
 ## [v2.0.0](https://github.com/nathanab/beacon/compare/v1.2.0...v2.0.0)
 - Refactor app to use server-side rendering via next.js
