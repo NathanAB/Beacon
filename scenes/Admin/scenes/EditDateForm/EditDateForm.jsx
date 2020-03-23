@@ -126,7 +126,7 @@ function EditDateForm({ classes }) {
               onChange={e => updateFormData(e, `sections[${sectionNum}].spot.neighborhoodId`)}
               input={<Input />}
             >
-              <MenuItem value={-1}>
+              <MenuItem value={null}>
                 <em>None</em>
               </MenuItem>
               {neighborhoods.map(n => (

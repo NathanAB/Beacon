@@ -44,7 +44,9 @@ const DateTags = ({
   } else if (sectionObj) {
     dateHours = Math.round(sectionObj.minutes / 30) / 2; // Round to the nearest half-hour
     dateCostString = costToString(sectionObj.cost);
-    dateLocations.push(sectionObj.spot.neighborhood.name);
+    if (sectionObj.spot.neighborhood) {
+      dateLocations.push(sectionObj.spot.neighborhood.name);
+    }
     tags.push(...sectionObj.tags);
   }
 
@@ -56,7 +58,14 @@ const DateTags = ({
 
   const renderMetaChips = () => (
     <>
-      <Chip variant={variant} color={color} label={dateLocations[0]} className={classes.tagChip} />
+      {!!dateLocations && !!dateLocations.length && !!dateLocations[0] && (
+        <Chip
+          variant={variant}
+          color={color}
+          label={dateLocations[0]}
+          className={classes.tagChip}
+        />
+      )}
       <Chip
         variant={variant}
         color={color}

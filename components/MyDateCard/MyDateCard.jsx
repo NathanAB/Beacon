@@ -29,7 +29,6 @@ const styles = theme => ({
     },
   },
   cardHeader: {
-    minHeight: '200px',
     [theme.breakpoints.up('sm')]: {
       height: 'auto',
       width: '50%',
