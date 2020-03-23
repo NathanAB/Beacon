@@ -1,0 +1,85 @@
+html {
+  background-color: lightgray;
+  height: 100%;
+}
+
+body {
+  margin: auto !important;
+  padding: 0 !important;
+  font-family: 'Open Sans' !important;
+  background-color: white !important;
+  max-width: 1600px !important;
+  position: relative !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Raleway' !important;
+}
+
+p {
+  font-family: 'Open Sans' !important;
+}
+
+a {
+  text-decoration: none;
+  color: initial;
+}
+
+button {
+  border: none;
+  background: none;
+}
+
+:global(.MuiCardActionArea-focusHighlight) {
+  display: none;
+}
+
+:global(.gm-style) button {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+:global(.gm-style) [role="button"] {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+:global(.gm-bundled-control) {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+:global(.gm-style-mtc) {
+  display: none;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+:global(.MuiChip-root) {
+  font-family: Raleway !important;
+}
+
+:global(.MuiButton-label) {
+  font-family: Raleway !important;
+}
+
+:global(.MuiButton-contained) {
+  font-weight: 600 !important;
+  box-shadow: none !important;
+}
+
+:global(.horizontal-menu) {
+  margin-bottom: 30px;
+}
+
+:global(.MuiButton-root) {
+  text-transform: none !important;
+}
+
+header :global(.MuiButton-text:hover) {
+  background-color: rgba(241, 95, 58, 0.08) !important;
+}
+
+header :global(.MuiButton-textPrimary:hover) {
+  background-color: rgba(0, 0, 0, 0.00) !important;
+}

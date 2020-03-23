@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
-## [v1.2.0](https://github.com/nathanab/beacon/compare/v1.1.4...v1.2.0) - TBD
+## [v2.0.0](https://github.com/nathanab/beacon/compare/v1.2.0...v2.0.0)
+- Refactor app to use server-side rendering via next.js
+- Have date cards on mobile auto-expand when clicked from Discover
+
+## [v1.2.0](https://github.com/nathanab/beacon/compare/v1.1.4...v1.2.0)
 - Add admin mode with date builder
 - Filter dates on new `active` field
 - Add inertia scrolling to horizontal menus
