@@ -9,7 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Store from '../store';
 import Body from '../scenes/Body/Body';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
-import LoginDialog from '../scenes/LoginDialog/LoginDialog'
+import LoginDialog from '../scenes/LoginDialog/LoginDialog';
 import theme from '../theme';
 
 import '../css/index.css';
@@ -27,8 +27,12 @@ export default class BeaconApp extends App {
     return (
       <Store.Container>
         <Head>
-          <title>Beacon</title>
+          <title>Beacon | Washington DC Date Ideas</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+          <meta
+            name="description"
+            content="Discover fun and unique DC date ideas tailored to your preferences."
+          />
         </Head>
         <MuiThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

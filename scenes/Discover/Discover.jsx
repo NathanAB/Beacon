@@ -71,7 +71,7 @@ function Discover({ classes }) {
       <Box className={classes.hero}>
         <Box className={classes.heroContent}>
           <Typography color="secondary" align="center" variant="h3" className={classes.heroTitle}>
-            Got a date? <br /> We&apos;ve got you covered
+            Date night at home? <br /> We&apos;ve got you covered
           </Typography>
           <FilterBar isStatic />
         </Box>
