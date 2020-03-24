@@ -48,7 +48,7 @@ function EditDateForm({ classes }) {
   const store = Store.useStore();
   const currentDate = store.get('adminEditingDate');
   const setIsEditingDate = store.set('adminEditingDate');
-  const neighborhoods = store.get('neighborhoods');
+  const neighborhoods = store.get('allNeighborhoods');
   const activities = store.get('activities');
   const tags = store.get('tags');
   const isNew = !currentDate.id;

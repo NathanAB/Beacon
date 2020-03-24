@@ -6,7 +6,7 @@ import Store from '../../store';
 import FilterBar from '../FilterBar/FilterBar';
 import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
 import DatesRow from './DatesRow/DatesRow';
-import TagsRow from './TagsRow/TagsRow';
+import TagsRow from '../../components/TagsRow/TagsRow';
 import HeroImage from '../../assets/img/dc-3.jpeg';
 
 const styles = () => ({

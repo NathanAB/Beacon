@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 import InternalLink from 'next/link';
 
 import Store from '../../store';
-import TagsRow from '../Discover/TagsRow/TagsRow';
+import TagsRow from '../../components/TagsRow/TagsRow';
 import FilterBar from '../FilterBar/FilterBar';
 import { useDesktop } from '../../utils';
 

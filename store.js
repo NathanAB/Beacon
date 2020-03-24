@@ -10,6 +10,7 @@ const USE_MOCKS = false;
 export default createConnectedStore({
   tags: USE_MOCKS ? mockTags : [],
   activities: [],
+  allNeighborhoods: USE_MOCKS ? mockNeighborhoods : [],
   neighborhoods: USE_MOCKS ? mockNeighborhoods : [],
   dates: USE_MOCKS ? mockDates : [],
   adminDates: [],

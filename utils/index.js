@@ -1,6 +1,6 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import { getDates } from '../api';
+import { getDates, getNeighborhoods } from '../api';
 
 // eslint-disable-next-line import/prefer-default-export
 export const costToString = cost => {
@@ -28,7 +28,7 @@ export const filterDates = (dateObjs, filters) => {
         case 'tag':
           return date.sections.find(section => section.tags.find(tag => tag.name === filter.value));
         case 'neighborhood':
-          return date.sections.find(section => section.spot.neighborhood.name === filter.value);
+          return date.sections.find(section => section.spot?.neighborhood?.name === filter.value);
         case 'cost':
           return date.sections.find(section => {
             if (filter.value === 'Free' && section.cost === 0) {
@@ -92,4 +92,18 @@ export const loadDates = async store => {
   });
   store.set('adminDates')(adminDates);
   store.set('dates')(dates);
+
+  const allNeighborhoods = await getNeighborhoods();
+  const neighborhoods = allNeighborhoods.filter(
+    neighborhood =>
+      !neighborhood.disabled &&
+      dates.some(date =>
+        date.sections.some(section => section.spot.neighborhoodId === neighborhood.neighborhoodId),
+      ),
+  );
+
+  if (neighborhoods) {
+    store.set('allNeighborhoods')(allNeighborhoods);
+    store.set('neighborhoods')(neighborhoods);
+  }
 };

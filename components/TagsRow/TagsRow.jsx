@@ -4,8 +4,8 @@ import { Box, Chip, CircularProgress } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
 import { useRouter } from 'next/router';
-import Store from '../../../store';
-import Constants from '../../../constants';
+import Store from '../../store';
+import Constants from '../../constants';
 
 const styles = theme => ({
   tagChip: {

@@ -30,14 +30,6 @@ export default ({ Component, pageProps }) => {
         getUserDates();
       }
     };
-    const getNeighborhoods = async () => {
-      let neighborhoods = await api.getNeighborhoods();
-      neighborhoods = neighborhoods.filter(n => !n.disabled);
-
-      if (neighborhoods) {
-        store.set('neighborhoods')(neighborhoods);
-      }
-    };
     const getTags = async () => {
       const tags = await api.getTags();
       if (tags) {
@@ -52,7 +44,6 @@ export default ({ Component, pageProps }) => {
     };
     initialReqs();
     loadDates(store);
-    getNeighborhoods();
     getTags();
     getActivities();
   }, []);

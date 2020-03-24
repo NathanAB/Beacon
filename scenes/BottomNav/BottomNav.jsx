@@ -32,7 +32,7 @@ function BottomNav({ classes }) {
   const router = useRouter();
 
   const handleChange = (event, newValue) => {
-    router.push(newValue);
+    router.push(newValue).then(() => window.scrollTo(0, 0));
   };
 
   return (

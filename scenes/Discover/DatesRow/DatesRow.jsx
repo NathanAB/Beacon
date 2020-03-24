@@ -83,7 +83,7 @@ function DatesRow({ classes }) {
               label: dateId.toString(),
             });
             store.set('focusedDate')(dateId);
-            router.push(Constants.PAGES.SEARCH);
+            router.push(Constants.PAGES.SEARCH).then(() => window.scrollTo(0, 0));
           }}
         />
       ) : (
