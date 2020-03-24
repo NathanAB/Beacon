@@ -31,7 +31,16 @@ export default ({ Component, pageProps }) => {
       }
     };
     const getTags = async () => {
-      const tags = await api.getTags();
+      let tags = await api.getTags();
+      tags = tags.sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
       if (tags) {
         store.set('tags')(tags);
       }

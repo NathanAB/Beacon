@@ -34,28 +34,29 @@ function DatesRow({ classes }) {
   const isDesktop = useDesktop();
   const router = useRouter();
 
-  const dateCards = dateObjs.map(date => {
-    return (
-      <div key={date.id}>
-        <div className={classes.dateContainer}>
-          <DateCardPreview dateObj={date} noExpand />
+  const dateCards = dateObjs
+    .filter(date => date.sections.some(section => section.tags.some(tag => tag.name === 'At Home')))
+    .map(date => {
+      return (
+        <div key={date.id}>
+          <div className={classes.dateContainer}>
+            <DateCardPreview dateObj={date} noExpand />
+          </div>
         </div>
-      </div>
-    );
-  });
+      );
+    });
 
   return (
     <section className={classes.container}>
       <div className={classes.titleBar}>
         <Typography variant="h6" className={classes.title}>
-          Discover Dates
+          Discover At Home Dates
         </Typography>
       </div>
       {dateObjs.length ? (
         <ScrollMenu
           inertiaScrolling
           data={dateCards}
-          inertiaScrolling
           wheel={false}
           alignOnResize={false}
           translate={20}

@@ -57,13 +57,18 @@ const DateCard = React.forwardRef(({ dateObj, classes }, ref) => {
   function renderThumbnails() {
     // eslint-disable-next-line arrow-body-style
     const thumbnails = dateObj.sections.map(section => {
-      const placeholderImg = `https://instagram.com/p/${
-        testImages[Math.floor(section.spotId % 9)]
-      }/media/?size=m`;
+      let imageUrl;
 
-      const imageUrl = section.image
-        ? `https://instagram.com/p/${section.image}/media/?size=m`
-        : placeholderImg;
+      if (section.image) {
+        imageUrl = section.image.includes('http')
+          ? section.image // Use raw image URL
+          : `https://instagram.com/p/${section.image}/media/?size=m`; // Imply image url from Instagram ID
+      } else {
+        // Use placeholder
+        imageUrl = `https://instagram.com/p/${
+          testImages[Math.floor(section.spotId % 9)]
+        }/media/?size=m`;
+      }
 
       return (
         <div
