@@ -29,10 +29,12 @@ export default class BeaconApp extends App {
         <Head>
           <title>Beacon | Washington DC Date Ideas</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+          <meta name="theme-color" content="#F15F3A" />
           <meta
             name="description"
             content="Discover fun and unique DC date ideas tailored to your preferences."
           />
+          <meta charset="utf-8" />
         </Head>
         <MuiThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

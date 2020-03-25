@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
+
+## [v2.1.0](https://github.com/nathanab/beacon/compare/v2.0.0...v2.1.0)
 - Add support for `At Home` dates
 - Add support for non-Instagram date images, i.e. full image urls
 - Hide neighborhoods with no dates
