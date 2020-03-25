@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add support for `At Home` dates
 - Add support for non-Instagram date images, i.e. full image urls
 - Hide neighborhoods with no dates
-- Sort tags alphabetically
+- Sort tags and neighborhoods alphabetically
 - Update "Discover Dates" row to feature "At Home" dates
 
 ## [v2.0.0](https://github.com/nathanab/beacon/compare/v1.2.0...v2.0.0)

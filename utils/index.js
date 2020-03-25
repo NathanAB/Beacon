@@ -93,7 +93,17 @@ export const loadDates = async store => {
   store.set('adminDates')(adminDates);
   store.set('dates')(dates);
 
-  const allNeighborhoods = await getNeighborhoods();
+  let allNeighborhoods = await getNeighborhoods();
+  allNeighborhoods = allNeighborhoods.sort((a, b) => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
+
   const neighborhoods = allNeighborhoods.filter(
     neighborhood =>
       !neighborhood.disabled &&
