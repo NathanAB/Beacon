@@ -16,6 +16,14 @@ import '../css/index.css';
 
 export default class BeaconApp extends App {
   componentDidMount() {
+    // Force redirect to www
+    if (
+      window.location.host === 'beacondates.com' ||
+      window.location.host === 'app.beacondates.com'
+    ) {
+      window.location.replace('https://www.beacondates.com');
+    }
+
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
