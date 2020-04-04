@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Box, IconButton, Icon, Typography, CircularProgress, ButtonBase } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { useDesktop } from '../../../utils';
 import Store from '../../../store';
@@ -66,7 +66,6 @@ function NeighborhoodsRow({ classes }) {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
   const isDesktop = useDesktop();
-  const router = useRouter();
 
   function addFilter(neighborhood) {
     ReactGA.event({
@@ -79,24 +78,29 @@ function NeighborhoodsRow({ classes }) {
       action: 'Toggle Filter On',
       label: neighborhood.name,
     });
-    store.set('filters')([{ type: 'neighborhood', value: neighborhood }]);
-    router.push(Constants.PAGES.SEARCH).then(() => window.scrollTo(0, 0));
   }
 
   function renderNeighborhoods() {
     return neighborhoods.map(neighborhood => {
+      const filters = [{ type: 'neighborhood', value: neighborhood.name }];
       return (
-        <ButtonBase key={neighborhood.name} className={classes.neighborhood}>
-          <div
-            className={classes.icon}
-            style={{
-              backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
-            }}
-          />
-          <Typography variant="subtitle1" className={classes.caption}>
-            {neighborhood.name}
-          </Typography>
-        </ButtonBase>
+        <div key={neighborhood.name}>
+          <Link
+            href={{ pathname: Constants.PAGES.SEARCH, query: { filters: JSON.stringify(filters) } }}
+          >
+            <a className={classes.neighborhood}>
+              <div
+                className={classes.icon}
+                style={{
+                  backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
+                }}
+              />
+              <Typography variant="subtitle1" className={classes.caption}>
+                {neighborhood.name}
+              </Typography>
+            </a>
+          </Link>
+        </div>
       );
     });
   }

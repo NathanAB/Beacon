@@ -2,8 +2,9 @@ import React from 'react';
 import { withStyles, Box, Typography, Icon, Chip } from '@material-ui/core';
 import ReactGA from 'react-ga';
 import InternalLink from 'next/link';
+import { useRouter } from 'next/router';
 
-import Store from '../../store';
+import { useFilters } from '../../utils';
 
 const styles = {
   container: {
@@ -50,8 +51,8 @@ const styles = {
 };
 
 function FilterBar({ classes, isStatic }) {
-  const store = Store.useStore();
-  const filters = store.get('filters');
+  const [filters, setFilters] = useFilters();
+  const router = useRouter();
 
   const removeFilter = filterToRemove => e => {
     e.stopPropagation();
@@ -62,7 +63,7 @@ function FilterBar({ classes, isStatic }) {
       label: filterToRemove.value,
     });
     const newFilters = filters.filter(filter => filter.value !== filterToRemove.value);
-    store.set('filters')(newFilters);
+    setFilters(newFilters);
   };
 
   function renderChips() {
@@ -94,7 +95,7 @@ function FilterBar({ classes, isStatic }) {
 
   return (
     <Box className={classes.container}>
-      <InternalLink href="/filters">
+      <InternalLink href={{ pathname: '/filters', query: router.query }}>
         <a
           className={classes.search}
           onClick={onClick}

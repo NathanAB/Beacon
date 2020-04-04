@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import FilterBar from '../FilterBar/FilterBar';
 import DatesList from './DatesList/DatesList';
-import { filterDates, useDesktop } from '../../utils';
+import { filterDates, useDesktop, useFilters } from '../../utils';
 import DateCard from '../../components/DateCard/DateCard';
 import Store from '../../store';
 import AddDateForm from '../AddDateForm/AddDateForm';
@@ -17,7 +17,7 @@ const styles = () => ({
 
 const Search = ({ classes }) => {
   const store = Store.useStore();
-  const filters = store.get('filters');
+  const [filters] = useFilters();
   const dates = store.get('dates');
   const isDesktop = useDesktop();
   const filteredDates = filterDates(dates, filters);

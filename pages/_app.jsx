@@ -42,7 +42,7 @@ export default class BeaconApp extends App {
             name="description"
             content="Discover fun and unique DC date ideas tailored to your preferences."
           />
-          <meta charset="utf-8" />
+          <meta charSet="utf-8" />
         </Head>
         <MuiThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

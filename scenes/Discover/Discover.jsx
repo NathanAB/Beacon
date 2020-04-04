@@ -62,7 +62,6 @@ const styles = () => ({
 function Discover({ classes }) {
   const store = Store.useStore();
   useEffect(() => {
-    store.set('filters')([]);
     store.set('focusedDate')(false);
   }, []);
 

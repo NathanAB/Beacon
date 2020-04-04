@@ -136,7 +136,6 @@ function Header({ classes }) {
   }
 
   const goToDiscover = () => {
-    store.set('filters')([]);
     store.set('focusedDate')(false);
     ReactGA.pageview(CONSTANTS.PAGES.DISCOVER);
   };

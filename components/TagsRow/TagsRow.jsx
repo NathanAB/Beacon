@@ -3,9 +3,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { Box, Chip, CircularProgress } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import Store from '../../store';
-import Constants from '../../constants';
+import { useFilters } from '../../utils';
 
 const styles = theme => ({
   tagChip: {
@@ -27,10 +27,9 @@ const styles = theme => ({
 });
 
 function TagsRow({ classes, isDiscover }) {
-  const router = useRouter();
   const store = Store.useStore();
   const tags = store.get('tags');
-  const filters = store.get('filters');
+  const [filters, setFilters] = useFilters();
 
   function addTagFilter(tag) {
     ReactGA.event({
@@ -39,15 +38,7 @@ function TagsRow({ classes, isDiscover }) {
       label: tag.name,
     });
     filters.push({ type: 'tag', value: tag.name, categoryId: tag.categoryId });
-    store.set('filters')(filters);
-    if (isDiscover) {
-      router.push(Constants.PAGES.SEARCH).then(() => window.scrollTo(0, 0));
-      ReactGA.event({
-        category: 'Interaction',
-        action: 'Focus Tag',
-        label: tag.name,
-      });
-    }
+    setFilters(filters);
   }
 
   function renderTags() {
@@ -70,16 +61,26 @@ function TagsRow({ classes, isDiscover }) {
           chipClasses.push(classes.tagChipDisabled);
         }
 
-        return (
-          <span key={tag.name}>
-            <Chip
-              label={tag.name}
-              className={chipClasses.join(' ')}
-              disabled={isCategoryToggled}
-              onClick={isCategoryToggled ? null : () => addTagFilter(tag, isTagToggled)}
-            />
-          </span>
+        const chipContent = (
+          <Chip
+            label={tag.name}
+            className={chipClasses.join(' ')}
+            disabled={isCategoryToggled}
+            onClick={isCategoryToggled || isDiscover ? null : () => addTagFilter(tag, isTagToggled)}
+          />
         );
+
+        if (isDiscover) {
+          const newFilters = [{ type: 'tag', value: tag.name, categoryId: tag.categoryId }];
+          return (
+            <span key={tag.name}>
+              <Link href={{ pathname: 'search', query: { filters: JSON.stringify(newFilters) } }}>
+                <a>{chipContent}</a>
+              </Link>
+            </span>
+          );
+        }
+        return <span key={tag.name}>{chipContent}</span>;
       })
     ) : (
       <Box className={classes.loadingContainer}>

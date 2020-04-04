@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
+    "start-dev": "next start -p 3000",
     "prettify": "eslint . --fix",
     "deploy-production": "git push production master; heroku open --remote production",
     "deploy-staging": "git push staging staging:master; heroku open --remote staging",

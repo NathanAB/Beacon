@@ -1,4 +1,5 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useRouter } from 'next/router';
 
 import { getDates, getNeighborhoods } from '../api';
 
@@ -116,4 +117,32 @@ export const loadDates = async store => {
     store.set('allNeighborhoods')(allNeighborhoods);
     store.set('neighborhoods')(neighborhoods);
   }
+};
+
+export const useFilters = () => {
+  const router = useRouter();
+  const filterString = router?.query?.filters;
+  let filters = [];
+
+  /**
+   * Set new filter query and optionally navigate to anew page with them.
+   * @param {Array<Object>} newFilters The new filters to set in the query string.
+   * @param {String} [path] Optional - path to navigate to with new query.
+   */
+  const setFilters = async (newFilters, path) => {
+    const method = path ? 'push' : 'replace';
+    return router[method](`${path || router.pathname}?filters=${JSON.stringify(newFilters)}`, {
+      pathname: path || router.pathname,
+      query: { filters: JSON.stringify(newFilters) },
+    });
+  };
+
+  if (filterString) {
+    try {
+      filters = JSON.parse(filterString);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  return [filters, setFilters];
 };

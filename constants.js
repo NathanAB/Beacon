@@ -8,6 +8,7 @@ export default {
     DISCOVER: '/',
     MY_DATES: '/my-dates',
     SEARCH: '/search',
+    NEIGHBORHOOD: '/neighborhood',
     ADMIN: '/admin',
   },
   API: {

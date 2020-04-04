@@ -6,7 +6,7 @@ import InternalLink from 'next/link';
 import Store from '../../store';
 import TagsRow from '../../components/TagsRow/TagsRow';
 import FilterBar from '../FilterBar/FilterBar';
-import { useDesktop } from '../../utils';
+import { useDesktop, useFilters } from '../../utils';
 
 const styles = theme => ({
   container: {
@@ -46,10 +46,10 @@ const styles = theme => ({
 function FilterPage({ classes }) {
   const store = Store.useStore();
   const costs = store.get('costs');
-  const filters = store.get('filters');
   const durations = store.get('durations');
   const neighborhoods = store.get('neighborhoods');
   const isDesktop = useDesktop();
+  const [filters, setFilters] = useFilters();
 
   function toggleFilter(type, value) {
     ReactGA.event({
@@ -58,7 +58,7 @@ function FilterPage({ classes }) {
       label: value.toString(),
     });
     const newFilters = filters.concat({ type, value });
-    store.set('filters')(newFilters);
+    setFilters(newFilters);
   }
 
   function renderFilterSection(options, type) {
@@ -116,7 +116,7 @@ function FilterPage({ classes }) {
         </section>
 
         <Box display="flex" flexDirection="row-reverse">
-          <InternalLink href="/search">
+          <InternalLink href={{ pathname: '/search', query: { filters: JSON.stringify(filters) } }}>
             <a>
               <Button
                 variant="contained"
