@@ -8,6 +8,16 @@ export default class MyDocument extends Document {
     return (
       <html lang="en">
         <Head>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54887334-4"></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-54887334-4'); `,
+            }}
+          />
           <link rel="icon" href="/favicon.jpg" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <link
