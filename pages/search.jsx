@@ -4,25 +4,37 @@ import Head from 'next/head';
 import Search from '../scenes/Search/Search';
 import { useFilters } from '../utils';
 
-export default function SearchPage() {
-  const [filters] = useFilters();
-  let titleFilter = '';
-
-  filters.some(filter => {
-    if (filter.type === 'neighborhood' || filter.type === 'tag') {
-      titleFilter = `| ${filter.value}`;
+export const getMeta = filters => {
+  const filter = filters.find(f => {
+    if (f.type === 'neighborhood' || f.type === 'tag') {
       return true;
     }
     return false;
   });
 
+  const descString = filter?.type === 'tag' ? filter?.value?.toLowerCase() : filter?.value;
+
+  const titleString = filter?.type === 'tag' ? `${filter?.value} Washington DC` : filter?.value;
+
+  return {
+    title: titleString || '',
+    description: descString || '',
+  };
+};
+
+export default function SearchPage() {
+  const [filters] = useFilters();
+  const { title, description } = getMeta(filters);
+
+  console.log(title, description);
+
   return (
     <>
       <Head>
-        <title>Beacon | Washington DC {titleFilter} Date Ideas</title>
+        <title>{title || 'Washington DC'} Date Ideas | Beacon</title>
         <meta
           name="description"
-          content={`Discover fun and unique ${titleFilter} DC date ideas tailored to your preferences.`}
+          content={`Discover fun and unique ${description} date ideas in Washington DC crafted by trusted locals.`}
         />
       </Head>
       <Search />

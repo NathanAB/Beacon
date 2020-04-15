@@ -5,7 +5,7 @@ import ReactGA from 'react-ga';
 
 import Link from 'next/link';
 import Store from '../../store';
-import { useFilters } from '../../utils';
+import { useFilters, filterArrayToString } from '../../utils';
 
 const styles = theme => ({
   tagChip: {
@@ -74,7 +74,9 @@ function TagsRow({ classes, isDiscover }) {
           const newFilters = [{ type: 'tag', value: tag.name, categoryId: tag.categoryId }];
           return (
             <span key={tag.name}>
-              <Link href={{ pathname: 'search', query: { filters: JSON.stringify(newFilters) } }}>
+              <Link
+                href={{ pathname: 'search', query: { filters: filterArrayToString(newFilters) } }}
+              >
                 <a>{chipContent}</a>
               </Link>
             </span>

@@ -5,7 +5,7 @@ import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
 import Link from 'next/link';
 
-import { useDesktop } from '../../../utils';
+import { useDesktop, filterArrayToString } from '../../../utils';
 import Store from '../../../store';
 import placeholderImg from '../../../assets/img/placeholder.png';
 import Constants from '../../../constants';
@@ -86,9 +86,12 @@ function NeighborhoodsRow({ classes }) {
       return (
         <div key={neighborhood.name}>
           <Link
-            href={{ pathname: Constants.PAGES.SEARCH, query: { filters: JSON.stringify(filters) } }}
+            href={{
+              pathname: Constants.PAGES.SEARCH,
+              query: { filters: filterArrayToString(filters) },
+            }}
           >
-            <a className={classes.neighborhood}>
+            <a className={classes.neighborhood} draggable={false}>
               <div
                 className={classes.icon}
                 style={{
@@ -115,6 +118,7 @@ function NeighborhoodsRow({ classes }) {
       {neighborhoods.length ? (
         <ScrollMenu
           inertiaScrolling
+          inertiaScrollingSlowdown={0.5}
           alignOnResize={false}
           translate={20}
           data={renderNeighborhoods(classes)}

@@ -56,10 +56,11 @@ function DatesRow({ classes }) {
       {dateObjs.length ? (
         <ScrollMenu
           inertiaScrolling
-          data={dateCards}
-          wheel={false}
+          inertiaScrollingSlowdown={0.5}
           alignOnResize={false}
           translate={20}
+          data={dateCards}
+          wheel={false}
           itemStyle={{
             paddingRight: '20px',
           }}

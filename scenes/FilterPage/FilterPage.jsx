@@ -6,7 +6,7 @@ import InternalLink from 'next/link';
 import Store from '../../store';
 import TagsRow from '../../components/TagsRow/TagsRow';
 import FilterBar from '../FilterBar/FilterBar';
-import { useDesktop, useFilters } from '../../utils';
+import { useDesktop, useFilters, filterArrayToString } from '../../utils';
 
 const styles = theme => ({
   container: {
@@ -116,7 +116,9 @@ function FilterPage({ classes }) {
         </section>
 
         <Box display="flex" flexDirection="row-reverse">
-          <InternalLink href={{ pathname: '/search', query: { filters: JSON.stringify(filters) } }}>
+          <InternalLink
+            href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}
+          >
             <a>
               <Button
                 variant="contained"

@@ -3,17 +3,11 @@ import { useRouter } from 'next/router';
 
 import { getDates, getNeighborhoods } from '../api';
 
+const COST_MAP = ['Free', 'Under $30', '$30 to $100', '$100+'];
+
 // eslint-disable-next-line import/prefer-default-export
 export const costToString = cost => {
-  if (cost === 0) {
-    return 'Free';
-  }
-
-  const str = [];
-  for (let i = 0; i < cost; i += 1) {
-    str.push('$');
-  }
-  return str.join('');
+  return COST_MAP[parseInt(cost, 10)];
 };
 
 export const filterDates = (dateObjs, filters) => {
@@ -119,6 +113,24 @@ export const loadDates = async store => {
   }
 };
 
+export const filterArrayToString = filterArray => {
+  console.log(filterArray, filterArray.map(f => `${f.type}:${f.value}`).join(','));
+  return filterArray.map(f => `${f.type}:${f.value}`).join(',');
+};
+
+export const filterStringToArr = filterString => {
+  const filterArray = [];
+  filterString.split(',').forEach(f => {
+    const split = f.split(':');
+    filterArray.push({
+      type: split[0],
+      value: split[1],
+    });
+  });
+  console.log(filterString, filterArray);
+  return filterArray;
+};
+
 export const useFilters = () => {
   const router = useRouter();
   const filterString = router?.query?.filters;
@@ -131,15 +143,18 @@ export const useFilters = () => {
    */
   const setFilters = async (newFilters, path) => {
     const method = path ? 'push' : 'replace';
-    return router[method](`${path || router.pathname}?filters=${JSON.stringify(newFilters)}`, {
+
+    const newFilterString = filterArrayToString(newFilters);
+
+    return router[method](`${path || router.pathname}?filters=${newFilterString}`, {
       pathname: path || router.pathname,
-      query: { filters: JSON.stringify(newFilters) },
+      query: { filters: newFilterString },
     });
   };
 
   if (filterString) {
     try {
-      filters = JSON.parse(filterString);
+      filters = filterStringToArr(filterString);
     } catch (err) {
       console.error(err);
     }

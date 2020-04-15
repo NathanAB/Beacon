@@ -35,7 +35,7 @@ export default class BeaconApp extends App {
     return (
       <Store.Container>
         <Head>
-          <title>Beacon | Washington DC Date Ideas</title>
+          <title>Washington DC Date Ideas | Beacon</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
           <meta name="theme-color" content="#F15F3A" />
           <meta
