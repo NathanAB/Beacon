@@ -301,6 +301,27 @@ function EditDateForm({ classes }) {
           fullWidth
           onChange={e => updateFormData(e, 'description')}
         />
+        {formData.id && (
+          <Typography variant="subtitle1">
+            <strong>
+              <Link target="_blank" href={`https://www.beacondates.com/search?date=${formData.id}`}>
+                Production Link to Date
+              </Link>
+            </strong>
+          </Typography>
+        )}
+        {formData.id && (
+          <Typography variant="subtitle1">
+            <strong>
+              <Link
+                target="_blank"
+                href={`https://app-staging.beacondates.com/search?date=${formData.id}`}
+              >
+                Staging Link to Date
+              </Link>
+            </strong>
+          </Typography>
+        )}
 
         {renderSection(formData?.sections?.[0], 0)}
         {renderSection(formData?.sections?.[1], 1)}

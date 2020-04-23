@@ -3,9 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Box, Icon, IconButton, Typography, CircularProgress } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
-import { useRouter } from 'next/router';
 
-import { useDesktop } from '../../../utils';
+import { useDesktop, useFocusedDate } from '../../../utils';
 import DateCardPreview from '../../../components/DateCardPreview/DateCardPreview';
 import Store from '../../../store';
 import Constants from '../../../constants';
@@ -32,7 +31,7 @@ function DatesRow({ classes }) {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
   const isDesktop = useDesktop();
-  const router = useRouter();
+  const [focusedDate, setFocusedDate] = useFocusedDate();
 
   const dateCards = dateObjs
     .filter(date => date.sections.some(section => section.tags.some(tag => tag.name === 'At Home')))
@@ -84,8 +83,7 @@ function DatesRow({ classes }) {
               action: 'Focus Date',
               label: dateId.toString(),
             });
-            store.set('focusedDate')(dateId);
-            router.push(Constants.PAGES.SEARCH).then(() => window.scrollTo(0, 0));
+            setFocusedDate(dateId, Constants.PAGES.SEARCH).then(() => window.scrollTo(0, 0));
           }}
         />
       ) : (

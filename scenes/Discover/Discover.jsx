@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import Store from '../../store';
 import FilterBar from '../FilterBar/FilterBar';
 import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
 import DatesRow from './DatesRow/DatesRow';
 import TagsRow from '../../components/TagsRow/TagsRow';
 import HeroImage from '../../assets/img/dc-3.jpeg';
+import { useFocusedDate } from '../../utils';
 
 const styles = () => ({
   titleBar: {
@@ -60,9 +60,9 @@ const styles = () => ({
 });
 
 function Discover({ classes }) {
-  const store = Store.useStore();
+  const [focusedDate, setFocusedDate] = useFocusedDate();
   useEffect(() => {
-    store.set('focusedDate')(false);
+    setFocusedDate(false);
   }, []);
 
   return (

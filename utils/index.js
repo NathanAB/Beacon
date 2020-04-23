@@ -140,7 +140,7 @@ export const useFilters = () => {
   let filters = [];
 
   /**
-   * Set new filter query and optionally navigate to anew page with them.
+   * Set new filter query and optionally navigate to an ew page with them.
    * @param {Array<Object>} newFilters The new filters to set in the query string.
    * @param {String} [path] Optional - path to navigate to with new query.
    */
@@ -163,4 +163,29 @@ export const useFilters = () => {
     }
   }
   return [filters, setFilters];
+};
+
+export const useFocusedDate = () => {
+  const router = useRouter();
+  let focusedDateId;
+  const focusedDateQuery = router?.query?.date;
+  if (focusedDateQuery) {
+    focusedDateId = parseInt(focusedDateQuery, 10);
+  }
+
+  /**
+   * Set new focused date query and optionally navigate to a new page with them.
+   * @param {int} newFocusedDateId The new date id to set as focused in the query string.
+   * @param {String} [path] Optional - path to navigate to with new query.
+   */
+  const setFocusedDate = async (newFocusedDateId, path) => {
+    const method = path ? 'push' : 'replace';
+
+    return router[method](`${path || router.pathname}?date=${newFocusedDateId}`, {
+      pathname: path || router.pathname,
+      query: { date: newFocusedDateId },
+    });
+  };
+
+  return [focusedDateId, setFocusedDate];
 };

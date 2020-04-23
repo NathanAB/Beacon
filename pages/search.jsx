@@ -1,6 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
+import { CircularProgress, Box } from '@material-ui/core';
 
+import Store from '../store';
 import Search from '../scenes/Search/Search';
 import { useFilters } from '../utils';
 
@@ -23,7 +25,9 @@ export const getMeta = filters => {
 };
 
 export default function SearchPage() {
+  const store = Store.useStore();
   const [filters] = useFilters();
+  const dates = store.get('dates');
   const { title, description } = getMeta(filters);
 
   return (
@@ -35,7 +39,13 @@ export default function SearchPage() {
           content={`Discover fun and unique ${description} date ideas in Washington DC crafted by trusted locals.`}
         />
       </Head>
-      <Search />
+      {dates.length ? (
+        <Search />
+      ) : (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <CircularProgress color="primary" />
+        </Box>
+      )}
     </>
   );
 }

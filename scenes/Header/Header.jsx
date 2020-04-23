@@ -4,7 +4,6 @@ import InternalLink from 'next/link';
 import {
   Box,
   IconButton,
-  Button,
   Toolbar,
   AppBar,
   Typography,
@@ -23,7 +22,7 @@ import CONSTANTS from '../../constants';
 import Store from '../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
-import { useDesktop } from '../../utils';
+import { useDesktop, useFocusedDate } from '../../utils';
 import MobileDrawer from '../../components/MobileDrawer/MobileDrawer';
 import HeaderLink from './components/HeaderLink/HeaderLink';
 
@@ -120,6 +119,7 @@ function Header({ classes }) {
   const store = Store.useStore();
   const user = store.get('user');
   const setIsLoginOpen = store.set('isLoginDialogOpen');
+  const [focusedDate, setFocusedDate] = useFocusedDate();
 
   const isDesktop = useDesktop();
 
@@ -136,7 +136,7 @@ function Header({ classes }) {
   }
 
   const goToDiscover = () => {
-    store.set('focusedDate')(false);
+    setFocusedDate(false);
     ReactGA.pageview(CONSTANTS.PAGES.DISCOVER);
   };
 

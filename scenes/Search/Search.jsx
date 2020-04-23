@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import FilterBar from '../FilterBar/FilterBar';
 import DatesList from './DatesList/DatesList';
-import { filterDates, useDesktop, useFilters } from '../../utils';
+import { filterDates, useDesktop, useFilters, useFocusedDate } from '../../utils';
 import DateCard from '../../components/DateCard/DateCard';
 import Store from '../../store';
 import AddDateForm from '../AddDateForm/AddDateForm';
@@ -21,10 +21,9 @@ const Search = ({ classes }) => {
   const dates = store.get('dates');
   const isDesktop = useDesktop();
   const filteredDates = filterDates(dates, filters);
+  const [focusedDate, setFocusedDate] = useFocusedDate();
 
   const focusedRef = useRef(null);
-
-  const focusedDate = store.get('focusedDate');
 
   // Scroll to focused date when clicked on Discover landing page
   useEffect(() => {
