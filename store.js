@@ -16,7 +16,7 @@ export default createConnectedStore({
   adminDates: [],
   filters: [],
   isLoginDialogOpen: false,
-  costs: ['Free', '$', '$$', '$$$'],
+  costs: ['Free', 'Under $30', '$30 to $100', '$100+'],
   durations: ['1 Hour', '2 Hours', '3 Hours'],
   checkoutDate: false,
   editDate: false,

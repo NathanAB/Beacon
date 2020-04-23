@@ -4,6 +4,12 @@ import { useRouter } from 'next/router';
 import { getDates, getNeighborhoods } from '../api';
 
 const COST_MAP = ['Free', 'Under $30', '$30 to $100', '$100+'];
+const COST_LOOKUP = {
+  Free: 0,
+  'Under $30': 1,
+  '$30 to $100': 2,
+  '$100+': 3,
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export const costToString = cost => {
@@ -26,10 +32,7 @@ export const filterDates = (dateObjs, filters) => {
           return date.sections.find(section => section.spot?.neighborhood?.name === filter.value);
         case 'cost':
           return date.sections.find(section => {
-            if (filter.value === 'Free' && section.cost === 0) {
-              return true;
-            }
-            return section.cost === filter.value.length;
+            return section.cost === COST_LOOKUP[filter.value];
           });
         case 'duration':
           // eslint-disable-next-line
@@ -114,20 +117,20 @@ export const loadDates = async store => {
 };
 
 export const filterArrayToString = filterArray => {
-  console.log(filterArray, filterArray.map(f => `${f.type}:${f.value}`).join(','));
-  return filterArray.map(f => `${f.type}:${f.value}`).join(',');
+  return encodeURIComponent(filterArray.map(f => `${f.type}:${f.value}`).join(','));
 };
 
 export const filterStringToArr = filterString => {
   const filterArray = [];
-  filterString.split(',').forEach(f => {
-    const split = f.split(':');
-    filterArray.push({
-      type: split[0],
-      value: split[1],
+  decodeURIComponent(filterString)
+    .split(',')
+    .forEach(f => {
+      const split = f.split(':');
+      filterArray.push({
+        type: split[0],
+        value: split[1],
+      });
     });
-  });
-  console.log(filterString, filterArray);
   return filterArray;
 };
 

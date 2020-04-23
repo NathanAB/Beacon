@@ -26,8 +26,6 @@ export default function SearchPage() {
   const [filters] = useFilters();
   const { title, description } = getMeta(filters);
 
-  console.log(title, description);
-
   return (
     <>
       <Head>

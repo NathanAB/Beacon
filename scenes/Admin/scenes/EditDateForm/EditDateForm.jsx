@@ -171,16 +171,13 @@ function EditDateForm({ classes }) {
                 Free
               </MenuItem>
               <MenuItem key={1} value={1}>
-                $
+                Under $30
               </MenuItem>
               <MenuItem key={2} value={2}>
-                $$
+                $30 to $100
               </MenuItem>
               <MenuItem key={3} value={3}>
-                $$$
-              </MenuItem>
-              <MenuItem key={4} value={4}>
-                $$$$
+                $100+
               </MenuItem>
             </Select>
           </FormControl>
