@@ -6,7 +6,7 @@ import InternalLink from 'next/link';
 import Store from '../../store';
 import TagsRow from '../../components/TagsRow/TagsRow';
 import FilterBar from '../FilterBar/FilterBar';
-import { useDesktop, useFilters, filterArrayToString } from '../../utils';
+import { useDesktop, useFilters, filterArrayToString, filterDates } from '../../utils';
 
 const styles = theme => ({
   container: {
@@ -19,6 +19,14 @@ const styles = theme => ({
       margin: '18px 18px 0 0',
       padding: '18px 10px',
       fontSize: '15px',
+    },
+  },
+  disabledTagChip: {
+    opacity: 0.5,
+    pointerEvents: 'none',
+    padding: '13px 5px',
+    [theme.breakpoints.up('sm')]: {
+      padding: '17px 9px',
     },
   },
   search: {
@@ -46,6 +54,7 @@ const styles = theme => ({
 function FilterPage({ classes }) {
   const store = Store.useStore();
   const costs = store.get('costs');
+  const dates = store.get('dates');
   const durations = store.get('durations');
   const neighborhoods = store.get('neighborhoods');
   const isDesktop = useDesktop();
@@ -67,13 +76,18 @@ function FilterPage({ classes }) {
       if (isTagToggled) {
         return '';
       }
-      const color = isTagToggled ? 'primary' : 'default';
+      const wouldCauseEmptySearch =
+        filterDates(dates, [...filters, { type, value: option }]).length === 0;
+      const tagClasses = [classes.tagChip];
+      if (wouldCauseEmptySearch) {
+        tagClasses.push(classes.disabledTagChip);
+      }
       return (
         <Chip
           key={option}
-          color={color}
           label={option}
-          className={classes.tagChip}
+          variant={wouldCauseEmptySearch ? 'outlined' : 'default'}
+          className={tagClasses}
           onClick={() => toggleFilter(type, option)}
         />
       );

@@ -37,7 +37,7 @@ export const filterDates = (dateObjs, filters) => {
         case 'duration':
           // eslint-disable-next-line
           const filterMinutes = parseInt(filter.value.slice(0, 1)) * 60;
-          return totalTime <= filterMinutes + 30 && totalTime >= filterMinutes - 30;
+          return totalTime < filterMinutes + 30 && totalTime >= filterMinutes - 30;
         default:
           return false;
       }

@@ -22,7 +22,7 @@ const styles = {
     marginBottom: '24px',
     display: 'flex',
     alignItems: 'center',
-    minHeight: '47px',
+    minHeight: '56px',
     backgroundColor: 'white',
   },
   searchIcon: {

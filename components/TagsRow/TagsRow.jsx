@@ -5,7 +5,7 @@ import ReactGA from 'react-ga';
 
 import Link from 'next/link';
 import Store from '../../store';
-import { useFilters, filterArrayToString } from '../../utils';
+import { useFilters, filterArrayToString, filterDates } from '../../utils';
 
 const styles = theme => ({
   tagChip: {
@@ -23,12 +23,18 @@ const styles = theme => ({
   },
   tagChipDisabled: {
     opacity: '0.5',
+    pointerEvents: 'none',
+    padding: '13px 5px',
+    [theme.breakpoints.up('sm')]: {
+      padding: '17px 9px',
+    },
   },
 });
 
 function TagsRow({ classes, isDiscover }) {
   const store = Store.useStore();
   const tags = store.get('tags');
+  const dates = store.get('dates');
   const [filters, setFilters] = useFilters();
 
   function addTagFilter(tag) {
@@ -49,6 +55,9 @@ function TagsRow({ classes, isDiscover }) {
           return '';
         }
 
+        const wouldCauseEmptySearch =
+          filterDates(dates, [...filters, { type: 'tag', value: tag.name }]).length === 0;
+
         // If a tag in this category has already been picked then grey it out
         const toggledCategories = filters.length
           ? filters.reduce((cats, curr) => {
@@ -57,7 +66,8 @@ function TagsRow({ classes, isDiscover }) {
           : [];
         const isCategoryToggled = !!toggledCategories[tag.categoryId];
         const chipClasses = [classes.tagChip];
-        if (isCategoryToggled) {
+
+        if (isCategoryToggled || wouldCauseEmptySearch) {
           chipClasses.push(classes.tagChipDisabled);
         }
 
@@ -65,7 +75,7 @@ function TagsRow({ classes, isDiscover }) {
           <Chip
             label={tag.name}
             className={chipClasses.join(' ')}
-            disabled={isCategoryToggled}
+            variant={wouldCauseEmptySearch || isCategoryToggled ? 'outlined' : 'default'}
             onClick={isCategoryToggled || isDiscover ? null : () => addTagFilter(tag, isTagToggled)}
           />
         );

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change cost appearance from $$$'s to words
 - Add routing for individual dates
 - Add date links to date builder
+- Update tags page so that tags causing 0 search results are disabled
 
 ## [v2.1.2](https://github.com/nathanab/beacon/compare/v2.1.1...v2.1.2)
 - Fix Google Analytics
