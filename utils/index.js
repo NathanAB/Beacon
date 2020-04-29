@@ -3,12 +3,12 @@ import { useRouter } from 'next/router';
 
 import { getDates, getNeighborhoods } from '../api';
 
-const COST_MAP = ['Free', 'Under $30', '$30 to $100', '$100+'];
+const COST_MAP = ['Free', 'Under $30', '$30 to $60', '$60+'];
 const COST_LOOKUP = {
   Free: 0,
   'Under $30': 1,
-  '$30 to $100': 2,
-  '$100+': 3,
+  '$30 to $60': 2,
+  '$60+': 3,
 };
 
 // eslint-disable-next-line import/prefer-default-export
