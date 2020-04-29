@@ -3,9 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { Box, IconButton, Icon, Typography, CircularProgress, ButtonBase } from '@material-ui/core';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import ReactGA from 'react-ga';
-import Link from 'next/link';
 
-import { useDesktop, filterArrayToString } from '../../../utils';
+import { useFilters, useDesktop } from '../../../utils';
 import Store from '../../../store';
 import placeholderImg from '../../../assets/img/placeholder.png';
 import Constants from '../../../constants';
@@ -66,44 +65,37 @@ function NeighborhoodsRow({ classes }) {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
   const isDesktop = useDesktop();
+  const [filters, setFilters] = useFilters();
 
   function addFilter(neighborhood) {
     ReactGA.event({
       category: 'Interaction',
       action: 'Focus Neighborhood',
-      label: neighborhood.name,
+      label: neighborhood,
     });
     ReactGA.event({
       category: 'Interaction',
       action: 'Toggle Filter On',
-      label: neighborhood.name,
+      label: neighborhood,
     });
+    filters.push({ type: 'neighborhood', value: neighborhood });
+    setFilters(filters, Constants.PAGES.SEARCH).then(() => window.scrollTo(0, 0));
   }
 
   function renderNeighborhoods() {
     return neighborhoods.map(neighborhood => {
-      const filters = [{ type: 'neighborhood', value: neighborhood.name }];
       return (
-        <div key={neighborhood.name}>
-          <Link
-            href={{
-              pathname: Constants.PAGES.SEARCH,
-              query: { filters: filterArrayToString(filters) },
+        <ButtonBase key={neighborhood.name} className={classes.neighborhood}>
+          <div
+            className={classes.icon}
+            style={{
+              backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
             }}
-          >
-            <a className={classes.neighborhood} draggable={false}>
-              <div
-                className={classes.icon}
-                style={{
-                  backgroundImage: `url(${neighborhood.imageUrl || placeholderImg})`,
-                }}
-              />
-              <Typography variant="subtitle1" className={classes.caption}>
-                {neighborhood.name}
-              </Typography>
-            </a>
-          </Link>
-        </div>
+          />
+          <Typography variant="subtitle1" className={classes.caption}>
+            {neighborhood.name}
+          </Typography>
+        </ButtonBase>
       );
     });
   }
