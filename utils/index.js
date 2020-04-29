@@ -180,10 +180,15 @@ export const useFocusedDate = () => {
    */
   const setFocusedDate = async (newFocusedDateId, path) => {
     const method = path ? 'push' : 'replace';
-
-    return router[method](`${path || router.pathname}?date=${newFocusedDateId}`, {
+    const query = {};
+    let pathStr = path || router.pathname;
+    if (newFocusedDateId) {
+      pathStr = `${pathStr}date=${newFocusedDateId}`;
+      query.date = newFocusedDateId;
+    }
+    return router[method](pathStr, {
       pathname: path || router.pathname,
-      query: { date: newFocusedDateId },
+      query,
     });
   };
 
