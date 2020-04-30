@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
-## [v2.2.0](https://github.com/nathanab/beacon/compare/v2.1.2...v2.2.0)
+## [v2.4.0](https://github.com/nathanab/beacon/compare/v2.3.0...v2.4.0)
 - Improve query param appearance/readability
 - Fix scrolling on horizontal menu due to use of anchor tags
 - Clean up meta tag appearance for SEO
@@ -14,6 +14,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add routing for individual dates
 - Add date links to date builder
 - Update tags page so that tags causing 0 search results are disabled
+
+## [v2.3.0](https://github.com/nathanab/beacon/compare/v2.2.0...v2.3.0)
+- Add Facebook pixel
+
+## [v2.2.0](https://github.com/nathanab/beacon/compare/v2.1.2...v2.2.0)
+- Refactor and expand routing to include filters in URL
 
 ## [v2.1.2](https://github.com/nathanab/beacon/compare/v2.1.1...v2.1.2)
 - Fix Google Analytics
