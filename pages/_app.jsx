@@ -5,6 +5,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import ReactGA from 'react-ga';
 
 import Store from '../store';
 import Body from '../scenes/Body/Body';
@@ -16,6 +17,10 @@ import '../css/index.css';
 
 export default class BeaconApp extends App {
   componentDidMount() {
+    ReactGA.initialize('UA-54887334-4', {
+      debug: true,
+    });
+
     // Force redirect to www
     if (
       window.location.host === 'beacondates.com' ||
