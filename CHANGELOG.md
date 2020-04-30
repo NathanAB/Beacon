@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
+
+## [v2.2.0](https://github.com/nathanab/beacon/compare/v2.1.2...v2.2.0)
 - Improve query param appearance/readability
 - Fix scrolling on horizontal menu due to use of anchor tags
 - Clean up meta tag appearance for SEO
