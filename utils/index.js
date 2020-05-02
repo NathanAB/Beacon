@@ -179,14 +179,13 @@ export const useFocusedDate = () => {
    * @param {String} [path] Optional - path to navigate to with new query.
    */
   const setFocusedDate = async (newFocusedDateId, path) => {
-    const method = path ? 'push' : 'replace';
     const query = {};
     let pathStr = path || router.pathname;
     if (newFocusedDateId) {
-      pathStr = `${pathStr}date=${newFocusedDateId}`;
+      pathStr = `${pathStr}?date=${newFocusedDateId}`;
       query.date = newFocusedDateId;
     }
-    return router[method](pathStr, {
+    return router.push(pathStr, {
       pathname: path || router.pathname,
       query,
     });
