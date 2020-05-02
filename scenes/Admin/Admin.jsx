@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Button,
-  Typography,
-  FormGroup,
-  FormControlLabel,
-  Switch,
-} from '@material-ui/core';
+import { Button, Typography, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
+
+import MaterialTable from 'material-table';
 
 import Store from '../../store';
 import EditDateForm from './scenes/EditDateForm/EditDateForm';
@@ -19,9 +10,7 @@ import Spinner from '../../components/Spinner/Spinner';
 import { loadDates } from '../../utils';
 import { updateDatePlan } from '../../api';
 
-const styles = theme => ({});
-
-function Admin({ classes }) {
+function Admin() {
   const store = Store.useStore();
   const isEditingDate = store.get('adminEditingDate');
   const setIsEditingDate = store.set('adminEditingDate');
@@ -43,6 +32,14 @@ function Admin({ classes }) {
     }
   };
 
+  const spotCell = section => (
+    <>
+      <b>{section?.spot?.name}</b>
+      <br />
+      <i>{section?.spot?.neighborhood?.name}</i>
+    </>
+  );
+
   return (
     <>
       {isSavingDate && <Spinner />}
@@ -58,85 +55,79 @@ function Admin({ classes }) {
       >
         Create New Date
       </Button>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <Typography variant="h6">
-                <b>Title</b>
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography variant="h6">
-                <b>Spot 1</b>
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography variant="h6">
-                <b>Spot 2</b>
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography variant="h6">
-                <b>Spot 3</b>
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <Typography variant="h6">
-                <b>State</b>
-              </Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {dateObjs.map(dateObj => {
-            return (
-              <TableRow hover key={dateObj.id} onClick={() => setIsEditingDate(dateObj)}>
-                <TableCell>
-                  <Typography variant="h6">{dateObj.name}</Typography>
-                </TableCell>
-                <TableCell>
-                  <b>{dateObj?.sections[0]?.spot?.name}</b>
-                  <br />
-                  <i>{dateObj?.sections[0]?.spot?.neighborhood?.name}</i>
-                </TableCell>
-                <TableCell>
-                  <b>{dateObj?.sections[1]?.spot?.name}</b>
-                  <br />
-                  <i>{dateObj?.sections[1]?.spot?.neighborhood?.name}</i>
-                </TableCell>
-                <TableCell>
-                  <b>{dateObj?.sections[2]?.spot?.name}</b>
-                  <br />
-                  <i>{dateObj?.sections[2]?.spot?.neighborhood?.name}</i>
-                </TableCell>
-                <TableCell>
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={dateObj.active}
-                          color="primary"
-                          onClick={e => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                          }}
-                          onChange={() => {
-                            toggleActive(dateObj);
-                          }}
-                        />
-                      }
-                      label={dateObj.active ? 'Enabled' : 'Disabled'}
+      <MaterialTable
+        style={{ marginTop: '20px' }}
+        title="All Beacon Dates"
+        columns={[
+          {
+            title: 'Title',
+            field: 'name',
+            render: dateObj => <Typography variant="h6">{dateObj.name}</Typography>,
+          },
+          {
+            title: 'Neighborhood 1',
+            field: 'sections[0].spot.neighborhood.name',
+            hidden: true,
+          },
+          {
+            title: 'Spot 1',
+            field: 'sections[0].spot.name',
+            render: dateObj => spotCell(dateObj.sections[0]),
+          },
+          {
+            title: 'Neighborhood 2',
+            field: 'sections10].spot.neighborhood.name',
+            hidden: true,
+          },
+          {
+            title: 'Spot 2',
+            field: 'sections[1].spot.name',
+            render: dateObj => spotCell(dateObj.sections[1]),
+          },
+          {
+            title: 'Neighborhood 3',
+            field: 'sections[2].spot.neighborhood.name',
+            hidden: true,
+          },
+          {
+            title: 'Spot 3',
+            field: 'sections[2].spot.name',
+            render: dateObj => spotCell(dateObj.sections[2]),
+          },
+          {
+            title: 'State',
+            field: 'active',
+            type: 'boolean',
+            render: dateObj => (
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={dateObj.active}
+                      color="primary"
+                      onClick={e => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                      onChange={() => {
+                        toggleActive(dateObj);
+                      }}
                     />
-                  </FormGroup>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+                  }
+                  label={dateObj.active ? 'On' : 'Off'}
+                />
+              </FormGroup>
+            ),
+          },
+        ]}
+        data={dateObjs}
+        options={{
+          sorting: true,
+        }}
+        onRowClick={(event, dateObj) => setIsEditingDate(dateObj)}
+      />
     </>
   );
 }
 
-export default withStyles(styles)(Admin);
+export default Admin;
