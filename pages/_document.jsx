@@ -21,7 +21,7 @@ export default class MyDocument extends Document {
           <link rel="icon" href="/favicon.jpg" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,600,800"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Raleway:400,600,800|Lato"
             rel="stylesheet"
           />
           <link rel="stylesheet" href="https://use.typekit.net/wqw0gqa.css" />
