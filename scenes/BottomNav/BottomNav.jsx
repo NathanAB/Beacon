@@ -24,7 +24,7 @@ const styles = {
   navLabel: {
     fontSize: '16px !important',
     fontWeight: '600',
-    fontFamily: 'Raleway',
+    fontFamily: 'Playfair Display',
   },
 };
 

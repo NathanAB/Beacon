@@ -98,14 +98,14 @@ const styles = theme => ({
   },
   menuItem: {
     fontWeight: 600,
-    fontFamily: 'Raleway',
+    fontFamily: 'Playfair Display',
     height: '50px',
   },
   menuItemOrange: {
     color: theme.palette.primary.main,
     height: '50px',
     fontWeight: 600,
-    fontFamily: 'Raleway',
+    fontFamily: 'Playfair Display',
   },
   userButton: {
     paddingLeft: '5px',

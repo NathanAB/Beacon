@@ -1,0 +1,9 @@
+@import '../../css/fonts.css';
+
+:global(.react-select__control), :global(.react-select__menu) {
+  font-family: var(--standardFont);
+}
+
+:global(.react-select__indicator-separator) {
+  display: none;
+}

@@ -5,6 +5,14 @@
   color: white;
   border-radius: 6px;
   border: none;
+  cursor: pointer;
+}
+
+.buttonBase:disabled {
+  color: var(--gray);
+  background-color: white;
+  border: solid 2px var(--gray);
+  pointer-events: none;
 }
 
 .buttonPrimary {

@@ -1,91 +1,25 @@
-import React, { useEffect } from 'react';
-import { Box, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { Box } from '@material-ui/core';
+import Paper from '../../components/Paper/Paper';
+import Button from '../../components/Button/Button';
+import Select from '../../components/Select/Select';
 
-import FilterBar from '../FilterBar/FilterBar';
-import NeighborhoodsRow from './NeighborhoodsRow/NeighborhoodsRow';
-import DatesRow from './DatesRow/DatesRow';
-import TagsRow from '../../components/TagsRow/TagsRow';
-import HeroImage from '../../assets/img/dc-3.jpeg';
-import { useFocusedDate } from '../../utils';
-
-const styles = () => ({
-  titleBar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  tagsContainer: {
-    padding: '0px 20px',
-  },
-  title: {
-    fontWeight: 600,
-  },
-  hero: {
-    top: '0px',
-    height: '370px',
-    left: '0px',
-    right: '0px',
-    display: 'flex',
-    justifyContent: 'center',
-    '&::before': {
-      content: '""',
-      top: '0px',
-      height: '440px',
-      position: 'absolute',
-      left: '0px',
-      right: '0px',
-      // background: `linear-gradient(to bottom, rgba(186,48,13,0.5) 0%, rgba(186,48,13,0.5) 100%), url(${HeroImage})`,
-      background: `linear-gradient(to bottom, rgba(186,48,13,0.2) 0%, rgba(186,48,13,0.2) 100%), url(${HeroImage})`,
-      // background: `url(${HeroImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'top',
-    },
-  },
-  heroContent: {
-    width: '100%',
-    maxWidth: '1050px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    paddingBottom: '20px',
-  },
-  heroTitle: {
-    zIndex: 2,
-    fontWeight: 600,
-    lineHeight: '64px',
-  },
-  spacer: {
-    height: '350px',
-  },
-});
-
-function Discover({ classes }) {
-  const [focusedDate, setFocusedDate] = useFocusedDate();
-  useEffect(() => {
-    setFocusedDate(false);
-  }, []);
-
+const Discover = () => {
   return (
-    <Box>
-      <Box className={classes.hero}>
-        <Box className={classes.heroContent}>
-          <Typography color="secondary" align="center" variant="h3" className={classes.heroTitle}>
-            Date night at home? <br /> We&apos;ve got you covered
-          </Typography>
-          <FilterBar isStatic />
-        </Box>
-      </Box>
-      <DatesRow />
-      <NeighborhoodsRow />
-
-      <Box className={classes.tagsContainer}>
-        <Typography variant="h6" className={classes.title}>
-          Dates by Characteristic
-        </Typography>
-        <TagsRow isDiscover />
-      </Box>
+    <Box display="flex" margin="20px">
+      <div>
+        <h1>Date night at home?</h1>
+        <h4>We&apos;ve got you covered with fun & fresh date ideas.</h4>
+      </div>
+      <Paper>
+        <span>Neighborhood</span>
+        <Select />
+        <span>Vibe</span>
+        <Select />
+        <Button variant={Button.VARIANTS.PRIMARY}>Search dates</Button>
+      </Paper>
     </Box>
   );
-}
+};
 
-export default withStyles(styles)(Discover);
+export default Discover;
