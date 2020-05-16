@@ -1,0 +1,60 @@
+
+.backgroundImages {
+  position:relative;
+  height: 257px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.blobOrange {
+  z-index: -1;
+  width: 100%;
+  max-width: 923px;
+  position: absolute;
+  top:20px;
+  left:0px;
+  right:0px;
+  margin: auto;
+}
+
+.couple1 {
+  z-index: -1;
+  width: 100%;
+  max-width: 400px;
+  position: absolute;
+  top:-30px;
+  left:70px;
+}
+
+.beaconTitle {
+  margin-right: 120px;
+  margin-bottom: 50px;
+}
+
+.title {
+  margin: 10px;
+  margin-top: 0px;
+  width: 367px;
+  text-align: center;
+}
+
+.subtitle {
+margin-top: 50px;
+  display: inline-block;
+  text-align: left;
+}
+
+.cardContainer {
+  margin: 10px;
+  margin-left: 40px;
+}
+
+.cardBody {
+  padding: 30px;
+  width: 500px;
+}
+
+.cardSection {
+  margin-bottom: 20px;
+}

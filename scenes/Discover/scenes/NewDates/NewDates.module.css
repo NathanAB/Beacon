@@ -1,0 +1,13 @@
+.cardContainer {
+  padding: 0 60px;
+  margin-bottom: 60px;
+}
+
+.cardContent {
+  padding: 40px;
+}
+
+.dateCardContainer {
+  display: inline-block;
+  margin: 10px;
+}

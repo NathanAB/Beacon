@@ -4,9 +4,15 @@
   --standardFont: Lato, "Open Sans", sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  margin: unset;
+}
+
 h1 {
   font-family: 'Playfair Display';
   font-size: 75px;
+  line-height: 75px;
   color: var(--primary);
 }
 
@@ -17,7 +23,7 @@ h2 {
 }
 
 h3 {
-  font-family: 'Lato';
+  font-family: 'Playfair Display';
   font-size: 40px;
 }
 
@@ -27,15 +33,34 @@ h4 {
 }
 
 h5 {
+  font-weight: 600;
   font-family: 'Lato';
   font-size: 20px;
 }
 
+h6 {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Lato';
+}
+
+.beaconTitle {
+  font-family: 'Roboto';
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: 6.62px;
+}
+
 p {
+  margin: unset;
+  font-size: 16px;
   font-family: 'Lato';
 }
 
 a {
-  text-decoration: none;
-  color: initial;
+  font-size: 20px;
+  font-family: 'Playfair Display';
+  font-weight: 600;
+  text-decoration: underline;
+  color: var(--primary);
 }
