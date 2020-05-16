@@ -7,12 +7,18 @@ function Button({
   children,
   variant = Button.VARIANTS.PRIMARY,
   size = Button.SIZES.SMALL,
+  fullWidth,
   disabled,
 }) {
   return (
     <button
       type="button"
-      className={cn(styles.buttonBase, styles[variant], styles[size])}
+      className={cn(
+        styles.buttonBase,
+        styles[variant],
+        styles[size],
+        fullWidth && styles.fullWidth,
+      )}
       disabled={disabled}
     >
       {children}

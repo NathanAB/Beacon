@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
-import Footer from '../Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 
 import * as api from '../../api';
 import Store from '../../store';

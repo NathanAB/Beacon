@@ -16,6 +16,18 @@ export const costToString = cost => {
   return COST_MAP[parseInt(cost, 10)];
 };
 
+export const getDateCost = dateObj => {
+  const { sections } = dateObj;
+  const dateCost = sections.reduce((total, section) => total + section.cost, 0) / sections.length;
+  return costToString(dateCost);
+};
+
+export const getDateLength = dateObj => {
+  const { sections } = dateObj;
+  const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
+  return Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
+};
+
 export const filterDates = (dateObjs, filters) => {
   if (!filters.length) {
     return dateObjs;

@@ -63,4 +63,9 @@ a {
   font-weight: 600;
   text-decoration: underline;
   color: var(--primary);
+  cursor: pointer;
+}
+
+a:active, a:hover {
+  color: var(--primaryDark);
 }

@@ -7,7 +7,28 @@
   padding: 40px;
 }
 
+.dateCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
 .dateCardContainer {
-  display: inline-block;
+  max-width: 381px;
+  width: 100%;
   margin: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .cardContainer {
+    padding: 0 20px;
+  }
+  .dateCardContainer {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  .cardContent {
+    padding: 20px;
+  }
 }

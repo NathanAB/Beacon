@@ -7,10 +7,24 @@ import Select from '../../../../components/Select/Select';
 import blobOrange from '../../../../assets/graphics/blob-orange.png';
 import couple1 from '../../../../assets/graphics/couple-1.png';
 import BeaconTitle from '../../../../components/BeaconTitle/BeaconTitle';
+import Store from '../../../../store';
 
 import styles from './Header.module.css';
 
 export default function Header() {
+  const store = Store.useStore();
+  const neighborhoods = store.get('neighborhoods');
+  const tags = store.get('tags');
+
+  const neighborhoodOptions = neighborhoods.map(neighborhood => ({
+    value: neighborhood.name,
+    label: neighborhood.name,
+  }));
+  const tagOptions = tags.map(tag => ({
+    value: tag.name,
+    label: tag.name,
+  }));
+
   return (
     <>
       <div className={styles.backgroundImages}>
@@ -19,8 +33,9 @@ export default function Header() {
       </div>
       <Box
         display="flex"
+        flexWrap="wrap"
         margin="20px"
-        justifyContent="center"
+        justifyContent="space-around"
         alignItems="center"
         position="relative"
         marginBottom="100px"
@@ -36,22 +51,24 @@ export default function Header() {
         </div>
         <div>
           <div className={styles.cardContainer}>
-            <Paper>
+            <Paper withShadow>
               <div className={styles.cardBody}>
                 <div className={styles.cardSection}>
                   <h5>Neighborhood</h5>
-                  <Select />
+                  <Select isMulti options={neighborhoodOptions} />
                 </div>
                 <div className={styles.cardSection}>
                   <h5>Vibe</h5>
-                  <Select />
+                  <Select isMulti options={tagOptions} />
                 </div>
-                <Button variant={Button.VARIANTS.PRIMARY}>Search dates</Button>
+                <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
+                  Search dates
+                </Button>
               </div>
             </Paper>
           </div>
           <div className={styles.cardContainer}>
-            <Paper transparent>
+            <Paper transparent withShadow>
               <div className={styles.cardBody}>
                 <h6>
                   <a>Login</a> to peep your saved dates (and add new ones!)
