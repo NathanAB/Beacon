@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import { Button, Typography, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
 
 import MaterialTable from 'material-table';
@@ -32,14 +31,6 @@ function Admin() {
     }
   };
 
-  const spotCell = section => (
-    <>
-      <b>{section?.spot?.name}</b>
-      <br />
-      <i>{section?.spot?.neighborhood?.name}</i>
-    </>
-  );
-
   return (
     <>
       {isSavingDate && <Spinner />}
@@ -67,32 +58,26 @@ function Admin() {
           {
             title: 'Neighborhood 1',
             field: 'sections[0].spot.neighborhood.name',
-            hidden: true,
           },
           {
             title: 'Spot 1',
             field: 'sections[0].spot.name',
-            render: dateObj => spotCell(dateObj.sections[0]),
           },
           {
             title: 'Neighborhood 2',
-            field: 'sections10].spot.neighborhood.name',
-            hidden: true,
+            field: 'sections[1].spot.neighborhood.name',
           },
           {
             title: 'Spot 2',
             field: 'sections[1].spot.name',
-            render: dateObj => spotCell(dateObj.sections[1]),
           },
           {
             title: 'Neighborhood 3',
             field: 'sections[2].spot.neighborhood.name',
-            hidden: true,
           },
           {
             title: 'Spot 3',
             field: 'sections[2].spot.name',
-            render: dateObj => spotCell(dateObj.sections[2]),
           },
           {
             title: 'State',
