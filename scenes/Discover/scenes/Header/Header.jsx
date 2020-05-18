@@ -4,8 +4,9 @@ import { Box } from '@material-ui/core';
 import Button from '../../../../components/Button/Button';
 import Paper from '../../../../components/Paper/Paper';
 import Select from '../../../../components/Select/Select';
-import blobOrange from '../../../../assets/graphics/blob-orange.png';
-import couple1 from '../../../../assets/graphics/couple-1.png';
+import blobOrange from '../../../../assets/graphics/pink-blob.png';
+import couple1 from '../../../../assets/graphics/blob-1.png';
+import couple2 from '../../../../assets/graphics/blob-2.png';
 import BeaconTitle from '../../../../components/BeaconTitle/BeaconTitle';
 import Store from '../../../../store';
 
@@ -30,6 +31,7 @@ export default function Header() {
       <div className={styles.backgroundImages}>
         <img src={blobOrange} className={styles.blobOrange} alt="A blob of orange color." />
         <img src={couple1} className={styles.couple1} alt="A couple with their backs turned." />
+        <img src={couple2} className={styles.couple2} alt="A couple laughing." />
       </div>
       <Box
         display="flex"

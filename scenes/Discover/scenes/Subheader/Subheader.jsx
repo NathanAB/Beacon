@@ -1,6 +1,7 @@
 import React from 'react';
 
-import couple2 from '../../../../assets/graphics/couple-2.png';
+import couple2 from '../../../../assets/graphics/blob-3.png';
+import yellowBlob from '../../../../assets/graphics/yellow-blob.png';
 import styles from './Subheader.module.css';
 
 export default function Subheader() {
@@ -8,6 +9,7 @@ export default function Subheader() {
     <div className={styles.container}>
       <div className={styles.imageContainer}>
         <img src={couple2} className={styles.couple} alt="A couple relaxing in bed with coffee." />
+        <img src={yellowBlob} className={styles.yellowBlob} alt="A yellow blob." />
       </div>
       <div className={styles.textContainer}>
         <h3>

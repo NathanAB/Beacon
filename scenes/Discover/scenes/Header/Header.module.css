@@ -1,14 +1,14 @@
 
 .backgroundImages {
   position:relative;
-  height: 257px;
+  height: 210px;
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
 }
 
 .blobOrange {
-  z-index: -1;
+  z-index: -3;
   width: 100%;
   max-width: 923px;
   position: absolute;
@@ -21,10 +21,19 @@
 .couple1 {
   z-index: -1;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   position: absolute;
   top:-30px;
-  left:70px;
+  left:130px;
+}
+
+.couple2 {
+  z-index: -2;
+  width: 100%;
+  max-width: 600px;
+  position: absolute;
+  top:-120px;
+  right:-70px;
 }
 
 .beaconTitle {
@@ -59,4 +68,20 @@
 
 .cardSection {
   margin-bottom: 20px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .couple1 {
+    max-width: 200px;
+    position: absolute;
+    top:-10px;
+    left:-20px;
+  }
+  .couple2 {
+    max-width: 300px;
+    position: absolute;
+    top:-40px;
+    right:-20px;
+  }
 }
