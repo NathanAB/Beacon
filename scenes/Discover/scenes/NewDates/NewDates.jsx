@@ -3,12 +3,14 @@ import { Box } from '@material-ui/core';
 import Paper from '../../../../components/Paper/Paper';
 
 import styles from './NewDates.module.css';
-import DateCardPreview from '../../../../components/DateCardPreview/DateCardPreview';
+import DateCard from '../../../../components/DateCard/DateCard';
+import { useMobile } from '../../../../utils';
 
 export default function NewDates({ dateObjs }) {
+  const isMobile = useMobile();
   return (
     <div className={styles.cardContainer}>
-      <Paper withShadow>
+      <Paper withShadow noMobile>
         <div className={styles.cardContent}>
           <Box
             display="flex"
@@ -18,15 +20,16 @@ export default function NewDates({ dateObjs }) {
             marginBottom="30px"
           >
             <h3>New date ideas added every week</h3>
-            <a>Explore all</a>
+            {!isMobile && <a>Explore all</a>}
           </Box>
           <div className={styles.dateCardsContainer}>
             {dateObjs.map(dateObj => (
               <div className={styles.dateCardContainer}>
-                <DateCardPreview isNew dateObj={dateObj} />
+                <DateCard isNew dateObj={dateObj} variant={DateCard.VARIANTS.PREVIEW} />
               </div>
             ))}
           </div>
+          {isMobile && <a>Explore all</a>}
         </div>
       </Paper>
     </div>

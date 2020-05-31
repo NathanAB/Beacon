@@ -7,6 +7,16 @@
   margin: 0 auto;
 }
 
+.headerContent {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  margin-bottom: 100px;
+}
+
 .blobOrange {
   z-index: -3;
   width: 100%;
@@ -57,13 +67,15 @@
 }
 
 .cardContainer {
+  width: 45vw;
+  max-width: 450px;
   margin: 10px 0;
 }
 
 .cardBody {
   padding: 30px;
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
 }
 
 .cardSection {
@@ -71,17 +83,40 @@
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
+  .backgroundImages {
+    height: 150px;
+  }
+
+  .headerContent {
+    margin-bottom: 50px;
+  }
+  
   .couple1 {
-    max-width: 200px;
-    position: absolute;
-    top:-10px;
-    left:-20px;
+    max-width: 65vw;
+    top:-30px;
+    left: unset;
+    right: -60px;
   }
+
   .couple2 {
-    max-width: 300px;
-    position: absolute;
-    top:-40px;
-    right:-20px;
+    display: none;
   }
+
+  .beaconTitle {
+    margin-right: 0;
+  }
+
+  .subtitle {
+    text-align: center;
+  }
+
+  .cardContainer {
+    width: 100vw;
+  }
+
+  .cardBody button {
+    width: 100%;
+  }
+
 }

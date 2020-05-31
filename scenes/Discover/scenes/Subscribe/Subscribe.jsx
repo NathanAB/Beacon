@@ -8,7 +8,7 @@ import Input from '../../../../components/Input/Input';
 export default function Subscribe() {
   return (
     <div className={styles.container}>
-      <Paper withShadow>
+      <Paper withShadow noMobile>
         <div className={styles.content}>
           <h3>
             Stay up to <i>date</i>

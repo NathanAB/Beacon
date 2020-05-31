@@ -7,6 +7,7 @@
   font-weight: bold;
   padding: 4px 10px;
   font-size: 11px;
+  display: flex;
 }
 
 .primary {
@@ -19,4 +20,30 @@
   color: var(--gray);
   border: 1px solid var(--gray);
   border-radius: 7px;
+}
+
+.deleteButton {
+  font-size: 10px;
+  width: 15px;
+  padding: 0;
+  text-align: center;
+  margin-left: 8px;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  opacity: 0.8;
+}
+
+.primary .deleteButton {
+  color: var(--primary);
+  background-color: white;
+}
+
+.secondary .deleteButton {
+  color: var(--gray);
+  border: 1px solid var(--gray);
+  background-color: white;
 }

@@ -19,7 +19,7 @@ export default function Footer() {
             Submit a date idea
           </Button>
         </div>
-        <div>
+        <div className={styles.col2}>
           <a>Learn more about us</a>
           <br />
           <a>Get in touch with us</a>

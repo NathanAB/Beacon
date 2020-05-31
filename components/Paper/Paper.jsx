@@ -9,6 +9,7 @@ export default function Paper({
   className,
   fullWidth,
   withShadow,
+  noMobile,
   ...props
 }) {
   const classes = [styles.base];
@@ -20,6 +21,9 @@ export default function Paper({
   }
   if (fullWidth) {
     classes.push(styles.fullWidth);
+  }
+  if (noMobile) {
+    classes.push(styles.noMobile);
   }
   return (
     <div className={cn(...classes, className)} {...props}>

@@ -2,13 +2,15 @@ import React from 'react';
 import Paper from '../Paper/Paper';
 
 import dc3 from '../../assets/img/dc-3.jpeg';
+import cn from '../../utils/cn';
 
-import styles from './DateCardPreview.module.css';
+import styles from './DateCard.module.css';
 import { getDateCost, getDateLength } from '../../utils';
 import Chip from '../Chip/Chip';
 
-export default function DateCardPreview({ dateObj, isNew }) {
+export default function DateCard({ dateObj, isNew, variant = DateCard.VARIANTS.PREVIEW }) {
   const section1 = dateObj.sections[0];
+  const isFull = variant === DateCard.VARIANTS.FULL;
   let imageUrl;
 
   if (section1.image) {
@@ -24,14 +26,17 @@ export default function DateCardPreview({ dateObj, isNew }) {
   dateObj.sections.forEach(section => {
     tags.push(...section.tags);
   });
-  tags = tags.slice(0, 4);
+  tags = tags.slice(0, 3);
 
   return (
-    <div className={styles.cardContainer}>
+    <button type="button" className={cn(styles.cardContainer, isFull ? styles.fullDateCard : '')}>
       <Paper fullWidth>
         <div className={styles.cardContent}>
-          {isNew && <div className={styles.newChip}>NEW</div>}
-          <img src={imageUrl} className={styles.thumbnail} alt="date" />
+          <div
+            className={styles.thumbnail}
+            style={{ backgroundImage: `url(${imageUrl}), url(${dc3})` }}
+            alt="date"
+          />
           <div className={styles.cardBody}>
             <h6>{dateObj.name}</h6>
             <div className={styles.timeAndCost}>
@@ -44,9 +49,16 @@ export default function DateCardPreview({ dateObj, isNew }) {
                 </div>
               ))}
             </div>
+            {isFull && <p className={styles.description}>{dateObj.description}</p>}
+            {isNew && <div className={styles.newChip}>NEW</div>}
           </div>
         </div>
       </Paper>
-    </div>
+    </button>
   );
 }
+
+DateCard.VARIANTS = {
+  PREVIEW: 'preview',
+  FULL: 'full',
+};

@@ -32,13 +32,13 @@ export default function SearchPage() {
 
   return (
     <>
-      <Head>
+      {/* <Head>
         <title>{title || 'Washington DC'} Date Ideas | Beacon</title>
         <meta
           name="description"
           content={`Discover fun and unique ${description} date ideas in Washington DC crafted by trusted locals.`}
         />
-      </Head>
+      </Head> */}
       {dates.length ? (
         <Search />
       ) : (

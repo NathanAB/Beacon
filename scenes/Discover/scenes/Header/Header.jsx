@@ -33,15 +33,7 @@ export default function Header() {
         <img src={couple1} className={styles.couple1} alt="A couple with their backs turned." />
         <img src={couple2} className={styles.couple2} alt="A couple laughing." />
       </div>
-      <Box
-        display="flex"
-        flexWrap="wrap"
-        margin="20px"
-        justifyContent="space-around"
-        alignItems="center"
-        position="relative"
-        marginBottom="100px"
-      >
+      <div className={styles.headerContent}>
         <div className={styles.title}>
           <div className={styles.beaconTitle}>
             <BeaconTitle />
@@ -53,7 +45,7 @@ export default function Header() {
         </div>
         <div>
           <div className={styles.cardContainer}>
-            <Paper withShadow>
+            <Paper withShadow noMobile>
               <div className={styles.cardBody}>
                 <div className={styles.cardSection}>
                   <h5>Neighborhood</h5>
@@ -69,17 +61,18 @@ export default function Header() {
               </div>
             </Paper>
           </div>
-          <div className={styles.cardContainer}>
-            <Paper transparent withShadow>
+          {/* Disabled for now - we don't want to push login yet
+           <div className={styles.cardContainer}>
+            <Paper transparent withShadow noMobile>
               <div className={styles.cardBody}>
-                <h6>
+                <h6 className={styles.login}>
                   <a>Login</a> to peep your saved dates (and add new ones!)
                 </h6>
               </div>
             </Paper>
-          </div>
+          </div> */}
         </div>
-      </Box>
+      </div>
     </>
   );
 }

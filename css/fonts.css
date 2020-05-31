@@ -55,12 +55,13 @@ p {
   margin: unset;
   font-size: 16px;
   font-family: 'Lato';
+  line-height: 24px;
 }
 
 a {
   font-size: 20px;
   font-family: 'Playfair Display';
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: underline;
   color: var(--primary);
   cursor: pointer;

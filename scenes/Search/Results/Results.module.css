@@ -1,0 +1,27 @@
+.sortRow {
+  display: flex;
+  margin: 20px;
+  align-items: center;
+}
+
+.sortRowSpacer {
+  flex-grow: 1;
+}
+
+.selectContainer {
+  width: 190px;
+  margin-left: 10px;
+}
+
+.resultList {
+  margin-bottom: 70px;
+}
+
+.dateCardContainer {
+  margin-bottom: 12px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  
+}

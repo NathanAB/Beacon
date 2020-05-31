@@ -1,0 +1,117 @@
+@import '../../css/colors.css';
+
+.cardContainer {
+  max-width: 381px;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.cardContainer:hover {
+  opacity: 0.75;
+  transition: 0.15s;
+}
+
+.cardContent {
+  max-width: 381px;
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.newChip {
+  padding: 3px 8px;
+  border-radius: 7px;
+  background-color: white; 
+  font-family: 'Lato';
+  font-size: 12px;
+  font-weight: 600;
+  position: absolute; 
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.thumbnail {
+  width: calc(100% + 2px);
+  height: 351px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: relative;
+  left: -1px;
+  top: -1px;
+  background-size: cover;
+  background-position: center;
+}
+
+.cardBody {
+  padding: 10px 20px;
+}
+
+.timeAndCost {
+  margin-top: 5px;
+  font-size: 16px;
+  color: var(--gray);
+}
+
+.tagsContainer {
+  margin-top: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.tag {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.description {
+  padding: 10px 0;
+}
+
+
+/** Full Date Card Style **/
+.fullDateCard {
+  max-width: 100%;
+}
+
+.fullDateCard .cardContent {
+  max-width: 100%;
+  display: flex;
+  min-height: 251px;
+  align-items: stretch;
+}
+
+.fullDateCard .thumbnail {
+  height: unset;
+  width: 380px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  top: 0px;
+}
+
+.fullDateCard .cardBody {
+  padding: 30px 27px;
+  flex-shrink: 10;
+}
+
+@media only screen and (max-width: 768px) {
+  .fullDateCard .cardContent {
+    flex-direction: column;
+  }
+  .fullDateCard .thumbnail {
+    height: 300px;
+    width: unset;
+    left: 0px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+}

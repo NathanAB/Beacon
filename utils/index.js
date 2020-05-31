@@ -1,4 +1,5 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import * as reactResponsive from 'react-responsive';
 import { useRouter } from 'next/router';
 
 import { getDates, getNeighborhoods } from '../api';
@@ -204,4 +205,10 @@ export const useFocusedDate = () => {
   };
 
   return [focusedDateId, setFocusedDate];
+};
+
+export const useMobile = () => {
+  return reactResponsive.useMediaQuery({
+    query: '(max-width: 768px)',
+  });
 };
