@@ -19,6 +19,17 @@
   border: none;
 }
 
+.highlighted {
+  border-color: var(--primary);
+  background-color: var(--primaryHighlight);
+}
+
+.noBorder {
+  border-style: hidden;
+  border-radius: 10px;
+  box-shadow: unset;
+}
+
 @media only screen and (max-width: 768px) {
   .noMobile {
     border: none;

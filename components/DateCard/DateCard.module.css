@@ -38,15 +38,13 @@
 }
 
 .thumbnail {
-  width: calc(100% + 2px);
-  height: 351px;
+  max-width: 100%;
+  min-width: 300px;
+  max-height: 100%;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  position: relative;
-  left: -1px;
-  top: -1px;
   background-size: cover;
   background-position: center;
 }
@@ -91,26 +89,38 @@
 }
 
 .fullDateCard .thumbnail {
-  height: unset;
-  width: 380px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  top: 0px;
 }
 
 .fullDateCard .cardBody {
   padding: 30px 27px;
-  flex-shrink: 10;
+  border: 1px var(--gray) solid;
+  border-left: none;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.cardButtons {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+.cardButtons * {
+  vertical-align: middle;
 }
 
 .favoriteButton {
   color: var(--primary);
   font-size: 20px;
-  position: absolute;
-  right: 10px;
-  top: 10px;
+  margin-left: 10px;
+}
+.favoriteButton:hover {
+  opacity: 0.8;
 }
 
 @media only screen and (max-width: 768px) {
@@ -126,4 +136,17 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
+  .fullDateCard .cardBody {
+    border-top: none;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 0;
+    border-left: 1px solid;
+  }
+  .cardButtons {
+    top: 310px;
+  }
+}
+
+.favorite .cardBody {
+  border-color: var(--primary);
 }

@@ -10,6 +10,8 @@ export default function Paper({
   fullWidth,
   withShadow,
   noMobile,
+  highlighted,
+  noBorder,
   ...props
 }) {
   const classes = [styles.base];
@@ -24,6 +26,12 @@ export default function Paper({
   }
   if (noMobile) {
     classes.push(styles.noMobile);
+  }
+  if (highlighted) {
+    classes.push(styles.highlighted);
+  }
+  if (noBorder) {
+    classes.push(styles.noBorder);
   }
   return (
     <div className={cn(...classes, className)} {...props}>

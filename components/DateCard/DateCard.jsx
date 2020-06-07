@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { uniqBy } from 'lodash';
 
 import Paper from '../Paper/Paper';
@@ -10,7 +10,12 @@ import styles from './DateCard.module.css';
 import { getDateCost, getDateLength } from '../../utils';
 import Chip from '../Chip/Chip';
 
-export default function DateCard({ dateObj, isNew, variant = DateCard.VARIANTS.PREVIEW }) {
+export default function DateCard({
+  dateObj,
+  isNew,
+  variant = DateCard.VARIANTS.PREVIEW,
+  isFavorite = !!Math.round(Math.random()),
+}) {
   const section1 = dateObj.sections[0];
   const isFull = variant === DateCard.VARIANTS.FULL;
   let imageUrl;
@@ -33,8 +38,15 @@ export default function DateCard({ dateObj, isNew, variant = DateCard.VARIANTS.P
 
   return (
     <div className={styles.container}>
-      <button type="button" className={cn(styles.cardContainer, isFull ? styles.fullDateCard : '')}>
-        <Paper fullWidth>
+      <button
+        type="button"
+        className={cn(
+          styles.cardContainer,
+          isFull ? styles.fullDateCard : '',
+          isFavorite ? styles.favorite : '',
+        )}
+      >
+        <Paper fullWidth highlighted={isFavorite} noBorder>
           <div className={styles.cardContent}>
             <div
               className={styles.thumbnail}
@@ -59,11 +71,14 @@ export default function DateCard({ dateObj, isNew, variant = DateCard.VARIANTS.P
           </div>
         </Paper>
       </button>
-      {/* {isFull && (
-        <button type="button" className={styles.favoriteButton} onClick={() => {}}>
-          <FaRegHeart />
-        </button>
-      )} */}
+      {isFull && (
+        <div className={styles.cardButtons}>
+          <a onClick={() => {}}>Share</a>
+          <button type="button" className={styles.favoriteButton} onClick={() => {}}>
+            {isFavorite ? <FaHeart /> : <FaRegHeart />}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

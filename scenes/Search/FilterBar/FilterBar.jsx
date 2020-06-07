@@ -12,22 +12,22 @@ export default function FilterBar() {
           <h6>Filtered by:</h6>
           <div className={styles.filterChips}>
             <div className={styles.chipContainer}>
-              <Chip variant={Chip.VARIANTS.PRIMARY} onDelete>
+              <Chip variant={Chip.VARIANTS.PRIMARY} onDelete={() => {}}>
                 At home
               </Chip>
             </div>
             <div className={styles.chipContainer}>
-              <Chip variant={Chip.VARIANTS.PRIMARY} onDelete>
+              <Chip variant={Chip.VARIANTS.PRIMARY} onDelete={() => {}}>
                 Adams Morgan
               </Chip>
             </div>
             <div className={styles.chipContainer}>
-              <Chip variant={Chip.VARIANTS.PRIMARY} onDelete>
+              <Chip variant={Chip.VARIANTS.PRIMARY} onDelete={() => {}}>
                 Capitol Hill
               </Chip>
             </div>
             <div className={styles.chipContainer}>
-              <Chip variant={Chip.VARIANTS.PRIMARY} onDelete>
+              <Chip variant={Chip.VARIANTS.PRIMARY} onDelete={() => {}}>
                 Columbia Heights
               </Chip>
             </div>
