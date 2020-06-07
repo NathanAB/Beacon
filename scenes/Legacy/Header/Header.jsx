@@ -18,12 +18,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 import ReactGA from 'react-ga';
 
-import CONSTANTS from '../../constants';
-import Store from '../../store';
+import CONSTANTS from '../../../constants';
+import Store from '../../../store';
 import googleIcon from '../../assets/img/googleIcon.png';
 import facebookIcon from '../../assets/img/facebookIcon.png';
-import { useDesktop, useFocusedDate } from '../../utils';
-import MobileDrawer from '../../components/MobileDrawer/MobileDrawer';
+import { useDesktop, useFocusedDate } from '../../../utils';
+import MobileDrawer from '../../../components/MobileDrawer/MobileDrawer';
 import HeaderLink from './components/HeaderLink/HeaderLink';
 
 const { ADMINS } = CONSTANTS;

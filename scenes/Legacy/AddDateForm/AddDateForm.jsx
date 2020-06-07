@@ -16,10 +16,10 @@ import moment from 'moment';
 import ReactGA from 'react-ga';
 import { useRouter } from 'next/router';
 
-import Store from '../../store';
-import Constants from '../../constants';
-import * as api from '../../api';
-import { useDesktop } from '../../utils';
+import Store from '../../../store';
+import Constants from '../../../constants';
+import * as api from '../../../api';
+import { useDesktop } from '../../../utils';
 
 const styles = theme => ({
   root: {

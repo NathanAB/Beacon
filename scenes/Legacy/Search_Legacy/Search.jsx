@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 
 import FilterBar from '../FilterBar/FilterBar';
 import DatesList from './DatesList/DatesList';
-import { filterDates, useDesktop, useFilters, useFocusedDate } from '../../utils';
-import DateCard from '../../components/DateCard/DateCard';
-import Store from '../../store';
+import { filterDates, useDesktop, useFilters, useFocusedDate } from '../../../utils';
+import DateCard from '../../../components/DateCardLegacy/DateCard';
+import Store from '../../../store';
 import AddDateForm from '../AddDateForm/AddDateForm';
 
 const styles = () => ({

@@ -24,7 +24,7 @@ export default function NewDates({ dateObjs }) {
           </Box>
           <div className={styles.dateCardsContainer}>
             {dateObjs.map(dateObj => (
-              <div className={styles.dateCardContainer}>
+              <div key={dateObj.id} className={styles.dateCardContainer}>
                 <DateCard isNew dateObj={dateObj} variant={DateCard.VARIANTS.PREVIEW} />
               </div>
             ))}

@@ -11,24 +11,40 @@ export default function Footer() {
       <div className={styles.innerContainer}>
         <div className={styles.col1}>
           <p className={styles.blurb}>
-            A little blurb about Beacon and the value it provides. Blah, blah blah blah, blah. Zim
-            zam, zooph. Don’t boss me around. One more sentence. Submit your idea and it might be
-            featured on our homepage!
+            We built Beacon so daters of all kinds can find or craft the perfect date plans while
+            discovering exciting and new local spots. Submit your idea and it might be featured on
+            our homepage!
           </p>
-          <Button variant={Button.VARIANTS.PRIMARY} fullWidth>
-            Submit a date idea
-          </Button>
+          <a href="https://forms.gle/6pwD9m24Uz94PFXr8" target="_blank" rel="noopener noreferrer">
+            <Button variant={Button.VARIANTS.PRIMARY} fullWidth>
+              Submit a date idea
+            </Button>
+          </a>
         </div>
         <div className={styles.col2}>
-          <a>Learn more about us</a>
+          <a href="https://about.beacondates.com/" target="_blank" rel="noopener noreferrer">
+            Learn more about us
+          </a>
           <br />
-          <a>Get in touch with us</a>
+          <a href="mailto:contact@beacondates.com" target="_blank" rel="noopener noreferrer">
+            Get in touch with us
+          </a>
           <br />
-          <a>Give us feedback</a>
+          <a href="https://forms.gle/ebaqVd2TMTw47RjW8" target="_blank" rel="noopener noreferrer">
+            Give us feedback
+          </a>
           <br />
-          <a>Check out our blog</a>
+          <a href="https://medium.com/@hannaholin" target="_blank" rel="noopener noreferrer">
+            Check out our blog
+          </a>
           <br />
-          <a>Follow us on Instagram</a>
+          <a
+            href="https://www.instagram.com/beacon_dates/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Follow us on Instagram
+          </a>
         </div>
         <div className={styles.col3}>
           <div>

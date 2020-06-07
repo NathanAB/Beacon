@@ -5,8 +5,8 @@ import { Dialog, DialogTitle, DialogContent, Button, IconButton } from '@materia
 import CloseIcon from '@material-ui/icons/Close';
 import ReactGA from 'react-ga';
 
-import Store from '../../store';
-import Constants from '../../constants';
+import Store from '../../../store';
+import Constants from '../../../constants';
 import googleIcon from '../../assets/img/google-icon-white.png';
 import facebookIcon from '../../assets/img/fb-white-2.png';
 

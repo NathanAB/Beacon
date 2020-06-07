@@ -4,9 +4,9 @@ import moment from 'moment';
 import ReactGA from 'react-ga';
 
 import { Box, Typography, Button } from '@material-ui/core';
-import Store from '../../store';
-import MyDateCard from '../../components/MyDateCard/MyDateCard';
-import { useDesktop } from '../../utils';
+import Store from '../../../store';
+import MyDateCard from '../../../components/MyDateCard/MyDateCard';
+import { useDesktop } from '../../../utils';
 import AddDateForm from '../AddDateForm/AddDateForm';
 
 const styles = () => ({

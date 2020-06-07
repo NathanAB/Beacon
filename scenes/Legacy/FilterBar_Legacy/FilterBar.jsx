@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 import InternalLink from 'next/link';
 import { useRouter } from 'next/router';
 
-import { useFilters } from '../../utils';
+import { useFilters } from '../../../utils';
 
 const styles = {
   container: {

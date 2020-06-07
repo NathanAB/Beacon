@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Typography, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
+import { Button, Typography, FormGroup, FormControlLabel, Switch, Box } from '@material-ui/core';
 
 import MaterialTable from 'material-table';
 
@@ -41,7 +41,7 @@ function Admin() {
   );
 
   return (
-    <>
+    <Box margin="20px">
       {isSavingDate && <Spinner />}
       {isEditingDate && <EditDateForm />}
       <Button
@@ -126,7 +126,7 @@ function Admin() {
         }}
         onRowClick={(event, dateObj) => setIsEditingDate(dateObj)}
       />
-    </>
+    </Box>
   );
 }
 

@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer';
 
 import * as api from '../../api';
 import Store from '../../store';
-import { useDesktop, loadDates } from '../../utils';
+import { loadDates } from '../../utils';
 
 export default ({ Component, pageProps }) => {
   const store = Store.useStore();

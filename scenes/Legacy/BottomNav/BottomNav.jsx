@@ -6,7 +6,7 @@ import Icon from '@material-ui/core/Icon';
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import CONSTANTS from '../../constants';
+import CONSTANTS from '../../../constants';
 
 const { PAGES, ADMINS } = CONSTANTS;
 

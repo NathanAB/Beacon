@@ -3,10 +3,10 @@ import { withStyles, Typography, Chip, Button, Box } from '@material-ui/core';
 import ReactGA from 'react-ga';
 import InternalLink from 'next/link';
 
-import Store from '../../store';
-import TagsRow from '../../components/TagsRow/TagsRow';
+import Store from '../../../store';
+import TagsRow from '../../../components/TagsRow/TagsRow';
 import FilterBar from '../FilterBar/FilterBar';
-import { useDesktop, useFilters, filterArrayToString, filterDates } from '../../utils';
+import { useDesktop, useFilters, filterArrayToString, filterDates } from '../../../utils';
 
 const styles = theme => ({
   container: {
