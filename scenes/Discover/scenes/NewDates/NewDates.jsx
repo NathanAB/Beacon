@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
+import InternalLink from 'next/link';
 import Paper from '../../../../components/Paper/Paper';
 
 import styles from './NewDates.module.css';
@@ -20,7 +21,11 @@ export default function NewDates({ dateObjs }) {
             marginBottom="30px"
           >
             <h3>New date ideas added every week</h3>
-            {!isMobile && <a>Explore all</a>}
+            {!isMobile && (
+              <InternalLink href="/search">
+                <a>Explore all</a>
+              </InternalLink>
+            )}
           </Box>
           <div className={styles.dateCardsContainer}>
             {dateObjs.map(dateObj => (
@@ -29,7 +34,11 @@ export default function NewDates({ dateObjs }) {
               </div>
             ))}
           </div>
-          {isMobile && <a>Explore all</a>}
+          {isMobile && (
+            <InternalLink href="/search">
+              <a>Explore all</a>
+            </InternalLink>
+          )}
         </div>
       </Paper>
     </div>

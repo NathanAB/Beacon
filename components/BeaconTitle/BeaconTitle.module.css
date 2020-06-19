@@ -3,4 +3,13 @@
   font-size: 25px;
   font-family: 'Roboto';
   letter-spacing: 6.7px;
+  text-decoration: none;
+  color: black;
+  transition: 0.15s;
+  cursor: pointer;
+}
+
+.title:hover {
+  transition: 0.15s;
+  opacity: 0.7;
 }

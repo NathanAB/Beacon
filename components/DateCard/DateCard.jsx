@@ -1,6 +1,8 @@
 import React from 'react';
-import { FaHeart, FaRegHeart } from 'react-icons/fa';
 import { uniqBy } from 'lodash';
+
+// TODO: Enable favoriting
+// import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 import Paper from '../Paper/Paper';
 import dc3 from '../../assets/img/dc-3.jpeg';
@@ -14,7 +16,7 @@ export default function DateCard({
   dateObj,
   isNew,
   variant = DateCard.VARIANTS.PREVIEW,
-  isFavorite = !!Math.round(Math.random()),
+  isFavorite,
 }) {
   const section1 = dateObj.sections[0];
   const isFull = variant === DateCard.VARIANTS.FULL;
@@ -71,14 +73,15 @@ export default function DateCard({
           </div>
         </Paper>
       </button>
-      {isFull && (
+      {/* TODO: Enable favoriting */}
+      {/* {isFull && (
         <div className={styles.cardButtons}>
           <a onClick={() => {}}>Share</a>
           <button type="button" className={styles.favoriteButton} onClick={() => {}}>
             {isFavorite ? <FaHeart /> : <FaRegHeart />}
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

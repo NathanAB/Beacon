@@ -1,6 +1,7 @@
-import React from 'react';
-import { Box } from '@material-ui/core';
+import React, { useState } from 'react';
+import InternalLink from 'next/link';
 
+import { filterArrayToString } from '../../../../utils';
 import Button from '../../../../components/Button/Button';
 import Paper from '../../../../components/Paper/Paper';
 import Select from '../../../../components/Select/Select';
@@ -16,6 +17,18 @@ export default function Header() {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
   const tags = store.get('tags');
+  const [neighborhoodVals, setNeighborhoodVals] = useState([]);
+  const [tagVals, setTagVals] = useState([]);
+  const filters = [
+    ...tagVals.map(t => ({
+      ...t,
+      type: 'tag',
+    })),
+    ...neighborhoodVals.map(n => ({
+      ...n,
+      type: 'neighborhood',
+    })),
+  ];
 
   const neighborhoodOptions = neighborhoods.map(neighborhood => ({
     value: neighborhood.name,
@@ -49,15 +62,26 @@ export default function Header() {
               <div className={styles.cardBody}>
                 <div className={styles.cardSection}>
                   <h5>Neighborhood</h5>
-                  <Select isMulti options={neighborhoodOptions} />
+                  <Select
+                    values={neighborhoodVals}
+                    onChange={setNeighborhoodVals}
+                    isMulti
+                    options={neighborhoodOptions}
+                  />
                 </div>
                 <div className={styles.cardSection}>
                   <h5>Vibe</h5>
-                  <Select isMulti options={tagOptions} />
+                  <Select values={tagVals} onChange={setTagVals} isMulti options={tagOptions} />
                 </div>
-                <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
-                  Search dates
-                </Button>
+                <InternalLink
+                  href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}
+                >
+                  <a>
+                    <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
+                      Search dates
+                    </Button>
+                  </a>
+                </InternalLink>
               </div>
             </Paper>
           </div>
