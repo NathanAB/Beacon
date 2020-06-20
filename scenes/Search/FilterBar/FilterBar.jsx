@@ -6,14 +6,22 @@ import Paper from '../../../components/Paper/Paper';
 import Button from '../../../components/Button/Button';
 import Chip from '../../../components/Chip/Chip';
 import cn from '../../../utils/cn';
-import { useFilters } from '../../../utils';
+import { useFilters, filterDates } from '../../../utils';
+
+const FILTER_MAP = {
+  Neighborhood: 'neighborhood',
+  Vibe: 'tag',
+  Cost: 'cost',
+  Duration: 'duration',
+};
 
 export default function FilterBar({ results, isFilterBarExpanded, setIsFilterBarExpanded }) {
   const store = Store.useStore();
-  const neighborhoods = store.get('neighborhoods');
-  const tags = store.get('tags');
+  const neighborhoods = store.get('neighborhoods').map(n => n.name);
+  const tags = store.get('tags').map(t => t.name);
   const durations = store.get('durations');
   const costs = store.get('costs');
+  const dateObjs = store.get('dates');
 
   const [filters, setFilters] = useFilters();
 
@@ -22,50 +30,50 @@ export default function FilterBar({ results, isFilterBarExpanded, setIsFilterBar
     setFilters(newFilters);
   };
 
+  const toggleFilter = (type, value, isToggleOn) => {
+    let newFilters;
+    if (isToggleOn) {
+      newFilters = filters.concat({ type, value });
+    } else {
+      newFilters = filters.filter(f => type !== f.type && value !== f.value);
+    }
+    setFilters(newFilters);
+  };
+
+  const renderFilterSection = (filterType, filterValues) => (
+    <div className={styles.filterSection}>
+      <h6 className={styles.sectionTitle}>{filterType}</h6>
+      <div className={styles.filterChips}>
+        {filterValues.map(f => {
+          const isToggled = filters.some(filter => filter.value === f);
+          const wouldCauseEmptySearch =
+            !isToggled &&
+            filterDates(dateObjs, [...filters, { type: FILTER_MAP[filterType], value: f }])
+              .length === 0;
+          return (
+            <div className={styles.chipContainer}>
+              <Chip
+                variant={isToggled ? Chip.VARIANTS.PRIMARY : Chip.VARIANTS.SECONDARY}
+                onClick={() => toggleFilter(FILTER_MAP[filterType], f, !isToggled)}
+                disabled={wouldCauseEmptySearch}
+              >
+                {f}
+              </Chip>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+
   const expandedFilters = () => (
     <div className={cn(styles.outerContainer, styles.expanded)}>
       <Paper withShadow>
         <div className={styles.innerContainer}>
-          <div className={styles.filterSection}>
-            <h6 className={styles.sectionTitle}>Neighborhood</h6>
-            <div className={styles.filterChips}>
-              {neighborhoods.map(n => (
-                <div className={styles.chipContainer}>
-                  <Chip>{n.name}</Chip>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={styles.filterSection}>
-            <h6 className={styles.sectionTitle}>Vibe</h6>
-            <div className={styles.filterChips}>
-              {tags.map(n => (
-                <div className={styles.chipContainer}>
-                  <Chip>{n.name}</Chip>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={styles.filterSection}>
-            <h6 className={styles.sectionTitle}>Cost</h6>
-            <div className={styles.filterChips}>
-              {costs.map(n => (
-                <div className={styles.chipContainer}>
-                  <Chip>{n}</Chip>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={styles.filterSection}>
-            <h6 className={styles.sectionTitle}>Duration</h6>
-            <div className={styles.filterChips}>
-              {durations.map(n => (
-                <div className={styles.chipContainer}>
-                  <Chip>{n}</Chip>
-                </div>
-              ))}
-            </div>
-          </div>
+          {renderFilterSection('Neighborhood', neighborhoods)}
+          {renderFilterSection('Vibe', tags)}
+          {renderFilterSection('Cost', costs)}
+          {renderFilterSection('Duration', durations)}
           <div className={styles.buttonRow}>
             <span>
               {results} result{results !== 1 && 's'}
