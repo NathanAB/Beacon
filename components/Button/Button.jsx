@@ -9,6 +9,7 @@ function Button({
   size = Button.SIZES.SMALL,
   fullWidth,
   disabled,
+  onClick,
 }) {
   return (
     <button
@@ -20,6 +21,7 @@ function Button({
         fullWidth && styles.fullWidth,
       )}
       disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </button>

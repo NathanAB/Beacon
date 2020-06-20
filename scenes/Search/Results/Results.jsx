@@ -20,27 +20,33 @@ const options = [
   },
 ];
 
-export default function Results() {
+export default function Results({ setResults, isFilterBarExpanded }) {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
-  const [filters, setfilters] = useFilters();
+  const [filters] = useFilters();
 
   const [sortBy, setSortBy] = useState(options[0]);
   const filteredDates = filterDates(dateObjs, filters);
+  const results = filteredDates.length;
+  setResults(results);
 
   return (
     <div>
-      <div className={styles.sortRow}>
-        <p>10 results</p>
-        <div className={styles.sortRowSpacer}></div>
-        <h6>Sort by:</h6>
-        <div className={styles.selectContainer}>
-          <Select value={sortBy} onChange={setSortBy} options={options}></Select>
+      {!isFilterBarExpanded && (
+        <div className={styles.sortRow}>
+          <p>
+            {results} result{results !== 1 && 's'}
+          </p>
+          <div className={styles.sortRowSpacer}></div>
+          <h6>Sort by:</h6>
+          <div className={styles.selectContainer}>
+            <Select value={sortBy} onChange={setSortBy} options={options}></Select>
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.resultList}>
         {filteredDates.map(dateObj => (
-          <div className={styles.dateCardContainer}>
+          <div className={styles.dateCardContainer} key={dateObj.id}>
             <DateCard isNew dateObj={dateObj} variant={DateCard.VARIANTS.FULL} />
           </div>
         ))}
