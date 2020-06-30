@@ -145,7 +145,7 @@
     border-top: none;
     border-bottom-left-radius: 10px;
     border-top-right-radius: 0;
-    border-left: 1px solid;
+    border-left: 1px solid var(--gray);
   }
   .cardButtons {
     top: 310px;

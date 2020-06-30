@@ -3,7 +3,7 @@ import styles from './Results.module.css';
 import Select from '../../../components/Select/Select';
 import DateCard from '../../../components/DateCard/DateCard';
 import Store from '../../../store';
-import { useFilters, filterDates } from '../../../utils';
+import { useFilters, filterDates, dateSorterNewest, dateSorterOldest } from '../../../utils';
 
 const options = [
   {
@@ -11,31 +11,38 @@ const options = [
     label: 'Newest',
   },
   {
-    value: 'Cost',
-    label: 'Cost',
-  },
-  {
-    value: 'Time',
-    label: 'Time',
+    value: 'Oldest',
+    label: 'Oldest',
   },
 ];
 
-export default function Results({ setResults, isFilterBarExpanded }) {
+export default function Results() {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
+  const searchResultsLength = store.get('searchResultsLength');
+  const setSearchResultsLength = store.set('searchResultsLength');
+  const isFilterBarExpanded = store.get('isFilterBarExpanded');
   const [filters] = useFilters();
 
   const [sortBy, setSortBy] = useState(options[0]);
-  const filteredDates = filterDates(dateObjs, filters);
-  const results = filteredDates.length;
-  setResults(results);
+  let filteredDates = filterDates(dateObjs, filters);
+  const resultsLength = filteredDates.length;
+  if (searchResultsLength !== resultsLength) {
+    setSearchResultsLength(resultsLength);
+  }
+
+  console.log(searchResultsLength, resultsLength);
+
+  filteredDates = filteredDates.sort(
+    sortBy.value === 'Oldest' ? dateSorterOldest : dateSorterNewest,
+  );
 
   return (
     <div>
       {!isFilterBarExpanded && (
         <div className={styles.sortRow}>
           <p>
-            {results} result{results !== 1 && 's'}
+            {resultsLength} result{resultsLength !== 1 && 's'}
           </p>
           <div className={styles.sortRowSpacer}></div>
           <h6>Sort by:</h6>

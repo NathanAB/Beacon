@@ -15,8 +15,11 @@ const FILTER_MAP = {
   Duration: 'duration',
 };
 
-export default function FilterBar({ results, isFilterBarExpanded, setIsFilterBarExpanded }) {
+export default function FilterBar() {
   const store = Store.useStore();
+  const searchResultsLength = store.get('searchResultsLength');
+  const isFilterBarExpanded = store.get('isFilterBarExpanded');
+  const setIsFilterBarExpanded = store.set('isFilterBarExpanded');
   const neighborhoods = store.get('neighborhoods').map(n => n.name);
   const tags = store.get('tags').map(t => t.name);
   const durations = store.get('durations');
@@ -76,7 +79,7 @@ export default function FilterBar({ results, isFilterBarExpanded, setIsFilterBar
           {renderFilterSection('Duration', durations)}
           <div className={styles.buttonRow}>
             <span>
-              {results} result{results !== 1 && 's'}
+              {searchResultsLength} result{searchResultsLength !== 1 && 's'}
             </span>
             <Button
               variant={Button.VARIANTS.PRIMARY}

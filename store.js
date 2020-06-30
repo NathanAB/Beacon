@@ -24,4 +24,6 @@ export default createConnectedStore({
   user: false,
   adminEditingDate: false,
   isDateFormOpen: false,
+  isFilterBarExpanded: false,
+  searchResultsLength: 0,
 });

@@ -1,6 +1,7 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import * as reactResponsive from 'react-responsive';
 import { useRouter } from 'next/router';
+import moment from 'moment';
 
 import { getDates, getNeighborhoods } from '../api';
 
@@ -212,3 +213,17 @@ export const useMobile = () => {
     query: '(max-width: 768px)',
   });
 };
+
+export const dateSorterNewest = (date1, date2) => {
+  const time1 = date1.updatedAt;
+  const time2 = date2.updatedAt;
+  if (time1 > time2) {
+    return -1;
+  }
+  if (time1 < time2) {
+    return 1;
+  }
+  return 0;
+};
+
+export const dateSorterOldest = (date1, date2) => dateSorterNewest(date2, date1);

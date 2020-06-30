@@ -8,7 +8,6 @@ import {
   TextField,
   Input,
   DialogActions,
-  Button,
   FormControl,
   InputLabel,
   Select,
@@ -18,8 +17,9 @@ import {
 } from '@material-ui/core';
 import { set } from 'lodash';
 
+import Button from '../../../../components/Button/Button';
 import Store from '../../../../store';
-import { createDatePlan, updateDatePlan, getDates } from '../../../../api';
+import { createDatePlan, updateDatePlan } from '../../../../api';
 import Spinner from '../../../../components/Spinner/Spinner';
 import { loadDates } from '../../../../utils';
 
@@ -328,9 +328,7 @@ function EditDateForm({ classes }) {
         {formData?.sections?.[2] ? (
           renderSection(formData?.sections?.[2], 2)
         ) : (
-          <Button variant="contained" color="primary" onClick={addSection3}>
-            Add Section 3
-          </Button>
+          <Button onClick={addSection3}>Add Section 3</Button>
         )}
       </DialogContent>
       <Box
@@ -340,14 +338,10 @@ function EditDateForm({ classes }) {
         borderTop="1px solid lightGray"
       >
         <DialogActions>
-          <Button variant="contained" onClick={saveDate} color="primary">
-            {isNew ? 'Create Date' : 'Save Date'}
-          </Button>
+          <Button onClick={saveDate}>{isNew ? 'Create Date' : 'Save Date'}</Button>
         </DialogActions>
         <DialogActions>
-          <Button onClick={() => setIsEditingDate(false)} color="primary">
-            Cancel
-          </Button>
+          <a onClick={() => setIsEditingDate(false)}>Cancel</a>
         </DialogActions>
       </Box>
     </Dialog>

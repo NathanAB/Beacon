@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import { Button, Typography, FormGroup, FormControlLabel, Switch, Box } from '@material-ui/core';
+import { Typography, FormGroup, FormControlLabel, Switch, Box } from '@material-ui/core';
 
 import MaterialTable from 'material-table';
 
+import Button from '../../components/Button/Button';
 import Store from '../../store';
 import EditDateForm from './scenes/EditDateForm/EditDateForm';
 import Spinner from '../../components/Spinner/Spinner';
@@ -45,8 +45,6 @@ function Admin() {
       {isSavingDate && <Spinner />}
       {isEditingDate && <EditDateForm />}
       <Button
-        variant="contained"
-        color="primary"
         onClick={() => {
           setIsEditingDate({
             sections: [{}, {}],
