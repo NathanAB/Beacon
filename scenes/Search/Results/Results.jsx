@@ -31,8 +31,6 @@ export default function Results() {
     setSearchResultsLength(resultsLength);
   }
 
-  console.log(searchResultsLength, resultsLength);
-
   filteredDates = filteredDates.sort(
     sortBy.value === 'Oldest' ? dateSorterOldest : dateSorterNewest,
   );

@@ -77,4 +77,5 @@ header :global(.MuiButton-textPrimary:hover) {
 
 button {
   cursor: pointer;
+  padding: 0;
 }

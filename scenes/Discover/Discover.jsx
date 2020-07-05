@@ -18,7 +18,8 @@ const Discover = () => {
       <Header />
       <NewDates dateObjs={firstFour} />
       <Subheader />
-      <Subscribe />
+      {/* TODO: Implement subscribe widget */}
+      {/* <Subscribe /> */}
     </Box>
   );
 };

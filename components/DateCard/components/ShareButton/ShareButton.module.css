@@ -1,0 +1,25 @@
+.popoutOuter {
+  position: absolute;
+  top: 30px;
+  right: 0;
+}
+
+.popoutInner {
+  width: 270px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.popoutInner a::before {
+  content: 'Add to '
+}
+
+.popoutInner a::after {
+  content: ' Calendar'
+}
+
+.popoutInner button {
+  width: 100%;
+}

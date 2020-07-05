@@ -18,7 +18,6 @@
   margin-bottom: 5px;
 }
 
-
 /* Expanded */
 .expanded .innerContainer {
   display: block;
@@ -48,5 +47,4 @@
   .filterChips {
     margin: 10px 0;
   }
-
 }

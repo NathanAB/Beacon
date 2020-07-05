@@ -9,8 +9,9 @@ import dc3 from '../../assets/img/dc-3.jpeg';
 import cn from '../../utils/cn';
 
 import styles from './DateCard.module.css';
-import { getDateCost, getDateLength } from '../../utils';
+import { getDateCost, getDateLength, createCalendarEvent } from '../../utils';
 import Chip from '../Chip/Chip';
+import ShareButton from './components/ShareButton/ShareButton';
 
 export default function DateCard({
   dateObj,
@@ -20,7 +21,10 @@ export default function DateCard({
 }) {
   const section1 = dateObj.sections[0];
   const isFull = variant === DateCard.VARIANTS.FULL;
+  const dateLength = getDateLength(dateObj);
   let imageUrl;
+
+  const calendarEvent = createCalendarEvent(dateObj);
 
   if (section1.image) {
     imageUrl = section1.image.includes('http')
@@ -58,7 +62,7 @@ export default function DateCard({
             <div className={styles.cardBody}>
               <h6>{dateObj.name}</h6>
               <div className={styles.timeAndCost}>
-                {getDateLength(dateObj)} hours · {getDateCost(dateObj)}
+                {dateLength} hours · {getDateCost(dateObj)}
               </div>
               <div className={styles.tagsContainer}>
                 {tags.map(tag => (
@@ -73,15 +77,15 @@ export default function DateCard({
           </div>
         </Paper>
       </button>
-      {/* TODO: Enable favoriting */}
-      {/* {isFull && (
+      {isFull && (
         <div className={styles.cardButtons}>
-          <a onClick={() => {}}>Share</a>
-          <button type="button" className={styles.favoriteButton} onClick={() => {}}>
+          <ShareButton event={calendarEvent} />
+          {/* TODO: Enable favoriting */}
+          {/* <button type="button" className={styles.favoriteButton} onClick={() => {}}>
             {isFavorite ? <FaHeart /> : <FaRegHeart />}
-          </button>
+          </button> */}
         </div>
-      )} */}
+      )}
     </div>
   );
 }
