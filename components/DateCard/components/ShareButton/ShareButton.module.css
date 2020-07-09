@@ -2,6 +2,7 @@
   position: absolute;
   top: 30px;
   right: 0;
+  z-index: 5;
 }
 
 .popoutInner {
@@ -22,4 +23,12 @@
 
 .popoutInner button {
   width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .popoutOuter {
+    top: -145px;
+    right: unset;
+    left: 0;
+  }
 }

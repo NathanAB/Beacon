@@ -9,6 +9,7 @@ import EditDateForm from './scenes/EditDateForm/EditDateForm';
 import Spinner from '../../components/Spinner/Spinner';
 import { loadDates } from '../../utils';
 import { updateDatePlan } from '../../api';
+import Constants from '../../constants';
 
 function Admin() {
   const store = Store.useStore();
@@ -16,10 +17,30 @@ function Admin() {
   const setIsEditingDate = store.set('adminEditingDate');
   const dateObjs = store.get('adminDates');
   const [isSavingDate, setSavingDate] = useState(false);
+  const user = store.get('user');
+
+  if (!user) {
+    return <a href={Constants.API.LOGIN_GOOGLE}>Login</a>;
+  }
 
   const toggleActive = async dateObj => {
     // eslint-disable-next-line no-param-reassign
     dateObj.active = !dateObj.active;
+    setSavingDate(true);
+    try {
+      await updateDatePlan(dateObj);
+      await loadDates(store);
+    } catch (err) {
+      console.error(err);
+      alert(err);
+    } finally {
+      setSavingDate(false);
+    }
+  };
+
+  const toggleNew = async dateObj => {
+    // eslint-disable-next-line no-param-reassign
+    dateObj.new = !dateObj.new;
     setSavingDate(true);
     try {
       await updateDatePlan(dateObj);
@@ -113,6 +134,31 @@ function Admin() {
                     />
                   }
                   label={dateObj.active ? 'On' : 'Off'}
+                />
+              </FormGroup>
+            ),
+          },
+          {
+            title: 'New Tag',
+            field: 'new',
+            type: 'boolean',
+            render: dateObj => (
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={dateObj.new}
+                      color="primary"
+                      onClick={e => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                      onChange={() => {
+                        toggleNew(dateObj);
+                      }}
+                    />
+                  }
+                  label={dateObj.active ? 'Yes' : 'No'}
                 />
               </FormGroup>
             ),

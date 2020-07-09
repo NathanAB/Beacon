@@ -13,15 +13,11 @@ import { getDateCost, getDateLength, createCalendarEvent } from '../../utils';
 import Chip from '../Chip/Chip';
 import ShareButton from './components/ShareButton/ShareButton';
 
-export default function DateCard({
-  dateObj,
-  isNew,
-  variant = DateCard.VARIANTS.PREVIEW,
-  isFavorite,
-}) {
+export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW, isFavorite }) {
   const section1 = dateObj.sections[0];
   const isFull = variant === DateCard.VARIANTS.FULL;
   const dateLength = getDateLength(dateObj);
+  const isNew = dateObj.new;
   let imageUrl;
 
   const calendarEvent = createCalendarEvent(dateObj);
@@ -44,8 +40,7 @@ export default function DateCard({
 
   return (
     <div className={styles.container}>
-      <button
-        type="button"
+      <div
         className={cn(
           styles.cardContainer,
           isFull ? styles.fullDateCard : '',
@@ -73,19 +68,19 @@ export default function DateCard({
               </div>
               {isFull && <p className={styles.description}>{dateObj.description}</p>}
               {isNew && <div className={styles.newChip}>NEW</div>}
+              {isFull && (
+                <div className={styles.cardButtons}>
+                  <ShareButton event={calendarEvent} />
+                  {/* TODO: Enable favoriting */}
+                  {/* <button type="button" className={styles.favoriteButton} onClick={() => {}}>
+                  {isFavorite ? <FaHeart /> : <FaRegHeart />}
+                </button> */}
+                </div>
+              )}
             </div>
           </div>
         </Paper>
-      </button>
-      {isFull && (
-        <div className={styles.cardButtons}>
-          <ShareButton event={calendarEvent} />
-          {/* TODO: Enable favoriting */}
-          {/* <button type="button" className={styles.favoriteButton} onClick={() => {}}>
-            {isFavorite ? <FaHeart /> : <FaRegHeart />}
-          </button> */}
-        </div>
-      )}
+      </div>
     </div>
   );
 }

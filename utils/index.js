@@ -215,8 +215,8 @@ export const useMobile = () => {
 };
 
 export const dateSorterNewest = (date1, date2) => {
-  const time1 = date1.updatedAt;
-  const time2 = date2.updatedAt;
+  const time1 = date1.createdAt;
+  const time2 = date2.createdAt;
   if (time1 > time2) {
     return -1;
   }

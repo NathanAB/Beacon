@@ -11,10 +11,10 @@
   transition: 0.15s;
 }
 
-.cardContainer:hover {
+/* .cardContainer:hover {
   opacity: 0.8;
   transition: 0.15s;
-}
+} */
 
 .cardContent {
   max-width: 381px;
@@ -148,7 +148,9 @@
     border-left: 1px solid var(--gray);
   }
   .cardButtons {
-    top: 310px;
+    position: relative;
+    top: unset;
+    right: unset;
   }
 }
 
