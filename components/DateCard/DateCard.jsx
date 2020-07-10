@@ -10,7 +10,13 @@ import dc3 from '../../assets/img/dc-3.jpeg';
 import cn from '../../utils/cn';
 
 import styles from './DateCard.module.css';
-import { getDateCost, getDateLength, createCalendarEvent, getSectionImage } from '../../utils';
+import {
+  getDateCost,
+  getDateLength,
+  createCalendarEvent,
+  getSectionImage,
+  getDateTags,
+} from '../../utils';
 import Chip from '../Chip/Chip';
 import ShareButton from './components/ShareButton/ShareButton';
 import Constants from '../../constants';
@@ -22,6 +28,8 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
   const dateLength = getDateLength(dateObj);
   const isNew = dateObj.new;
   const imageUrl = getSectionImage(section1);
+  const tags = getDateTags(dateObj);
+  const dateUrl = `https://${window.location.host}${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`;
 
   const calendarEvent = createCalendarEvent(dateObj);
 
@@ -32,13 +40,6 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
       })
       .then(() => window.scrollTo(0, 0));
   };
-
-  let tags = [];
-  dateObj.sections.forEach(section => {
-    tags.push(...section.tags);
-  });
-  tags = uniqBy(tags, tag => tag.tagId);
-  tags = tags.slice(0, 3);
 
   return (
     <div className={styles.container}>
@@ -77,7 +78,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               {isNew && <div className={styles.newChip}>NEW</div>}
               {isFull && (
                 <div className={styles.cardButtons}>
-                  <ShareButton event={calendarEvent} />
+                  <ShareButton event={calendarEvent} url={dateUrl} />
                   {/* TODO: Enable favoriting */}
                   {/* <button type="button" className={styles.favoriteButton} onClick={() => {}}>
                   {isFavorite ? <FaHeart /> : <FaRegHeart />}

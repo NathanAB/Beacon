@@ -10,7 +10,6 @@ export default function DatePage() {
 
   const router = useRouter();
   const { dateId } = router.query;
-  console.log('test', dateObjs, dateId, router.query);
   const dateObj = dateObjs.find(date => date.id === parseInt(dateId, 10));
 
   return <DateDetails dateId={dateId} dateObj={dateObj} />;

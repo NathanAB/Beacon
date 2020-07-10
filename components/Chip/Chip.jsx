@@ -17,7 +17,7 @@ export default function Chip({
     disabled ? styles.disabled : '',
   );
   return (
-    <button type="button" className={classes} onClick={onClick} disabled={disabled || !onClick}>
+    <button type="button" className={classes} onClick={onClick}>
       {children}
       {onDelete && (
         <button type="button" className={styles.deleteButton} onClick={onDelete}>

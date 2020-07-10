@@ -7,7 +7,7 @@ import Button from '../../../Button/Button';
 
 import styles from './ShareButton.module.css';
 
-export default function ShareButton({ event }) {
+export default function ShareButton({ event, url }) {
   const ShareLinkButton = ({ onClick }) => <a onClick={onClick}>Share</a>;
   const ShareMenu = ({ children }) => (
     <div className={styles.popoutOuter}>
@@ -15,8 +15,7 @@ export default function ShareButton({ event }) {
         <div className={styles.popoutInner}>
           {children}
           <p>or</p>
-          {/* TODO: Update text to be an actual link to the date page */}
-          <CopyToClipboard text="https://www.beacondates.com">
+          <CopyToClipboard text={url}>
             <Button size={Button.SIZES.SMALL}>Copy Link</Button>
           </CopyToClipboard>
         </div>

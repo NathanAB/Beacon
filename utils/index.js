@@ -1,6 +1,7 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import * as reactResponsive from 'react-responsive';
 import { useRouter } from 'next/router';
+import uniqBy from 'lodash/uniqBy';
 
 import dc3 from '../assets/img/dc-3.jpeg';
 import { getDates, getNeighborhoods } from '../api';
@@ -255,4 +256,14 @@ export const getSectionImage = dateSection => {
       : `https://instagram.com/p/${dateSection.image}/media/?size=m`; // Imply image url from Instagram ID
   }
   return imageUrl;
+};
+
+export const getDateTags = dateObj => {
+  let tags = [];
+  dateObj.sections.forEach(section => {
+    tags.push(...section.tags);
+  });
+  tags = uniqBy(tags, tag => tag.tagId);
+  tags = tags.slice(0, 3);
+  return tags;
 };
