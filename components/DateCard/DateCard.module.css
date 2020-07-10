@@ -24,6 +24,11 @@
   text-align: left;
 }
 
+.clickable {
+  text-align: left;
+  width: 100%;
+}
+
 .newChip {
   padding: 3px 8px;
   border-radius: 7px;
@@ -40,6 +45,7 @@
 .thumbnail {
   max-width: 100%;
   max-height: 100%;
+  width: 100%;
   min-width: 300px;
   min-height: 300px;
   border-bottom-left-radius: 0;
@@ -48,6 +54,13 @@
   border-top-right-radius: 10px;
   background-size: cover;
   background-position: center;
+  transition: 0.15s;
+  display: block;
+}
+
+.thumbnail:hover {
+  opacity: 0.8;
+  transition: 0.15s;
 }
 
 .cardBody {
@@ -98,6 +111,7 @@
   border-bottom-right-radius: 0px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  width: unset;
 }
 
 .fullDateCard .cardBody {

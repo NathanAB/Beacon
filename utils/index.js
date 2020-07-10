@@ -1,8 +1,8 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import * as reactResponsive from 'react-responsive';
 import { useRouter } from 'next/router';
-import moment from 'moment';
 
+import dc3 from '../assets/img/dc-3.jpeg';
 import { getDates, getNeighborhoods } from '../api';
 
 const COST_MAP = ['Free', 'Under $30', '$30 to $60', '$60+'];
@@ -98,9 +98,7 @@ export const loadDates = async store => {
     if (a.active) {
       return -1;
     }
-    if (b.active) {
-      return 1;
-    }
+    return 1;
   });
   store.set('adminDates')(adminDates);
   store.set('dates')(dates);
@@ -246,4 +244,15 @@ export const createCalendarEvent = dateObj => {
     startDatetime: new Date().toISOString(),
     endDatetime: new Date(Date.now() + dateLength * 3600).toISOString(),
   };
+};
+
+export const getSectionImage = dateSection => {
+  // Placeholder is DC image
+  let imageUrl = dc3;
+  if (dateSection.image) {
+    imageUrl = dateSection.image.includes('http')
+      ? dateSection.image // Use raw image URL
+      : `https://instagram.com/p/${dateSection.image}/media/?size=m`; // Imply image url from Instagram ID
+  }
+  return imageUrl;
 };

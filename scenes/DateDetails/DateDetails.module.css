@@ -1,0 +1,46 @@
+.container {
+  padding: 30px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.backButton {
+  margin: 20px 0;
+}
+
+.dateTitle {
+  font-size: 40px;
+  font-weight: 600;
+  font-family: 'Lato';
+}
+
+.newTag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.thumbnailContainer {
+  margin: 10px 0;
+  display: flex;
+  width: 100%;
+}
+
+.thumbnail {
+  min-height: 40vh;
+  border-radius: 10px;
+  margin: 5px;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .thumbnailContainer {
+    flex-direction: column;
+  }
+  .thumbnail {
+    min-height: 30vh;
+  }
+}

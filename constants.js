@@ -10,6 +10,7 @@ export default {
     SEARCH: '/search',
     NEIGHBORHOOD: '/neighborhood',
     ADMIN: '/admin',
+    DATE_DETAILS: '/date',
   },
   API: {
     AUTH: `${API_URL}/api/auth`,
