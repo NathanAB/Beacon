@@ -79,3 +79,8 @@ button {
   cursor: pointer;
   padding: 0;
 }
+
+/* Tip color for popover component */
+:global(.Popover-tipShape) {
+  fill: white
+}

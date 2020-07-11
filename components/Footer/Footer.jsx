@@ -51,8 +51,6 @@ export default function Footer() {
             <a>Terms of use</a>
             <br />
             <a>Privacy policy</a>
-            <br />
-            <a>Cookie notice</a>
           </div>
           <div className={styles.copyright}>
             © 2020 Beacon

@@ -93,7 +93,7 @@
   }
   
   .couple1 {
-    max-width: 65vw;
+    max-width: 320px;
     top:-30px;
     left: unset;
     right: -60px;
@@ -104,6 +104,11 @@
   }
 
   .beaconTitle {
+    margin-right: 0;
+  }
+
+  .title {
+    margin-left: 0;
     margin-right: 0;
   }
 

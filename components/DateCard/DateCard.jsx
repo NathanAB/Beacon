@@ -1,5 +1,4 @@
 import React from 'react';
-import { uniqBy } from 'lodash';
 import { useRouter } from 'next/router';
 
 // TODO: Enable favoriting
@@ -18,7 +17,7 @@ import {
   getDateTags,
 } from '../../utils';
 import Chip from '../Chip/Chip';
-import ShareButton from './components/ShareButton/ShareButton';
+import ShareButton from '../ShareButton/ShareButton';
 import Constants from '../../constants';
 
 export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW, isFavorite }) {

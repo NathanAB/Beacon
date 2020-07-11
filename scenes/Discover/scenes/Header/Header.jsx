@@ -51,7 +51,7 @@ export default function Header() {
           <div className={styles.beaconTitle}>
             <BeaconTitle />
           </div>
-          <h1>Date night at home?</h1>
+          <h1>Date night in DC?</h1>
           <h4 className={styles.subtitle}>
             We&apos;ve got you <br /> covered with fun <br /> & fresh date ideas.
           </h4>
@@ -61,7 +61,7 @@ export default function Header() {
             <Paper withShadow noMobile>
               <div className={styles.cardBody}>
                 <div className={styles.cardSection}>
-                  <h5>Neighborhood</h5>
+                  <h5>Neighborhood in DC</h5>
                   <Select
                     values={neighborhoodVals}
                     onChange={setNeighborhoodVals}

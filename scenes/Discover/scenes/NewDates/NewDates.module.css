@@ -1,6 +1,7 @@
 .cardContainer {
   padding: 0 60px;
   margin-bottom: 60px;
+  position: relative;
 }
 
 .cardContent {
@@ -16,6 +17,15 @@
 .dateCardContainer {
   width: calc(50% - 10px);
   margin-bottom: 20px;
+}
+
+.pattern {
+  position: absolute;
+  z-index: -1;
+  left: 15px;
+  top: -45px;
+  width: 100px;
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -35,5 +45,8 @@
   .cardContent {
     padding: 10px;
     text-align: center;
+  }
+  .pattern {
+    display: none;
   }
 }

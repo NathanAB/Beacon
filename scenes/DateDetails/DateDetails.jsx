@@ -14,7 +14,8 @@ import {
   createCalendarEvent,
 } from '../../utils';
 import dc3 from '../../assets/img/dc-3.jpeg';
-import ShareButton from '../../components/DateCard/components/ShareButton/ShareButton';
+import tipFlower from '../../assets/graphics/tip-flower.svg';
+import ShareButton from '../../components/ShareButton/ShareButton';
 
 const DateDetails = ({ dateObj }) => {
   if (!dateObj) {
@@ -80,7 +81,14 @@ const DateDetails = ({ dateObj }) => {
               <p className={styles.activityDescription}>{section.description}</p>
               {section.tips && (
                 <div className={styles.tipsBox}>
-                  <h6 className={styles.tipsTitle}>Tips & Tricks</h6>
+                  <h6 className={styles.tipsTitle}>
+                    <img
+                      alt="A small orange flower decorating the tips section."
+                      className={styles.tipFlower}
+                      src={tipFlower}
+                    />
+                    Tips & Tricks
+                  </h6>
                   <ul>
                     {section.tips
                       .replace('"', '')

@@ -238,10 +238,9 @@ export const createCalendarEvent = dateObj => {
   const calendarLocation = `From "${dateObj.sections[0].spot.name}" to "${dateObj.sections[1].spot.name}"`;
 
   return {
-    title: `Beacon | ${dateObj.name}`,
-    description: calendarEventDescription,
-    duration: dateLength,
-    location: calendarLocation,
+    title: encodeURIComponent(`Beacon | ${dateObj.name}`),
+    description: encodeURIComponent(calendarEventDescription),
+    location: encodeURIComponent(calendarLocation),
     startDatetime: new Date().toISOString(),
     endDatetime: new Date(Date.now() + dateLength * 3600).toISOString(),
   };
