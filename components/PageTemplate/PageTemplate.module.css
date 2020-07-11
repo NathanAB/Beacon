@@ -1,0 +1,10 @@
+.container {
+  padding: 0 30px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto;
+}
+
+.innerContainer {
+  margin: 30px 0;
+}

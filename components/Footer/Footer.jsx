@@ -1,4 +1,5 @@
 import React from 'react';
+import InternalLink from 'next/link';
 
 import styles from './Footer.module.css';
 import Button from '../Button/Button';
@@ -48,9 +49,13 @@ export default function Footer() {
         </div>
         <div className={styles.col3}>
           <div>
-            <a>Terms of use</a>
+            <InternalLink href="/terms">
+              <a>Terms of use</a>
+            </InternalLink>
             <br />
-            <a>Privacy policy</a>
+            <InternalLink href="/privacy">
+              <a>Privacy policy</a>
+            </InternalLink>
           </div>
           <div className={styles.copyright}>
             © 2020 Beacon
