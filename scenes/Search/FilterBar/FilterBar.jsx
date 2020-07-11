@@ -17,7 +17,6 @@ const FILTER_MAP = {
 
 export default function FilterBar() {
   const store = Store.useStore();
-  const searchResultsLength = store.get('searchResultsLength');
   const isFilterBarExpanded = store.get('isFilterBarExpanded');
   const setIsFilterBarExpanded = store.set('isFilterBarExpanded');
   const neighborhoods = store.get('neighborhoods').map(n => n.name);
@@ -27,10 +26,15 @@ export default function FilterBar() {
   const dateObjs = store.get('dates');
 
   const [filters, setFilters] = useFilters();
+  const searchResultsLength = filterDates(dateObjs, filters).length;
+  const setFiltersWrapper = newFilters => {
+    store.set('lastFilters')(newFilters);
+    setFilters(newFilters);
+  };
 
   const deleteFilter = filterVal => {
     const newFilters = filters.filter(currFilter => currFilter.value !== filterVal);
-    setFilters(newFilters);
+    setFiltersWrapper(newFilters);
   };
 
   const toggleFilter = (type, value, isToggleOn) => {
@@ -40,7 +44,7 @@ export default function FilterBar() {
     } else {
       newFilters = filters.filter(f => type !== f.type && value !== f.value);
     }
-    setFilters(newFilters);
+    setFiltersWrapper(newFilters);
   };
 
   const renderFilterSection = (filterType, filterValues) => (
@@ -54,7 +58,7 @@ export default function FilterBar() {
             filterDates(dateObjs, [...filters, { type: FILTER_MAP[filterType], value: f }])
               .length === 0;
           return (
-            <div className={styles.chipContainer}>
+            <div className={styles.chipContainer} key={f}>
               <Chip
                 variant={isToggled ? Chip.VARIANTS.PRIMARY : Chip.VARIANTS.SECONDARY}
                 onClick={() => toggleFilter(FILTER_MAP[filterType], f, !isToggled)}

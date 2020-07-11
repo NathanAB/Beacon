@@ -12,10 +12,12 @@ import {
   getDateLength,
   getDateTags,
   createCalendarEvent,
+  filterArrayToString,
 } from '../../utils';
 import dc3 from '../../assets/img/dc-3.jpeg';
 import tipFlower from '../../assets/graphics/tip-flower.svg';
 import ShareButton from '../../components/ShareButton/ShareButton';
+import Store from '../../store';
 
 const DateDetails = ({ dateObj }) => {
   if (!dateObj) {
@@ -26,13 +28,18 @@ const DateDetails = ({ dateObj }) => {
   const tags = getDateTags(dateObj);
   const dateCost = getDateCost(dateObj);
   const calendarEvent = createCalendarEvent(dateObj);
+  const store = Store.useStore();
+  const lastFilters = store.get('lastFilters');
+  const filterString = filterArrayToString(lastFilters);
+  const backUrl = lastFilters.length
+    ? `${constants.PAGES.SEARCH}?filters=${filterString}`
+    : constants.PAGES.SEARCH;
 
   return (
     <div className={styles.container}>
       <BeaconTitle />
       <div className={styles.backButton}>
-        <InternalLink href={constants.PAGES.SEARCH}>
-          {/* TODO: Respect search filters on back */}
+        <InternalLink href={backUrl}>
           <a>← Back to Explore</a>
         </InternalLink>
       </div>
@@ -104,6 +111,11 @@ const DateDetails = ({ dateObj }) => {
           );
         })}
       </ol>
+      <div className={styles.backButtonMobile}>
+        <InternalLink href={backUrl}>
+          <a>← Back to Explore</a>
+        </InternalLink>
+      </div>
     </div>
   );
 };

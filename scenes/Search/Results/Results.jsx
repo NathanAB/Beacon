@@ -19,17 +19,12 @@ const options = [
 export default function Results() {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
-  const searchResultsLength = store.get('searchResultsLength');
-  const setSearchResultsLength = store.set('searchResultsLength');
   const isFilterBarExpanded = store.get('isFilterBarExpanded');
   const [filters] = useFilters();
 
   const [sortBy, setSortBy] = useState(options[0]);
   let filteredDates = filterDates(dateObjs, filters);
   const resultsLength = filteredDates.length;
-  if (searchResultsLength !== resultsLength) {
-    setSearchResultsLength(resultsLength);
-  }
 
   filteredDates = filteredDates.sort(
     sortBy.value === 'Oldest' ? dateSorterOldest : dateSorterNewest,
