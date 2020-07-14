@@ -236,13 +236,6 @@ export default function TermsPage() {
         To the extent that the website and the information and services on the website are provided
         free of charge, we will not be liable for any loss or damage of any nature.
       </p>
-      <br />
-
-      <h4>Credit & Contact Information</h4>
-      <p>
-        This Terms and conditions page was created at termsandconditionstemplate.com generator. If
-        you have any queries regarding any of our terms, please contact us.
-      </p>
     </PageTemplate>
   );
 }

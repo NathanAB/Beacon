@@ -124,20 +124,6 @@ export default function PrivacyPage() {
         this page for any changes to its Privacy Policy. Your continued use of this site after any
         change in this Privacy Policy will constitute your acceptance of such change.
       </p>
-      <br />
-      <h4>Credit & Contact Information</h4>
-      <p>
-        This privacy policy was created at{' '}
-        <a
-          href="https://termsandconditionstemplate.com/privacy-policy-generator/"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          termsandconditionstemplate.com
-        </a>
-        . If you have any questions about this Privacy Policy, please contact us via{' '}
-        <a href="mailto:contact@beacondates.com">email</a>
-      </p>
     </PageTemplate>
   );
 }
