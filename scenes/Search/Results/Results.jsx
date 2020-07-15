@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import ReactGA from 'react-ga';
+
 import styles from './Results.module.css';
 import Select from '../../../components/Select/Select';
 import DateCard from '../../../components/DateCard/DateCard';
@@ -23,13 +25,19 @@ export default function Results() {
   const [filters] = useFilters();
 
   const [sortBy, setSortBy] = useState(options[0]);
-  let filteredDates = filterDates(dateObjs, filters);
-  const resultsLength = filteredDates.length;
-
-  filteredDates = filteredDates.sort(
+  const filteredDates = filterDates(dateObjs, filters).sort(
     sortBy.value === 'Oldest' ? dateSorterOldest : dateSorterNewest,
   );
+  const resultsLength = filteredDates.length;
 
+  const toggleSort = val => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Select Sort',
+      label: val.value,
+    });
+    setSortBy(val);
+  };
   return (
     <div>
       {!isFilterBarExpanded && (
@@ -40,7 +48,7 @@ export default function Results() {
           <div className={styles.sortRowSpacer}></div>
           <h6>Sort by:</h6>
           <div className={styles.selectContainer}>
-            <Select value={sortBy} onChange={setSortBy} options={options}></Select>
+            <Select value={sortBy} onChange={toggleSort} options={options}></Select>
           </div>
         </div>
       )}

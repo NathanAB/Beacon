@@ -30,8 +30,6 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
   const tags = getDateTags(dateObj);
   const dateUrl = `https://${window.location.host}${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`;
 
-  const calendarEvent = createCalendarEvent(dateObj);
-
   const openDateDetails = () => {
     router
       .push(`${Constants.PAGES.DATE_DETAILS}/[dateId]`, {
@@ -77,7 +75,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               {isNew && <div className={styles.newChip}>NEW</div>}
               {isFull && (
                 <div className={styles.cardButtons}>
-                  <ShareButton event={calendarEvent} url={dateUrl} />
+                  <ShareButton dateObj={dateObj} url={dateUrl} />
                   {/* TODO: Enable favoriting */}
                   {/* <button type="button" className={styles.favoriteButton} onClick={() => {}}>
                   {isFavorite ? <FaHeart /> : <FaRegHeart />}

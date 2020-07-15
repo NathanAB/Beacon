@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactGA from 'react-ga';
 
 import Store from '../../../store';
 import styles from './FilterBar.module.css';
@@ -19,6 +20,13 @@ export default function FilterBar() {
   const store = Store.useStore();
   const isFilterBarExpanded = store.get('isFilterBarExpanded');
   const setIsFilterBarExpanded = store.set('isFilterBarExpanded');
+  const toggleFilterBar = val => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Toggle Filter Bar',
+    });
+    setIsFilterBarExpanded(val);
+  };
   const neighborhoods = store.get('neighborhoods').map(n => n.name);
   const tags = store.get('tags').map(t => t.name);
   const durations = store.get('durations');
@@ -39,10 +47,21 @@ export default function FilterBar() {
 
   const toggleFilter = (type, value, isToggleOn) => {
     let newFilters;
+
     if (isToggleOn) {
       newFilters = filters.concat({ type, value });
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Toggle Filter On',
+        label: value,
+      });
     } else {
       newFilters = filters.filter(f => type !== f.type && value !== f.value);
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Toggle Filter Off',
+        label: value,
+      });
     }
     setFiltersWrapper(newFilters);
   };
@@ -88,7 +107,7 @@ export default function FilterBar() {
             <Button
               variant={Button.VARIANTS.PRIMARY}
               size={Button.SIZES.SMALL}
-              onClick={() => setIsFilterBarExpanded(false)}
+              onClick={() => toggleFilterBar(false)}
             >
               Save filters
             </Button>
@@ -119,7 +138,7 @@ export default function FilterBar() {
           <Button
             variant={Button.VARIANTS.PRIMARY}
             size={Button.SIZES.SMALL}
-            onClick={() => setIsFilterBarExpanded(true)}
+            onClick={() => toggleFilterBar(true)}
           >
             Add filters
           </Button>

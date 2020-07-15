@@ -214,8 +214,8 @@ export const useMobile = () => {
 };
 
 export const dateSorterNewest = (date1, date2) => {
-  const time1 = date1.createdAt;
-  const time2 = date2.createdAt;
+  const time1 = date1.createdAt || date1.updatedAt;
+  const time2 = date2.createdAt || date2.updatedAt;
   if (time1 > time2) {
     return -1;
   }
@@ -252,7 +252,7 @@ export const getSectionImage = dateSection => {
   if (dateSection.image) {
     imageUrl = dateSection.image.includes('http')
       ? dateSection.image // Use raw image URL
-      : `https://instagram.com/p/${dateSection.image}/media/?size=m`; // Imply image url from Instagram ID
+      : `https://instagram.com/p/${dateSection.image}/media/?size=l`; // Imply image url from Instagram ID
   }
   return imageUrl;
 };

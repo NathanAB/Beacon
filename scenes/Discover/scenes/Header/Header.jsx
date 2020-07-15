@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
+import ReactGA from 'react-ga';
 
-import { filterArrayToString } from '../../../../utils';
+import { filterArrayToString, filterDates } from '../../../../utils';
 import Button from '../../../../components/Button/Button';
 import Paper from '../../../../components/Paper/Paper';
 import Select from '../../../../components/Select/Select';
@@ -17,8 +18,31 @@ export default function Header() {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
   const tags = store.get('tags');
-  const [neighborhoodVals, setNeighborhoodVals] = useState([]);
+  const dates = store.get('dates');
+
   const [tagVals, setTagVals] = useState([]);
+  const tagSelect = e => {
+    if (e) {
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Select Vibe',
+        label: e && e[e.length - 1]?.label,
+      });
+    }
+    setTagVals(e || []);
+  };
+  const [neighborhoodVals, setNeighborhoodVals] = useState([]);
+  const neighborhoodSelect = e => {
+    if (e) {
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Select Neighborhood',
+        label: e && e[e.length - 1]?.label,
+      });
+    }
+    setNeighborhoodVals(e || []);
+  };
+
   const filters = [
     ...tagVals.map(t => ({
       ...t,
@@ -30,14 +54,21 @@ export default function Header() {
     })),
   ];
 
-  const neighborhoodOptions = neighborhoods.map(neighborhood => ({
-    value: neighborhood.name,
-    label: neighborhood.name,
-  }));
-  const tagOptions = tags.map(tag => ({
-    value: tag.name,
-    label: tag.name,
-  }));
+  const neighborhoodOptions = neighborhoods
+    .filter(
+      neighborhood =>
+        filterDates(dates, [...filters, { type: 'neighborhood', value: neighborhood.name }]).length,
+    )
+    .map(neighborhood => ({
+      value: neighborhood.name,
+      label: neighborhood.name,
+    }));
+  const tagOptions = tags
+    .filter(tag => filterDates(dates, [...filters, { type: 'tag', value: tag.name }]).length)
+    .map(tag => ({
+      value: tag.name,
+      label: tag.name,
+    }));
 
   return (
     <>
@@ -64,14 +95,14 @@ export default function Header() {
                   <h5>Neighborhood in DC</h5>
                   <Select
                     values={neighborhoodVals}
-                    onChange={setNeighborhoodVals}
+                    onChange={neighborhoodSelect}
                     isMulti
                     options={neighborhoodOptions}
                   />
                 </div>
                 <div className={styles.cardSection}>
                   <h5>Vibe</h5>
-                  <Select values={tagVals} onChange={setTagVals} isMulti options={tagOptions} />
+                  <Select values={tagVals} onChange={tagSelect} isMulti options={tagOptions} />
                 </div>
                 <InternalLink
                   href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}

@@ -9,6 +9,7 @@
   width: 100%;
   cursor: pointer;
   transition: 0.15s;
+  margin: auto;
 }
 
 /* .cardContainer:hover {

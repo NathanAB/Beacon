@@ -19,7 +19,7 @@
 
 .disabled {
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 .notClickable {
@@ -33,8 +33,8 @@
 }
 
 .secondary {
-  color: var(--gray);
-  border: 1px solid var(--gray);
+  color: var(--grayDark);
+  border: 1px solid var(--grayDark);
   border-radius: 7px;
 }
 

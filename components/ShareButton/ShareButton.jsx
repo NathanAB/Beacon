@@ -1,22 +1,59 @@
 import React, { useState } from 'react';
 import Popover from 'react-popover';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import ReactGA from 'react-ga';
 
+import { createCalendarEvent } from '../../utils';
 import Paper from '../Paper/Paper';
 import Button from '../Button/Button';
 
 import styles from './ShareButton.module.css';
 
-export default function ShareButton({ event, url }) {
+export default function ShareButton({ dateObj, url }) {
+  const event = createCalendarEvent(dateObj);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [hasCopied, setHasCopied] = useState(false);
+  const copyEvent = () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Copy Date Link',
+      label: dateObj.name,
+    });
+    setHasCopied(true);
+  };
   const togglePopover = newVal => {
     if (hasCopied) {
-      setHasCopied(false);
+      setTimeout(() => setHasCopied(false), 500);
     }
-    if (typeof newVal !== 'undefined') {
+    if (typeof newVal === 'boolean') {
+      if (newVal) {
+        ReactGA.event({
+          category: 'Interaction',
+          action: 'Open Share Modal',
+          label: dateObj.name,
+        });
+      } else {
+        ReactGA.event({
+          category: 'Interaction',
+          action: 'Close Share Modal',
+          label: dateObj.name,
+        });
+      }
       setIsPopoverOpen(newVal);
     } else {
+      if (!isPopoverOpen) {
+        ReactGA.event({
+          category: 'Interaction',
+          action: 'Open Share Modal',
+          label: dateObj.name,
+        });
+      } else {
+        ReactGA.event({
+          category: 'Interaction',
+          action: 'Close Share Modal',
+          label: dateObj.name,
+        });
+      }
       setIsPopoverOpen(!isPopoverOpen);
     }
   };
@@ -42,6 +79,11 @@ export default function ShareButton({ event, url }) {
   const calendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&dates=${event.startDateTime}/${event.endDateTime}&location=${event.location}&text=${event.title}&details=${event.description}`;
 
   const openCalendarEvent = () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Add Date to Calendar',
+      label: dateObj.name,
+    });
     window.open(calendarUrl, '_blank');
   };
 
@@ -59,7 +101,7 @@ export default function ShareButton({ event, url }) {
               <h6>Copied!</h6>
             ) : (
               <CopyToClipboard text={url}>
-                <a onClick={() => setHasCopied(true)}>Copy Link</a>
+                <a onClick={() => copyEvent()}>Copy Link</a>
               </CopyToClipboard>
             )}
           </div>

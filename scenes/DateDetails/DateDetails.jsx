@@ -27,7 +27,6 @@ const DateDetails = ({ dateObj }) => {
   const dateLength = getDateLength(dateObj);
   const tags = getDateTags(dateObj);
   const dateCost = getDateCost(dateObj);
-  const calendarEvent = createCalendarEvent(dateObj);
   const store = Store.useStore();
   const lastFilters = store.get('lastFilters');
   const filterString = filterArrayToString(lastFilters);
@@ -72,7 +71,7 @@ const DateDetails = ({ dateObj }) => {
             ))}
           </div>
         </div>
-        <ShareButton event={calendarEvent} url={window.location.href} />
+        <ShareButton dateObj={dateObj} url={window.location.href} />
       </div>
       <p className={styles.description}>{dateObj.description}</p>
       <div className={styles.lineBreak} />

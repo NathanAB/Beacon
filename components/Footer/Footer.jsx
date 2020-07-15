@@ -1,5 +1,6 @@
 import React from 'react';
 import InternalLink from 'next/link';
+import ReactGA from 'react-ga';
 
 import styles from './Footer.module.css';
 import Button from '../Button/Button';
@@ -16,36 +17,62 @@ export default function Footer() {
             discovering exciting and new local spots. Submit your idea and it might be featured on
             our homepage!
           </p>
-          <a href="https://forms.gle/6pwD9m24Uz94PFXr8" target="_blank" rel="noopener noreferrer">
+          <ReactGA.OutboundLink
+            to="https://forms.gle/6pwD9m24Uz94PFXr8"
+            target="_blank"
+            rel="noopener noreferrer"
+            label="Date idea form"
+          >
             <Button variant={Button.VARIANTS.PRIMARY} fullWidth>
               Submit a date idea
             </Button>
-          </a>
+          </ReactGA.OutboundLink>
         </div>
         <div className={styles.col2}>
-          <a href="https://about.beacondates.com/" target="_blank" rel="noopener noreferrer">
-            Learn more about us
-          </a>
-          <br />
-          <a href="mailto:contact@beacondates.com" target="_blank" rel="noopener noreferrer">
-            Get in touch with us
-          </a>
-          <br />
-          <a href="https://forms.gle/ebaqVd2TMTw47RjW8" target="_blank" rel="noopener noreferrer">
-            Give us feedback
-          </a>
-          <br />
-          <a href="https://medium.com/@hannaholin" target="_blank" rel="noopener noreferrer">
-            Check out our blog
-          </a>
-          <br />
-          <a
-            href="https://www.instagram.com/beacon_dates/"
+          <ReactGA.OutboundLink
+            to="https://about.beacondates.com/"
             target="_blank"
             rel="noopener noreferrer"
+            label="About page"
+          >
+            Learn more about us
+          </ReactGA.OutboundLink>
+          <br />
+          <ReactGA.OutboundLink
+            to="mailto:contact@beacondates.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            label="Contact email"
+          >
+            Get in touch with us
+          </ReactGA.OutboundLink>
+          <br />
+          <ReactGA.OutboundLink
+            to="https://forms.gle/ebaqVd2TMTw47RjW8"
+            target="_blank"
+            rel="noopener noreferrer"
+            label="Feedback form"
+          >
+            Give us feedback
+          </ReactGA.OutboundLink>
+          <br />
+          <ReactGA.OutboundLink
+            to="https://medium.com/@hannaholin"
+            target="_blank"
+            rel="noopener noreferrer"
+            label="Blog"
+          >
+            Check out our blog
+          </ReactGA.OutboundLink>
+          <br />
+          <ReactGA.OutboundLink
+            to="https://www.instagram.com/beacon_dates/"
+            target="_blank"
+            rel="noopener noreferrer"
+            label="Instagram"
           >
             Follow us on Instagram
-          </a>
+          </ReactGA.OutboundLink>
         </div>
         <div className={styles.col3}>
           <div>
