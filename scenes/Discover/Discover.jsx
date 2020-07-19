@@ -14,7 +14,7 @@ const Discover = () => {
   const dateObjs = store.get('dates');
   const firstFour = dateObjs.filter(date => date.new).slice(0, isMobile ? 2 : 4);
   return (
-    <Box width="100%" maxWidth="1024px" margin="0 auto">
+    <Box width="100%" maxWidth="1024px" margin="0 auto" overflow="hidden">
       <Header />
       <NewDates dateObjs={firstFour} />
       <Subheader />

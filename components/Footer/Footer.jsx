@@ -29,14 +29,9 @@ export default function Footer() {
           </ReactGA.OutboundLink>
         </div>
         <div className={styles.col2}>
-          <ReactGA.OutboundLink
-            to="https://about.beacondates.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            label="About page"
-          >
-            Learn more about us
-          </ReactGA.OutboundLink>
+          <InternalLink href="/about">
+            <a>Learn more about us</a>
+          </InternalLink>
           <br />
           <ReactGA.OutboundLink
             to="mailto:contact@beacondates.com"
