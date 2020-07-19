@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import InternalLink from 'next/link';
 
 // TODO: Enable favoriting
 // import { FaHeart, FaRegHeart } from 'react-icons/fa';
@@ -22,7 +22,6 @@ const placeholderImgs = [placeholder1, placeholder2, placeholder3, placeholder4]
 const randPlaceholder = () => placeholderImgs[Math.floor(Math.random() * Math.floor(4))];
 
 export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW, isFavorite }) {
-  const router = useRouter();
   const section1 = dateObj.sections[0];
   const isFull = variant === DateCard.VARIANTS.FULL;
   const dateLength = getDateLength(dateObj);
@@ -32,14 +31,6 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
   const dateUrl = `https://${window.location.host}${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`;
   const [highResLoaded, setHighResLoaded] = useState(false);
   const [placeholder] = useState(randPlaceholder());
-
-  const openDateDetails = () => {
-    router
-      .push(`${Constants.PAGES.DATE_DETAILS}/[dateId]`, {
-        pathname: `${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`,
-      })
-      .then(() => window.scrollTo(0, 0));
-  };
 
   return (
     <div className={styles.container}>
@@ -52,45 +43,51 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
       >
         <Paper fullWidth highlighted={isFavorite} noBorder>
           <div className={styles.cardContent}>
-            <button
-              className={styles.thumbnail}
-              type="button"
-              onClick={() => openDateDetails()}
-              alt="date"
+            <InternalLink
+              href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+              as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
             >
-              <img
-                alt=""
-                className={styles.thumbnailImage}
-                onLoad={() => {
-                  setHighResLoaded(true);
-                }}
-                src={imageUrl}
-              />
-              <img
-                className={cn(
-                  styles.thumbnailImage,
-                  styles.thumbnailPlaceholder,
-                  highResLoaded && styles.thumbnailPlaceholderClear,
-                )}
-                alt=""
-                src={placeholder}
-              />
-            </button>
+              <a className={styles.thumbnail}>
+                <img
+                  alt=""
+                  className={styles.thumbnailImage}
+                  onLoad={() => {
+                    setHighResLoaded(true);
+                  }}
+                  src={imageUrl}
+                />
+                <img
+                  className={cn(
+                    styles.thumbnailImage,
+                    styles.thumbnailPlaceholder,
+                    highResLoaded && styles.thumbnailPlaceholderClear,
+                  )}
+                  alt=""
+                  src={placeholder}
+                />
+              </a>
+            </InternalLink>
             <div className={styles.cardBody}>
-              <button className={styles.clickable} type="button" onClick={() => openDateDetails()}>
-                <h6>{dateObj.name}</h6>
-                <div className={styles.timeAndCost}>
-                  {dateLength} hours · {getDateCost(dateObj)}
+              <InternalLink
+                className={styles.clickable}
+                href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+                as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+              >
+                <div className={styles.clickable}>
+                  <h6>{dateObj.name}</h6>
+                  <div className={styles.timeAndCost}>
+                    {dateLength} hours · {getDateCost(dateObj)}
+                  </div>
+                  <div className={styles.tagsContainer}>
+                    {tags.map(tag => (
+                      <div key={tag.tagId} className={styles.tag}>
+                        <Chip>{tag.name}</Chip>
+                      </div>
+                    ))}
+                  </div>
+                  {isFull && <p className={styles.description}>{dateObj.description}</p>}
                 </div>
-                <div className={styles.tagsContainer}>
-                  {tags.map(tag => (
-                    <div key={tag.tagId} className={styles.tag}>
-                      <Chip>{tag.name}</Chip>
-                    </div>
-                  ))}
-                </div>
-                {isFull && <p className={styles.description}>{dateObj.description}</p>}
-              </button>
+              </InternalLink>
 
               {isNew && <div className={styles.newChip}>NEW</div>}
               {isFull && (
