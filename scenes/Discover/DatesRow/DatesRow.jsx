@@ -78,10 +78,13 @@ function DatesRow({ classes }) {
             )
           }
           onSelect={dateId => {
+            const date = dateObjs.find(dateObj => {
+              return dateObj.id === parseInt(dateId, 10);
+            });
             ReactGA.event({
               category: 'Interaction',
               action: 'Focus Date',
-              label: dateId.toString(),
+              label: date && date.name,
             });
             setFocusedDate(dateId, Constants.PAGES.SEARCH).then(() => window.scrollTo(0, 0));
           }}
