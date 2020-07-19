@@ -53,7 +53,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               type="button"
               onClick={() => openDateDetails()}
               className={styles.thumbnail}
-              style={{ backgroundImage: `url(${imageUrl}), url(${dc3})` }}
+              style={{ backgroundImage: `url(${imageUrl})` }}
               alt="date"
             />
             <div className={styles.cardBody}>
