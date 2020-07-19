@@ -14,7 +14,7 @@ export default createConnectedStore({
   neighborhoods: USE_MOCKS ? mockNeighborhoods : [],
   dates: USE_MOCKS ? mockDates : [],
   adminDates: [],
-  filters: [],
+  lastFilters: [],
   isLoginDialogOpen: false,
   costs: ['Free', 'Under $30', '$30 to $60', '$60+'],
   durations: ['1 Hour', '2 Hours', '3 Hours'],
@@ -24,4 +24,5 @@ export default createConnectedStore({
   user: false,
   adminEditingDate: false,
   isDateFormOpen: false,
+  isFilterBarExpanded: false,
 });

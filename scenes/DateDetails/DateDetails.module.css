@@ -1,0 +1,197 @@
+@import '../../css/colors.css';
+
+.container {
+  padding: 30px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.backButton {
+  margin: 20px 0;
+}
+
+.backButtonMobile {
+  margin: 20px 0;
+  display: none;
+}
+
+.dateTitle {
+  font-size: 40px;
+  font-weight: 600;
+  font-family: 'Lato';
+}
+
+.newTag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.thumbnailRowContainer {
+  margin: 10px 0;
+  display: flex;
+  width: 100%;
+}
+
+.thumbnail {
+  height: 300px;
+  width: 50%;
+  border-radius: 10px;
+  margin: 5px;
+  position: relative;
+}
+
+.thumbnailImage {
+  position: absolute;
+  border-radius: 10px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.thumbnailPlaceholder {
+  transition: opacity ease-in 500ms;
+  background-color: var(--primaryHighlight);
+  object-fit: none;
+  position: absolute;
+  
+}
+
+.thumbnailPlaceholderClear {
+  opacity: 0;
+}
+
+.timeAndCost {
+  margin-top: 5px;
+  font-size: 16px;
+  color: var(--gray);
+}
+
+.tagsContainer {
+  margin-top: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.tag {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  position: relative;
+}
+
+.description {
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.lineBreak {
+  border-top: 1px solid var(--grayLight);
+  width: 100%;
+  margin: 40px 0;
+}
+
+.sectionListItem {
+  position: relative;
+  margin: 0;
+  padding-bottom: 1em;
+  padding-left: 40px;
+  padding-bottom: 50px;
+}
+
+.bullet { 
+  position: absolute;
+  left: 0px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border: 2px solid var(--grayLight);
+  border-radius: 6px
+}
+
+.activityHeader {
+  font-size: 14px;
+  color: var(--gray);
+  font-weight:bold;
+}
+
+.activityTitle {
+  margin-top: 10px;
+}
+
+.activityDescription {
+  margin-top: 10px;
+}
+
+.sectionList {
+  list-style-type: none;
+}
+
+.sectionListItem:before {
+    background-color: var(--grayLight);
+    width: 2px;
+    content: '';
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 5px;
+}
+
+.sectionListItem:first-child:before { top: 15px;  }
+.sectionListItem:last-child:before { height: 6px; }
+
+.tipsBox {
+  background-color: var(--primaryHighlight);
+  border: 1px solid var(--primaryBorder);
+  border-radius: 6px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.tipsTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.tipFlower {
+  position: absolute;
+  left: -30px;
+  width: 20px;
+  height: 20px;
+}
+
+.tipListItem {
+  padding-bottom: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+  .thumbnailRowContainer {
+    flex-direction: column;
+  }
+  .thumbnail {
+    width: 100%;
+  }
+  .sectionList {
+    padding-left: 10px;
+  }
+  .backButtonMobile {
+    display: block;
+  }
+}

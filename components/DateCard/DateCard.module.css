@@ -1,0 +1,213 @@
+@import '../../css/colors.css';
+
+.container {
+  position: relative;
+}
+
+.cardContainer {
+  max-width: 381px;
+  width: 100%;
+  cursor: pointer;
+  transition: 0.15s;
+  margin: auto;
+}
+
+/* .cardContainer:hover {
+  opacity: 0.8;
+  transition: 0.15s;
+} */
+
+.cardContent {
+  max-width: 381px;
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.clickable {
+  text-align: left;
+  width: 100%;
+}
+
+.newChip {
+  padding: 3px 8px;
+  border-radius: 7px;
+  background-color: white; 
+  font-family: 'Lato';
+  font-size: 12px;
+  font-weight: 600;
+  position: absolute; 
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.thumbnail {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  min-width: 300px;
+  min-height: 300px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  transition: 0.15s;
+  display: block;
+  position: relative;
+}
+
+.thumbnailImage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  object-fit: cover;
+  object-position: center;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.thumbnailPlaceholder {
+  transition: opacity ease-in 500ms;
+  background-color: var(--primaryHighlight);
+  object-fit: none;
+}
+
+.thumbnailPlaceholderClear {
+  opacity: 0;
+}
+
+.thumbnail:hover {
+  opacity: 0.8;
+  transition: 0.15s;
+}
+
+.cardBody {
+  padding: 10px 20px;
+  border: 1px var(--gray) solid;
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.timeAndCost {
+  margin-top: 5px;
+  font-size: 16px;
+  color: var(--gray);
+}
+
+.tagsContainer {
+  margin-top: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+}
+
+.tag {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.description {
+  padding: 10px 0;
+}
+
+
+/** Full Date Card Style **/
+.fullDateCard {
+  max-width: 100%;
+}
+
+.fullDateCard .cardContent {
+  max-width: 100%;
+  display: flex;
+  min-height: 251px;
+  align-items: stretch;
+}
+
+.fullDateCard .thumbnail {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: unset;
+}
+
+.fullDateCard .thumbnailImage {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.fullDateCard .cardBody {
+  padding: 30px 27px;
+  border: 1px var(--gray) solid;
+  border-left: none;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.cardButtons {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+.cardButtons * {
+  vertical-align: middle;
+}
+
+.favoriteButton {
+  color: var(--primary);
+  font-size: 20px;
+  margin-left: 10px;
+}
+.favoriteButton:hover {
+  opacity: 0.8;
+}
+
+@media only screen and (max-width: 768px) {
+  .fullDateCard .cardContent {
+    flex-direction: column;
+  }
+  .fullDateCard .thumbnail {
+    height: 300px;
+    width: unset;
+    left: 0px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .fullDateCard .thumbnailImage {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  .fullDateCard .cardBody {
+    border-top: none;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 0;
+    border-left: 1px solid var(--gray);
+  }
+  .cardButtons {
+    position: relative;
+    top: unset;
+    right: unset;
+  }
+}
+
+.favorite .cardBody {
+  border-color: var(--primary);
+}

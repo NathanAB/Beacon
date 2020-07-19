@@ -1,29 +1,21 @@
+@import './fonts.css';
+
 html {
   background-color: lightgray;
   height: 100%;
 }
 
 body {
+  z-index: -2;
   margin: auto !important;
   padding: 0 !important;
-  font-family: 'Open Sans' !important;
+  font-family: 'Lato' !important;
   background-color: white !important;
   max-width: 1600px !important;
   position: relative !important;
+  overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Raleway' !important;
-}
-
-p {
-  font-family: 'Open Sans' !important;
-}
-
-a {
-  text-decoration: none;
-  color: initial;
-}
 
 button {
   border: none;
@@ -56,11 +48,11 @@ button {
 }
 
 :global(.MuiChip-root) {
-  font-family: Raleway !important;
+  font-family: 'Playfair Display' !important;
 }
 
 :global(.MuiButton-label) {
-  font-family: Raleway !important;
+  font-family: 'Playfair Display' !important;
 }
 
 :global(.MuiButton-contained) {
@@ -82,4 +74,14 @@ header :global(.MuiButton-text:hover) {
 
 header :global(.MuiButton-textPrimary:hover) {
   background-color: rgba(0, 0, 0, 0.00) !important;
+}
+
+button {
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Tip color for popover component */
+:global(.Popover-tipShape) {
+  fill: white
 }

@@ -1,0 +1,72 @@
+@import './colors.css';
+
+:root {
+  --standardFont: Lato, "Open Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  margin: unset;
+}
+
+h1 {
+  font-family: 'Playfair Display';
+  font-size: 75px;
+  line-height: 75px;
+  color: var(--primary);
+}
+
+h2 {
+  font-family: 'Playfair Display';
+  font-size: 50px;
+  color: var(--primary);
+}
+
+h3 {
+  font-family: 'Playfair Display';
+  font-size: 40px;
+}
+
+h4 {
+  font-family: 'Lato';
+  font-size: 30px;
+}
+
+h5 {
+  font-weight: 600;
+  font-family: 'Lato';
+  font-size: 20px;
+}
+
+h6 {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Lato';
+}
+
+.beaconTitle {
+  font-family: 'Roboto';
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: 6.62px;
+}
+
+p {
+  margin: unset;
+  font-size: 16px;
+  font-family: 'Lato';
+  line-height: 24px;
+}
+
+a {
+  font-size: 18px;
+  font-family: 'Playfair Display';
+  font-weight: 700;
+  text-decoration: underline;
+  color: var(--primary);
+  cursor: pointer;
+}
+
+a:active, a:hover {
+  color: var(--primaryDark);
+}

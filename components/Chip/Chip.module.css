@@ -1,0 +1,65 @@
+@import '../../css/colors.css';
+
+.container {
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 4px 10px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  transition: 0.15s;
+}
+
+.clickable:hover {
+  opacity: 0.8;
+  transition: 0.15s;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.notClickable {
+  cursor: initial;
+}
+
+.primary {
+  color: white;
+  background-color: var(--primary);
+  border-radius: 7px;
+}
+
+.secondary {
+  color: var(--grayDark);
+  border: 1px solid var(--grayDark);
+  border-radius: 7px;
+}
+
+.deleteButton {
+  font-size: 10px;
+  width: 15px;
+  padding: 2px 0;
+  text-align: center;
+  margin-left: 8px;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  opacity: 0.8;
+}
+
+.primary .deleteButton {
+  color: var(--primary);
+  background-color: white;
+}
+
+.secondary .deleteButton {
+  color: var(--gray);
+  border: 1px solid var(--gray);
+  background-color: white;
+}

@@ -1,0 +1,50 @@
+.outerContainer {
+  margin-top: 20px;
+}
+
+.innerContainer {
+  display: flex;
+  padding: 30px;
+}
+
+.filterChips {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.chipContainer {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+/* Expanded */
+.expanded .innerContainer {
+  display: block;
+}
+.filterSection {
+  display: inline-block;
+  margin: 5px 0;
+  padding-right: 20px;
+}
+.expanded .filterChips {
+  margin: 0;
+}
+.sectionTitle {
+  margin-bottom: 15px;
+}
+.buttonRow {
+  margin-top: 10px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 768px) {
+  .innerContainer {
+    flex-direction: column;
+  }
+  .filterChips {
+    margin: 10px 0;
+  }
+}

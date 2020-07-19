@@ -1,0 +1,52 @@
+.cardContainer {
+  padding: 0 60px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.cardContent {
+  padding: 40px;
+}
+
+.dateCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.dateCardContainer {
+  width: calc(50% - 10px);
+  margin-bottom: 20px;
+}
+
+.pattern {
+  position: absolute;
+  z-index: -1;
+  left: 15px;
+  top: -45px;
+  width: 100px;
+
+}
+
+@media only screen and (max-width: 768px) {
+  .cardContainer {
+    padding: 0 20px;
+    margin-bottom: 200px;
+  }
+  .dateCardsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  .dateCardContainer {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  .cardContent {
+    padding: 10px;
+    text-align: center;
+  }
+  .pattern {
+    display: none;
+  }
+}

@@ -1,6 +1,9 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import * as reactResponsive from 'react-responsive';
 import { useRouter } from 'next/router';
+import uniqBy from 'lodash/uniqBy';
 
+import dc3 from '../assets/img/dc-3.jpeg';
 import { getDates, getNeighborhoods } from '../api';
 
 const COST_MAP = ['Free', 'Under $30', '$30 to $60', '$60+'];
@@ -14,6 +17,18 @@ const COST_LOOKUP = {
 // eslint-disable-next-line import/prefer-default-export
 export const costToString = cost => {
   return COST_MAP[parseInt(cost, 10)];
+};
+
+export const getDateCost = dateObj => {
+  const { sections } = dateObj;
+  const dateCost = sections.reduce((total, section) => total + section.cost, 0) / sections.length;
+  return costToString(dateCost);
+};
+
+export const getDateLength = dateObj => {
+  const { sections } = dateObj;
+  const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
+  return Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
 };
 
 export const filterDates = (dateObjs, filters) => {
@@ -84,9 +99,7 @@ export const loadDates = async store => {
     if (a.active) {
       return -1;
     }
-    if (b.active) {
-      return 1;
-    }
+    return 1;
   });
   store.set('adminDates')(adminDates);
   store.set('dates')(dates);
@@ -192,4 +205,64 @@ export const useFocusedDate = () => {
   };
 
   return [focusedDateId, setFocusedDate];
+};
+
+export const useMobile = () => {
+  return reactResponsive.useMediaQuery({
+    query: '(max-width: 768px)',
+  });
+};
+
+export const dateSorterNewest = (date1, date2) => {
+  const time1 = date1.createdAt || date1.updatedAt;
+  const time2 = date2.createdAt || date2.updatedAt;
+  if (time1 > time2) {
+    return -1;
+  }
+  if (time1 < time2) {
+    return 1;
+  }
+  return 0;
+};
+
+export const dateSorterOldest = (date1, date2) => dateSorterNewest(date2, date1);
+
+export const createCalendarEvent = dateObj => {
+  const dateLength = getDateLength(dateObj);
+  let calendarEventDescription = `<p>${dateObj.description}</p><ol>`;
+  dateObj.sections.forEach(section => {
+    calendarEventDescription += `<li><b>${section.spot.name}</b>\n${section.description}</li>`;
+  });
+  calendarEventDescription += '</ol>';
+
+  const calendarLocation = `From "${dateObj.sections[0].spot.name}" to "${dateObj.sections[1].spot.name}"`;
+
+  return {
+    title: encodeURIComponent(`Beacon | ${dateObj.name}`),
+    description: encodeURIComponent(calendarEventDescription),
+    location: encodeURIComponent(calendarLocation),
+    startDatetime: new Date().toISOString(),
+    endDatetime: new Date(Date.now() + dateLength * 3600).toISOString(),
+  };
+};
+
+export const getSectionImage = dateSection => {
+  // Placeholder is DC image
+  let imageUrl = dc3;
+  if (dateSection.image) {
+    imageUrl = dateSection.image.includes('http')
+      ? dateSection.image // Use raw image URL
+      : `https://instagram.com/p/${dateSection.image}/media/?size=l`; // Imply image url from Instagram ID
+  }
+  return imageUrl;
+};
+
+export const getDateTags = dateObj => {
+  let tags = [];
+  dateObj.sections.forEach(section => {
+    tags.push(...section.tags);
+  });
+  tags = uniqBy(tags, tag => tag.tagId);
+  tags = tags.slice(0, 3);
+  return tags;
 };

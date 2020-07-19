@@ -1,0 +1,53 @@
+@import '../../css/colors.css';
+
+.buttonBase {
+  font-family: 'Lato';
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.buttonBase:disabled {
+  color: var(--gray);
+  background-color: white;
+  border: solid 2px var(--gray);
+  pointer-events: none;
+}
+
+.buttonPrimary {
+  background-color: var(--primary);
+}
+
+.buttonPrimary:hover, .buttonPrimary:active {
+  background-color: var(--primaryDark);
+}
+
+.buttonSecondary {
+  background-color: var(--secondary);
+}
+
+.buttonSecondary:hover, .buttonSecondary:active  {
+  background-color: var(--secondaryDark);
+}
+
+.buttonOutlined {
+  background-color: white;
+  color: var(--primary);
+  border: solid 2px var(--primary);
+}
+
+.buttonSmall {
+  font-size: 16px;
+  padding: 15px;
+}
+
+.buttonLarge {
+  font-size: 20px;
+  padding: 20px;
+}
+
+.fullWidth {
+  width: 100%;
+}

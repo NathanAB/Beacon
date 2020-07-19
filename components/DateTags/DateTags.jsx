@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import { Box } from '@material-ui/core';
 
-import { costToString } from '../../utils';
+import { costToString, getDateLength, getDateCost } from '../../utils';
 
 const styles = theme => ({
   tagChip: {
@@ -29,15 +29,11 @@ const DateTags = ({
   let tags = [];
   let dateHours;
   let dateCostString;
-  let dateLocations = [];
+  const dateLocations = [];
 
   if (dateObj) {
-    const { sections } = dateObj;
-    const dateMinutes = sections.reduce((total, section) => total + section.minutes, 0);
-    dateHours = Math.round(dateMinutes / 30) / 2; // Round to the nearest half-hour
-    const dateCost = sections.reduce((total, section) => total + section.cost, 0) / sections.length;
-    dateCostString = costToString(dateCost);
-    dateLocations = uniq(map(sections, 'spot.neighborhood.name'));
+    dateHours = getDateLength(dateObj);
+    dateCostString = getDateCost(dateObj);
     dateObj.sections.forEach(section => {
       tags.push(...section.tags);
     });
@@ -58,21 +54,17 @@ const DateTags = ({
 
   const renderMetaChips = () => (
     <>
-      {!!dateLocations && !!dateLocations.length && !!dateLocations[0] && (
+      {/* {!!dateLocations && !!dateLocations.length && !!dateLocations[0] && (
         <Chip
           variant={variant}
           color={color}
           label={dateLocations[0]}
           className={classes.tagChip}
         />
-      )}
-      <Chip
-        variant={variant}
-        color={color}
-        label={`${dateHours} hrs`}
-        className={classes.tagChip}
-      />
-      <Chip color={color} variant={variant} label={dateCostString} className={classes.tagChip} />
+      )} */}
+      <span className={styles.metadata}>
+        {`${dateHours} hours`} · {dateCostString}
+      </span>
     </>
   );
 

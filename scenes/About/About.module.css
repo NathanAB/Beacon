@@ -1,0 +1,105 @@
+@import '../../css/colors.css';
+
+.narrowSection {
+  max-width: 633px;
+  margin: auto;
+  line-height: 28px;
+  margin-bottom: 100px;
+}
+.narrowSection p {
+  margin-top: 20px;
+}
+
+.paperOuter {
+  margin: auto;
+  margin-top: 60px;
+  max-width: 900px;
+  position: relative;
+}
+
+.paperGraphic {
+  position: absolute;
+  width: 50px;
+  transform: rotate(-90deg);
+  z-index: -1;
+  left: 5px;
+  top: -56px;
+}
+
+.paperInner {
+  padding: 30px 40px;
+  text-align: center;
+}
+
+.paperContent {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.paperSection {
+  max-width: 244px;
+  padding-top: 40px;
+}
+
+.paperHeader {
+  color: var(--primary);
+}
+
+.paperStat {
+  font-size: 70px;
+  font-weight: bold;
+}
+
+.paperStatSmall {
+  font-size: 24px;
+}
+
+.quoteBlockContainer {
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+.quoteBlock {
+  max-width: 550px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.quoteBlock a {
+  color: black;
+}
+
+.orangeBlob {
+  -webkit-transform: scaleY(-1.1);
+  transform: scaleY(-1.1);
+  position: absolute;
+  top: -100px;
+  left:0px;
+  right: 0px;
+  margin: auto;
+  z-index: -1;
+  width: 700px;
+}
+
+@media only screen and (max-width: 768px) {
+  .paperContent {
+    width: 100%;
+    flex-direction: column;
+  }
+  .paperSection {
+    margin: auto;
+  }
+  .orangeBlob {
+    -webkit-transform: scaleY(-1.3);
+    transform: scaleY(-1.3);
+    left: -190px;
+    bottom: -50px;
+  }
+  .paperInner {
+    padding: 30px 20px;
+  }
+}

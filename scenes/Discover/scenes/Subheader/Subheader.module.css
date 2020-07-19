@@ -1,0 +1,60 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 100px;
+  margin-bottom: 250px;
+}
+
+.imageContainer {
+  width: 100%;
+  max-width: 300px;
+}
+
+.textContainer {
+  width: 100%;
+  max-width: 400px;
+}
+
+.couple {
+  position: absolute;
+  left: -150px;
+  top: -120px;
+  width: 594px;
+  z-index:-1;
+}
+
+.yellowBlob {
+  position: absolute;
+  left: 0px;
+  top: -20px;
+  width: 700px;
+  z-index:-2;
+}
+
+
+.caption {
+  margin-top: 32px;
+  font-weight: normal;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 150px;
+  }
+  .couple {
+    top: -120px;
+    left: -100px;
+    width: 400px;
+  }
+  .textContainer {
+    padding: 0 32px;
+    margin-top: 200px;
+  }
+  .yellowBlob {
+    width: 500px
+  }
+}

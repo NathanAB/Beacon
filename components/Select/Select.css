@@ -1,0 +1,15 @@
+@import '../../css/fonts.css';
+
+:global(.react-select__control), :global(.react-select__menu) {
+  font-family: var(--standardFont);
+  font-size: 20px;
+  cursor: pointer !important;
+}
+
+:global(.react-select__indicator-separator) {
+  display: none;
+}
+
+:global(.react-select__value-container) {
+  padding: 10px !important;
+}

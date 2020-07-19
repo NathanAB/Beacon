@@ -1,0 +1,127 @@
+
+.backgroundImages {
+  position:relative;
+  height: 210px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.headerContent {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.blobOrange {
+  z-index: -3;
+  width: 100%;
+  max-width: 923px;
+  position: absolute;
+  top:20px;
+  left:0px;
+  right:0px;
+  margin: auto;
+}
+
+.couple1 {
+  z-index: -1;
+  width: 100%;
+  max-width: 450px;
+  position: absolute;
+  top:-30px;
+  left:130px;
+}
+
+.couple2 {
+  z-index: -2;
+  width: 100%;
+  max-width: 600px;
+  position: absolute;
+  top:-120px;
+  right:-70px;
+}
+
+.beaconTitle {
+  margin-right: 120px;
+  margin-bottom: 50px;
+}
+
+.title {
+  margin: 10px;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  max-width: 367px;
+  width: 100%;
+  text-align: center;
+}
+
+.subtitle {
+  margin-top: 50px;
+  display: inline-block;
+  text-align: left;
+}
+
+.cardContainer {
+  width: 45vw;
+  max-width: 450px;
+  margin: 10px 0;
+}
+
+.cardBody {
+  padding: 30px;
+  width: 100%;
+  max-width: 450px;
+}
+
+.cardSection {
+  margin-bottom: 20px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .backgroundImages {
+    height: 150px;
+  }
+
+  .headerContent {
+    margin-bottom: 50px;
+  }
+  
+  .couple1 {
+    max-width: 320px;
+    top:-30px;
+    left: unset;
+    right: -60px;
+  }
+
+  .couple2 {
+    display: none;
+  }
+
+  .beaconTitle {
+    margin-right: 0;
+  }
+
+  .title {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .subtitle {
+    text-align: center;
+  }
+
+  .cardContainer {
+    width: 100vw;
+  }
+
+  .cardBody button {
+    width: 100%;
+  }
+
+}

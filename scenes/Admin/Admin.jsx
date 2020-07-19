@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import { Button, Typography, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
+=======
+import { Typography, FormGroup, FormControlLabel, Switch, Box } from '@material-ui/core';
+>>>>>>> redesign
 
 import MaterialTable from 'material-table';
 
+import Button from '../../components/Button/Button';
 import Store from '../../store';
 import EditDateForm from './scenes/EditDateForm/EditDateForm';
 import Spinner from '../../components/Spinner/Spinner';
 import { loadDates } from '../../utils';
 import { updateDatePlan } from '../../api';
+import Constants from '../../constants';
 
 function Admin() {
   const store = Store.useStore();
@@ -15,6 +21,11 @@ function Admin() {
   const setIsEditingDate = store.set('adminEditingDate');
   const dateObjs = store.get('adminDates');
   const [isSavingDate, setSavingDate] = useState(false);
+  const user = store.get('user');
+
+  if (!user) {
+    return <a href={Constants.API.LOGIN_GOOGLE}>Login</a>;
+  }
 
   const toggleActive = async dateObj => {
     // eslint-disable-next-line no-param-reassign
@@ -31,13 +42,37 @@ function Admin() {
     }
   };
 
-  return (
+<<<<<<< HEAD
+=======
+  const toggleNew = async dateObj => {
+    // eslint-disable-next-line no-param-reassign
+    dateObj.new = !dateObj.new;
+    setSavingDate(true);
+    try {
+      await updateDatePlan(dateObj);
+      await loadDates(store);
+    } catch (err) {
+      console.error(err);
+      alert(err);
+    } finally {
+      setSavingDate(false);
+    }
+  };
+
+  const spotCell = section => (
     <>
+      <b>{section?.spot?.name}</b>
+      <br />
+      <i>{section?.spot?.neighborhood?.name}</i>
+    </>
+  );
+
+>>>>>>> redesign
+  return (
+    <Box margin="20px">
       {isSavingDate && <Spinner />}
       {isEditingDate && <EditDateForm />}
       <Button
-        variant="contained"
-        color="primary"
         onClick={() => {
           setIsEditingDate({
             sections: [{}, {}],
@@ -104,6 +139,31 @@ function Admin() {
               </FormGroup>
             ),
           },
+          {
+            title: 'New Tag',
+            field: 'new',
+            type: 'boolean',
+            render: dateObj => (
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={dateObj.new}
+                      color="primary"
+                      onClick={e => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                      }}
+                      onChange={() => {
+                        toggleNew(dateObj);
+                      }}
+                    />
+                  }
+                  label={dateObj.active ? 'Yes' : 'No'}
+                />
+              </FormGroup>
+            ),
+          },
         ]}
         data={dateObjs}
         options={{
@@ -111,7 +171,7 @@ function Admin() {
         }}
         onRowClick={(event, dateObj) => setIsEditingDate(dateObj)}
       />
-    </>
+    </Box>
   );
 }
 
