@@ -83,6 +83,7 @@
 
 .thumbnailPlaceholderClear {
   opacity: 0;
+  pointer-events: none;
 }
 
 .thumbnail:hover {

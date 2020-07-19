@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.0.2](https://github.com/nathanab/beacon/compare/v3.0.1...v3.0.2)
+- Fix placeholder images capturing mouse clicks and drags
+
 ## [v3.0.1](https://github.com/nathanab/beacon/compare/v3.0.0...v3.0.1)
 - Fix admin page merge leftover
 - Fix outbound link attributes

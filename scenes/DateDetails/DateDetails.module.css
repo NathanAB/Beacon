@@ -66,6 +66,7 @@
 
 .thumbnailPlaceholderClear {
   opacity: 0;
+  pointer-events: none;
 }
 
 .timeAndCost {
