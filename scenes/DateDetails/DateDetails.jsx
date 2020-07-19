@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InternalLink from 'next/link';
 
 import styles from './DateDetails.module.css';
@@ -11,13 +11,21 @@ import {
   getDateCost,
   getDateLength,
   getDateTags,
-  createCalendarEvent,
   filterArrayToString,
 } from '../../utils';
-import dc3 from '../../assets/img/dc-3.jpeg';
+import cn from '../../utils/cn';
 import tipFlower from '../../assets/graphics/tip-flower.svg';
 import ShareButton from '../../components/ShareButton/ShareButton';
 import Store from '../../store';
+
+import placeholderImg1 from '../../assets/graphics/pattern-1.svg';
+import placeholderImg2 from '../../assets/graphics/pattern-2.svg';
+import placeholderImg3 from '../../assets/graphics/pattern-3.svg';
+import placeholderImg4 from '../../assets/graphics/pattern-4.svg';
+
+const placeholderImgs = [placeholderImg1, placeholderImg2, placeholderImg3, placeholderImg4];
+
+const randPlaceholder = () => placeholderImgs[Math.floor(Math.random() * Math.floor(4))];
 
 const DateDetails = ({ dateObj }) => {
   if (!dateObj) {
@@ -33,6 +41,16 @@ const DateDetails = ({ dateObj }) => {
   const backUrl = lastFilters.length
     ? `${constants.PAGES.SEARCH}?filters=${filterString}`
     : constants.PAGES.SEARCH;
+
+  const [highResLoaded1, setHighResLoaded1] = useState(false);
+  const [highResLoaded2, setHighResLoaded2] = useState(false);
+  const [highResLoaded3, setHighResLoaded3] = useState(false);
+  const highResLoaded = [highResLoaded1, highResLoaded2, highResLoaded3];
+  const setHighResLoaded = [setHighResLoaded1, setHighResLoaded2, setHighResLoaded3];
+  const [placeholder1] = useState(randPlaceholder());
+  const [placeholder2] = useState(randPlaceholder());
+  const [placeholder3] = useState(randPlaceholder());
+  const placeholder = [placeholder1, placeholder2, placeholder3];
 
   return (
     <div className={styles.container}>
@@ -50,12 +68,27 @@ const DateDetails = ({ dateObj }) => {
           </span>
         )}
       </h3>
-      <div className={styles.thumbnailContainer}>
-        {dateObj.sections.map(section => (
-          <div
-            className={styles.thumbnail}
-            style={{ backgroundImage: `url(${getSectionImage(section)}), url(${dc3})` }}
-          />
+      <div className={styles.thumbnailRowContainer}>
+        {dateObj.sections.map((section, i) => (
+          <div className={styles.thumbnail}>
+            <img
+              alt=""
+              className={styles.thumbnailImage}
+              src={getSectionImage(section)}
+              onLoad={() => {
+                setHighResLoaded[i](true);
+              }}
+            />
+            <img
+              alt=""
+              className={cn(
+                styles.thumbnailImage,
+                styles.thumbnailPlaceholder,
+                highResLoaded[i] && styles.thumbnailPlaceholderClear,
+              )}
+              src={placeholder[i]}
+            />
+          </div>
         ))}
       </div>
       <div className={styles.metaRow}>

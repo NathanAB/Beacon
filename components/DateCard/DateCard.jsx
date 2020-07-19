@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 // TODO: Enable favoriting
 // import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 import Paper from '../Paper/Paper';
-import dc3 from '../../assets/img/dc-3.jpeg';
+import placeholder1 from '../../assets/graphics/pattern-1.svg';
+import placeholder2 from '../../assets/graphics/pattern-2.svg';
+import placeholder3 from '../../assets/graphics/pattern-3.svg';
+import placeholder4 from '../../assets/graphics/pattern-4.svg';
 import cn from '../../utils/cn';
 
 import styles from './DateCard.module.css';
-import {
-  getDateCost,
-  getDateLength,
-  createCalendarEvent,
-  getSectionImage,
-  getDateTags,
-} from '../../utils';
+import { getDateCost, getDateLength, getSectionImage, getDateTags } from '../../utils';
 import Chip from '../Chip/Chip';
 import ShareButton from '../ShareButton/ShareButton';
 import Constants from '../../constants';
+
+const placeholderImgs = [placeholder1, placeholder2, placeholder3, placeholder4];
+
+const randPlaceholder = () => placeholderImgs[Math.floor(Math.random() * Math.floor(4))];
 
 export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW, isFavorite }) {
   const router = useRouter();
@@ -29,6 +30,8 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
   const imageUrl = getSectionImage(section1);
   const tags = getDateTags(dateObj);
   const dateUrl = `https://${window.location.host}${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`;
+  const [highResLoaded, setHighResLoaded] = useState(false);
+  const [placeholder] = useState(randPlaceholder());
 
   const openDateDetails = () => {
     router
@@ -50,12 +53,29 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
         <Paper fullWidth highlighted={isFavorite} noBorder>
           <div className={styles.cardContent}>
             <button
+              className={styles.thumbnail}
               type="button"
               onClick={() => openDateDetails()}
-              className={styles.thumbnail}
-              style={{ backgroundImage: `url(${imageUrl})` }}
               alt="date"
-            />
+            >
+              <img
+                alt=""
+                className={styles.thumbnailImage}
+                onLoad={() => {
+                  setHighResLoaded(true);
+                }}
+                src={imageUrl}
+              />
+              <img
+                className={cn(
+                  styles.thumbnailImage,
+                  styles.thumbnailPlaceholder,
+                  highResLoaded && styles.thumbnailPlaceholderClear,
+                )}
+                alt=""
+                src={placeholder}
+              />
+            </button>
             <div className={styles.cardBody}>
               <button className={styles.clickable} type="button" onClick={() => openDateDetails()}>
                 <h6>{dateObj.name}</h6>
