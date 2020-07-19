@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import { Button, Typography, FormGroup, FormControlLabel, Switch } from '@material-ui/core';
-=======
 import { Typography, FormGroup, FormControlLabel, Switch, Box } from '@material-ui/core';
->>>>>>> redesign
 
 import MaterialTable from 'material-table';
 
@@ -42,8 +38,6 @@ function Admin() {
     }
   };
 
-<<<<<<< HEAD
-=======
   const toggleNew = async dateObj => {
     // eslint-disable-next-line no-param-reassign
     dateObj.new = !dateObj.new;
@@ -59,15 +53,6 @@ function Admin() {
     }
   };
 
-  const spotCell = section => (
-    <>
-      <b>{section?.spot?.name}</b>
-      <br />
-      <i>{section?.spot?.neighborhood?.name}</i>
-    </>
-  );
-
->>>>>>> redesign
   return (
     <Box margin="20px">
       {isSavingDate && <Spinner />}

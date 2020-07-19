@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.0.1](https://github.com/nathanab/beacon/compare/v3.0.0...v3.0.1)
+- Fix admin page merge leftover
+- Fix outbound link attributes
+
 ## [v3.0.0](https://github.com/nathanab/beacon/compare/v2.4.2...v3.0.0)
 - Implement new design!
 - Update admin page with sortable and searchable data table
