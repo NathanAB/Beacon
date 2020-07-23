@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.1.0](https://github.com/nathanab/beacon/compare/v3.0.3...v3.1.0)
+- Add instagram photo credit
+
 ## [v3.0.3](https://github.com/nathanab/beacon/compare/v3.0.2...v3.0.3)
 - Fix date card navigation by using anchor instead of programmatic link
 

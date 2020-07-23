@@ -70,24 +70,39 @@ const DateDetails = ({ dateObj }) => {
       </h3>
       <div className={styles.thumbnailRowContainer}>
         {dateObj.sections.map((section, i) => (
-          <div className={styles.thumbnail}>
-            <img
-              alt=""
-              className={styles.thumbnailImage}
-              src={getSectionImage(section)}
-              onLoad={() => {
-                setHighResLoaded[i](true);
-              }}
-            />
-            <img
-              alt=""
-              className={cn(
-                styles.thumbnailImage,
-                styles.thumbnailPlaceholder,
-                highResLoaded[i] && styles.thumbnailPlaceholderClear,
-              )}
-              src={placeholder[i]}
-            />
+          <div className={styles.thumbnailContainer}>
+            <div className={styles.thumbnail}>
+              <img
+                alt=""
+                className={styles.thumbnailImage}
+                src={getSectionImage(section)}
+                onLoad={() => {
+                  setHighResLoaded[i](true);
+                }}
+              />
+              <img
+                alt=""
+                className={cn(
+                  styles.thumbnailImage,
+                  styles.thumbnailPlaceholder,
+                  highResLoaded[i] && styles.thumbnailPlaceholderClear,
+                )}
+                src={placeholder[i]}
+              />
+            </div>
+            {section.image && section.imageAuthor && (
+              <span>
+                Photo:{' '}
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.imageAuthor}
+                  href={`https://www.instagram.com/p/${section.image}`}
+                >
+                  {`@${section.imageAuthor}`}
+                </a>
+              </span>
+            )}
           </div>
         ))}
       </div>
