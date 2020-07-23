@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
+import ReactGA from 'react-ga';
 
 import styles from './DateDetails.module.css';
 import BeaconTitle from '../../components/BeaconTitle/BeaconTitle';
@@ -91,16 +92,16 @@ const DateDetails = ({ dateObj }) => {
               />
             </div>
             {section.image && section.imageAuthor && (
-              <span>
+              <span className={styles.imageAuthor}>
                 Photo:{' '}
-                <a
+                <ReactGA.OutboundLink
+                  to={`https://www.instagram.com/p/${section.image}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={styles.imageAuthor}
-                  href={`https://www.instagram.com/p/${section.image}`}
+                  eventLabel={`Instagram post by ${section.imageAuthor}`}
                 >
                   {`@${section.imageAuthor}`}
-                </a>
+                </ReactGA.OutboundLink>
               </span>
             )}
           </div>

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.1.1](https://github.com/nathanab/beacon/compare/v3.1.0...v3.1.1)
+- Change IG credit text to black
+- Make text in Sort By dropdown same size as the Add Filters button
+- On homepage, center all the header text in a single column
+
 ## [v3.1.0](https://github.com/nathanab/beacon/compare/v3.0.3...v3.1.0)
 - Add instagram photo credit
 

@@ -5,7 +5,7 @@ import Select from 'react-select';
 // Global css since this is a 3rd party component
 import './Select.css';
 
-function Button({ children, ...props }) {
+function Button({ children, size = 'large', ...props }) {
   const customTheme = theme => ({
     ...theme,
     colors: {
@@ -17,7 +17,11 @@ function Button({ children, ...props }) {
     },
   });
   return (
-    <Select theme={customTheme} classNamePrefix="react-select" {...props}>
+    <Select
+      theme={customTheme}
+      classNamePrefix={size === 'large' ? 'react-select' : 'react-select-small'}
+      {...props}
+    >
       {children}
     </Select>
   );

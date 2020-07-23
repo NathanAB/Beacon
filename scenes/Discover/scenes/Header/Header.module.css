@@ -10,11 +10,12 @@
 .headerContent {
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
+  margin: 20px auto;
   justify-content: space-around;
   align-items: center;
   position: relative;
   margin-bottom: 100px;
+  max-width: 900px;
 }
 
 .blobOrange {
@@ -47,7 +48,6 @@
 }
 
 .beaconTitle {
-  margin-right: 120px;
   margin-bottom: 50px;
 }
 
@@ -63,7 +63,6 @@
 .subtitle {
   margin-top: 50px;
   display: inline-block;
-  text-align: left;
 }
 
 .cardContainer {

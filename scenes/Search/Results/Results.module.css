@@ -4,6 +4,11 @@
   align-items: center;
 }
 
+.sortBy {
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .sortRowSpacer {
   flex-grow: 1;
 }

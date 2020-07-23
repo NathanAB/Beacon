@@ -46,9 +46,9 @@ export default function Results() {
             {resultsLength} result{resultsLength !== 1 && 's'}
           </p>
           <div className={styles.sortRowSpacer}></div>
-          <h6>Sort by:</h6>
+          <span className={styles.sortBy}>Sort by:</span>
           <div className={styles.selectContainer}>
-            <Select value={sortBy} onChange={toggleSort} options={options}></Select>
+            <Select value={sortBy} size="small" onChange={toggleSort} options={options}></Select>
           </div>
         </div>
       )}
