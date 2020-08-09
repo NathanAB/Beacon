@@ -30,7 +30,16 @@ export default function Footer() {
         </div>
         <div className={styles.col2}>
           <InternalLink href="/about">
-            <a>Learn more about us</a>
+            <a
+              onClick={() =>
+                ReactGA.event({
+                  category: 'Interaction',
+                  action: 'Click About Us',
+                })
+              }
+            >
+              Learn more about us
+            </a>
           </InternalLink>
           <br />
           <ReactGA.OutboundLink
@@ -72,11 +81,29 @@ export default function Footer() {
         <div className={styles.col3}>
           <div>
             <InternalLink href="/terms">
-              <a>Terms of use</a>
+              <a
+                onClick={() =>
+                  ReactGA.event({
+                    category: 'Interaction',
+                    action: 'Click Terms of Use',
+                  })
+                }
+              >
+                Terms of use
+              </a>
             </InternalLink>
             <br />
             <InternalLink href="/privacy">
-              <a>Privacy policy</a>
+              <a
+                onClick={() =>
+                  ReactGA.event({
+                    category: 'Interaction',
+                    action: 'Click Privacy Policy',
+                  })
+                }
+              >
+                Privacy policy
+              </a>
             </InternalLink>
           </div>
           <div className={styles.copyright}>

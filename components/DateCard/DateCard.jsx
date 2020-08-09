@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
+import ReactGA from 'react-ga';
 
 // TODO: Enable favoriting
 // import { FaHeart, FaRegHeart } from 'react-icons/fa';
@@ -31,6 +32,12 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
   const dateUrl = `https://${window.location.host}${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`;
   const [highResLoaded, setHighResLoaded] = useState(false);
   const [placeholder] = useState(randPlaceholder());
+  const clickDateEvent = () =>
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Click Date',
+      label: dateObj.name,
+    });
 
   return (
     <div className={styles.container}>
@@ -47,7 +54,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
               as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
             >
-              <a className={styles.thumbnail}>
+              <a onClick={clickDateEvent} className={styles.thumbnail}>
                 <img
                   alt=""
                   className={styles.thumbnailImage}
@@ -73,7 +80,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                 href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
                 as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
               >
-                <div className={styles.clickable}>
+                <div onClick={clickDateEvent} className={styles.clickable}>
                   <h6>{dateObj.name}</h6>
                   <div className={styles.timeAndCost}>
                     {dateLength} hours · {getDateCost(dateObj)}

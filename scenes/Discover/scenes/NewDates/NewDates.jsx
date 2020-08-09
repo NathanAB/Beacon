@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import InternalLink from 'next/link';
+import ReactGA from 'react-ga';
 
 import styles from './NewDates.module.css';
 import Pattern3 from '../../../../assets/graphics/pattern-3.svg';
@@ -29,7 +30,16 @@ export default function NewDates({ dateObjs }) {
             <h3>New date ideas added every week</h3>
             {!isMobile && (
               <InternalLink href="/search">
-                <a>Explore all</a>
+                <a
+                  onClick={() =>
+                    ReactGA.event({
+                      category: 'Interaction',
+                      action: 'Click Explore All',
+                    })
+                  }
+                >
+                  Explore all
+                </a>
               </InternalLink>
             )}
           </Box>
@@ -42,7 +52,16 @@ export default function NewDates({ dateObjs }) {
           </div>
           {isMobile && (
             <InternalLink href="/search">
-              <a>Explore all</a>
+              <a
+                onClick={() =>
+                  ReactGA.event({
+                    category: 'Interaction',
+                    action: 'Click Explore All',
+                  })
+                }
+              >
+                Explore all
+              </a>
             </InternalLink>
           )}
         </div>

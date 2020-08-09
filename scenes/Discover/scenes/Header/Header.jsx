@@ -107,7 +107,14 @@ export default function Header() {
                 <InternalLink
                   href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}
                 >
-                  <a>
+                  <a
+                    onClick={() =>
+                      ReactGA.event({
+                        category: 'Interaction',
+                        action: 'Click Search Dates',
+                      })
+                    }
+                  >
                     <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
                       Search dates
                     </Button>

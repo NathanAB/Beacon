@@ -52,13 +52,18 @@ const DateDetails = ({ dateObj }) => {
   const [placeholder2] = useState(randPlaceholder());
   const [placeholder3] = useState(randPlaceholder());
   const placeholder = [placeholder1, placeholder2, placeholder3];
+  const backEvent = () =>
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Click Back to Explore',
+    });
 
   return (
     <div className={styles.container}>
       <BeaconTitle />
       <div className={styles.backButton}>
         <InternalLink href={backUrl}>
-          <a>← Back to Explore</a>
+          <a onClick={backEvent}>← Back to Explore</a>
         </InternalLink>
       </div>
       <h3 className={styles.dateTitle}>
@@ -161,7 +166,7 @@ const DateDetails = ({ dateObj }) => {
       </ol>
       <div className={styles.backButtonMobile}>
         <InternalLink href={backUrl}>
-          <a>← Back to Explore</a>
+          <a onClick={backEvent}>← Back to Explore</a>
         </InternalLink>
       </div>
     </div>
