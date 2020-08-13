@@ -44,7 +44,7 @@ export default class BeaconApp extends App {
           <meta name="theme-color" content="#F15F3A" />
           <meta
             name="description"
-            content="Discover fun and unique DC date ideas tailored to your preferences."
+            content="Date night in DC? We've got you covered with fun & fresh date ideas."
           />
           <meta charSet="utf-8" />
         </Head>
