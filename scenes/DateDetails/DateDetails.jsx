@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
+import MarkdownIt from 'markdown-it';
 
 import styles from './DateDetails.module.css';
 import BeaconTitle from '../../components/BeaconTitle/BeaconTitle';
@@ -23,6 +24,8 @@ import placeholderImg1 from '../../assets/graphics/pattern-1.svg';
 import placeholderImg2 from '../../assets/graphics/pattern-2.svg';
 import placeholderImg3 from '../../assets/graphics/pattern-3.svg';
 import placeholderImg4 from '../../assets/graphics/pattern-4.svg';
+
+const mdParser = new MarkdownIt();
 
 const placeholderImgs = [placeholderImg1, placeholderImg2, placeholderImg3, placeholderImg4];
 
@@ -149,15 +152,7 @@ const DateDetails = ({ dateObj }) => {
                     />
                     Tips & Tricks
                   </h6>
-                  <ul>
-                    {section.tips
-                      .replace('"', '')
-                      .split('* ')
-                      .filter(tip => tip)
-                      .map(tip => (
-                        <li className={styles.tipListItem}>{tip}</li>
-                      ))}
-                  </ul>
+                  <div dangerouslySetInnerHTML={{ __html: mdParser.render(section.tips) }}></div>
                 </div>
               )}
             </li>

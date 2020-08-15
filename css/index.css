@@ -1,4 +1,5 @@
 @import './fonts.css';
+@import './colors.css';
 
 html {
   background-color: lightgray;
@@ -84,4 +85,24 @@ button {
 /* Tip color for popover component */
 :global(.Popover-tipShape) {
   fill: white
+}
+
+:global(.react-select__control), :global(.react-select__menu) {
+  font-family: var(--standardFont);
+  font-size: 20px;
+  cursor: pointer !important;
+}
+
+:global(.react-select__indicator-separator) {
+  display: none;
+}
+
+:global(.react-select__value-container) {
+  padding: 10px !important;
+}
+
+:global(.react-select-small__control), .small :global(.react-select-small__menu) {
+  font-family: var(--standardFont);
+  font-size: 16px;
+  cursor: pointer !important;
 }

@@ -2,9 +2,6 @@ import React from 'react';
 
 import Select from 'react-select';
 
-// Global css since this is a 3rd party component
-import './Select.css';
-
 function Button({ children, size = 'large', ...props }) {
   const customTheme = theme => ({
     ...theme,

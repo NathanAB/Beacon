@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+
 import { withStyles } from '@material-ui/core/styles';
 import {
   Box,
@@ -22,6 +25,8 @@ import Store from '../../../../store';
 import { createDatePlan, updateDatePlan } from '../../../../api';
 import Spinner from '../../../../components/Spinner/Spinner';
 import { loadDates } from '../../../../utils';
+
+const mdParser = new MarkdownIt();
 
 const styles = theme => ({
   control: {
@@ -54,6 +59,10 @@ function EditDateForm({ classes }) {
   const isNew = !currentDate.id;
 
   const [formData, setFormData] = useState({});
+  const handleTipsChange = (newText, sectionNum) => {
+    formData.sections[sectionNum].tips = newText;
+    setFormData(Object.assign({}, formData));
+  };
   const [isSavingDate, setSavingDate] = useState(false);
 
   const addSection3 = () => {
@@ -232,17 +241,6 @@ function EditDateForm({ classes }) {
             variant="outlined"
             fullWidth
           />
-
-          <TextField
-            className={classes.control}
-            label="Section Tips"
-            multiline
-            rows="4"
-            value={section?.tips || ''}
-            onChange={e => updateFormData(e, `sections[${sectionNum}].tips`)}
-            variant="outlined"
-            fullWidth
-          />
           <TextField
             className={classes.control}
             label="Spot Google Place ID"
@@ -260,6 +258,13 @@ function EditDateForm({ classes }) {
               Place ID lookup here
             </Link>
           </Box>
+          <h6>Section Tips</h6>
+          <MdEditor
+            value={section?.tips}
+            style={{ height: '500px' }}
+            renderHTML={text => mdParser.render(text)}
+            onChange={({ text }) => handleTipsChange(text, sectionNum)}
+          />
         </>
       )
     );

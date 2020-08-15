@@ -12,6 +12,7 @@ import Body from '../scenes/Body/Body';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import theme from '../theme';
 
+import 'react-markdown-editor-lite/lib/index.css';
 import '../css/index.css';
 
 export default class BeaconApp extends App {

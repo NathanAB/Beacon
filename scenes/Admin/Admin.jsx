@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Typography, FormGroup, FormControlLabel, Switch, Box } from '@material-ui/core';
 
 import MaterialTable from 'material-table';
 
 import Button from '../../components/Button/Button';
 import Store from '../../store';
-import EditDateForm from './scenes/EditDateForm/EditDateForm';
+
 import Spinner from '../../components/Spinner/Spinner';
 import { loadDates } from '../../utils';
 import { updateDatePlan } from '../../api';
 import Constants from '../../constants';
+
+const EditDateForm = dynamic(() => import('./scenes/EditDateForm/EditDateForm'), { ssr: false });
 
 function Admin() {
   const store = Store.useStore();
