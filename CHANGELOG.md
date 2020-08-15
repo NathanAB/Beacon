@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.2.0](https://github.com/nathanab/beacon/compare/v3.1.2...v3.2.0)
+- Switch tips section to Markdown
+
 ## [v3.1.2](https://github.com/nathanab/beacon/compare/v3.1.1...v3.1.2)
 - Fixed text overflow on tips section
 - Added click events to various buttons and navigation
