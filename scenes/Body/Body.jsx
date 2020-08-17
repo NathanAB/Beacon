@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import ReactGA from 'react-ga';
+import LogRocket from 'logrocket';
 
 import Footer from '../../components/Footer/Footer';
 
@@ -24,6 +25,10 @@ export default ({ Component, pageProps }) => {
       if (authData) {
         store.set('user')(authData);
         ReactGA.set({ userEmail: authData.email });
+        LogRocket.identify(authData.email, {
+          name: authData.name,
+          email: authData.email,
+        });
         getUserDates();
       }
     };

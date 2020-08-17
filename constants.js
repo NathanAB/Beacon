@@ -29,4 +29,5 @@ export default {
   },
   KEYS,
   ADMINS: ['nathanb92@gmail.com', 'haris.a.shafiq@gmail.com', 'hannaholin@gmail.com'],
+  LOGROCKET_APP_ID: process.env.REACT_APP_LOGROCKET_APP_ID || 'g4lvwu/beacon',
 };

@@ -6,11 +6,13 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import ReactGA from 'react-ga';
+import LogRocket from 'logrocket';
 
 import Store from '../store';
 import Body from '../scenes/Body/Body';
 import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 import theme from '../theme';
+import Constants from '../constants';
 
 import 'react-markdown-editor-lite/lib/index.css';
 import '../css/index.css';
@@ -20,6 +22,7 @@ export default class BeaconApp extends App {
     ReactGA.initialize('UA-54887334-4', {
       debug: true,
     });
+    LogRocket.init(Constants.LOGROCKET_APP_ID, { shouldDebugLog: true });
 
     // Force redirect to www
     if (
