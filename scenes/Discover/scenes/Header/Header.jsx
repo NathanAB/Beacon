@@ -108,12 +108,13 @@ export default function Header() {
                   href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}
                 >
                   <a
-                    onClick={() =>
+                    onClick={() => {
+                      store.set('lastFilters')(filters);
                       ReactGA.event({
                         category: 'Interaction',
                         action: 'Click Search Dates',
-                      })
-                    }
+                      });
+                    }}
                   >
                     <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
                       Search dates
