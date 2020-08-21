@@ -27,7 +27,7 @@ export default function NewDates({ dateObjs }) {
             alignItems="center"
             marginBottom="30px"
           >
-            <h3>New date ideas added every week</h3>
+            <h3>New date ideas for {new Date().toLocaleString('default', { month: 'long' })}</h3>
             {!isMobile && (
               <InternalLink href="/search">
                 <a

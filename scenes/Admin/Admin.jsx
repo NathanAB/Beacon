@@ -122,7 +122,7 @@ function Admin() {
                       }}
                     />
                   }
-                  label={dateObj.active ? 'On' : 'Off'}
+                  label={dateObj.active ? 'Active' : 'Hidden'}
                 />
               </FormGroup>
             ),
@@ -147,7 +147,7 @@ function Admin() {
                       }}
                     />
                   }
-                  label={dateObj.active ? 'Yes' : 'No'}
+                  label={dateObj.new ? 'New' : 'Old'}
                 />
               </FormGroup>
             ),

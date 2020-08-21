@@ -40,6 +40,9 @@ const styles = theme => ({
   sectionHeader: {
     paddingTop: '30px',
   },
+  section: {
+    margin: '60px 0',
+  },
   dialogTitle: {
     color: theme.palette.primary.contrastText,
     backgroundColor: theme.palette.primary.main,
@@ -66,7 +69,9 @@ function EditDateForm({ classes }) {
   const [isSavingDate, setSavingDate] = useState(false);
 
   const addSection3 = () => {
-    formData.sections[2] = {};
+    formData.sections[2] = {
+      sectionNumber: 3,
+    };
     setFormData(Object.assign({}, formData));
   };
 
@@ -84,6 +89,18 @@ function EditDateForm({ classes }) {
   };
 
   const saveDate = async () => {
+    if (
+      formData.sections.some(sectionA =>
+        formData.sections.some(
+          sectionB =>
+            sectionA.sectionNumber === sectionB.sectionNumber && sectionA.id !== sectionB.id,
+        ),
+      )
+    ) {
+      alert('Each section should have a unique section number');
+      return;
+    }
+
     setSavingDate(true);
     try {
       await (isNew ? createDatePlan(formData) : updateDatePlan(formData));
@@ -107,164 +124,183 @@ function EditDateForm({ classes }) {
     return (
       section && (
         <>
-          <Typography variant="h6" className={classes.sectionHeader}>
-            <b>Section {sectionNum + 1}</b>
-          </Typography>
-          <TextField
-            className={classes.control}
-            label="Spot Name"
-            value={section?.spot?.name || ''}
-            onChange={e => updateFormData(e, `sections[${sectionNum}].spot.name`)}
-            variant="outlined"
-            fullWidth
-          />
-          <TextField
-            className={classes.control}
-            label="Section Description"
-            multiline
-            rows="4"
-            value={section?.description || ''}
-            onChange={e => updateFormData(e, `sections[${sectionNum}].description`)}
-            variant="outlined"
-            fullWidth
-          />
-          <FormControl className={classes.controlSmall}>
-            <InputLabel>Neighborhood</InputLabel>
-            <Select
-              value={section?.spot?.neighborhoodId}
-              onChange={e => updateFormData(e, `sections[${sectionNum}].spot.neighborhoodId`)}
-              input={<Input />}
-            >
-              <MenuItem value={null}>
-                <em>None</em>
-              </MenuItem>
-              {neighborhoods.map(n => (
-                <MenuItem key={n.neighborhoodId} value={n.neighborhoodId}>
-                  {n.name}
+          <hr />
+          <section className={classes.section}>
+            <FormControl className={classes.controlSmall}>
+              <InputLabel>Section Number</InputLabel>
+              <Select
+                value={section?.sectionNumber || sectionNum + 1}
+                onChange={e => updateFormData(e, `sections[${sectionNum}].sectionNumber`)}
+                input={<Input />}
+              >
+                <MenuItem key={1} value={1}>
+                  1
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={classes.controlSmall}>
-            <InputLabel>Length</InputLabel>
-            <Select
-              value={section?.minutes}
-              onChange={e => updateFormData(e, `sections[${sectionNum}].minutes`)}
-              input={<Input />}
-            >
-              <MenuItem key={30} value={30}>
-                30 minutes
-              </MenuItem>
-              <MenuItem key={45} value={45}>
-                45 minutes
-              </MenuItem>
-              <MenuItem key={60} value={60}>
-                1 hour
-              </MenuItem>
-              <MenuItem key={90} value={90}>
-                1.5 hours
-              </MenuItem>
-              <MenuItem key={120} value={120}>
-                2 hours
-              </MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl className={classes.controlSmall}>
-            <InputLabel>Cost</InputLabel>
-            <Select
-              value={section?.cost}
-              onChange={e => updateFormData(e, `sections[${sectionNum}].cost`)}
-              input={<Input />}
-            >
-              <MenuItem key={0} value={0}>
-                Free
-              </MenuItem>
-              <MenuItem key={1} value={1}>
-                Under $30
-              </MenuItem>
-              <MenuItem key={2} value={2}>
-                $30 to $60
-              </MenuItem>
-              <MenuItem key={3} value={3}>
-                $60+
-              </MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl className={classes.controlSmall}>
-            <InputLabel>Tags</InputLabel>
-            <Select
-              multiple
-              value={section?.tags?.map(tag => tag.tagId) || []}
-              onChange={e => {
-                updateTags(e, sectionNum);
-              }}
-              input={<Input />}
-            >
-              {tags.map(tag => (
-                <MenuItem key={tag.tagId} value={tag.tagId}>
-                  {tag.name}
+                <MenuItem key={2} value={2}>
+                  2
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className={classes.controlSmall}>
-            <InputLabel>Activity</InputLabel>
-            <Select
-              value={section?.activityId}
-              onChange={e => updateFormData(e, `sections[${sectionNum}].activityId`)}
-              input={<Input />}
-            >
-              <MenuItem value={-1}>
-                <em>None</em>
-              </MenuItem>
-              {activities.map(a => (
-                <MenuItem key={a.activityId} value={a.activityId}>
-                  {a.name}
+                <MenuItem key={3} value={3}>
+                  3
                 </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            className={classes.control}
-            value={section?.image || ''}
-            onChange={e => updateFormData(e, `sections[${sectionNum}].image`)}
-            label="Section Instagram Image ID - OR - full image URL"
-            variant="outlined"
-            fullWidth
-          />
+              </Select>
+            </FormControl>
 
-          <TextField
-            className={classes.control}
-            value={section?.imageAuthor || ''}
-            onChange={e => updateFormData(e, `sections[${sectionNum}].imageAuthor`)}
-            label="Section Instagram Image Author (if applicable - do NOT include '@')"
-            variant="outlined"
-            fullWidth
-          />
-          <TextField
-            className={classes.control}
-            label="Spot Google Place ID"
-            value={section?.spot?.placeId || ''}
-            onChange={e => updateFormData(e, `sections[${sectionNum}].spot.placeId`)}
-            variant="outlined"
-            fullWidth
-          />
-          <Box marginBottom="15px">
-            <Link
-              href="https://developers.google.com/places/place-id#find-id"
-              target="_blank"
-              rel="noopener"
-            >
-              Place ID lookup here
-            </Link>
-          </Box>
-          <h6>Section Tips</h6>
-          <MdEditor
-            value={section?.tips}
-            style={{ height: '500px' }}
-            renderHTML={text => mdParser.render(text)}
-            onChange={({ text }) => handleTipsChange(text, sectionNum)}
-          />
+            <TextField
+              className={classes.control}
+              label="Spot Name"
+              value={section?.spot?.name || ''}
+              onChange={e => updateFormData(e, `sections[${sectionNum}].spot.name`)}
+              variant="outlined"
+              fullWidth
+            />
+            <TextField
+              className={classes.control}
+              label="Section Description"
+              multiline
+              rows="4"
+              value={section?.description || ''}
+              onChange={e => updateFormData(e, `sections[${sectionNum}].description`)}
+              variant="outlined"
+              fullWidth
+            />
+            <FormControl className={classes.controlSmall}>
+              <InputLabel>Neighborhood</InputLabel>
+              <Select
+                value={section?.spot?.neighborhoodId}
+                onChange={e => updateFormData(e, `sections[${sectionNum}].spot.neighborhoodId`)}
+                input={<Input />}
+              >
+                <MenuItem value={null}>
+                  <em>None</em>
+                </MenuItem>
+                {neighborhoods.map(n => (
+                  <MenuItem key={n.neighborhoodId} value={n.neighborhoodId}>
+                    {n.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className={classes.controlSmall}>
+              <InputLabel>Length</InputLabel>
+              <Select
+                value={section?.minutes}
+                onChange={e => updateFormData(e, `sections[${sectionNum}].minutes`)}
+                input={<Input />}
+              >
+                <MenuItem key={30} value={30}>
+                  30 minutes
+                </MenuItem>
+                <MenuItem key={45} value={45}>
+                  45 minutes
+                </MenuItem>
+                <MenuItem key={60} value={60}>
+                  1 hour
+                </MenuItem>
+                <MenuItem key={90} value={90}>
+                  1.5 hours
+                </MenuItem>
+                <MenuItem key={120} value={120}>
+                  2 hours
+                </MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.controlSmall}>
+              <InputLabel>Cost</InputLabel>
+              <Select
+                value={section?.cost}
+                onChange={e => updateFormData(e, `sections[${sectionNum}].cost`)}
+                input={<Input />}
+              >
+                <MenuItem key={0} value={0}>
+                  Free
+                </MenuItem>
+                <MenuItem key={1} value={1}>
+                  Under $30
+                </MenuItem>
+                <MenuItem key={2} value={2}>
+                  $30 to $60
+                </MenuItem>
+                <MenuItem key={3} value={3}>
+                  $60+
+                </MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.controlSmall}>
+              <InputLabel>Tags</InputLabel>
+              <Select
+                multiple
+                value={section?.tags?.map(tag => tag.tagId) || []}
+                onChange={e => {
+                  updateTags(e, sectionNum);
+                }}
+                input={<Input />}
+              >
+                {tags.map(tag => (
+                  <MenuItem key={tag.tagId} value={tag.tagId}>
+                    {tag.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl className={classes.controlSmall}>
+              <InputLabel>Activity</InputLabel>
+              <Select
+                value={section?.activityId}
+                onChange={e => updateFormData(e, `sections[${sectionNum}].activityId`)}
+                input={<Input />}
+              >
+                <MenuItem value={-1}>
+                  <em>None</em>
+                </MenuItem>
+                {activities.map(a => (
+                  <MenuItem key={a.activityId} value={a.activityId}>
+                    {a.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              className={classes.control}
+              value={section?.image || ''}
+              onChange={e => updateFormData(e, `sections[${sectionNum}].image`)}
+              label="Section Instagram Image ID - OR - full image URL"
+              variant="outlined"
+              fullWidth
+            />
+
+            <TextField
+              className={classes.control}
+              value={section?.imageAuthor || ''}
+              onChange={e => updateFormData(e, `sections[${sectionNum}].imageAuthor`)}
+              label="Section Instagram Image Author (if applicable - do NOT include '@')"
+              variant="outlined"
+              fullWidth
+            />
+            <TextField
+              className={classes.control}
+              label="Spot Google Place ID"
+              value={section?.spot?.placeId || ''}
+              onChange={e => updateFormData(e, `sections[${sectionNum}].spot.placeId`)}
+              variant="outlined"
+              fullWidth
+            />
+            <Box marginBottom="15px">
+              <Link
+                href="https://developers.google.com/places/place-id#find-id"
+                target="_blank"
+                rel="noopener"
+              >
+                Place ID lookup here
+              </Link>
+            </Box>
+            <h6>Section Tips</h6>
+            <MdEditor
+              value={section?.tips}
+              style={{ height: '500px' }}
+              renderHTML={text => mdParser.render(text)}
+              onChange={({ text }) => handleTipsChange(text, sectionNum)}
+            />
+          </section>
         </>
       )
     );

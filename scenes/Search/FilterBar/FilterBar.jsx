@@ -56,7 +56,7 @@ export default function FilterBar() {
         label: value,
       });
     } else {
-      newFilters = filters.filter(f => type !== f.type && value !== f.value);
+      newFilters = filters.filter(f => value !== f.value);
       ReactGA.event({
         category: 'Interaction',
         action: 'Toggle Filter Off',

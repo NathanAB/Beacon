@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.4.0](https://github.com/nathanab/beacon/compare/v3.3.0...v3.4.0)
+- Fix date order not being respected
+- Added explicit section number field to date editor
+- Update toggles in admin table to be more helpful
+- Fix filter chips not being un-toggled correctly
+- Changed new date section on Discover to display the current month
+
 ## [v3.3.0](https://github.com/nathanab/beacon/compare/v3.2.0...v3.3.0)
 - Added LogRocket integration
 
