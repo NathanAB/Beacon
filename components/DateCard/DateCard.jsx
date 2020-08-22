@@ -81,7 +81,9 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                 as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
               >
                 <div onClick={clickDateEvent} className={styles.clickable}>
-                  <h6>{dateObj.name}</h6>
+                  <a>
+                    <h5>{dateObj.name}</h5>
+                  </a>
                   <div className={styles.timeAndCost}>
                     {dateLength} hours · {getDateCost(dateObj)}
                   </div>
