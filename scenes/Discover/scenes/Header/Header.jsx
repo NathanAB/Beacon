@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
+import { useRouter } from 'next/router';
 import ReactGA from 'react-ga';
 import { Experiment, Variant } from 'react-optimize';
 
@@ -20,6 +21,7 @@ export default function Header() {
   const neighborhoods = store.get('neighborhoods');
   const tags = store.get('tags');
   const dates = store.get('dates');
+  const router = useRouter();
 
   const [tagVals, setTagVals] = useState([]);
   const tagSelect = e => {
@@ -32,6 +34,22 @@ export default function Header() {
     }
     setTagVals(e || []);
   };
+  const tagSelectNav = e => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Select Vibe',
+      label: e && e[e.length - 1]?.label,
+    });
+    const filters = [{ type: 'tag', value: e[0].label }];
+    store.set('lastFilters')(filters);
+    router
+      .push(`/search?filters=${filterArrayToString(filters)}`, {
+        pathname: '/search',
+        query: { filters: filterArrayToString(filters) },
+      })
+      .then(() => window.scrollTo(0, 0));
+  };
+
   const [neighborhoodVals, setNeighborhoodVals] = useState([]);
   const neighborhoodSelect = e => {
     if (e) {
@@ -42,6 +60,19 @@ export default function Header() {
       });
     }
     setNeighborhoodVals(e || []);
+  };
+  const neighborhoodSelectNav = e => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Select Neighborhood',
+      label: e && e[e.length - 1]?.label,
+    });
+    const filters = [{ type: 'neighborhood', value: e[0].label }];
+    store.set('lastFilters')(filters);
+    router.push(`/search?filters=${filterArrayToString(filters)}`, {
+      pathname: '/search',
+      query: { filters: filterArrayToString(filters) },
+    });
   };
 
   const filters = [
@@ -74,7 +105,7 @@ export default function Header() {
   const headerOriginal = (
     <>
       <div className={styles.cardSection}>
-        <h5>Explore a Neighborhood</h5>
+        <h5>Neighborhood in DC</h5>
         <Select
           values={neighborhoodVals}
           onChange={neighborhoodSelect}
@@ -82,9 +113,8 @@ export default function Header() {
           options={neighborhoodOptions}
         />
       </div>
-      <h6 className={styles.or}>OR</h6>
       <div className={styles.cardSection}>
-        <h5>Choose a Vibe</h5>
+        <h5>Vibe</h5>
         <Select values={tagVals} onChange={tagSelect} isMulti options={tagOptions} />
       </div>
       <InternalLink
@@ -114,7 +144,7 @@ export default function Header() {
         <h5>Explore a Neighborhood</h5>
         <Select
           values={neighborhoodVals}
-          onChange={neighborhoodSelect}
+          onChange={neighborhoodSelectNav}
           isMulti
           options={neighborhoodOptions}
         />
@@ -122,25 +152,8 @@ export default function Header() {
       <h6 className={styles.or}>OR</h6>
       <div className={styles.cardSection}>
         <h5>Choose a Vibe</h5>
-        <Select values={tagVals} onChange={tagSelect} isMulti options={tagOptions} />
+        <Select values={tagVals} onChange={tagSelectNav} isMulti options={tagOptions} />
       </div>
-      <InternalLink
-        href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}
-      >
-        <a
-          onClick={() => {
-            store.set('lastFilters')(filters);
-            ReactGA.event({
-              category: 'Interaction',
-              action: 'Click Search Dates',
-            });
-          }}
-        >
-          <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
-            Search dates
-          </Button>
-        </a>
-      </InternalLink>
     </>
   );
 
