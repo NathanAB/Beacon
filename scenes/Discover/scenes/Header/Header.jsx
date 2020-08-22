@@ -178,7 +178,7 @@ export default function Header() {
           <div className={styles.cardContainer}>
             <Paper withShadow noMobile>
               <div className={styles.cardBody}>
-                <Experiment id="HeaderTest">
+                <Experiment id="meEF6Ne6Qoa-BU-1MM34Rg">
                   <Variant id="0">{headerOriginal}</Variant>
                   <Variant id="1">{headerNew}</Variant>
                 </Experiment>
