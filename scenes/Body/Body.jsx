@@ -60,7 +60,7 @@ export default ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <Box display="flex" flexDirection="column" minHeight="100vh">
+    <Box display="flex" flexDirection="column" minHeight="100vh" overflow="hidden">
       <Component {...pageProps} />
       <Footer />
     </Box>

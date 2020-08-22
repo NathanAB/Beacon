@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
+import { Experiment, Variant } from 'react-optimize';
 
 import { filterArrayToString, filterDates } from '../../../../utils';
 import Button from '../../../../components/Button/Button';
@@ -70,6 +71,79 @@ export default function Header() {
       label: tag.name,
     }));
 
+  const headerOriginal = (
+    <>
+      <div className={styles.cardSection}>
+        <h5>Explore a Neighborhood</h5>
+        <Select
+          values={neighborhoodVals}
+          onChange={neighborhoodSelect}
+          isMulti
+          options={neighborhoodOptions}
+        />
+      </div>
+      <h6 className={styles.or}>OR</h6>
+      <div className={styles.cardSection}>
+        <h5>Choose a Vibe</h5>
+        <Select values={tagVals} onChange={tagSelect} isMulti options={tagOptions} />
+      </div>
+      <InternalLink
+        href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}
+      >
+        <a
+          onClick={() => {
+            store.set('lastFilters')(filters);
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Click Search Dates',
+            });
+          }}
+        >
+          <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
+            Search dates
+          </Button>
+        </a>
+      </InternalLink>
+    </>
+  );
+
+  const headerNew = (
+    <>
+      {' '}
+      <div className={styles.cardSection}>
+        <h5>Explore a Neighborhood</h5>
+        <Select
+          values={neighborhoodVals}
+          onChange={neighborhoodSelect}
+          isMulti
+          options={neighborhoodOptions}
+        />
+      </div>
+      <h6 className={styles.or}>OR</h6>
+      <div className={styles.cardSection}>
+        <h5>Choose a Vibe</h5>
+        <Select values={tagVals} onChange={tagSelect} isMulti options={tagOptions} />
+      </div>
+      <InternalLink
+        href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}
+      >
+        <a
+          onClick={() => {
+            store.set('lastFilters')(filters);
+            ReactGA.event({
+              category: 'Interaction',
+              action: 'Click Search Dates',
+            });
+          }}
+        >
+          <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
+            Search dates
+          </Button>
+        </a>
+      </InternalLink>
+    </>
+  );
+
   return (
     <>
       <div className={styles.backgroundImages}>
@@ -91,36 +165,10 @@ export default function Header() {
           <div className={styles.cardContainer}>
             <Paper withShadow noMobile>
               <div className={styles.cardBody}>
-                <div className={styles.cardSection}>
-                  <h5>Neighborhood in DC</h5>
-                  <Select
-                    values={neighborhoodVals}
-                    onChange={neighborhoodSelect}
-                    isMulti
-                    options={neighborhoodOptions}
-                  />
-                </div>
-                <div className={styles.cardSection}>
-                  <h5>Vibe</h5>
-                  <Select values={tagVals} onChange={tagSelect} isMulti options={tagOptions} />
-                </div>
-                <InternalLink
-                  href={{ pathname: '/search', query: { filters: filterArrayToString(filters) } }}
-                >
-                  <a
-                    onClick={() => {
-                      store.set('lastFilters')(filters);
-                      ReactGA.event({
-                        category: 'Interaction',
-                        action: 'Click Search Dates',
-                      });
-                    }}
-                  >
-                    <Button size={Button.SIZES.LARGE} variant={Button.VARIANTS.PRIMARY}>
-                      Search dates
-                    </Button>
-                  </a>
-                </InternalLink>
+                <Experiment id="HeaderTest">
+                  <Variant id="0">{headerOriginal}</Variant>
+                  <Variant id="1">{headerNew}</Variant>
+                </Experiment>
               </div>
             </Paper>
           </div>

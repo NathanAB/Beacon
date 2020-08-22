@@ -8,6 +8,7 @@ export default class MyDocument extends Document {
     return (
       <html lang="en">
         <Head>
+          <script src="https://www.googleoptimize.com/optimize.js?id=OPT-WJV4HBF"></script>
           <script async src="https://www.googletagmanager.com/gtag/js?id=UA-54887334-4"></script>
           <script
             dangerouslySetInnerHTML={{

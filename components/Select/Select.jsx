@@ -16,6 +16,7 @@ function Button({ children, size = 'large', ...props }) {
   return (
     <Select
       theme={customTheme}
+      isSearchable={false}
       classNamePrefix={size === 'large' ? 'react-select' : 'react-select-small'}
       {...props}
     >

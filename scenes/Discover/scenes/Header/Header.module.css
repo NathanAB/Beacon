@@ -81,6 +81,10 @@
   margin-bottom: 20px;
 }
 
+.or {
+  text-align: center;
+}
+
 
 @media only screen and (max-width: 768px) {
   .backgroundImages {
