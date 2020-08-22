@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.5.0](https://github.com/nathanab/beacon/compare/v3.4.0...v3.5.0)
+- Some visual quirks fixed on Safari
+- Added Google Optimize plugin with A/B test for Discover header
+
 ## [v3.4.0](https://github.com/nathanab/beacon/compare/v3.3.0...v3.4.0)
 - Fix date order not being respected
 - Added explicit section number field to date editor
