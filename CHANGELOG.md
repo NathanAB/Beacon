@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.6.0](https://github.com/nathanab/beacon/compare/v3.5.1...v3.6.0)
+- Remove splash page A/B test
+- Add "Date Details" button A/B test
+
 ## [v3.5.1](https://github.com/nathanab/beacon/compare/v3.5.0...v3.5.1)
 - Change title in date card to be link-styled
 

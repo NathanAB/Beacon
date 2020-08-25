@@ -7,7 +7,6 @@
 .cardContainer {
   max-width: 381px;
   width: 100%;
-  cursor: pointer;
   transition: 0.15s;
   margin: auto;
 }
@@ -28,6 +27,7 @@
 .clickable {
   text-align: left;
   width: 100%;
+  cursor: pointer;
 }
 
 .newChip {
@@ -181,6 +181,14 @@
   opacity: 0.8;
 }
 
+.mobileOnly {
+  display: none;
+}
+.desktopOnly {
+  display: initial;
+}
+
+
 @media only screen and (max-width: 768px) {
   .fullDateCard .cardContent {
     flex-direction: column;
@@ -210,6 +218,12 @@
     position: relative;
     top: unset;
     right: unset;
+  }
+  .mobileOnly {
+    display: initial;
+  }
+  .desktopOnly {
+    display: none;
   }
 }
 

@@ -77,24 +77,53 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               </a>
             </InternalLink>
             <div className={styles.cardBody}>
-              <div onClick={clickDateEvent}>
-                <h5>{dateObj.name}</h5>
-                <div className={styles.timeAndCost}>
-                  {dateLength} hours · {getDateCost(dateObj)}
+              <InternalLink
+                href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+                as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+              >
+                <div onClick={clickDateEvent} className={styles.clickable}>
+                  <Experiment id="adNkiN-2T8K7_czgxMGbqw">
+                    <Variant id="0">
+                      <a onClick={clickDateEvent}>
+                        <h5>{dateObj.name}</h5>
+                      </a>
+                    </Variant>
+                    <Variant id="1">
+                      <h5>{dateObj.name}</h5>
+                    </Variant>
+                  </Experiment>
+                  <div className={styles.timeAndCost}>
+                    {dateLength} hours · {getDateCost(dateObj)}
+                  </div>
+                  <div className={styles.tagsContainer}>
+                    {tags.map(tag => (
+                      <div key={tag.tagId} className={styles.tag}>
+                        <Chip>{tag.name}</Chip>
+                      </div>
+                    ))}
+                  </div>
+                  {isFull && (
+                    <>
+                      <p className={styles.description}>{dateObj.description}</p>
+                      <Experiment id="adNkiN-2T8K7_czgxMGbqw">
+                        <Variant id="1">
+                          <InternalLink
+                            className={styles.clickable}
+                            href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+                            as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+                          >
+                            <a onClick={clickDateEvent} className={styles.desktopOnly}>
+                              <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
+                                Date Details
+                              </Button>
+                            </a>
+                          </InternalLink>
+                        </Variant>
+                      </Experiment>
+                    </>
+                  )}
                 </div>
-                <div className={styles.tagsContainer}>
-                  {tags.map(tag => (
-                    <div key={tag.tagId} className={styles.tag}>
-                      <Chip>{tag.name}</Chip>
-                    </div>
-                  ))}
-                </div>
-                {isFull && (
-                  <>
-                    <p className={styles.description}>{dateObj.description}</p>
-                  </>
-                )}
-              </div>
+              </InternalLink>
 
               {isNew && <div className={styles.newChip}>NEW</div>}
               {isFull && (
@@ -106,7 +135,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                         href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
                         as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
                       >
-                        <a>
+                        <a onClick={clickDateEvent} className={styles.mobileOnly}>
                           <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
                             Date Details
                           </Button>
