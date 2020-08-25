@@ -36,6 +36,10 @@
   border: solid 2px var(--primary);
 }
 
+.buttonOutlined:hover, .buttonOutlined:active {
+  background-color: var(--primaryHighlight);
+}
+
 .buttonSmall {
   font-size: 16px;
   padding: 15px;

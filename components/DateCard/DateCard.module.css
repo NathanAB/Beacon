@@ -162,6 +162,9 @@
 
 .cardButtons {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   right: 15px;
   top: 15px;
 }

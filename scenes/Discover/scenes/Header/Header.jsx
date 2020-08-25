@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import { useRouter } from 'next/router';
 import ReactGA from 'react-ga';
-import { Experiment, Variant } from 'react-optimize';
 
 import { filterArrayToString, filterDates } from '../../../../utils';
 import Button from '../../../../components/Button/Button';
@@ -34,21 +33,6 @@ export default function Header() {
     }
     setTagVals(e || []);
   };
-  const tagSelectNav = e => {
-    ReactGA.event({
-      category: 'Interaction',
-      action: 'Select Vibe',
-      label: e && e[e.length - 1]?.label,
-    });
-    const filters = [{ type: 'tag', value: e[0].label }];
-    store.set('lastFilters')(filters);
-    router
-      .push(`/search?filters=${filterArrayToString(filters)}`, {
-        pathname: '/search',
-        query: { filters: filterArrayToString(filters) },
-      })
-      .then(() => window.scrollTo(0, 0));
-  };
 
   const [neighborhoodVals, setNeighborhoodVals] = useState([]);
   const neighborhoodSelect = e => {
@@ -60,19 +44,6 @@ export default function Header() {
       });
     }
     setNeighborhoodVals(e || []);
-  };
-  const neighborhoodSelectNav = e => {
-    ReactGA.event({
-      category: 'Interaction',
-      action: 'Select Neighborhood',
-      label: e && e[e.length - 1]?.label,
-    });
-    const filters = [{ type: 'neighborhood', value: e[0].label }];
-    store.set('lastFilters')(filters);
-    router.push(`/search?filters=${filterArrayToString(filters)}`, {
-      pathname: '/search',
-      query: { filters: filterArrayToString(filters) },
-    });
   };
 
   const filters = [
@@ -137,26 +108,6 @@ export default function Header() {
     </>
   );
 
-  const headerNew = (
-    <>
-      {' '}
-      <div className={styles.cardSection}>
-        <h5>Explore a Neighborhood</h5>
-        <Select
-          values={neighborhoodVals}
-          onChange={neighborhoodSelectNav}
-          isMulti
-          options={neighborhoodOptions}
-        />
-      </div>
-      <h6 className={styles.or}>OR</h6>
-      <div className={styles.cardSection}>
-        <h5>Choose a Vibe</h5>
-        <Select values={tagVals} onChange={tagSelectNav} isMulti options={tagOptions} />
-      </div>
-    </>
-  );
-
   return (
     <>
       <div className={styles.backgroundImages}>
@@ -177,12 +128,7 @@ export default function Header() {
         <div>
           <div className={styles.cardContainer}>
             <Paper withShadow noMobile>
-              <div className={styles.cardBody}>
-                <Experiment id="meEF6Ne6Qoa-BU-1MM34Rg">
-                  <Variant id="0">{headerOriginal}</Variant>
-                  <Variant id="1">{headerNew}</Variant>
-                </Experiment>
-              </div>
+              <div className={styles.cardBody}>{headerOriginal}</div>
             </Paper>
           </div>
           {/* Disabled for now - we don't want to push login yet

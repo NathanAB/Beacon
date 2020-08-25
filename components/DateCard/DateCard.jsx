@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
+import { Experiment, Variant } from 'react-optimize';
 
 // TODO: Enable favoriting
 // import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 import Paper from '../Paper/Paper';
+import Button from '../Button/Button';
 import placeholder1 from '../../assets/graphics/pattern-1.svg';
 import placeholder2 from '../../assets/graphics/pattern-2.svg';
 import placeholder3 from '../../assets/graphics/pattern-3.svg';
@@ -75,32 +77,43 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               </a>
             </InternalLink>
             <div className={styles.cardBody}>
-              <InternalLink
-                className={styles.clickable}
-                href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-                as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
-              >
-                <div onClick={clickDateEvent} className={styles.clickable}>
-                  <a>
-                    <h5>{dateObj.name}</h5>
-                  </a>
-                  <div className={styles.timeAndCost}>
-                    {dateLength} hours · {getDateCost(dateObj)}
-                  </div>
-                  <div className={styles.tagsContainer}>
-                    {tags.map(tag => (
-                      <div key={tag.tagId} className={styles.tag}>
-                        <Chip>{tag.name}</Chip>
-                      </div>
-                    ))}
-                  </div>
-                  {isFull && <p className={styles.description}>{dateObj.description}</p>}
+              <div onClick={clickDateEvent}>
+                <h5>{dateObj.name}</h5>
+                <div className={styles.timeAndCost}>
+                  {dateLength} hours · {getDateCost(dateObj)}
                 </div>
-              </InternalLink>
+                <div className={styles.tagsContainer}>
+                  {tags.map(tag => (
+                    <div key={tag.tagId} className={styles.tag}>
+                      <Chip>{tag.name}</Chip>
+                    </div>
+                  ))}
+                </div>
+                {isFull && (
+                  <>
+                    <p className={styles.description}>{dateObj.description}</p>
+                  </>
+                )}
+              </div>
 
               {isNew && <div className={styles.newChip}>NEW</div>}
               {isFull && (
                 <div className={styles.cardButtons}>
+                  <Experiment id="adNkiN-2T8K7_czgxMGbqw">
+                    <Variant id="0">
+                      <InternalLink
+                        className={styles.clickable}
+                        href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+                        as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+                      >
+                        <a>
+                          <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
+                            Date Details
+                          </Button>
+                        </a>
+                      </InternalLink>
+                    </Variant>
+                  </Experiment>
                   <ShareButton dateObj={dateObj} url={dateUrl} />
                   {/* TODO: Enable favoriting */}
                   {/* <button type="button" className={styles.favoriteButton} onClick={() => {}}>
