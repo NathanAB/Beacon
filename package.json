@@ -10,7 +10,7 @@
     "prettify": "eslint . --fix",
     "deploy-production": "git push production master; heroku open --remote production",
     "deploy-staging": "git push staging staging:master; heroku open --remote staging",
-    "deploy-current-branch-to-staging": "git push staging HEAD:master; heroku open --remote staging",
+    "deploy-current-branch-to-staging": "git push -f staging HEAD:master; heroku open --remote staging",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

@@ -100,7 +100,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               {isFull && (
                 <div className={styles.cardButtons}>
                   <Experiment id="adNkiN-2T8K7_czgxMGbqw">
-                    <Variant id="0">
+                    <Variant id="1">
                       <InternalLink
                         className={styles.clickable}
                         href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
