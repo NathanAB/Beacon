@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
-import { Experiment, Variant } from 'react-optimize';
 
 // TODO: Enable favoriting
 // import { FaHeart, FaRegHeart } from 'react-icons/fa';
@@ -82,16 +81,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                 as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
               >
                 <div onClick={clickDateEvent} className={styles.clickable}>
-                  <Experiment id="adNkiN-2T8K7_czgxMGbqw">
-                    <Variant id="0">
-                      <a onClick={clickDateEvent}>
-                        <h5>{dateObj.name}</h5>
-                      </a>
-                    </Variant>
-                    <Variant id="1">
-                      <h5>{dateObj.name}</h5>
-                    </Variant>
-                  </Experiment>
+                  <h5>{dateObj.name}</h5>
                   <div className={styles.timeAndCost}>
                     {dateLength} hours · {getDateCost(dateObj)}
                   </div>
@@ -105,21 +95,17 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                   {isFull && (
                     <>
                       <p className={styles.description}>{dateObj.description}</p>
-                      <Experiment id="adNkiN-2T8K7_czgxMGbqw">
-                        <Variant id="1">
-                          <InternalLink
-                            className={styles.clickable}
-                            href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-                            as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
-                          >
-                            <a onClick={clickDateEvent} className={styles.desktopOnly}>
-                              <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
-                                Date Details
-                              </Button>
-                            </a>
-                          </InternalLink>
-                        </Variant>
-                      </Experiment>
+                      <InternalLink
+                        className={styles.clickable}
+                        href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+                        as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+                      >
+                        <a onClick={clickDateEvent} className={styles.desktopOnly}>
+                          <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
+                            Date Details
+                          </Button>
+                        </a>
+                      </InternalLink>
                     </>
                   )}
                 </div>
@@ -128,21 +114,23 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               {isNew && <div className={styles.newChip}>NEW</div>}
               {isFull && (
                 <div className={styles.cardButtons}>
-                  <Experiment id="adNkiN-2T8K7_czgxMGbqw">
-                    <Variant id="1">
-                      <InternalLink
-                        className={styles.clickable}
-                        href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-                        as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+                  <InternalLink
+                    href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+                    as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+                  >
+                    <a
+                      onClick={clickDateEvent}
+                      className={cn(styles.mobileOnly, styles.dateDetailsButton)}
+                    >
+                      <Button
+                        variant={Button.VARIANTS.OUTLINED}
+                        fullWidth
+                        size={Button.SIZES.SMALL}
                       >
-                        <a onClick={clickDateEvent} className={styles.mobileOnly}>
-                          <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
-                            Date Details
-                          </Button>
-                        </a>
-                      </InternalLink>
-                    </Variant>
-                  </Experiment>
+                        Date Details
+                      </Button>
+                    </a>
+                  </InternalLink>
                   <ShareButton dateObj={dateObj} url={dateUrl} />
                   {/* TODO: Enable favoriting */}
                   {/* <button type="button" className={styles.favoriteButton} onClick={() => {}}>

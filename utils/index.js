@@ -229,7 +229,7 @@ export const dateSorterOldest = (date1, date2) => dateSorterNewest(date2, date1)
 
 export const createCalendarEvent = dateObj => {
   const dateLength = getDateLength(dateObj);
-  let calendarEventDescription = `<p>${dateObj.description}</p><ol>`;
+  let calendarEventDescription = `<a href="https://www.beacondates.com/date/${dateObj.id}">Date Page</a><br /><p>${dateObj.description}</p><ol>`;
   dateObj.sections.forEach(section => {
     calendarEventDescription += `<li><b>${section.spot.name}</b>\n${section.description}</li>`;
   });

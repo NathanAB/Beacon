@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Popover from 'react-popover';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ReactGA from 'react-ga';
+import { Experiment, Variant } from 'react-optimize';
 
 import { createCalendarEvent } from '../../utils';
 import Paper from '../Paper/Paper';
@@ -111,8 +112,15 @@ export default function ShareButton({ dateObj, url }) {
   };
 
   return (
-    <Popover {...popoverProps}>
-      <a onClick={togglePopover}>Share</a>
-    </Popover>
+    <Experiment id="FJbHcNfiTPqYcB5we5_8Zg">
+      <Variant id="0">
+        <Popover {...popoverProps}>
+          <a onClick={togglePopover}>Share</a>
+        </Popover>
+      </Variant>
+      <Variant id="1">
+        <a onClick={openCalendarEvent}>Add to Calendar</a>
+      </Variant>
+    </Experiment>
   );
 }

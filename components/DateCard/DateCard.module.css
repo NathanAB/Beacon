@@ -218,6 +218,12 @@
     position: relative;
     top: unset;
     right: unset;
+    display: flex;
+    flex-direction: column;
+  }
+  .dateDetailsButton{
+    width: 100%;
+    margin-bottom: 10px;
   }
   .mobileOnly {
     display: initial;

@@ -215,4 +215,8 @@
   .backButtonMobile {
     display: block;
   }
+  .metaRow {
+    display:flex;
+    flex-direction: column;
+  }
 }
