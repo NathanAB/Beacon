@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.7.1](https://github.com/nathanab/beacon/compare/v3.7.0...v3.7.1)
+- Fix setting section number
+
 ## [v3.7.0](https://github.com/nathanab/beacon/compare/v3.6.0...v3.7.0)
 - Remove Date Details button A/B test
 - Add Calendar button A/B test

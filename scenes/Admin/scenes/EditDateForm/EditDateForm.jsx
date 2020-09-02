@@ -93,11 +93,12 @@ function EditDateForm({ classes }) {
       formData.sections.some(sectionA =>
         formData.sections.some(
           sectionB =>
-            sectionA.sectionNumber === sectionB.sectionNumber && sectionA.id !== sectionB.id,
+            (sectionA.sectionNumber === sectionB.sectionNumber && sectionA.id !== sectionB.id) ||
+            sectionB.sectionNumber === 0,
         ),
       )
     ) {
-      alert('Each section should have a unique section number');
+      alert('Each section should have a unique section number set');
       return;
     }
 
@@ -129,10 +130,13 @@ function EditDateForm({ classes }) {
             <FormControl className={classes.controlSmall}>
               <InputLabel>Section Number</InputLabel>
               <Select
-                value={section?.sectionNumber || sectionNum + 1}
+                value={section?.sectionNumber || 0}
                 onChange={e => updateFormData(e, `sections[${sectionNum}].sectionNumber`)}
                 input={<Input />}
               >
+                <MenuItem key={0} value={0}>
+                  Unset
+                </MenuItem>
                 <MenuItem key={1} value={1}>
                   1
                 </MenuItem>
