@@ -69,6 +69,10 @@ button {
   text-transform: none !important;
 }
 
+.MuiCheckbox-root {
+  padding: 6px !important;
+}
+
 header .MuiButton-text:hover {
   background-color: rgba(241, 95, 58, 0.08) !important;
 }

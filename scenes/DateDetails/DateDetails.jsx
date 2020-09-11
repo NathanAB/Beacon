@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
 import MarkdownIt from 'markdown-it';
+import { Experiment, Variant } from 'react-optimize';
 
 import styles from './DateDetails.module.css';
 import BeaconTitle from '../../components/BeaconTitle/BeaconTitle';
@@ -17,7 +18,7 @@ import {
 } from '../../utils';
 import cn from '../../utils/cn';
 import tipFlower from '../../assets/graphics/tip-flower.svg';
-import ShareButton from '../../components/ShareButton/ShareButton';
+import LikeButton from '../../components/LikeButton/LikeButton';
 import Store from '../../store';
 
 import placeholderImg1 from '../../assets/graphics/pattern-1.svg';
@@ -128,7 +129,12 @@ const DateDetails = ({ dateObj }) => {
             ))}
           </div>
         </div>
-        <ShareButton dateObj={dateObj} url={window.location.href} />
+
+        <Experiment id="xYIuiUCYTeGwXxODjB4B3Q">
+          <Variant id="1">
+            <LikeButton dateObj={dateObj} />
+          </Variant>
+        </Experiment>
       </div>
       <p className={styles.description}>{dateObj.description}</p>
       <div className={styles.lineBreak} />

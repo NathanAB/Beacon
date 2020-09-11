@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
-
-// TODO: Enable favoriting
-// import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { Experiment, Variant } from 'react-optimize';
 
 import Paper from '../Paper/Paper';
 import Button from '../Button/Button';
+import LikeButton from '../LikeButton/LikeButton';
+
 import placeholder1 from '../../assets/graphics/pattern-1.svg';
 import placeholder2 from '../../assets/graphics/pattern-2.svg';
 import placeholder3 from '../../assets/graphics/pattern-3.svg';
@@ -76,40 +76,39 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               </a>
             </InternalLink>
             <div className={styles.cardBody}>
-              <InternalLink
-                href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-                as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
-              >
-                <div onClick={clickDateEvent} className={styles.clickable}>
-                  <h5>{dateObj.name}</h5>
-                  <div className={styles.timeAndCost}>
-                    {dateLength} hours · {getDateCost(dateObj)}
+              <div className={styles.titleRow}>
+                <h5>{dateObj.name}</h5>
+                <Experiment id="xYIuiUCYTeGwXxODjB4B3Q">
+                  <Variant id="1">
+                    <LikeButton dateObj={dateObj} />
+                  </Variant>
+                </Experiment>
+              </div>
+              <div className={styles.timeAndCost}>
+                {dateLength} hours · {getDateCost(dateObj)}
+              </div>
+              <div className={styles.tagsContainer}>
+                {tags.map(tag => (
+                  <div key={tag.tagId} className={styles.tag}>
+                    <Chip>{tag.name}</Chip>
                   </div>
-                  <div className={styles.tagsContainer}>
-                    {tags.map(tag => (
-                      <div key={tag.tagId} className={styles.tag}>
-                        <Chip>{tag.name}</Chip>
-                      </div>
-                    ))}
-                  </div>
-                  {isFull && (
-                    <>
-                      <p className={styles.description}>{dateObj.description}</p>
-                      <InternalLink
-                        className={styles.clickable}
-                        href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-                        as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
-                      >
-                        <a onClick={clickDateEvent} className={styles.desktopOnly}>
-                          <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
-                            Date Details
-                          </Button>
-                        </a>
-                      </InternalLink>
-                    </>
-                  )}
-                </div>
-              </InternalLink>
+                ))}
+              </div>
+              {isFull && (
+                <>
+                  <p className={styles.description}>{dateObj.description}</p>
+                  <InternalLink
+                    href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+                    as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+                  >
+                    <a onClick={clickDateEvent} className={styles.desktopOnly}>
+                      <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
+                        Date Details
+                      </Button>
+                    </a>
+                  </InternalLink>
+                </>
+              )}
 
               {isNew && <div className={styles.newChip}>NEW</div>}
               {isFull && (
@@ -131,11 +130,6 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                       </Button>
                     </a>
                   </InternalLink>
-                  <ShareButton dateObj={dateObj} url={dateUrl} />
-                  {/* TODO: Enable favoriting */}
-                  {/* <button type="button" className={styles.favoriteButton} onClick={() => {}}>
-                  {isFavorite ? <FaHeart /> : <FaRegHeart />}
-                </button> */}
                 </div>
               )}
             </div>

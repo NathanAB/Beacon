@@ -103,6 +103,7 @@ export const loadDates = async store => {
   });
   store.set('adminDates')(adminDates);
   store.set('dates')(dates);
+  store.set('likedDates')(localStorage.getItem('likedDates') || []);
 
   let allNeighborhoods = await getNeighborhoods();
   allNeighborhoods = allNeighborhoods.sort((a, b) => {

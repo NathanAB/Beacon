@@ -24,12 +24,6 @@
   text-align: left;
 }
 
-.clickable {
-  text-align: left;
-  width: 100%;
-  cursor: pointer;
-}
-
 .newChip {
   padding: 3px 8px;
   border-radius: 7px;
@@ -172,13 +166,10 @@
   vertical-align: middle;
 }
 
-.favoriteButton {
-  color: var(--primary);
-  font-size: 20px;
-  margin-left: 10px;
-}
-.favoriteButton:hover {
-  opacity: 0.8;
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .mobileOnly {

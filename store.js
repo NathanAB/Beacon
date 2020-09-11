@@ -25,4 +25,5 @@ export default createConnectedStore({
   adminEditingDate: false,
   isDateFormOpen: false,
   isFilterBarExpanded: false,
+  likedDates: [],
 });
