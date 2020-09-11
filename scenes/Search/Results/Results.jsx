@@ -65,7 +65,7 @@ export default function Results() {
               </div>
             </Variant>
             <Variant id="1">
-              <span className={styles.sortBy}>Liked dates only:</span>
+              <span className={styles.sortBy}>Only Favorites:</span>
               <Checkbox
                 color="primary"
                 checked={likedOnly}

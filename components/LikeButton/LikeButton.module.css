@@ -1,0 +1,28 @@
+.button {
+  position: relative;
+}
+
+.button:active, .button:focus {
+  outline: none;
+}
+
+.icon {
+  width: 32px;
+}
+
+.filledIcon {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 2;
+}
+
+.visible {
+  transform: scale(1);
+  transition: 0.15s ease-in-out;
+}
+
+.hidden {
+  transform: scale(0);
+  transition: 0.15s ease-in-out;
+}
