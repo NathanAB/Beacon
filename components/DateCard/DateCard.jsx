@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
-import { Experiment, Variant } from 'react-optimize';
 
 import Paper from '../Paper/Paper';
 import Button from '../Button/Button';
@@ -16,7 +15,6 @@ import cn from '../../utils/cn';
 import styles from './DateCard.module.css';
 import { getDateCost, getDateLength, getSectionImage, getDateTags } from '../../utils';
 import Chip from '../Chip/Chip';
-import ShareButton from '../ShareButton/ShareButton';
 import Constants from '../../constants';
 
 const placeholderImgs = [placeholder1, placeholder2, placeholder3, placeholder4];
@@ -30,7 +28,6 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
   const isNew = dateObj.new;
   const imageUrl = getSectionImage(section1);
   const tags = getDateTags(dateObj);
-  const dateUrl = `https://${window.location.host}${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`;
   const [highResLoaded, setHighResLoaded] = useState(false);
   const [placeholder] = useState(randPlaceholder());
   const clickDateEvent = () =>
@@ -78,11 +75,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
             <div className={styles.cardBody}>
               <div className={styles.titleRow}>
                 <h5>{dateObj.name}</h5>
-                <Experiment id="xYIuiUCYTeGwXxODjB4B3Q">
-                  <Variant id="1">
-                    <LikeButton dateObj={dateObj} />
-                  </Variant>
-                </Experiment>
+                <LikeButton dateObj={dateObj} />
               </div>
               <div className={styles.timeAndCost}>
                 {dateLength} hours · {getDateCost(dateObj)}

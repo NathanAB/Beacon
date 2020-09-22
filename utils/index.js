@@ -37,14 +37,21 @@ export const filterDates = (dateObjs, filters) => {
   }
 
   return dateObjs.filter(date => {
-    const filtersMet = filters.filter(filter => {
+    const neighborhoods = filters.filter(filter => filter.type === 'neighborhood');
+    const hasNeighborhood =
+      neighborhoods.length >= 1
+        ? neighborhoods.some(filter => {
+            return date.sections.find(section => section.spot?.neighborhood?.name === filter.value);
+          })
+        : true;
+
+    const otherFilters = filters.filter(filter => filter.type !== 'neighborhood');
+    const otherFiltersMet = otherFilters.filter(filter => {
       const totalTime = date.sections.reduce((total, section) => total + section.minutes, 0);
       switch (filter.type) {
         // Filter condition met if one of the date sections contains the criterion
         case 'tag':
           return date.sections.find(section => section.tags.find(tag => tag.name === filter.value));
-        case 'neighborhood':
-          return date.sections.find(section => section.spot?.neighborhood?.name === filter.value);
         case 'cost':
           return date.sections.find(section => {
             return section.cost === COST_LOOKUP[filter.value];
@@ -57,7 +64,7 @@ export const filterDates = (dateObjs, filters) => {
           return false;
       }
     }).length;
-    return filtersMet === filters.length;
+    return otherFiltersMet === otherFilters.length && hasNeighborhood;
   });
 };
 
@@ -103,7 +110,11 @@ export const loadDates = async store => {
   });
   store.set('adminDates')(adminDates);
   store.set('dates')(dates);
-  store.set('likedDates')(localStorage.getItem('likedDates') || []);
+  try {
+    store.set('likedDates')(JSON.parse(localStorage.getItem('likedDates')) || []);
+  } catch (e) {
+    store.set('likedDates')([]);
+  }
 
   let allNeighborhoods = await getNeighborhoods();
   allNeighborhoods = allNeighborhoods.sort((a, b) => {

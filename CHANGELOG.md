@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.9.0](https://github.com/nathanab/beacon/compare/v3.8.0...v3.9.0)
+- Transition like button to a permanent feature
+- Fixed issue with storing liked dates
+- Change neighborhood filtering to filter by intersection instead of union
+
 ## [v3.8.0](https://github.com/nathanab/beacon/compare/v3.7.1...v3.8.0)
 - Remove calendar/share buttons. RIP
 - Add like button A/B test

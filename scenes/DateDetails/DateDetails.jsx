@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
 import MarkdownIt from 'markdown-it';
-import { Experiment, Variant } from 'react-optimize';
 
 import styles from './DateDetails.module.css';
 import BeaconTitle from '../../components/BeaconTitle/BeaconTitle';
@@ -130,11 +129,7 @@ const DateDetails = ({ dateObj }) => {
           </div>
         </div>
 
-        <Experiment id="xYIuiUCYTeGwXxODjB4B3Q">
-          <Variant id="1">
-            <LikeButton dateObj={dateObj} />
-          </Variant>
-        </Experiment>
+        <LikeButton dateObj={dateObj} />
       </div>
       <p className={styles.description}>{dateObj.description}</p>
       <div className={styles.lineBreak} />
