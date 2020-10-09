@@ -5,6 +5,7 @@ import MarkdownIt from 'markdown-it';
 
 import styles from './DateDetails.module.css';
 import BeaconTitle from '../../components/BeaconTitle/BeaconTitle';
+import CommentButton from '../../components/CommentButton/CommentButton';
 import Spinner from '../../components/Spinner/Spinner';
 import Chip from '../../components/Chip/Chip';
 import constants from '../../constants';
@@ -128,8 +129,9 @@ const DateDetails = ({ dateObj }) => {
             ))}
           </div>
         </div>
-
+        <div className={styles.spacer} />
         <LikeButton dateObj={dateObj} />
+        <CommentButton />
       </div>
       <p className={styles.description}>{dateObj.description}</p>
       <div className={styles.lineBreak} />

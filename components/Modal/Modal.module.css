@@ -1,0 +1,10 @@
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: flex-start;
+}
+
+.closeButton span {
+  font-size: 32px;
+}

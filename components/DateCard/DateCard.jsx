@@ -5,6 +5,7 @@ import ReactGA from 'react-ga';
 import Paper from '../Paper/Paper';
 import Button from '../Button/Button';
 import LikeButton from '../LikeButton/LikeButton';
+import CommentButton from '../CommentButton/CommentButton';
 
 import placeholder1 from '../../assets/graphics/pattern-1.svg';
 import placeholder2 from '../../assets/graphics/pattern-2.svg';
@@ -75,7 +76,9 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
             <div className={styles.cardBody}>
               <div className={styles.titleRow}>
                 <h5>{dateObj.name}</h5>
+                <div className={styles.spacer} />
                 <LikeButton dateObj={dateObj} />
+                <CommentButton />
               </div>
               <div className={styles.timeAndCost}>
                 {dateLength} hours · {getDateCost(dateObj)}
