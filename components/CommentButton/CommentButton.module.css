@@ -1,4 +1,8 @@
-.container span {
+.button {
+  outline: none;
+}
+
+.button span {
   font-size: 32px;
   margin-left: 10px;
 }

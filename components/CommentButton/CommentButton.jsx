@@ -4,7 +4,6 @@ import { Icon } from '@material-ui/core';
 import Popover from 'react-popover';
 import styles from './CommentButton.module.css';
 
-import Modal from '../Modal/Modal';
 import Paper from '../Paper/Paper';
 
 export default function CommentButton() {
@@ -48,15 +47,10 @@ export default function CommentButton() {
   return (
     <>
       <Popover {...popoverProps}>
-        <button type="button" onClick={onClick} className={styles.container}>
+        <button type="button" onClick={onClick} className={styles.button}>
           <Icon color="primary">comment</Icon>
         </button>
       </Popover>
-      {/* <Modal
-        isOpen={isModalOpen}
-        closeModal={() => setModalOpen(false)}
-        title="Have something to contribute?"
-      ></Modal> */}
     </>
   );
 }
