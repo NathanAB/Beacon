@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.10.0](https://github.com/nathanab/beacon/compare/v3.9.0...v3.10.0)
+- Add comment teaser
+
 ## [v3.9.0](https://github.com/nathanab/beacon/compare/v3.8.0...v3.9.0)
 - Transition like button to a permanent feature
 - Fixed issue with storing liked dates
