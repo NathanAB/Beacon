@@ -4,6 +4,7 @@ import ReactGA from 'react-ga';
 import LogRocket from 'logrocket';
 
 import Footer from '../../components/Footer/Footer';
+import AppBar from '../../components/AppBar/AppBar';
 
 import * as api from '../../api';
 import Store from '../../store';
@@ -61,6 +62,7 @@ export default ({ Component, pageProps }) => {
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh" overflow="hidden">
+      <AppBar />
       <Component {...pageProps} />
       <Footer />
     </Box>

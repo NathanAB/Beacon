@@ -1,0 +1,48 @@
+.container {
+  height: 50px;
+}
+
+.container div {
+  min-height: 50px;
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.loginButton {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+.loginButton:focus {
+  outline: none;
+}
+
+.loginButtonContainer {
+  margin-top: 7px;
+}
+
+.popover {
+  padding: 40px 50px 50px 50px;
+  text-align: center;
+}
+
+.beaconTitle span {
+  color: white;
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    height: 40px;
+  }
+  .container div {
+    min-height: 40px;
+    background-color: white;
+  }
+  .beaconTitle span {
+    color: var(--primary);
+  }
+}

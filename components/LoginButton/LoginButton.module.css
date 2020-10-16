@@ -1,0 +1,44 @@
+
+.link {
+  width: 371px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-family: 'Lato';
+  font-size: 16px;
+  font-weight: bold;
+
+  border: 1px solid black;
+  border-radius: 6px;
+}
+
+.link:hover {
+  color: black;
+}
+
+.google {
+  color: black;
+  background-color: white;
+}
+
+.google:hover {
+  background-color: #F5F5F5;
+}
+
+.facebook {
+  background-color: #1877F2;
+  color: white;
+}
+
+.facebook:hover {
+  color: white;
+  opacity: 0.9;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 12px;
+}

@@ -87,6 +87,9 @@ button {
 }
 
 /* Tip color for popover component */
+.Popover {
+  z-index: 99999;
+}
 .Popover-tipShape {
   fill: white
 }
