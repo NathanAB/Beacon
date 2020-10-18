@@ -21,13 +21,12 @@
   outline: none;
 }
 
-.loginButtonContainer {
-  margin-top: 7px;
-}
-
-.popover {
-  padding: 40px 50px 50px 50px;
-  text-align: center;
+.profilePic {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
 }
 
 .beaconTitle span {

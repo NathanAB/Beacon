@@ -9,6 +9,7 @@ import AppBar from '../../components/AppBar/AppBar';
 import * as api from '../../api';
 import Store from '../../store';
 import { loadDates } from '../../utils';
+import LoginDrawer from '../../components/LoginDrawer/LoginDrawer';
 
 export default ({ Component, pageProps }) => {
   const store = Store.useStore();
@@ -65,6 +66,7 @@ export default ({ Component, pageProps }) => {
       <AppBar />
       <Component {...pageProps} />
       <Footer />
+      <LoginDrawer />
     </Box>
   );
 };

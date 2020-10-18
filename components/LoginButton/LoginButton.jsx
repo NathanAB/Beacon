@@ -6,7 +6,7 @@ import constants from '../../constants';
 import styles from './LoginButton.module.css';
 
 import GoogleIcon from '../../assets/img/googleIcon.png';
-import FacebookIcon from '../../assets/img/fb-circular.png';
+import FacebookIcon from '../../assets/img/facebook-logo-white.svg';
 
 const typeData = {
   google: {

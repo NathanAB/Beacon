@@ -1,6 +1,7 @@
 
 .link {
-  width: 371px;
+  width: 100%;
+  max-width: 371px;
   height: 50px;
   display: flex;
   align-items: center;

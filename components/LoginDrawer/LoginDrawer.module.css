@@ -1,0 +1,15 @@
+.container {
+  font-size: 18px;
+  font-family: 'Lato';
+  font-weight: normal;
+  text-align: center;
+  padding: 40px 20px 200px 20px;
+}
+
+.loginButtonContainer {
+  margin-top: 7px;
+}
+
+.logo {
+  margin-bottom: 20px;
+}
