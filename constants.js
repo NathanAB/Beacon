@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || 'https://local.beacondates.com:8080';
+const API_URL = process.env.REACT_APP_API_URL || 'http://local.beacondates.com:8080';
 const KEYS = {
   MAPS_API_KEY: process.env.REACT_APP_MAPS_API_KEY,
 };

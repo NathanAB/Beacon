@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
-    "start-local": "node server.js",
     "start-dev": "next start -p 3000",
     "prettify": "eslint . --fix",
     "deploy-production": "git push production master; heroku open --remote production",

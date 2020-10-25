@@ -20,9 +20,26 @@ export default function LikeButton({ dateObj }) {
   const user = store.get('user');
   const isFavorite = likedDates.includes(dateId);
 
+  const closeLogin = () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Close Login Panel',
+    });
+    setLoginPopoverOpen(false);
+  };
+
   const onClick = () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: isFavorite ? 'Unliked Date' : 'Liked Date',
+      label: dateName,
+    });
     let newLikedDates = [...likedDates];
     if (!user) {
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Open Login Panel',
+      });
       if (isMobile) {
         store.set('isLoginDrawerOpen')(true);
       } else {
@@ -42,11 +59,6 @@ export default function LikeButton({ dateObj }) {
       }
     }
 
-    ReactGA.event({
-      category: 'Interaction',
-      action: isFavorite ? 'Unliked Date' : 'Liked Date',
-      label: dateName,
-    });
     store.set('likedDates')(newLikedDates);
     if (!user) {
       localStorage.setItem('likedDates', JSON.stringify(newLikedDates));
@@ -54,7 +66,7 @@ export default function LikeButton({ dateObj }) {
   };
 
   return (
-    <LoginPopover isOpen={isLoginPopoverOpen} onClose={() => setLoginPopoverOpen(false)}>
+    <LoginPopover isOpen={isLoginPopoverOpen} onClose={closeLogin}>
       <button className={styles.button} type="button" onClick={onClick}>
         <AiFillHeart
           className={`${styles.icon} ${styles.filledIcon} ${

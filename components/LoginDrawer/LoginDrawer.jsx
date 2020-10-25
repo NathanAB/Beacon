@@ -16,7 +16,7 @@ export default function LoginDrawer() {
   const onCloseDrawer = React.useCallback(() => {
     ReactGA.event({
       category: 'Interaction',
-      action: 'Clos Login Panel',
+      action: 'Close Login Panel',
     });
     setLoginDrawerOpen(false);
   }, []);

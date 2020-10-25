@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactGA from 'react-ga';
-import { Icon } from '@material-ui/core';
 import Popover from 'react-popover';
 import { AiOutlineComment } from 'react-icons/ai';
 

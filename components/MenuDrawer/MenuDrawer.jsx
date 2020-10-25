@@ -7,6 +7,14 @@ import styles from './MenuDrawer.module.css';
 import constants from '../../constants';
 
 export default function MenuDrawer({ isOpen, onClose, user }) {
+  const clickSaved = () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Clicked Saved Dates',
+    });
+    onClose();
+  };
+
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
       <div className={styles.container}>
@@ -27,7 +35,7 @@ export default function MenuDrawer({ isOpen, onClose, user }) {
           <ul className={styles.list}>
             <li>
               <InternalLink href="/saved">
-                <a onClick={onClose}>Saved dates</a>
+                <a onClick={clickSaved}>Saved dates</a>
               </InternalLink>
             </li>
             <li>
