@@ -10,11 +10,11 @@ import Spinner from '../../components/Spinner/Spinner';
 import Chip from '../../components/Chip/Chip';
 import constants from '../../constants';
 import {
-  getSectionImage,
   getDateCost,
   getDateLength,
   getDateTags,
   filterArrayToString,
+  useThumbnail,
 } from '../../utils';
 import cn from '../../utils/cn';
 import tipFlower from '../../assets/graphics/tip-flower.svg';
@@ -47,20 +47,54 @@ const DateDetails = ({ dateObj }) => {
     ? `${constants.PAGES.SEARCH}?filters=${filterString}`
     : constants.PAGES.SEARCH;
 
-  const [highResLoaded1, setHighResLoaded1] = useState(false);
-  const [highResLoaded2, setHighResLoaded2] = useState(false);
-  const [highResLoaded3, setHighResLoaded3] = useState(false);
-  const highResLoaded = [highResLoaded1, highResLoaded2, highResLoaded3];
-  const setHighResLoaded = [setHighResLoaded1, setHighResLoaded2, setHighResLoaded3];
-  const [placeholder1] = useState(randPlaceholder());
-  const [placeholder2] = useState(randPlaceholder());
-  const [placeholder3] = useState(randPlaceholder());
-  const placeholder = [placeholder1, placeholder2, placeholder3];
   const backEvent = () =>
     ReactGA.event({
       category: 'Interaction',
       action: 'Click Back to Explore',
     });
+
+  const SectionImage = ({ section }) => {
+    const [placeholder] = useState(randPlaceholder());
+    const [highResLoaded, setHighResLoaded] = useState(false);
+    const imageUrl = useThumbnail(section);
+
+    return (
+      <div className={styles.thumbnailContainer}>
+        <div className={styles.thumbnail}>
+          <img
+            alt=""
+            className={styles.thumbnailImage}
+            src={imageUrl}
+            onLoad={() => {
+              setHighResLoaded(true);
+            }}
+          />
+          <img
+            alt=""
+            className={cn(
+              styles.thumbnailImage,
+              styles.thumbnailPlaceholder,
+              highResLoaded && styles.thumbnailPlaceholderClear,
+            )}
+            src={placeholder}
+          />
+        </div>
+        {section.image && section.imageAuthor && (
+          <span className={styles.imageAuthor}>
+            Photo:{' '}
+            <ReactGA.OutboundLink
+              to={`https://www.instagram.com/p/${section.image}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              eventLabel={`Instagram post by ${section.imageAuthor}`}
+            >
+              {`@${section.imageAuthor}`}
+            </ReactGA.OutboundLink>
+          </span>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -78,41 +112,8 @@ const DateDetails = ({ dateObj }) => {
         )}
       </h3>
       <div className={styles.thumbnailRowContainer}>
-        {dateObj.sections.map((section, i) => (
-          <div className={styles.thumbnailContainer}>
-            <div className={styles.thumbnail}>
-              <img
-                alt=""
-                className={styles.thumbnailImage}
-                src={getSectionImage(section)}
-                onLoad={() => {
-                  setHighResLoaded[i](true);
-                }}
-              />
-              <img
-                alt=""
-                className={cn(
-                  styles.thumbnailImage,
-                  styles.thumbnailPlaceholder,
-                  highResLoaded[i] && styles.thumbnailPlaceholderClear,
-                )}
-                src={placeholder[i]}
-              />
-            </div>
-            {section.image && section.imageAuthor && (
-              <span className={styles.imageAuthor}>
-                Photo:{' '}
-                <ReactGA.OutboundLink
-                  to={`https://www.instagram.com/p/${section.image}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  eventLabel={`Instagram post by ${section.imageAuthor}`}
-                >
-                  {`@${section.imageAuthor}`}
-                </ReactGA.OutboundLink>
-              </span>
-            )}
-          </div>
+        {dateObj.sections.map(section => (
+          <SectionImage key={section.spot.name} section={section} />
         ))}
       </div>
       <div className={styles.metaRow}>
@@ -137,7 +138,7 @@ const DateDetails = ({ dateObj }) => {
       <ol className={styles.sectionList}>
         {dateObj.sections.map((section, index) => {
           return (
-            <li className={styles.sectionListItem}>
+            <li className={styles.sectionListItem} key={section.spot.name}>
               <div className={styles.bullet} />
               <h5 className={styles.activityHeader}>
                 {['FIRST', 'SECOND', 'THIRD'][index]} ACTIVITY

@@ -14,7 +14,7 @@ import placeholder4 from '../../assets/graphics/pattern-4.svg';
 import cn from '../../utils/cn';
 
 import styles from './DateCard.module.css';
-import { getDateCost, getDateLength, getSectionImage, getDateTags } from '../../utils';
+import { getDateCost, getDateLength, getDateTags, useThumbnail } from '../../utils';
 import Chip from '../Chip/Chip';
 import Constants from '../../constants';
 
@@ -24,10 +24,10 @@ const randPlaceholder = () => placeholderImgs[Math.floor(Math.random() * Math.fl
 
 export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW, isFavorite }) {
   const section1 = dateObj.sections[0];
+  const imageUrl = useThumbnail(section1);
   const isFull = variant === DateCard.VARIANTS.FULL;
   const dateLength = getDateLength(dateObj);
   const isNew = dateObj.new;
-  const imageUrl = getSectionImage(section1);
   const tags = getDateTags(dateObj);
   const [highResLoaded, setHighResLoaded] = useState(false);
   const [placeholder] = useState(randPlaceholder());

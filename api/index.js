@@ -67,6 +67,10 @@ export const getLikedDates = async () => {
   return likedDates;
 };
 
+export const getThumbnailUrl = async imageId => {
+  return fetchGet(`${CONSTANTS.API.THUMBNAIL}/${imageId}`);
+};
+
 export const createUserDate = async userDateObj => {
   return fetchPost({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
 };

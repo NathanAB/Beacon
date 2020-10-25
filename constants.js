@@ -24,6 +24,7 @@ export default {
     TAGS: `${API_URL}/api/tags`,
     ACTIVITIES: `${API_URL}/api/activities`,
     USER_DATES: `${API_URL}/api/userDates`,
+    THUMBNAIL: `${API_URL}/api/thumbnail`,
     ADMIN: {
       DATE_PLAN: `${API_URL}/api/admin/datePlan`,
     },
