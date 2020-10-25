@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Search.module.css';
 
-import Header from './Header/Header';
 import FilterBar from './FilterBar/FilterBar';
 import Results from './Results/Results';
 
-export default function Search() {
+export default function Search({ savedOnly }) {
   return (
     <div className={styles.container}>
-      <Header />
+      <h2>{savedOnly ? 'Saved' : 'Explore'} Dates</h2>
       <FilterBar />
-      <Results />
+      <Results savedOnly={savedOnly} />
     </div>
   );
 }

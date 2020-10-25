@@ -61,8 +61,18 @@ export const getUserDates = async () => {
   return fetchGet(CONSTANTS.API.USER_DATES);
 };
 
+export const getLikedDates = async () => {
+  const res = await fetchGet(CONSTANTS.API.LIKED_DATES);
+  const likedDates = res.map(likeObject => likeObject.dateId.toString());
+  return likedDates;
+};
+
 export const createUserDate = async userDateObj => {
   return fetchPost({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
+};
+
+export const likeDate = async dateId => {
+  return fetchPost({ url: CONSTANTS.API.LIKED_DATES, body: { dateId } });
 };
 
 export const updateDatePlan = async datePlan => {
@@ -79,4 +89,8 @@ export const updateUserDate = async userDateObj => {
 
 export const deleteUserDate = async userDateObj => {
   return fetchDelete({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
+};
+
+export const unlikeDate = async dateId => {
+  return fetchDelete({ url: CONSTANTS.API.LIKED_DATES, body: { dateId } });
 };

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import uniqBy from 'lodash/uniqBy';
 
 import dc3 from '../assets/img/dc-3.jpeg';
-import { getDates, getNeighborhoods } from '../api';
+import { getDates, getNeighborhoods, likeDate } from '../api';
 
 const COST_MAP = ['Free', 'Under $30', '$30 to $60', '$60+'];
 const COST_LOOKUP = {
@@ -95,6 +95,22 @@ export const shuffleArray = array => {
   return array;
 };
 
+export const saveLocalLikes = async () => {
+  try {
+    const localLikedDates = JSON.parse(localStorage.getItem('likedDates'));
+    if (localLikedDates.length) {
+      await Promise.all(
+        localLikedDates.map(dateId => {
+          return likeDate(dateId);
+        }),
+      );
+      localStorage.removeItem('likedDates');
+    }
+  } catch (e) {
+    localStorage.removeItem('likedDates');
+  }
+};
+
 export const loadDates = async store => {
   let adminDates = await getDates();
   const dates = adminDates.filter(date => date.active);
@@ -110,11 +126,6 @@ export const loadDates = async store => {
   });
   store.set('adminDates')(adminDates);
   store.set('dates')(dates);
-  try {
-    store.set('likedDates')(JSON.parse(localStorage.getItem('likedDates')) || []);
-  } catch (e) {
-    store.set('likedDates')([]);
-  }
 
   let allNeighborhoods = await getNeighborhoods();
   allNeighborhoods = allNeighborhoods.sort((a, b) => {

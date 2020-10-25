@@ -17,16 +17,24 @@
   color: white;
 }
 
+.loginButton * {
+  vertical-align: middle;
+}
+
 .loginButton:focus {
   outline: none;
 }
 
+.hello {
+  margin-left: 10px;
+}
+
 .profilePic {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   object-fit: cover;
   object-position: center;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .beaconTitle span {
@@ -43,5 +51,10 @@
   }
   .beaconTitle span {
     color: var(--primary);
+  }
+  .profilePic {
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
   }
 }

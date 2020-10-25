@@ -2,9 +2,11 @@
   outline: none;
 }
 
-.button span {
-  font-size: 32px;
+.button svg {
+  width: 32px;
+  height: 32px;
   margin-left: 10px;
+  color: var(--primary);
 }
 
 .contactLink {

@@ -64,7 +64,6 @@ const DateDetails = ({ dateObj }) => {
 
   return (
     <div className={styles.container}>
-      <BeaconTitle />
       <div className={styles.backButton}>
         <InternalLink href={backUrl}>
           <a onClick={backEvent}>← Back to Explore</a>

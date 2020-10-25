@@ -1,4 +1,4 @@
-const API_URL = process.env.REACT_APP_API_URL || 'http://local.beacondates.com:8080';
+const API_URL = process.env.REACT_APP_API_URL || 'https://local.beacondates.com:8080';
 const KEYS = {
   MAPS_API_KEY: process.env.REACT_APP_MAPS_API_KEY,
 };
@@ -19,6 +19,7 @@ export default {
     LOGIN_FACEBOOK: `${API_URL}/login/facebook`,
     LOGOUT: `${API_URL}/logout`,
     DATES: `${API_URL}/api/dates`,
+    LIKED_DATES: `${API_URL}/api/likedDates`,
     NEIGHBORHOODS: `${API_URL}/api/neighborhoods`,
     TAGS: `${API_URL}/api/tags`,
     ACTIVITIES: `${API_URL}/api/activities`,

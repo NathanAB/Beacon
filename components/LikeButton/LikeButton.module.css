@@ -1,5 +1,6 @@
 .button {
   position: relative;
+  color: var(--primary);
 }
 
 .button:active, .button:focus {
@@ -8,6 +9,7 @@
 
 .icon {
   width: 32px;
+  height: 32px;
 }
 
 .filledIcon {

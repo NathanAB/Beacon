@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import { Drawer, Icon } from '@material-ui/core';
+import InternalLink from 'next/link';
 
-import styles from './ProfileDrawer.module.css';
+import styles from './MenuDrawer.module.css';
 import constants from '../../constants';
 
-export default function ProfileDrawer({ isOpen, onClose, user }) {
+export default function MenuDrawer({ isOpen, onClose, user }) {
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
       <div className={styles.container}>
@@ -24,6 +25,21 @@ export default function ProfileDrawer({ isOpen, onClose, user }) {
             </ul> */}
           {/* <hr className={styles.listDivider}/> */}
           <ul className={styles.list}>
+            <li>
+              <InternalLink href="/saved">
+                <a onClick={onClose}>Saved dates</a>
+              </InternalLink>
+            </li>
+            <li>
+              <ReactGA.OutboundLink
+                to="https://forms.gle/ebaqVd2TMTw47RjW8"
+                target="_blank"
+                rel="noopener noreferrer"
+                eventLabel="Feedback form"
+              >
+                Feedback
+              </ReactGA.OutboundLink>
+            </li>
             <li>
               <ReactGA.OutboundLink to={constants.API.LOGOUT} eventLabel="Logout">
                 Log out

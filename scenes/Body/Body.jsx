@@ -8,8 +8,7 @@ import AppBar from '../../components/AppBar/AppBar';
 
 import * as api from '../../api';
 import Store from '../../store';
-import { loadDates } from '../../utils';
-import LoginDrawer from '../../components/LoginDrawer/LoginDrawer';
+import { loadDates, saveLocalLikes } from '../../utils';
 
 export default ({ Component, pageProps }) => {
   const store = Store.useStore();
@@ -22,6 +21,12 @@ export default ({ Component, pageProps }) => {
         store.set('userDates')(userDates);
       }
     };
+    const getLikedDates = async () => {
+      const likedDates = await api.getLikedDates();
+      if (likedDates) {
+        store.set('likedDates')(likedDates);
+      }
+    };
     const initialReqs = async () => {
       const authData = await api.auth();
       if (authData) {
@@ -31,7 +36,15 @@ export default ({ Component, pageProps }) => {
           name: authData.name,
           email: authData.email,
         });
+        await saveLocalLikes();
         getUserDates();
+        getLikedDates();
+      } else {
+        try {
+          store.set('likedDates')(JSON.parse(localStorage.getItem('likedDates')) || []);
+        } catch (e) {
+          store.set('likedDates')([]);
+        }
       }
     };
     const getTags = async () => {
@@ -66,7 +79,6 @@ export default ({ Component, pageProps }) => {
       <AppBar />
       <Component {...pageProps} />
       <Footer />
-      <LoginDrawer />
     </Box>
   );
 };

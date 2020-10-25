@@ -2,6 +2,8 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import { Icon } from '@material-ui/core';
 import Popover from 'react-popover';
+import { AiOutlineComment } from 'react-icons/ai';
+
 import styles from './CommentButton.module.css';
 
 import Paper from '../Paper/Paper';
@@ -48,7 +50,7 @@ export default function CommentButton() {
     <>
       <Popover {...popoverProps}>
         <button type="button" onClick={onClick} className={styles.button}>
-          <Icon color="primary">comment</Icon>
+          <AiOutlineComment />
         </button>
       </Popover>
     </>

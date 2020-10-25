@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Icon, Drawer } from '@material-ui/core';
+import { AppBar, Toolbar, Icon } from '@material-ui/core';
 // import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
 import { useMediaQuery } from 'react-responsive';
 import Store from '../../store';
 
-import ProfileDrawer from '../ProfileDrawer/ProfileDrawer';
+import MenuDrawer from '../MenuDrawer/MenuDrawer';
 import BeaconTitle from '../BeaconTitle/BeaconTitle';
 import LoginPopover from '../LoginPopover/LoginPopover';
+import LoginDrawer from '../LoginDrawer/LoginDrawer';
 import styles from './AppBar.module.css';
+import MenuPopover from '../MenuPopover/MenuPopover';
 
 export default function BeaconAppBar() {
   const store = Store.useStore();
@@ -77,10 +79,18 @@ export default function BeaconAppBar() {
   };
 
   const renderUser = () => {
-    return (
+    return isMobile ? (
       <button type="button" onClick={openProfileMenu} className={styles.loginButton}>
         <img alt="Your profile" src={user.picture} className={styles.profilePic} />
       </button>
+    ) : (
+      <MenuPopover isOpen={isProfileMenuOpen} onClose={closeProfileMenu} user={user}>
+        <button type="button" onClick={openProfileMenu} className={styles.loginButton}>
+          <img alt="Your profile" src={user.picture} className={styles.profilePic} />
+          <span className={styles.hello}>Hi, {user.given_name}</span>
+          <Icon>expand_more</Icon>
+        </button>
+      </MenuPopover>
     );
   };
 
@@ -94,7 +104,8 @@ export default function BeaconAppBar() {
           {isLoggedIn ? renderUser() : renderLogin()}
         </Toolbar>
       </AppBar>
-      <ProfileDrawer user={user} isOpen={isProfileMenuOpen} onClose={closeProfileMenu} />
+      {isMobile && <MenuDrawer user={user} isOpen={isProfileMenuOpen} onClose={closeProfileMenu} />}
+      {isMobile && <LoginDrawer />}
     </>
   );
 }

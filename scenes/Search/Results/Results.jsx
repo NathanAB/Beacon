@@ -6,14 +6,14 @@ import DateCard from '../../../components/DateCard/DateCard';
 import Store from '../../../store';
 import { useFilters, filterDates, dateSorterNewest } from '../../../utils';
 
-export default function Results() {
+export default function Results({ savedOnly }) {
   const store = Store.useStore();
   const dateObjs = store.get('dates');
   const likedDates = store.get('likedDates');
   const isFilterBarExpanded = store.get('isFilterBarExpanded');
   const [filters] = useFilters();
 
-  const [likedOnly, setLikedOnly] = useState(false);
+  const [likedOnly, setLikedOnly] = useState(!!savedOnly);
   let filteredDates = filterDates(dateObjs, filters).sort(dateSorterNewest);
   if (likedOnly) {
     filteredDates = filteredDates.filter(dateObj => likedDates.includes(dateObj.id.toString()));
@@ -22,13 +22,13 @@ export default function Results() {
 
   return (
     <div>
-      {!isFilterBarExpanded && (
+      {!isFilterBarExpanded && !savedOnly && (
         <div className={styles.sortRow}>
           <p>
             {resultsLength} result{resultsLength !== 1 && 's'}
           </p>
           <div className={styles.sortRowSpacer}></div>
-          <span className={styles.sortBy}>Only Favorites:</span>
+          <span className={styles.sortBy}>Saved Dates Only:</span>
           <Checkbox
             color="primary"
             checked={likedOnly}
