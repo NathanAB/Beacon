@@ -61,6 +61,10 @@ export const getUserDates = async () => {
   return fetchGet(CONSTANTS.API.USER_DATES);
 };
 
+export const getThumbnailUrl = async imageId => {
+  return fetchGet(`${CONSTANTS.API.THUMBNAIL}/${imageId}`);
+};
+
 export const createUserDate = async userDateObj => {
   return fetchPost({ url: CONSTANTS.API.USER_DATES, body: userDateObj });
 };

@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import * as reactResponsive from 'react-responsive';
 import { useRouter } from 'next/router';
 import uniqBy from 'lodash/uniqBy';
 
 import dc3 from '../assets/img/dc-3.jpeg';
-import { getDates, getNeighborhoods } from '../api';
+import { getDates, getNeighborhoods, getThumbnailUrl } from '../api';
 
 const COST_MAP = ['Free', 'Under $30', '$30 to $60', '$60+'];
 const COST_LOOKUP = {
@@ -258,14 +259,46 @@ export const createCalendarEvent = dateObj => {
   };
 };
 
-export const getSectionImage = dateSection => {
+export const getSectionImage = async dateSection => {
   // Placeholder is DC image
-  let imageUrl = dc3;
+  const imageUrl = dc3;
   if (dateSection.image) {
-    imageUrl = dateSection.image.includes('http')
-      ? dateSection.image // Use raw image URL
-      : `https://instagram.com/p/${dateSection.image}/media/?size=l`; // Imply image url from Instagram ID
+    if (dateSection.image.includes('http')) {
+      return dateSection.image;
+    }
+
+    // Do some caching fuckery to try to prevent too many unnecessary fb api calls
+    const cachedUrl = sessionStorage.getItem(dateSection.image);
+
+    if (cachedUrl) {
+      return cachedUrl;
+    }
+
+    const apiRes = await getThumbnailUrl(dateSection.image);
+    if (apiRes) {
+      sessionStorage.setItem(dateSection.image, apiRes);
+      return apiRes;
+    }
+    return '';
   }
+  return imageUrl;
+};
+
+// Custom hook to load Instagram thumbnails via the Beacon API
+export const useThumbnail = dateSection => {
+  const [imageUrl, setImageUrl] = useState();
+
+  useEffect(() => {
+    const getImage = async () => {
+      setImageUrl('');
+      const res = await getSectionImage(dateSection);
+      setImageUrl(res);
+    };
+    if (!imageUrl) {
+      getImage();
+    }
+  }, []);
+
   return imageUrl;
 };
 
