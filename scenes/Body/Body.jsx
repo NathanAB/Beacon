@@ -2,13 +2,16 @@ import React, { useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import ReactGA from 'react-ga';
 import LogRocket from 'logrocket';
+import { toast } from 'react-toastify';
 
 import Footer from '../../components/Footer/Footer';
 import AppBar from '../../components/AppBar/AppBar';
+import LoginToast from '../../components/LoginToast/LoginToast';
 
 import * as api from '../../api';
 import Store from '../../store';
 import { loadDates, saveLocalLikes } from '../../utils';
+import constants from '../../constants';
 
 export default ({ Component, pageProps }) => {
   const store = Store.useStore();
@@ -30,6 +33,14 @@ export default ({ Component, pageProps }) => {
     const initialReqs = async () => {
       const authData = await api.auth();
       if (authData) {
+        if (sessionStorage.getItem(constants.FLAGS.FRESH_LOGIN)) {
+          toast(<LoginToast firstName={authData.given_name} />, {
+            position: 'bottom-right',
+            hideProgressBar: true,
+          });
+          sessionStorage.removeItem(constants.FLAGS.FRESH_LOGIN);
+        }
+
         store.set('user')(authData);
         ReactGA.set({ userEmail: authData.email });
         LogRocket.identify(authData.email, {

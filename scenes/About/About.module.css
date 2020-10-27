@@ -15,6 +15,7 @@
   margin-top: 60px;
   max-width: 900px;
   position: relative;
+  z-index: 1;
 }
 
 .paperGraphic {
@@ -62,11 +63,17 @@
 }
 
 .quoteBlock {
+  position: relative;
   max-width: 550px;
   margin: auto;
   margin-top: 50px;
   margin-bottom: 50px;
   text-align: center;
+  z-index: 2;
+}
+
+.quoteBlock * {
+  z-index: 2;
 }
 
 .quoteBlock a {
@@ -81,7 +88,7 @@
   left:0px;
   right: 0px;
   margin: auto;
-  z-index: -1;
+  z-index: 0;
   width: 700px;
 }
 

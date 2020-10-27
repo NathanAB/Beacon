@@ -7,6 +7,7 @@ import MomentUtils from '@date-io/moment';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import ReactGA from 'react-ga';
 import LogRocket from 'logrocket';
+import { ToastContainer } from 'react-toastify';
 
 import Store from '../store';
 import Body from '../scenes/Body/Body';
@@ -15,6 +16,7 @@ import theme from '../theme';
 import Constants from '../constants';
 
 import 'react-markdown-editor-lite/lib/index.css';
+import 'react-toastify/dist/ReactToastify.css';
 import '../css/index.css';
 
 export default class BeaconApp extends App {
@@ -42,6 +44,7 @@ export default class BeaconApp extends App {
   render() {
     return (
       <Store.Container>
+        <ToastContainer />
         <Head>
           <title>Washington DC Date Ideas | Beacon</title>
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />

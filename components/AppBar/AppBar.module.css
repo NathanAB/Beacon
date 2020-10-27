@@ -30,11 +30,12 @@
 }
 
 .profilePic {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   object-fit: cover;
   object-position: center;
-  border-radius: 15px;
+  border-radius: 16px;
+  border: 1px white solid;
 }
 
 .beaconTitle span {
@@ -53,8 +54,8 @@
     color: var(--primary);
   }
   .profilePic {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
   }
 }

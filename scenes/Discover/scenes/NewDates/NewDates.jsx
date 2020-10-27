@@ -37,6 +37,7 @@ export default function NewDates({ dateObjs }) {
                       action: 'Click Explore All',
                     })
                   }
+                  className="link"
                 >
                   Explore all
                 </a>
@@ -59,6 +60,7 @@ export default function NewDates({ dateObjs }) {
                     action: 'Click Explore All',
                   })
                 }
+                className="link"
               >
                 Explore all
               </a>

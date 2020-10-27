@@ -87,7 +87,7 @@ export default function About() {
             to="https://www.psychologytoday.com/us/blog/in-it-together/201703/date-night-not-luxury-necessity"
             target="_blank"
             rel="noopener noreferrer"
-            label="Dianne Grande Article"
+            eventLabel="Dianne Grande Article"
           >
             Read the full article
           </ReactGA.OutboundLink>

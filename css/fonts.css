@@ -57,12 +57,16 @@ p {
 }
 
 a {
-  font-size: 18px;
-  font-family: 'Playfair Display';
   font-weight: 700;
-  text-decoration: underline;
+  text-decoration: none;
   color: var(--primary);
   cursor: pointer;
+}
+
+a.link {
+  font-size: 18px;
+  font-family: 'Playfair Display';
+  text-decoration: underline;
 }
 
 a:active, a:hover {

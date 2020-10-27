@@ -10,11 +10,13 @@
 .imageContainer {
   width: 100%;
   max-width: 300px;
+  z-index: 1;
 }
 
 .textContainer {
   width: 100%;
   max-width: 400px;
+  z-index: 2;
 }
 
 .couple {
