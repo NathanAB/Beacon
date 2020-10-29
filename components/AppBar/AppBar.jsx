@@ -39,13 +39,19 @@ export default function BeaconAppBar() {
     });
     setPopoverOpen(true);
   };
-
   const closePopover = () => {
     ReactGA.event({
       category: 'Interaction',
       action: 'Close Login Panel',
     });
     setPopoverOpen(false);
+  };
+  const togglePopover = () => {
+    if (isPopoverOpen) {
+      closePopover();
+    } else {
+      openPopover();
+    }
   };
 
   const openProfileMenu = () => {
@@ -55,13 +61,19 @@ export default function BeaconAppBar() {
     });
     setProfileMenuOpen(true);
   };
-
   const closeProfileMenu = () => {
     ReactGA.event({
       category: 'Interaction',
       action: 'Close Profile Menu',
     });
     setProfileMenuOpen(false);
+  };
+  const toggleProfileMenu = () => {
+    if (isProfileMenuOpen) {
+      closeProfileMenu();
+    } else {
+      openProfileMenu();
+    }
   };
 
   const renderLogin = () => {
@@ -71,7 +83,7 @@ export default function BeaconAppBar() {
       </button>
     ) : (
       <LoginPopover isOpen={isPopoverOpen} onClose={closePopover}>
-        <button type="button" onClick={openPopover} className={styles.loginButton}>
+        <button type="button" onClick={togglePopover} className={styles.loginButton}>
           Login
         </button>
       </LoginPopover>
@@ -85,7 +97,7 @@ export default function BeaconAppBar() {
       </button>
     ) : (
       <MenuPopover isOpen={isProfileMenuOpen} onClose={closeProfileMenu} user={user}>
-        <button type="button" onClick={openProfileMenu} className={styles.loginButton}>
+        <button type="button" onClick={toggleProfileMenu} className={styles.loginButton}>
           <img alt="Your profile" src={user.picture} className={styles.profilePic} />
           <span className={styles.hello}>Hi, {user.given_name}</span>
           <Icon>expand_more</Icon>

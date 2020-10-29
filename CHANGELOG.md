@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.11.0](https://github.com/nathanab/beacon/compare/v3.10.1...v3.11.0)
+- Added header bar login button and profile menu
+- Added login functionality
+- Added saved dates page
+- Removed comment teaser button
+- Hooked up save and unsave functionality to new api
+
 ## [v3.10.1](https://github.com/nathanab/beacon/compare/v3.10.0...v3.10.1)
 - Fix broken Instagram thumbnails by loading them through a new Beacon API endpoint. See [Facebook docs](https://developers.facebook.com/docs/plugins/oembed/) for more info.
 

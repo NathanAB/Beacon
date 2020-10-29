@@ -75,10 +75,17 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
             </InternalLink>
             <div className={styles.cardBody}>
               <div className={styles.titleRow}>
-                <h5>{dateObj.name}</h5>
+                <h5>
+                  <InternalLink
+                    href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
+                    as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
+                  >
+                    <a>{dateObj.name}</a>
+                  </InternalLink>
+                </h5>
                 <div className={styles.spacer} />
                 <LikeButton dateObj={dateObj} />
-                <CommentButton />
+                {/* <CommentButton /> */}
               </div>
               <div className={styles.timeAndCost}>
                 {dateLength} hours · {getDateCost(dateObj)}

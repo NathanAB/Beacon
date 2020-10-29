@@ -36,13 +36,15 @@ export default function LikeButton({ dateObj }) {
     });
     let newLikedDates = [...likedDates];
     if (!user) {
-      ReactGA.event({
-        category: 'Interaction',
-        action: 'Open Login Panel',
-      });
       if (isMobile) {
         store.set('isLoginDrawerOpen')(true);
+      } else if (isLoginPopoverOpen) {
+        closeLogin();
       } else {
+        ReactGA.event({
+          category: 'Interaction',
+          action: 'Open Login Panel',
+        });
         setLoginPopoverOpen(true);
       }
     }

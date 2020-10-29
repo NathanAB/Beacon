@@ -133,7 +133,7 @@ const DateDetails = ({ dateObj }) => {
         </div>
         <div className={styles.spacer} />
         <LikeButton dateObj={dateObj} />
-        <CommentButton />
+        {/* <CommentButton /> */}
       </div>
       <p className={styles.description}>{dateObj.description}</p>
       <div className={styles.lineBreak} />

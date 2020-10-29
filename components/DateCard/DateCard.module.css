@@ -172,6 +172,10 @@
   align-items: flex-start;
 }
 
+.titleRow a {
+  color: black;
+}
+
 .mobileOnly {
   display: none;
 }

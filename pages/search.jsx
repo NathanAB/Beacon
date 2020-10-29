@@ -42,7 +42,7 @@ export default function SearchPage() {
       {dates.length ? (
         <Search />
       ) : (
-        <Box display="flex" justifyContent="center" alignItems="center">
+        <Box display="flex" justifyContent="center" alignItems="center" padding="100px 0px">
           <CircularProgress color="primary" />
         </Box>
       )}
