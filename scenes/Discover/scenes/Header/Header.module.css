@@ -1,11 +1,10 @@
 
 .backgroundImages {
-  position:relative;
+  position: relative;
   height: 210px;
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  z-index: 0;
 }
 
 .headerContent {
@@ -20,7 +19,6 @@
 }
 
 .blobOrange {
-  z-index: -3;
   width: 100%;
   max-width: 923px;
   position: absolute;
@@ -31,7 +29,6 @@
 }
 
 .couple1 {
-  z-index: -1;
   width: 100%;
   max-width: 450px;
   position: absolute;
@@ -40,7 +37,6 @@
 }
 
 .couple2 {
-  z-index: -2;
   width: 100%;
   max-width: 600px;
   position: absolute;
@@ -80,6 +76,11 @@
 
 .cardSection {
   margin-bottom: 20px;
+  position: relative;
+}
+
+.selectContainer {
+  position: relative;
 }
 
 .or {

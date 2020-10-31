@@ -7,7 +7,6 @@ html {
 }
 
 body {
-  z-index: -2;
   margin: auto !important;
   padding: 0 !important;
   font-family: 'Lato' !important;

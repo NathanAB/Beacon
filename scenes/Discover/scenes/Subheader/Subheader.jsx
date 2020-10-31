@@ -8,8 +8,8 @@ export default function Subheader() {
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
-        <img src={couple2} className={styles.couple} alt="A couple relaxing in bed with coffee." />
         <img src={yellowBlob} className={styles.yellowBlob} alt="A yellow blob." />
+        <img src={couple2} className={styles.couple} alt="A couple relaxing in bed with coffee." />
       </div>
       <div className={styles.textContainer}>
         <h3>

@@ -28,7 +28,7 @@ export default function LoginButton({ type }) {
       to={data.href}
       eventLabel={`${data.name} Login Clicked`}
       className={`${styles.link} ${styles[type]}`}
-      onClick={() => sessionStorage.setItem('freshLogin', true)}
+      onClick={() => sessionStorage.setItem(constants.FLAGS.FRESH_LOGIN, true)}
     >
       <img className={styles.icon} alt={`${data.name} Logo`} src={data.icon} />
       Log in with {data.name}
