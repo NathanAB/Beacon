@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.12.0](https://github.com/nathanab/beacon/compare/v3.11.0...v3.12.0)
+- Update to Node v14
+- Update to Next.js v10
+- Update to React v17
+- Fix z-index issues
+
 ## [v3.11.0](https://github.com/nathanab/beacon/compare/v3.10.1...v3.11.0)
 - Added header bar login button and profile menu
 - Added login functionality
