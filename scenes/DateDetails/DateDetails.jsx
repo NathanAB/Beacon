@@ -115,7 +115,7 @@ const DateDetails = ({ dateObj }) => {
       </h3>
       <div className={styles.thumbnailRowContainer}>
         {dateObj.sections.map(section => (
-          <SectionImage key={section.spot.name} section={section} />
+          <SectionImage key={section?.spot?.name} section={section} />
         ))}
       </div>
       <div className={styles.metaRow}>
@@ -140,12 +140,12 @@ const DateDetails = ({ dateObj }) => {
       <ol className={styles.sectionList}>
         {dateObj.sections.map((section, index) => {
           return (
-            <li className={styles.sectionListItem} key={section.spot.name}>
+            <li className={styles.sectionListItem} key={section?.spot?.name}>
               <div className={styles.bullet} />
               <h5 className={styles.activityHeader}>
                 {['FIRST', 'SECOND', 'THIRD'][index]} ACTIVITY
               </h5>
-              <h6 className={styles.activityTitle}>{section.spot.name}</h6>
+              <h6 className={styles.activityTitle}>{section?.spot?.name}</h6>
               <p className={styles.activityDescription}>{section.description}</p>
               {section.tips && (
                 <div className={styles.tipsBox}>

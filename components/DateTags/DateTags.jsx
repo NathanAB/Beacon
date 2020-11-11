@@ -35,7 +35,9 @@ const DateTags = ({
     dateHours = getDateLength(dateObj);
     dateCostString = getDateCost(dateObj);
     dateObj.sections.forEach(section => {
-      tags.push(...section.tags);
+      if (section.tags) {
+        tags.push(...section.tags);
+      }
     });
   } else if (sectionObj) {
     dateHours = Math.round(sectionObj.minutes / 30) / 2; // Round to the nearest half-hour

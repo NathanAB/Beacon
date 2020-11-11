@@ -83,6 +83,10 @@ export const updateDatePlan = async datePlan => {
   return fetchPatch({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
 };
 
+export const deleteDatePlan = async datePlan => {
+  return fetchDelete({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
+};
+
 export const createDatePlan = async datePlan => {
   return fetchPost({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
 };

@@ -13,8 +13,8 @@ export default function LikeButton({ dateObj }) {
   const isMobile = useMediaQuery({
     query: '(max-width: 768px)',
   });
-  const dateId = dateObj.id.toString();
-  const dateName = dateObj.name;
+  const dateId = dateObj?.id?.toString();
+  const dateName = dateObj?.name;
   const store = Store.useStore();
   const likedDates = store.get('likedDates');
   const user = store.get('user');

@@ -316,7 +316,9 @@ export const useThumbnail = dateSection => {
 export const getDateTags = dateObj => {
   let tags = [];
   dateObj.sections.forEach(section => {
-    tags.push(...section.tags);
+    if (section.tags) {
+      tags.push(...section.tags);
+    }
   });
   tags = uniqBy(tags, tag => tag.tagId);
   tags = tags.slice(0, 3);

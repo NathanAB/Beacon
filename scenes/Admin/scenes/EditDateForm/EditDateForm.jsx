@@ -17,12 +17,16 @@ import {
   MenuItem,
   Typography,
   Link,
+  Tab,
+  Tabs,
 } from '@material-ui/core';
 import { set } from 'lodash';
 
 import Button from '../../../../components/Button/Button';
+import DateCard from '../../../../components/DateCard/DateCard';
+import DateDetails from '../../../DateDetails/DateDetails';
 import Store from '../../../../store';
-import { createDatePlan, updateDatePlan } from '../../../../api';
+import { createDatePlan, deleteDatePlan, updateDatePlan } from '../../../../api';
 import Spinner from '../../../../components/Spinner/Spinner';
 import { loadDates } from '../../../../utils';
 
@@ -52,6 +56,16 @@ const styles = theme => ({
   },
 });
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div role="tabpanel" hidden={value !== index} {...other}>
+      {children}
+    </div>
+  );
+}
+
 function EditDateForm({ classes }) {
   const store = Store.useStore();
   const currentDate = store.get('adminEditingDate');
@@ -62,11 +76,16 @@ function EditDateForm({ classes }) {
   const isNew = !currentDate.id;
 
   const [formData, setFormData] = useState({});
+  const [activeTab, setTab] = useState(0);
   const handleTipsChange = (newText, sectionNum) => {
     formData.sections[sectionNum].tips = newText;
     setFormData(Object.assign({}, formData));
   };
   const [isSavingDate, setSavingDate] = useState(false);
+
+  const onTabChange = (event, newValue) => {
+    setTab(newValue);
+  };
 
   const addSection3 = () => {
     formData.sections[2] = {
@@ -86,6 +105,24 @@ function EditDateForm({ classes }) {
     const newTags = e.target.value.map(tagId => tags.find(tag => tag.tagId === tagId));
     formData.sections[sectionNum].tags = newTags;
     setFormData(Object.assign({}, formData));
+  };
+
+  const deleteDate = async () => {
+    const proceed = window.confirm('Are you sure you want to delete the date?');
+    if (!proceed) {
+      return;
+    }
+    setSavingDate(true);
+    try {
+      await deleteDatePlan(formData);
+      await loadDates(store);
+      setIsEditingDate(false);
+    } catch (err) {
+      console.error(err);
+      alert(err);
+    } finally {
+      setSavingDate(false);
+    }
   };
 
   const saveDate = async () => {
@@ -320,61 +357,81 @@ function EditDateForm({ classes }) {
       aria-labelledby="form-dialog-title"
     >
       <DialogTitle id="form-dialog-title" className={classes.dialogTitle}>
-        {isNew ? 'Create New Date' : 'Edit Date'}
+        <Tabs value={activeTab} onChange={onTabChange}>
+          <Tab label="Edit" />
+          <Tab label="Preview" />
+        </Tabs>
       </DialogTitle>
       <DialogContent className={classes.dialogContent}>
-        <Typography variant="h6" className={classes.sectionHeader}>
-          <b>Main Info</b>
-        </Typography>
-        <TextField
-          className={classes.control}
-          value={formData?.name}
-          id="date-title"
-          label="Date Title"
-          variant="outlined"
-          fullWidth
-          onChange={e => updateFormData(e, 'name')}
-        />
-        <TextField
-          className={classes.control}
-          id="date-description"
-          label="Date Description"
-          multiline
-          rows="8"
-          value={formData?.description}
-          variant="outlined"
-          fullWidth
-          onChange={e => updateFormData(e, 'description')}
-        />
-        {formData.id && (
-          <Typography variant="subtitle1">
-            <strong>
-              <Link target="_blank" href={`https://www.beacondates.com/search?date=${formData.id}`}>
-                Production Link to Date
-              </Link>
-            </strong>
+        <TabPanel value={activeTab} index={1}>
+          <Box width="100%" maxWidth="1000px" margin="auto">
+            <br />
+            <DateCard dateObj={formData} />
+            <br />
+            <hr />
+            <br />
+            <DateCard dateObj={formData} variant={DateCard.VARIANTS.FULL} />
+            <br />
+            <hr />
+            <br />
+            <DateDetails dateObj={formData} />
+            <br />
+          </Box>
+        </TabPanel>
+        <TabPanel value={activeTab} index={0}>
+          <Typography variant="h6" className={classes.sectionHeader}>
+            <b>Main Info</b>
           </Typography>
-        )}
-        {formData.id && (
-          <Typography variant="subtitle1">
-            <strong>
-              <Link
-                target="_blank"
-                href={`https://app-staging.beacondates.com/search?date=${formData.id}`}
-              >
-                Staging Link to Date
-              </Link>
-            </strong>
-          </Typography>
-        )}
+          <TextField
+            className={classes.control}
+            value={formData?.name}
+            id="date-title"
+            label="Date Title"
+            variant="outlined"
+            fullWidth
+            onChange={e => updateFormData(e, 'name')}
+          />
+          <TextField
+            className={classes.control}
+            id="date-description"
+            label="Date Description"
+            multiline
+            rows="8"
+            value={formData?.description}
+            variant="outlined"
+            fullWidth
+            onChange={e => updateFormData(e, 'description')}
+          />
+          {formData.id && (
+            <Typography variant="subtitle1">
+              <strong>
+                <Link target="_blank" href={`https://www.beacondates.com/date/${formData.id}`}>
+                  Production Link to Date
+                </Link>
+              </strong>
+            </Typography>
+          )}
+          {formData.id && (
+            <Typography variant="subtitle1">
+              <strong>
+                <Link
+                  target="_blank"
+                  href={`https://app-staging.beacondates.com/date/${formData.id}`}
+                >
+                  Staging Link to Date
+                </Link>
+              </strong>
+            </Typography>
+          )}
 
-        {renderSection(formData?.sections?.[0], 0)}
-        {renderSection(formData?.sections?.[1], 1)}
-        {formData?.sections?.[2] ? (
-          renderSection(formData?.sections?.[2], 2)
-        ) : (
-          <Button onClick={addSection3}>Add Section 3</Button>
-        )}
+          {renderSection(formData?.sections?.[0], 0)}
+          {renderSection(formData?.sections?.[1], 1)}
+          {formData?.sections?.[2] ? (
+            renderSection(formData?.sections?.[2], 2)
+          ) : (
+            <Button onClick={addSection3}>Add Section 3</Button>
+          )}
+        </TabPanel>
       </DialogContent>
       <Box
         display="flex"
@@ -388,6 +445,11 @@ function EditDateForm({ classes }) {
         <DialogActions>
           <a onClick={() => setIsEditingDate(false)}>Cancel</a>
         </DialogActions>
+        {!isNew && (
+          <DialogActions>
+            <Button onClick={deleteDate}>DELETE DATE</Button>
+          </DialogActions>
+        )}
       </Box>
     </Dialog>
   );
