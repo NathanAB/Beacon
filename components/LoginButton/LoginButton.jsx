@@ -1,22 +1,20 @@
 import React from 'react';
 import ReactGA from 'react-ga';
+import Image from 'next/image';
 
 import constants from '../../constants';
 
 import styles from './LoginButton.module.css';
 
-import GoogleIcon from '../../assets/img/googleIcon.png';
-import FacebookIcon from '../../assets/img/facebook-logo-white.svg';
-
 const typeData = {
   google: {
     href: constants.API.LOGIN_GOOGLE,
-    icon: GoogleIcon,
+    icon: '/assets/img/googleIcon.png',
     name: 'Google',
   },
   facebook: {
     href: constants.API.LOGIN_FACEBOOK,
-    icon: FacebookIcon,
+    icon: '/assets/img/facebook-logo-white.png',
     name: 'Facebook',
   },
 };
@@ -30,7 +28,13 @@ export default function LoginButton({ type }) {
       className={`${styles.link} ${styles[type]}`}
       onClick={() => sessionStorage.setItem(constants.FLAGS.FRESH_LOGIN, true)}
     >
-      <img className={styles.icon} alt={`${data.name} Logo`} src={data.icon} />
+      <Image
+        width="30px"
+        height="30px"
+        className={styles.icon}
+        alt={`${data.name} Logo`}
+        src={data.icon}
+      />
       Log in with {data.name}
     </ReactGA.OutboundLink>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import Popover from 'react-popover';
 import ReactGA from 'react-ga';
 import InternalLink from 'next/link';
+import Image from 'next/image';
 
 import Paper from '../Paper/Paper';
 import constants from '../../constants';
@@ -17,7 +18,13 @@ export default function MenuPopover({ user, isOpen, onClose, children }) {
       <Paper withShadow>
         <div className={styles.popover}>
           <div className={styles.header}>
-            <img alt="Your profile" src={user.picture} className={styles.profilePic} />
+            <Image
+              width="80xp"
+              height="80px"
+              alt="Your profile"
+              src={user.picture}
+              className={styles.profilePic}
+            />
             <h6>{user.name}</h6>
           </div>
           <nav>

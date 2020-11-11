@@ -2,18 +2,22 @@ import React from 'react';
 import { Box } from '@material-ui/core';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
+import Image from 'next/image';
 
 import styles from './NewDates.module.css';
-import Pattern3 from '../../../../assets/graphics/pattern-3.svg';
 import Paper from '../../../../components/Paper/Paper';
 import DateCard from '../../../../components/DateCard/DateCard';
 import { useMobile } from '../../../../utils';
+
+const Pattern3 = '/assets/graphics/pattern-3.svg';
 
 export default function NewDates({ dateObjs }) {
   const isMobile = useMobile();
   return (
     <div className={styles.cardContainer}>
-      <img
+      <Image
+        width="100px"
+        height="100px"
         alt="A playful pattern of hearts, crosses and circles."
         className={styles.pattern}
         src={Pattern3}

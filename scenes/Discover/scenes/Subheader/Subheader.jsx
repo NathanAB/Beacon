@@ -1,15 +1,29 @@
 import React from 'react';
+import Image from 'next/image';
 
-import couple2 from '../../../../assets/graphics/blob-3.png';
-import yellowBlob from '../../../../assets/graphics/yellow-blob.png';
 import styles from './Subheader.module.css';
+
+const couple2 = '/assets/graphics/blob-3.png';
+const yellowBlob = '/assets/graphics/yellow-blob.png';
 
 export default function Subheader() {
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
-        <img src={yellowBlob} className={styles.yellowBlob} alt="A yellow blob." />
-        <img src={couple2} className={styles.couple} alt="A couple relaxing in bed with coffee." />
+        <Image
+          width="700px"
+          height="500px"
+          src={yellowBlob}
+          className={styles.yellowBlob}
+          alt="A yellow blob."
+        />
+        <Image
+          width="594px"
+          height="500px"
+          src={couple2}
+          className={styles.couple}
+          alt="A couple relaxing in bed with coffee."
+        />
       </div>
       <div className={styles.textContainer}>
         <h3>

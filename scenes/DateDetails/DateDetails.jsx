@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
 import MarkdownIt from 'markdown-it';
+import Image from 'next/image';
 
 import styles from './DateDetails.module.css';
-import BeaconTitle from '../../components/BeaconTitle/BeaconTitle';
-import CommentButton from '../../components/CommentButton/CommentButton';
 import Spinner from '../../components/Spinner/Spinner';
 import Chip from '../../components/Chip/Chip';
 import constants from '../../constants';
@@ -17,14 +16,13 @@ import {
   useThumbnail,
 } from '../../utils';
 import cn from '../../utils/cn';
-import tipFlower from '../../assets/graphics/tip-flower.svg';
 import LikeButton from '../../components/LikeButton/LikeButton';
 import Store from '../../store';
 
-import placeholderImg1 from '../../assets/graphics/pattern-1.svg';
-import placeholderImg2 from '../../assets/graphics/pattern-2.svg';
-import placeholderImg3 from '../../assets/graphics/pattern-3.svg';
-import placeholderImg4 from '../../assets/graphics/pattern-4.svg';
+const placeholderImg1 = '/assets/graphics/pattern-1.svg';
+const placeholderImg2 = '/assets/graphics/pattern-2.svg';
+const placeholderImg3 = '/assets/graphics/pattern-3.svg';
+const placeholderImg4 = '/assets/graphics/pattern-4.svg';
 
 const mdParser = new MarkdownIt();
 
@@ -61,7 +59,8 @@ const DateDetails = ({ dateObj }) => {
     return (
       <div className={styles.thumbnailContainer}>
         <div className={styles.thumbnail}>
-          <img
+          <Image
+            unsized
             alt=""
             className={styles.thumbnailImage}
             src={imageUrl}
@@ -69,7 +68,8 @@ const DateDetails = ({ dateObj }) => {
               setHighResLoaded(true);
             }}
           />
-          <img
+          <Image
+            unsized
             alt=""
             className={cn(
               styles.thumbnailImage,
@@ -150,10 +150,12 @@ const DateDetails = ({ dateObj }) => {
               {section.tips && (
                 <div className={styles.tipsBox}>
                   <h6 className={styles.tipsTitle}>
-                    <img
+                    <Image
+                      width="20px"
+                      height="20px"
                       alt="A small orange flower decorating the tips section."
                       className={styles.tipFlower}
-                      src={tipFlower}
+                      src="/assets/graphics/tip-flower.svg"
                     />
                     Tips & Tricks
                   </h6>

@@ -1,16 +1,17 @@
 import React from 'react';
 import InternalLink from 'next/link';
-
-import BeaconGem from '../../assets/graphics/beacon-gem.svg';
+import Image from 'next/image';
 
 export default function LoginToast({ firstName }) {
   return (
     <>
       <h6>
-        <img
-          src={BeaconGem}
+        <Image
+          src="/assets/graphics/beacon-gem.svg"
           alt="Beacon Logo"
-          style={{ width: '13px', height: '16px', marginRight: '9px' }}
+          width="13px"
+          height="16px"
+          style={{ marginRight: '9px' }}
         />
         {`Welcome, ${firstName}!`}
       </h6>

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import { Drawer, Icon } from '@material-ui/core';
 import InternalLink from 'next/link';
+import Image from 'next/image';
 
 import styles from './MenuDrawer.module.css';
 import constants from '../../constants';
@@ -25,7 +26,13 @@ export default function MenuDrawer({ isOpen, onClose, user }) {
           </button>
         </div>
         <div className={styles.user}>
-          <img alt="You" src={user.picture} className={styles.profilePic} />
+          <Image
+            width="32px"
+            height="32px"
+            alt="You"
+            src={user.picture}
+            className={styles.profilePic}
+          />
           <span>{user.name}</span>
         </div>
         <div className={styles.lists}>

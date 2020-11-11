@@ -1,10 +1,9 @@
 import React from 'react';
-
+import Image from 'next/image';
 import ReactGA from 'react-ga';
+
 import PageTemplate from '../../components/PageTemplate/PageTemplate';
 import Paper from '../../components/Paper/Paper';
-import Pattern4 from '../../assets/graphics/pattern-4.svg';
-import BlobOrange from '../../assets/graphics/pink-blob.png';
 
 import styles from './About.module.css';
 
@@ -33,10 +32,12 @@ export default function About() {
         </p>
       </section>
       <div className={styles.paperOuter}>
-        <img
+        <Image
           className={styles.paperGraphic}
+          width="50px"
+          height="50px"
           alt="Playful graphics decorating the stats section"
-          src={Pattern4}
+          src="/assets/graphics/pattern-4.svg"
         />
         <Paper withShadow>
           <div className={styles.paperInner}>
@@ -71,10 +72,12 @@ export default function About() {
       </div>
 
       <div className={styles.quoteBlockContainer}>
-        <img
+        <Image
+          width="700px"
+          height="500px"
           className={styles.orangeBlob}
           alt="Playful graphics decorating the stats section"
-          src={BlobOrange}
+          src="/assets/graphics/pink-blob.png"
         />
         <div className={styles.quoteBlock}>
           <h2>❛❛</h2>

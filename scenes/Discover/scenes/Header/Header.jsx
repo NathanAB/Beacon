@@ -1,26 +1,26 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
-import { useRouter } from 'next/router';
 import ReactGA from 'react-ga';
+import Image from 'next/image';
 
 import { filterArrayToString, filterDates } from '../../../../utils';
 import Button from '../../../../components/Button/Button';
 import Paper from '../../../../components/Paper/Paper';
 import Select from '../../../../components/Select/Select';
-import blobOrange from '../../../../assets/graphics/pink-blob.png';
-import couple1 from '../../../../assets/graphics/blob-1.png';
-import couple2 from '../../../../assets/graphics/blob-2.png';
 import BeaconTitle from '../../../../components/BeaconTitle/BeaconTitle';
 import Store from '../../../../store';
 
 import styles from './Header.module.css';
+
+const blobOrange = '/assets/graphics/pink-blob.png';
+const couple1 = '/assets/graphics/blob-1.png';
+const couple2 = '/assets/graphics/blob-2.png';
 
 export default function Header() {
   const store = Store.useStore();
   const neighborhoods = store.get('neighborhoods');
   const tags = store.get('tags');
   const dates = store.get('dates');
-  const router = useRouter();
 
   const [tagVals, setTagVals] = useState([]);
   const tagSelect = e => {
@@ -111,9 +111,19 @@ export default function Header() {
   return (
     <>
       <div className={styles.backgroundImages}>
-        <img src={blobOrange} className={styles.blobOrange} alt="A blob of orange color." />
-        <img src={couple1} className={styles.couple1} alt="A couple with their backs turned." />
-        <img src={couple2} className={styles.couple2} alt="A couple laughing." />
+        <Image
+          unsized
+          src={blobOrange}
+          className={styles.blobOrange}
+          alt="A blob of orange color."
+        />
+        <Image
+          unsized
+          src={couple1}
+          className={styles.couple1}
+          alt="A couple with their backs turned."
+        />
+        <Image unsized src={couple2} className={styles.couple2} alt="A couple laughing." />
       </div>
       <div className={styles.headerContent}>
         <div className={styles.title}>

@@ -21,7 +21,6 @@
   position: absolute;
   left: -150px;
   top: -120px;
-  width: 594px;
   z-index: -1;
 }
 
@@ -29,7 +28,6 @@
   position: absolute;
   left: 0px;
   top: -20px;
-  width: 700px;
   z-index: -1;
 }
 

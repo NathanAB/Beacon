@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
+import Image from 'next/image';
 
 import Paper from '../Paper/Paper';
 import Button from '../Button/Button';
 import LikeButton from '../LikeButton/LikeButton';
-import CommentButton from '../CommentButton/CommentButton';
 
-import placeholder1 from '../../assets/graphics/pattern-1.svg';
-import placeholder2 from '../../assets/graphics/pattern-2.svg';
-import placeholder3 from '../../assets/graphics/pattern-3.svg';
-import placeholder4 from '../../assets/graphics/pattern-4.svg';
 import cn from '../../utils/cn';
 
 import styles from './DateCard.module.css';
 import { getDateCost, getDateLength, getDateTags, useThumbnail } from '../../utils';
 import Chip from '../Chip/Chip';
 import Constants from '../../constants';
+
+const placeholder1 = '/assets/graphics/pattern-1.svg';
+const placeholder2 = '/assets/graphics/pattern-2.svg';
+const placeholder3 = '/assets/graphics/pattern-3.svg';
+const placeholder4 = '/assets/graphics/pattern-4.svg';
 
 const placeholderImgs = [placeholder1, placeholder2, placeholder3, placeholder4];
 
@@ -49,25 +50,24 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
       >
         <Paper fullWidth highlighted={isFavorite} noBorder>
           <div className={styles.cardContent}>
-            <InternalLink
-              href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-              as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
-            >
+            <InternalLink href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}>
               <a onClick={clickDateEvent} className={styles.thumbnail}>
-                <img
+                <Image
                   alt=""
+                  unsized
                   className={styles.thumbnailImage}
                   onLoad={() => {
                     setHighResLoaded(true);
                   }}
                   src={imageUrl}
                 />
-                <img
+                <Image
                   className={cn(
                     styles.thumbnailImage,
                     styles.thumbnailPlaceholder,
                     highResLoaded && styles.thumbnailPlaceholderClear,
                   )}
+                  unsized
                   alt=""
                   src={placeholder}
                 />
@@ -76,10 +76,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
             <div className={styles.cardBody}>
               <div className={styles.titleRow}>
                 <h5>
-                  <InternalLink
-                    href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-                    as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
-                  >
+                  <InternalLink href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}>
                     <a>{dateObj.name}</a>
                   </InternalLink>
                 </h5>
@@ -100,10 +97,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               {isFull && (
                 <>
                   <p className={styles.description}>{dateObj.description}</p>
-                  <InternalLink
-                    href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-                    as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
-                  >
+                  <InternalLink href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}>
                     <a onClick={clickDateEvent} className={styles.desktopOnly}>
                       <Button variant={Button.VARIANTS.OUTLINED} size={Button.SIZES.SMALL}>
                         Date Details
@@ -116,10 +110,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
               {isNew && <div className={styles.newChip}>NEW</div>}
               {isFull && (
                 <div className={styles.cardButtons}>
-                  <InternalLink
-                    href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
-                    as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
-                  >
+                  <InternalLink href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}>
                     <a
                       onClick={clickDateEvent}
                       className={cn(styles.mobileOnly, styles.dateDetailsButton)}

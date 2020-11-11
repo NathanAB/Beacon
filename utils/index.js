@@ -4,8 +4,9 @@ import * as reactResponsive from 'react-responsive';
 import { useRouter } from 'next/router';
 import uniqBy from 'lodash/uniqBy';
 
-import dc3 from '../assets/img/dc-3.jpeg';
 import { getDates, getNeighborhoods, likeDate, getThumbnailUrl } from '../api';
+
+const dc3 = '/assets/img/dc-3.jpeg';
 
 const COST_MAP = ['Free', 'Under $30', '$30 to $60', '$60+'];
 const COST_LOOKUP = {
@@ -297,7 +298,7 @@ export const getSectionImage = async dateSection => {
 
 // Custom hook to load Instagram thumbnails via the Beacon API
 export const useThumbnail = dateSection => {
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState(dc3);
 
   useEffect(() => {
     const getImage = async () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Icon } from '@material-ui/core';
-// import InternalLink from 'next/link';
+import Image from 'next/image';
 import ReactGA from 'react-ga';
 import { useMediaQuery } from 'react-responsive';
 import Store from '../../store';
@@ -93,12 +93,24 @@ export default function BeaconAppBar() {
   const renderUser = () => {
     return isMobile ? (
       <button type="button" onClick={openProfileMenu} className={styles.loginButton}>
-        <img alt="Your profile" src={user.picture} className={styles.profilePic} />
+        <Image
+          alt="Your profile"
+          src={user.picture}
+          className={styles.profilePic}
+          width="32px"
+          height="32px"
+        />
       </button>
     ) : (
       <MenuPopover isOpen={isProfileMenuOpen} onClose={closeProfileMenu} user={user}>
         <button type="button" onClick={toggleProfileMenu} className={styles.loginButton}>
-          <img alt="Your profile" src={user.picture} className={styles.profilePic} />
+          <Image
+            alt="Your profile"
+            src={user.picture}
+            className={styles.profilePic}
+            width="32px"
+            height="32px"
+          />
           <span className={styles.hello}>Hi, {user.given_name}</span>
           <Icon>expand_more</Icon>
         </button>

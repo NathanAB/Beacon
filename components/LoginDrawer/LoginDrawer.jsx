@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 import Drawer from 'react-bottom-drawer';
+import Image from 'next/image';
 
 import Store from '../../store';
 import LoginButton from '../LoginButton/LoginButton';
-import BeaconGem from '../../assets/graphics/beacon-gem.svg';
 
 import styles from './LoginDrawer.module.css';
 
@@ -24,7 +24,12 @@ export default function LoginDrawer() {
   return (
     <Drawer isVisible={isLoginDrawerOpen} onClose={onCloseDrawer}>
       <div className={styles.container}>
-        <img alt="Beacon Logo" src={BeaconGem} className={styles.logo} />
+        <Image
+          alt="Beacon Logo"
+          src="/assets/graphics/beacon-gem.svg"
+          className={styles.logo}
+          unsized
+        />
         <div>Log in to start saving dates</div>
         <br />
         <div className={styles.loginButtonContainer}>
