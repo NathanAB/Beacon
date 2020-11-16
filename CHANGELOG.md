@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.13.0](https://github.com/nathanab/beacon/compare/v3.12.0...v3.13.0)
+- Add preview tab to date builder
+- Add delete button to date builder
+
 ## [v3.12.0](https://github.com/nathanab/beacon/compare/v3.11.0...v3.12.0)
 - Update to Node v14
 - Update to Next.js v10
