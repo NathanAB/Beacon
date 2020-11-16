@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.14.0](https://github.com/nathanab/beacon/compare/v3.13.0...v3.14.0)
+- Add A/B/C test for save button
+
 ## [v3.13.0](https://github.com/nathanab/beacon/compare/v3.12.0...v3.13.0)
 - Add preview tab to date builder
 - Add delete button to date builder
