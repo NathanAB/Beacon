@@ -35,6 +35,7 @@ Button.VARIANTS = {
 };
 
 Button.SIZES = {
+  MICRO: 'buttonMicro',
   SMALL: 'buttonSmall',
   LARGE: 'buttonLarge',
 };

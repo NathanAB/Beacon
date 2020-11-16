@@ -40,6 +40,11 @@
   background-color: var(--primaryHighlight);
 }
 
+.buttonMicro {
+  font-size: 13px;
+  padding: 8px;
+}
+
 .buttonSmall {
   font-size: 16px;
   padding: 15px;

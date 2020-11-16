@@ -5,7 +5,11 @@ const fetchGet = async url => {
     credentials: 'include',
   });
   if (res.ok) {
-    return res.json();
+    try {
+      return res.json();
+    } catch (err) {
+      console.error(err);
+    }
   }
   return null;
 };

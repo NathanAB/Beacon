@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import ReactGA from 'react-ga';
+import { Experiment, Variant } from 'react-optimize';
 import { useMediaQuery } from 'react-responsive';
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { BsBookmark, BsBookmarkFill, BsStar, BsStarFill } from 'react-icons/bs';
 
 import Store from '../../store';
 import LoginPopover from '../LoginPopover/LoginPopover';
+import Button from '../Button/Button';
 import styles from './LikeButton.module.css';
 import { unlikeDate, likeDate } from '../../api';
+import HeartSelected from '../../assets/graphics/favorite-selected.svg';
+import HeartUnselected from '../../assets/graphics/favorite-unselected.svg';
 
 export default function LikeButton({ dateObj }) {
   const [isLoginPopoverOpen, setLoginPopoverOpen] = useState(false);
@@ -69,14 +73,51 @@ export default function LikeButton({ dateObj }) {
 
   return (
     <LoginPopover isOpen={isLoginPopoverOpen} onClose={closeLogin}>
-      <button className={styles.button} type="button" onClick={onClick}>
-        <AiFillHeart
-          className={`${styles.icon} ${styles.filledIcon} ${
-            isFavorite ? styles.visible : styles.hidden
-          }`}
-        />
-        <AiOutlineHeart className={styles.icon} />
-      </button>
+      <div>
+        <Experiment id="5rqvHzHiTtisHQqfXXWZxA">
+          <Variant id="0">
+            <button className={styles.button} type="button" onClick={onClick}>
+              <img
+                src={HeartSelected}
+                alt="Click to unsave date"
+                className={`${styles.icon} ${styles.filledIcon} ${
+                  isFavorite ? styles.visible : styles.hidden
+                }`}
+              />
+              <img alt="Click to save date" src={HeartUnselected} className={styles.icon} />
+            </button>
+          </Variant>
+          <Variant id="1">
+            <button className={styles.button} type="button" onClick={onClick}>
+              <BsBookmarkFill
+                className={`${styles.icon} ${styles.filledIcon} ${
+                  isFavorite ? styles.visible : styles.hidden
+                }`}
+              />
+              <BsBookmark className={styles.icon} />
+            </button>
+          </Variant>
+          <Variant id="2">
+            <button className={styles.button} type="button" onClick={onClick}>
+              <BsStarFill
+                className={`${styles.icon} ${styles.filledIcon} ${
+                  isFavorite ? styles.visible : styles.hidden
+                }`}
+              />
+              <BsStar className={styles.icon} />
+            </button>
+          </Variant>
+          <Variant id="3">
+            <Button
+              variant={isFavorite ? Button.VARIANTS.PRIMARY : Button.VARIANTS.OUTLINED}
+              size={Button.SIZES.MICRO}
+              onClick={onClick}
+            >
+              {isFavorite ? 'Saved ✓' : 'Save'}
+            </Button>
+          </Variant>
+        </Experiment>
+      </div>
     </LoginPopover>
   );
 }
