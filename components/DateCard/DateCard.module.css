@@ -186,6 +186,22 @@
   flex-grow: 1;
 }
 
+.commentLink {
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.commentIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
 @media only screen and (max-width: 768px) {
   .fullDateCard .cardContent {
     flex-direction: column;

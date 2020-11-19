@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  position: relative;
+}
+
+.profilePic {
+  min-width: 40px;
+  width: 40px;
+  min-height: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: var(--primary);
+  margin-right: 19px;
+}
+
+.inputBox {
+  padding: 15px 28px;
+  background-color: var(--grayLighter);
+  margin-right: 8px;
+  border-radius: 8px;
+  width: 100%;
+  border: none;
+  font-size: 16px;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .profilePic {
+    min-width: 30px;
+    width: 30px;
+    min-height: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
+  
+  .inputBox {
+    padding-right: 62px;
+  }
+
+  .postButton {
+    font-size: 14px;
+    color: var(--primary);
+    position: absolute;
+    right: 22px;
+    top: 22px;
+    font-weight: bold;
+  }
+}

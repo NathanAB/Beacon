@@ -4,9 +4,9 @@ import ReactGA from 'react-ga';
 import MarkdownIt from 'markdown-it';
 
 import styles from './DateDetails.module.css';
-import BeaconTitle from '../../components/BeaconTitle/BeaconTitle';
-import CommentButton from '../../components/CommentButton/CommentButton';
 import Spinner from '../../components/Spinner/Spinner';
+import UserComment from '../../components/UserComment/UserComment';
+import CommentInput from '../../components/CommentInput/CommentInput';
 import Chip from '../../components/Chip/Chip';
 import constants from '../../constants';
 import {
@@ -42,6 +42,7 @@ const DateDetails = ({ dateObj }) => {
   const dateCost = getDateCost(dateObj);
   const store = Store.useStore();
   const lastFilters = store.get('lastFilters');
+  const user = store.get('user');
   const filterString = filterArrayToString(lastFilters);
   const backUrl = lastFilters.length
     ? `${constants.PAGES.SEARCH}?filters=${filterString}`
@@ -136,7 +137,7 @@ const DateDetails = ({ dateObj }) => {
         {/* <CommentButton /> */}
       </div>
       <p className={styles.description}>{dateObj.description}</p>
-      <div className={styles.lineBreak} />
+      <hr className={styles.lineBreak} />
       <ol className={styles.sectionList}>
         {dateObj.sections.map((section, index) => {
           return (
@@ -164,6 +165,20 @@ const DateDetails = ({ dateObj }) => {
           );
         })}
       </ol>
+      <hr className={styles.lineBreakNoTop} />
+      <h6>Comments (2)</h6>
+      <p className={styles.commentCaption}>
+        Add a comment, tell us about your date, share a story, etc. Thanks for contributing to
+        Beacon!
+      </p>
+      <CommentInput profilePic={user.picture} />
+      <UserComment
+        userName="Nathan Bakirci"
+        timestamp={Date.now() - 10000}
+        profilePic={tipFlower}
+        comment="Cras mattis consectetur purus sit amet fermentum. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla."
+      />
+      <hr className={styles.lineBreak} />
       <div className={styles.backButtonMobile}>
         <InternalLink href={backUrl}>
           <a onClick={backEvent} className="link">

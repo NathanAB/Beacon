@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import InternalLink from 'next/link';
 import ReactGA from 'react-ga';
+import { GoComment } from 'react-icons/go';
 
 import Paper from '../Paper/Paper';
 import Button from '../Button/Button';
 import LikeButton from '../LikeButton/LikeButton';
-import CommentButton from '../CommentButton/CommentButton';
 
 import placeholder1 from '../../assets/graphics/pattern-1.svg';
 import placeholder2 from '../../assets/graphics/pattern-2.svg';
@@ -31,6 +31,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
   const tags = getDateTags(dateObj);
   const [highResLoaded, setHighResLoaded] = useState(false);
   const [placeholder] = useState(randPlaceholder());
+  const numComments = dateObj?.comments?.length;
   const clickDateEvent = () =>
     ReactGA.event({
       category: 'Interaction',
@@ -135,6 +136,14 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                   </InternalLink>
                 </div>
               )}
+              <div className={styles.commentLink}>
+                <GoComment className={styles.commentIcon} />
+                {numComments ? (
+                  <span>{numComments} Comments</span>
+                ) : (
+                  <span>Be the first to comment</span>
+                )}
+              </div>
             </div>
           </div>
         </Paper>

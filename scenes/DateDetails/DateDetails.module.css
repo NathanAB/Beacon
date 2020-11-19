@@ -112,10 +112,18 @@
   font-weight: 500;
 }
 
-.lineBreak {
+.lineBreak, .lineBreakNoTop {
   border-top: 1px solid var(--grayLight);
   width: 100%;
   margin: 40px 0;
+}
+
+.lineBreakNoTop {
+  margin-top: 0;
+}
+
+.commentCaption {
+  margin: 16px 0;
 }
 
 .sectionListItem {
@@ -197,6 +205,14 @@
 
 .spacer {
   flex-grow: 1;
+}
+
+.commentSeparatorTop {
+  margin-bottom: 40px;
+}
+
+.commentSeparatorBottom {
+  margin-top: 40px;
 }
 
 @media only screen and (max-width: 768px) {

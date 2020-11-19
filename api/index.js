@@ -4,12 +4,9 @@ const fetchGet = async url => {
   const res = await fetch(url, {
     credentials: 'include',
   });
-  if (res.ok) {
-    try {
-      return res.json();
-    } catch (err) {
-      console.error(err);
-    }
+  const contentType = res.headers.get('content-type');
+  if (res.ok && contentType.includes('json')) {
+    return res.json();
   }
   return null;
 };
