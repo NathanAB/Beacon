@@ -153,18 +153,6 @@
   border-top-right-radius: 10px;
 }
 
-.cardButtons {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  right: 15px;
-  top: 15px;
-}
-.cardButtons * {
-  vertical-align: middle;
-}
-
 .titleRow {
   display: flex;
   justify-content: space-between;
@@ -197,9 +185,16 @@
 }
 
 .commentIcon {
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
   margin-right: 10px;
+  margin-top:5px;
+}
+
+.cardButtons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media only screen and (max-width: 768px) {
@@ -228,11 +223,7 @@
     border-left: 1px solid var(--gray);
   }
   .cardButtons {
-    position: relative;
-    top: unset;
-    right: unset;
-    display: flex;
-    flex-direction: column;
+    display: block;
   }
   .dateDetailsButton{
     width: 100%;

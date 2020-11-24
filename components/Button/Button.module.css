@@ -58,3 +58,12 @@
 .fullWidth {
   width: 100%;
 }
+
+.buttonBorderless {
+  color: var(--primary);
+  padding-left: 0;
+  padding-right: 0;
+}
+.buttonBorderless:hover {
+  text-decoration: underline;
+}

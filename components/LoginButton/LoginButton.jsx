@@ -23,9 +23,11 @@ const typeData = {
 
 export default function LoginButton({ type }) {
   const data = typeData[type];
+  const currentUrl = window.location.href;
+  const redirectUrl = `${data.href}?redirectUrl=${encodeURIComponent(currentUrl)}`;
   return (
     <ReactGA.OutboundLink
-      to={data.href}
+      to={redirectUrl}
       eventLabel={`${data.name} Login Clicked`}
       className={`${styles.link} ${styles[type]}`}
       onClick={() => sessionStorage.setItem(constants.FLAGS.FRESH_LOGIN, true)}

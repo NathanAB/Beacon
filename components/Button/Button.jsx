@@ -10,10 +10,12 @@ function Button({
   fullWidth,
   disabled,
   onClick,
+  onSubmit,
+  type = 'button',
 }) {
   return (
     <button
-      type="button"
+      type={type}
       className={cn(
         styles.buttonBase,
         styles[variant],
@@ -22,6 +24,7 @@ function Button({
       )}
       disabled={disabled}
       onClick={onClick}
+      onSubmit={onSubmit}
     >
       {children}
     </button>
@@ -32,6 +35,7 @@ Button.VARIANTS = {
   PRIMARY: 'buttonPrimary',
   SECONDARY: 'buttonSecondary',
   OUTLINED: 'buttonOutlined',
+  BORDERLESS: 'buttonBorderless',
 };
 
 Button.SIZES = {

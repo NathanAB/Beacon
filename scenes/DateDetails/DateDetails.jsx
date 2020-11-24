@@ -166,18 +166,22 @@ const DateDetails = ({ dateObj }) => {
         })}
       </ol>
       <hr className={styles.lineBreakNoTop} />
-      <h6>Comments (2)</h6>
+      <h6 id="comments">Comments ({dateObj.comments.length})</h6>
       <p className={styles.commentCaption}>
         Add a comment, tell us about your date, share a story, etc. Thanks for contributing to
         Beacon!
       </p>
-      <CommentInput profilePic={user.picture} />
-      <UserComment
-        userName="Nathan Bakirci"
-        timestamp={Date.now() - 10000}
-        profilePic={tipFlower}
-        comment="Cras mattis consectetur purus sit amet fermentum. Nullam quis risus eget urna mollis ornare vel eu leo. Donec ullamcorper nulla."
-      />
+      <CommentInput profilePic={user.picture} dateId={dateObj.id} />
+      {dateObj.comments.map(comment => (
+        <UserComment
+          isOwner={comment.user.id === user.id}
+          userName={comment.user.name}
+          timestamp={comment.createdAt}
+          profilePic={comment.user.imageUrl || tipFlower}
+          content={comment.content}
+          commentId={comment.id}
+        />
+      ))}
       <hr className={styles.lineBreak} />
       <div className={styles.backButtonMobile}>
         <InternalLink href={backUrl}>

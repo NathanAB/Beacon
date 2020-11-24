@@ -103,3 +103,11 @@ export const deleteUserDate = async userDateObj => {
 export const unlikeDate = async dateId => {
   return fetchDelete({ url: CONSTANTS.API.LIKED_DATES, body: { dateId } });
 };
+
+export const addComment = async ({ dateId, content }) => {
+  return fetchPost({ url: CONSTANTS.API.COMMENTS, body: { dateId, content } });
+};
+
+export const deleteComment = async commentId => {
+  return fetchDelete({ url: CONSTANTS.API.COMMENTS, body: { commentId } });
+};

@@ -25,6 +25,7 @@ export default {
     ACTIVITIES: `${API_URL}/api/activities`,
     USER_DATES: `${API_URL}/api/userDates`,
     THUMBNAIL: `${API_URL}/api/thumbnail`,
+    COMMENTS: `${API_URL}/api/comments`,
     ADMIN: {
       DATE_PLAN: `${API_URL}/api/admin/datePlan`,
     },
@@ -34,5 +35,8 @@ export default {
   LOGROCKET_APP_ID: process.env.REACT_APP_LOGROCKET_APP_ID || 'g4lvwu/beacon',
   FLAGS: {
     FRESH_LOGIN: 'freshLogin',
+  },
+  LOCAL_STORAGE: {
+    PENDING_COMMENT: 'pendingComment',
   },
 };

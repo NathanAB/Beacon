@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.15.0](https://github.com/nathanab/beacon/compare/v3.14.0...v3.15.0)
+- Add comments feature
+
 ## [v3.14.0](https://github.com/nathanab/beacon/compare/v3.13.0...v3.14.0)
 - Add A/B/C test for save button
 
