@@ -1,5 +1,6 @@
 .container {
   height: 50px;
+  display: block !important;
 }
 
 .container div {
@@ -9,6 +10,8 @@
 .inner {
   display: flex;
   justify-content: space-between;
+  max-width: 1000px !important;
+  margin: auto;
 }
 
 .loginButton {

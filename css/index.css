@@ -2,7 +2,6 @@
 @import './colors.css';
 
 html {
-  background-color: lightgray;
   height: 100%;
 }
 
@@ -11,7 +10,6 @@ body {
   padding: 0 !important;
   font-family: 'Lato' !important;
   background-color: white !important;
-  max-width: 1600px !important;
   overflow-x: hidden;
 }
 
