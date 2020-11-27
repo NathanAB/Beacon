@@ -131,16 +131,6 @@ export default function Header() {
               <div className={styles.cardBody}>{headerOriginal}</div>
             </Paper>
           </div>
-          {/* Disabled for now - we don't want to push login yet
-           <div className={styles.cardContainer}>
-            <Paper transparent withShadow noMobile>
-              <div className={styles.cardBody}>
-                <h6 className={styles.login}>
-                  <a>Login</a> to peep your saved dates (and add new ones!)
-                </h6>
-              </div>
-            </Paper>
-          </div> */}
         </div>
       </div>
     </>

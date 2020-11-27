@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga';
 import React, { useState } from 'react';
 import moment from 'moment';
 
@@ -26,6 +27,10 @@ export default function UserComment({
   const time = moment(timestamp).fromNow();
 
   const onDelete = async () => {
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Click Delete Comment',
+    });
     if (!window.confirm('Are you sure you want to delete your comment?')) {
       return;
     }
@@ -34,6 +39,10 @@ export default function UserComment({
       setIsDeleting(true);
       await deleteComment(commentId);
       await loadDates(store);
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Deleted Comment',
+      });
     } catch (err) {
       window.alert("Something went wrong and we weren't able to delete your comment");
     } finally {

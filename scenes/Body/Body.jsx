@@ -33,21 +33,20 @@ export default ({ Component, pageProps }) => {
     const initialReqs = async () => {
       const authData = await api.auth();
       if (authData) {
-        if (sessionStorage.getItem(constants.FLAGS.FRESH_LOGIN)) {
-          toast(<LoginToast firstName={authData.given_name} />, {
-            position: 'bottom-right',
-            hideProgressBar: true,
-          });
-          sessionStorage.removeItem(constants.FLAGS.FRESH_LOGIN);
-        }
-
         store.set('user')(authData);
         ReactGA.set({ userEmail: authData.email });
         LogRocket.identify(authData.email, {
           name: authData.name,
           email: authData.email,
         });
-        await saveLocalLikes();
+        const savedLikes = await saveLocalLikes();
+        if (sessionStorage.getItem(constants.FLAGS.FRESH_LOGIN) && savedLikes) {
+          toast(<LoginToast firstName={authData.given_name} />, {
+            position: 'bottom-right',
+            hideProgressBar: true,
+          });
+          sessionStorage.removeItem(constants.FLAGS.FRESH_LOGIN);
+        }
         getUserDates();
         getLikedDates();
       } else {

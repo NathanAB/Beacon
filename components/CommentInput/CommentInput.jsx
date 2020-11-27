@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga';
 import React, { useEffect, useState } from 'react';
 
 import Store from '../../store';
@@ -18,13 +19,26 @@ export default function CommentInput({ profilePic, dateId }) {
   const clearLogin = () => {
     localStorage.removeItem(constants.LOCAL_STORAGE.PENDING_COMMENT);
     setLoginPopoverOpen(false);
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Close Login Panel',
+    });
   };
   const onSubmit = async e => {
     e.preventDefault();
     const content = e?.target[0]?.value;
 
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Click Post Comment',
+    });
+
     if (!user) {
       localStorage.setItem(constants.LOCAL_STORAGE.PENDING_COMMENT, content);
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Open Login Panel',
+      });
       if (isDesktop) {
         setLoginPopoverOpen(true);
       } else {
@@ -43,6 +57,10 @@ export default function CommentInput({ profilePic, dateId }) {
       await addComment({ dateId, content });
       await loadDates(store);
       e.target[0].value = '';
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Posted Comment',
+      });
     } catch (err) {
       console.error(err);
       window.alert('There was a problem submitting your comment.');
@@ -62,6 +80,10 @@ export default function CommentInput({ profilePic, dateId }) {
           await addComment({ dateId, content: pendingComment });
           await loadDates(store);
           localStorage.removeItem(constants.LOCAL_STORAGE.PENDING_COMMENT);
+          ReactGA.event({
+            category: 'Interaction',
+            action: 'Posted Comment',
+          });
         } catch (err) {
           console.error(err);
         } finally {

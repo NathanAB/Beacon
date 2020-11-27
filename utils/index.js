@@ -106,6 +106,7 @@ export const saveLocalLikes = async () => {
         }),
       );
       localStorage.removeItem('likedDates');
+      return true;
     }
   } catch (e) {
     localStorage.removeItem('likedDates');

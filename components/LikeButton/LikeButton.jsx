@@ -73,51 +73,15 @@ export default function LikeButton({ dateObj }) {
 
   return (
     <LoginPopover isOpen={isLoginPopoverOpen} onClose={closeLogin}>
-      <div>
-        <Experiment id="5rqvHzHiTtisHQqfXXWZxA">
-          <Variant id="0">
-            <button className={styles.button} type="button" onClick={onClick}>
-              <img
-                src={HeartSelected}
-                alt="Click to unsave date"
-                className={`${styles.icon} ${styles.filledIcon} ${
-                  isFavorite ? styles.visible : styles.hidden
-                }`}
-              />
-              <img alt="Click to save date" src={HeartUnselected} className={styles.icon} />
-            </button>
-          </Variant>
-          <Variant id="1">
-            <button className={styles.button} type="button" onClick={onClick}>
-              <BsBookmarkFill
-                className={`${styles.icon} ${styles.filledIcon} ${
-                  isFavorite ? styles.visible : styles.hidden
-                }`}
-              />
-              <BsBookmark className={styles.icon} />
-            </button>
-          </Variant>
-          <Variant id="2">
-            <button className={styles.button} type="button" onClick={onClick}>
-              <BsStarFill
-                className={`${styles.icon} ${styles.filledIcon} ${
-                  isFavorite ? styles.visible : styles.hidden
-                }`}
-              />
-              <BsStar className={styles.icon} />
-            </button>
-          </Variant>
-          <Variant id="3">
-            <Button
-              variant={isFavorite ? Button.VARIANTS.PRIMARY : Button.VARIANTS.OUTLINED}
-              size={Button.SIZES.MICRO}
-              onClick={onClick}
-            >
-              {isFavorite ? 'Saved ✓' : 'Save'}
-            </Button>
-          </Variant>
-        </Experiment>
-      </div>
+      <button className={styles.button} type="button" onClick={onClick}>
+        <BsBookmarkFill
+          className={`${styles.icon} ${styles.filledIcon} ${
+            isFavorite ? styles.visible : styles.hidden
+          }`}
+        />
+        <BsBookmark className={styles.icon} />
+        {isFavorite ? 'Saved' : 'Save'}
+      </button>
     </LoginPopover>
   );
 }

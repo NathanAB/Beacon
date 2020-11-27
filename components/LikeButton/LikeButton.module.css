@@ -1,6 +1,10 @@
 .button {
   position: relative;
+  display: flex;
+  align-items: center;
   color: var(--primary);
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .button:active, .button:focus {
@@ -8,8 +12,8 @@
 }
 
 .icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
 }
 
 .filledIcon {
