@@ -14,8 +14,14 @@ export default function CommentInput({ profilePic, dateId }) {
   const store = Store.useStore();
   const user = store.get('user');
   const isDesktop = useDesktop();
+  const [inputValue, setInputValue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoginPopoverOpen, setLoginPopoverOpen] = useState(false);
+
+  const onInputChange = e => {
+    setInputValue(e?.target?.value);
+  };
+
   const clearLogin = () => {
     localStorage.removeItem(constants.LOCAL_STORAGE.PENDING_COMMENT);
     setLoginPopoverOpen(false);
@@ -26,7 +32,6 @@ export default function CommentInput({ profilePic, dateId }) {
   };
   const onSubmit = async e => {
     e.preventDefault();
-    const content = e?.target[0]?.value;
 
     ReactGA.event({
       category: 'Interaction',
@@ -34,7 +39,7 @@ export default function CommentInput({ profilePic, dateId }) {
     });
 
     if (!user) {
-      localStorage.setItem(constants.LOCAL_STORAGE.PENDING_COMMENT, content);
+      localStorage.setItem(constants.LOCAL_STORAGE.PENDING_COMMENT, inputValue);
       ReactGA.event({
         category: 'Interaction',
         action: 'Open Login Panel',
@@ -48,15 +53,15 @@ export default function CommentInput({ profilePic, dateId }) {
     }
     localStorage.removeItem(constants.LOCAL_STORAGE.PENDING_COMMENT);
 
-    if (!content) {
+    if (!inputValue) {
       return;
     }
 
     setIsSubmitting(true);
     try {
-      await addComment({ dateId, content });
+      await addComment({ dateId, content: inputValue });
       await loadDates(store);
-      e.target[0].value = '';
+      setInputValue('');
       ReactGA.event({
         category: 'Interaction',
         action: 'Posted Comment',
@@ -102,9 +107,16 @@ export default function CommentInput({ profilePic, dateId }) {
       ) : (
         <div className={styles.profilePic} />
       )}
-      <input className={styles.inputBox} />
+      <input
+        className={styles.inputBox}
+        value={inputValue}
+        onChange={onInputChange}
+        placeholder="Add a comment..."
+      />
       {user ? (
-        <Button type="submit">Comment</Button>
+        <Button type="submit" disabled={!inputValue}>
+          Comment
+        </Button>
       ) : (
         <LoginPopover isOpen={isLoginPopoverOpen} onClose={clearLogin}>
           <Button type="submit">Comment</Button>{' '}
@@ -118,7 +130,12 @@ export default function CommentInput({ profilePic, dateId }) {
       ) : (
         <div className={styles.profilePic} />
       )}
-      <textarea className={styles.inputBox}></textarea>
+      <textarea
+        className={styles.inputBox}
+        value={inputValue}
+        onChange={onInputChange}
+        placeholder="Add a comment..."
+      ></textarea>
       <button className={styles.postButton} type="submit">
         Post
       </button>

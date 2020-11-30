@@ -1,6 +1,7 @@
 .container {
   display: flex;
   position: relative;
+  align-items: center;
 }
 
 .profilePic {
@@ -25,6 +26,10 @@
 
 
 @media only screen and (max-width: 768px) {
+  .container {
+    align-items: top;
+  }
+
   .profilePic {
     min-width: 30px;
     width: 30px;
