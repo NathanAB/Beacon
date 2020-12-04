@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v3.15.0](https://github.com/nathanab/beacon/compare/v3.14.0...v3.15.0)
 - Add comments feature
+- Update save button to use bookmark icon with "Save" text
 
 ## [v3.14.0](https://github.com/nathanab/beacon/compare/v3.13.0...v3.14.0)
 - Add A/B/C test for save button
