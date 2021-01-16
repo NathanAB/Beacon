@@ -21,6 +21,7 @@ export default createConnectedStore({
   checkoutDate: false,
   editDate: false,
   userDates: [],
+  users: [],
   user: false,
   adminEditingDate: false,
   isDateFormOpen: false,

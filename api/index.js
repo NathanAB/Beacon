@@ -54,6 +54,10 @@ export const getTags = async () => {
   return fetchGet(CONSTANTS.API.TAGS);
 };
 
+export const getUsers = async () => {
+  return fetchGet(CONSTANTS.API.USERS);
+};
+
 export const getActivities = async () => {
   return fetchGet(CONSTANTS.API.ACTIVITIES);
 };

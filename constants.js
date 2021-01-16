@@ -11,6 +11,7 @@ export default {
     NEIGHBORHOOD: '/neighborhood',
     ADMIN: '/admin',
     DATE_DETAILS: '/date',
+    USER_DETAILS: '/user',
   },
   API: {
     AUTH: `${API_URL}/api/auth`,
@@ -26,6 +27,7 @@ export default {
     USER_DATES: `${API_URL}/api/userDates`,
     THUMBNAIL: `${API_URL}/api/thumbnail`,
     COMMENTS: `${API_URL}/api/comments`,
+    USERS: `${API_URL}/api/users`,
     ADMIN: {
       DATE_PLAN: `${API_URL}/api/admin/datePlan`,
     },

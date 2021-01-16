@@ -43,6 +43,8 @@ const DateDetails = ({ dateObj }) => {
   const store = Store.useStore();
   const lastFilters = store.get('lastFilters');
   const user = store.get('user');
+  const users = store.get('users');
+  const creator = dateObj.creator && users.find(u => u.id === dateObj.creator);
   const filterString = filterArrayToString(lastFilters);
   const backUrl = lastFilters.length
     ? `${constants.PAGES.SEARCH}?filters=${filterString}`
@@ -165,6 +167,29 @@ const DateDetails = ({ dateObj }) => {
           );
         })}
       </ol>
+      {creator && (
+        <section>
+          <div className={styles.creatorTitle}>Meet the date author:</div>
+          <div className={styles.creatorContainer}>
+            <img
+              className={styles.creatorImg}
+              alt="The date writer"
+              style={{ width: 80, height: 80 }}
+              src={creator.imageUrl}
+            />
+            <div className={styles.creatorDetails}>
+              <div className={styles.creatorName}>{creator.name}</div>
+              <p className={styles.creatorBio}>{creator.bio}</p>
+              <InternalLink
+                href={`${constants.PAGES.USER_DETAILS}/[userId]`}
+                as={`${constants.PAGES.USER_DETAILS}/${creator.id}`}
+              >
+                <a onClick={() => {}}>See all dates by {creator.name}</a>
+              </InternalLink>
+            </div>
+          </div>
+        </section>
+      )}
       <hr className={styles.lineBreakNoTop} />
       <h6 id="comments">Comments ({dateObj.comments.length})</h6>
       <p className={styles.commentCaption}>
