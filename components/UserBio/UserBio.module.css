@@ -1,5 +1,5 @@
 .userCardContent {
-  padding: 22px;
+  padding: 22px 22px 22px 0;
   color: black;
 }
 
@@ -21,11 +21,18 @@
     text-align: center;
 }
 
+.dateWriterSince {
+  font-size: 14px;
+}
+
 .userBio {
   padding: 20px 0;
 }
 
 @media only screen and (max-width: 768px) {
+  .userCardContent {
+    padding: 22px;
+  }
   .userCardHeader {
     flex-direction: row;
     border-bottom: 1px solid var(--grayLight);

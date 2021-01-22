@@ -18,7 +18,9 @@ const UserDetails = ({ userObj }) => {
           <img alt="Date writer profile" className={styles.userImage} src={userObj.imageUrl} />
           <div className={styles.userMeta}>
             <h5>{userObj.name}</h5>
-            <p>Date Writer since {dateJoined.format('MMMM YYYY')}</p>
+            <p className={styles.dateWriterSince}>
+              Date Writer since {dateJoined.format('MMMM YYYY')}
+            </p>
           </div>
         </div>
         <div className={styles.userBio}>

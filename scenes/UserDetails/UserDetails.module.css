@@ -4,13 +4,13 @@
   flex-direction: row;
   margin: auto;
   width: 100%;
-  max-width: 1040px;
+  max-width: 1000px;
   padding: 20px;
   margin-bottom: 50px;
 }
 
 .userProfile {
-  min-width: 250px;
+  min-width: 220px;
 }
 
 .dateList {
