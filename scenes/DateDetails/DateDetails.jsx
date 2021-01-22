@@ -191,13 +191,13 @@ const DateDetails = ({ dateObj }) => {
         </section>
       )}
       <hr className={styles.lineBreakNoTop} />
-      <h6 id="comments">Comments ({dateObj.comments.length})</h6>
+      <h6 id="comments">Comments ({dateObj?.comments?.length})</h6>
       <p className={styles.commentCaption}>
         Add a comment, tell us about your date, share a story, etc. Thanks for contributing to
         Beacon!
       </p>
       <CommentInput profilePic={user.picture} dateId={dateObj.id} />
-      {dateObj.comments.map(comment => (
+      {dateObj?.comments?.map(comment => (
         <UserComment
           isOwner={comment.user.id === user.id}
           userName={comment.user.name}
