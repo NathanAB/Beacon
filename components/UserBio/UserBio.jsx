@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactGA from 'react-ga';
 import InternalLink from 'next/link';
 import moment from 'moment';
+import { AiOutlineTwitter, AiOutlineInstagram } from 'react-icons/ai';
 
 import styles from './UserBio.module.css';
 import Paper from '../Paper/Paper';
@@ -81,35 +82,29 @@ const UserDetails = ({ userObj }) => {
               <br />
             </>
           )}
-          {userObj.instagram && (
-            <>
-              <p>
-                <strong>Instagram: </strong>
-                <ReactGA.OutboundLink
-                  to={`https://www.instagram.com/${userObj.instagram.replace('@', '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  eventLabel="Click user's Instagram"
-                >
-                  {userObj.instagram}
-                </ReactGA.OutboundLink>
-              </p>
-              <br />
-            </>
-          )}
-          {userObj.twitter && (
-            <p>
-              <strong>Twitter: </strong>
+          <div className={styles.social}>
+            {userObj.instagram && (
+              <ReactGA.OutboundLink
+                to={`https://www.instagram.com/${userObj.instagram.replace('@', '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                eventLabel="Click user's Instagram"
+              >
+                <AiOutlineInstagram />
+                &nbsp;
+              </ReactGA.OutboundLink>
+            )}
+            {userObj.twitter && (
               <ReactGA.OutboundLink
                 to={`https://www.twitter.com/${userObj.twitter.replace('@', '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 eventLabel="Click user's Twitter"
               >
-                {userObj.twitter}
+                <AiOutlineTwitter />
               </ReactGA.OutboundLink>
-            </p>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </Paper>

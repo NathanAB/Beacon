@@ -17,8 +17,8 @@
 }
 
 .userMeta {
-    margin-top: 10px;
-    text-align: center;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .dateWriterSince {
@@ -26,7 +26,12 @@
 }
 
 .userBio {
-  padding: 20px 0;
+  padding-top: 20px;
+}
+
+.social * {
+  font-size: 30px;
+  color: black !important;
 }
 
 @media only screen and (max-width: 768px) {
