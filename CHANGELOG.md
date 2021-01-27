@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.16.0](https://github.com/nathanab/beacon/compare/v3.15.0...v3.16.0)
+- Add user profile page
+- Add date creator to date page
+- Add user dropdown to date builder
+
 ## [v3.15.1](https://github.com/nathanab/beacon/compare/v3.15.0...v3.15.1)
 - Fix comments error in creating date
 

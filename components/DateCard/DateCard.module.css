@@ -87,8 +87,6 @@
 
 .cardBody {
   padding: 10px 20px;
-  border: 1px var(--gray) solid;
-  border-top: none;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -144,8 +142,7 @@
 }
 
 .fullDateCard .cardBody {
-  padding: 30px 27px;
-  border: 1px var(--gray) solid;
+  padding: 24px 27px;
   border-left: none;
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -180,21 +177,26 @@
   font-size: 16px;
   display: flex;
   align-items: center;
-  margin-top: 10px;
   margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .commentIcon {
   width: 26px;
   height: 26px;
   margin-right: 10px;
-  margin-top:5px;
 }
 
 .cardButtons {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.viewDetails {
+  font-weight: bold;
+  font-size: 16px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -234,6 +236,14 @@
   }
   .desktopOnly {
     display: none;
+  }
+  .commentLink {
+    margin-top: 10px;
+  
+  }
+  .commentIcon {
+    margin-top:5px;
+
   }
 }
 

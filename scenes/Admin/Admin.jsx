@@ -21,6 +21,7 @@ function Admin() {
   const dateObjs = store.get('adminDates');
   const [isSavingDate, setSavingDate] = useState(false);
   const user = store.get('user');
+  const users = store.get('users');
 
   if (!user) {
     return <a href={Constants.API.LOGIN_GOOGLE}>Login</a>;
@@ -77,6 +78,11 @@ function Admin() {
             title: 'Title',
             field: 'name',
             render: dateObj => <Typography variant="h6">{dateObj.name}</Typography>,
+          },
+          {
+            title: 'Creator',
+            field: 'creator',
+            render: dateObj => <>{users.find(u => u.id === dateObj.creator)?.name}</>,
           },
           {
             title: 'Neighborhood 1',

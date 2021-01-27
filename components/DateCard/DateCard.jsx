@@ -63,7 +63,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
           isFavorite ? styles.favorite : '',
         )}
       >
-        <Paper fullWidth highlighted={isFavorite} noBorder>
+        <Paper fullWidth highlighted={isFavorite} withShadow>
           <div className={styles.cardContent}>
             <InternalLink
               href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
@@ -118,21 +118,15 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                 <>
                   <p className={styles.description}>{dateObj.description}</p>
                   <div className={styles.cardButtons}>
+                    {isDesktop && <CommentLink numComments={numComments} />}
                     <InternalLink
                       href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
                       as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
                     >
-                      <a onClick={clickDateEvent}>
-                        <Button
-                          variant={Button.VARIANTS.OUTLINED}
-                          fullWidth={!isDesktop}
-                          size={Button.SIZES.SMALL}
-                        >
-                          Date Details
-                        </Button>
+                      <a onClick={clickDateEvent} className={styles.viewDetails}>
+                        View Details →
                       </a>
                     </InternalLink>
-                    {isDesktop && <CommentLink numComments={numComments} />}
                   </div>
                 </>
               )}

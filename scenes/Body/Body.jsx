@@ -72,6 +72,12 @@ export default ({ Component, pageProps }) => {
         store.set('tags')(tags);
       }
     };
+    const getUsers = async () => {
+      const users = await api.getUsers();
+      if (users) {
+        store.set('users')(users);
+      }
+    };
     const getActivities = async () => {
       const activities = await api.getActivities();
       if (activities) {
@@ -82,6 +88,7 @@ export default ({ Component, pageProps }) => {
     loadDates(store);
     getTags();
     getActivities();
+    getUsers();
   }, []);
 
   return (

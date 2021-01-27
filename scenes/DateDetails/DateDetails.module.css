@@ -215,6 +215,36 @@
   margin-top: 40px;
 }
 
+.creatorTitle {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.creatorContainer {
+  margin: 20px 0;
+  display: flex;
+}
+
+.creatorDetails {
+  font-size: 14px;
+}
+
+.creatorBio {
+  margin-bottom: 8px;
+}
+
+.creatorName {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.creatorImg {
+  width: 76px;
+  height: 76px;
+  border-radius: 40px;
+  margin-right: 20px;
+}
+
 @media only screen and (max-width: 768px) {
   .thumbnailRowContainer {
     flex-direction: column;

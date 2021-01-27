@@ -72,6 +72,7 @@ function EditDateForm({ classes }) {
   const setIsEditingDate = store.set('adminEditingDate');
   const neighborhoods = store.get('allNeighborhoods');
   const activities = store.get('activities');
+  const users = store.get('users');
   const tags = store.get('tags');
   const isNew = !currentDate.id;
 
@@ -402,6 +403,25 @@ function EditDateForm({ classes }) {
             fullWidth
             onChange={e => updateFormData(e, 'description')}
           />
+          <FormControl className={classes.controlSmall}>
+            <InputLabel>Date Creator</InputLabel>
+            <Select
+              value={formData?.creator}
+              onChange={e => updateFormData(e, `creator`)}
+              input={<Input />}
+            >
+              <MenuItem value={null}>
+                <em>None</em>
+              </MenuItem>
+              {users.map(n => (
+                <MenuItem key={n.id} value={n.id}>
+                  {n.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <br />
+          <br />
           {formData.id && (
             <Typography variant="subtitle1">
               <strong>
