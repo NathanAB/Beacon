@@ -11,11 +11,6 @@
   margin: auto;
 }
 
-/* .cardContainer:hover {
-  opacity: 0.8;
-  transition: 0.15s;
-} */
-
 .cardContent {
   max-width: 381px;
   width: 100%;
@@ -89,6 +84,7 @@
   padding: 10px 20px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  position: relative;
 }
 
 .timeAndCost {
@@ -182,9 +178,9 @@
 }
 
 .commentIcon {
-  width: 26px;
-  height: 26px;
-  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 
 .cardButtons {
@@ -197,6 +193,51 @@
 .viewDetails {
   font-weight: bold;
   font-size: 16px;
+}
+
+.creatorRow {
+  display: flex;
+  align-items: center;
+  margin: 6px 0 2px 0;
+  justify-content: space-between;
+}
+
+.creatorContainer {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: black;
+  margin-right: 16px;
+}
+
+.creatorImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  margin-right: 12px;
+}
+
+.newCreator {
+  font-size: 12px;
+  background-color: var(--yellow);
+  border-radius: 6px;
+  padding: 4px 8px;
+  margin-left: 8px;
+  min-width: 106px;
+  color: black;
+}
+
+.commentSaveRow {
+  height: 57px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: -57px;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 @media only screen and (max-width: 768px) {
@@ -243,7 +284,10 @@
   }
   .commentIcon {
     margin-top:5px;
-
+  }
+  .commentSaveRow{
+    height: 42px;
+    top: -42px;
   }
 }
 

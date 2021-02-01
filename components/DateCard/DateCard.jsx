@@ -4,7 +4,6 @@ import ReactGA from 'react-ga';
 import { GoComment } from 'react-icons/go';
 
 import Paper from '../Paper/Paper';
-import Button from '../Button/Button';
 import LikeButton from '../LikeButton/LikeButton';
 
 import placeholder1 from '../../assets/graphics/pattern-1.svg';
@@ -17,6 +16,7 @@ import styles from './DateCard.module.css';
 import { getDateCost, getDateLength, getDateTags, useDesktop, useThumbnail } from '../../utils';
 import Chip from '../Chip/Chip';
 import Constants from '../../constants';
+import Store from '../../store';
 
 const placeholderImgs = [placeholder1, placeholder2, placeholder3, placeholder4];
 
@@ -24,12 +24,15 @@ const randPlaceholder = () => placeholderImgs[Math.floor(Math.random() * Math.fl
 
 export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW, isFavorite }) {
   const isDesktop = useDesktop();
+  const store = Store.useStore();
   const section1 = dateObj.sections[0];
   const imageUrl = useThumbnail(section1);
   const isFull = variant === DateCard.VARIANTS.FULL;
   const dateLength = getDateLength(dateObj);
   const isNew = dateObj.new;
   const tags = getDateTags(dateObj);
+  const users = store.get('users');
+  const dateCreator = users.find(user => user.id === dateObj.creator);
   const [highResLoaded, setHighResLoaded] = useState(false);
   const [placeholder] = useState(randPlaceholder());
   const numComments = dateObj?.comments?.length;
@@ -48,7 +51,13 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
       >
         <a onClick={clickDateEvent} className={styles.commentLink}>
           <GoComment className={styles.commentIcon} />
-          {numComments ? <span>{numComments} Comments</span> : <span>Be the first to comment</span>}
+          {numComments ? (
+            <span>
+              {numComments} {numComments === 1 ? 'Comment' : 'Comments'}
+            </span>
+          ) : (
+            <span>Add a comment</span>
+          )}
         </a>
       </InternalLink>
     );
@@ -100,7 +109,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                   </InternalLink>
                 </h5>
                 <div className={styles.spacer} />
-                <LikeButton dateObj={dateObj} />
+                {isFull && isDesktop && <LikeButton dateObj={dateObj} />}
               </div>
               <div className={styles.timeAndCost}>
                 {dateLength} hours · {getDateCost(dateObj)}
@@ -112,7 +121,30 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                   </div>
                 ))}
               </div>
-              {(!isDesktop || !isFull) && <CommentLink numComments={numComments} />}
+              {(!isFull || !isDesktop) && (
+                <div className={styles.commentSaveRow}>
+                  <CommentLink numComments={numComments} />
+                  <LikeButton dateObj={dateObj} />
+                </div>
+              )}
+              {dateCreator && (
+                <div className={styles.creatorRow}>
+                  <InternalLink
+                    href={`${Constants.PAGES.USER_DETAILS}/[userId]`}
+                    as={`${Constants.PAGES.USER_DETAILS}/${dateCreator.id}`}
+                  >
+                    <a className={styles.creatorContainer}>
+                      <img
+                        className={styles.creatorImg}
+                        src={dateCreator.imageUrl}
+                        alt="The date creator"
+                      />
+                      <span>{dateCreator.name}</span>
+                      {dateCreator.isNew && <span className={styles.newCreator}>NEW CREATOR</span>}
+                    </a>
+                  </InternalLink>
+                </div>
+              )}
 
               {isFull && (
                 <>
@@ -130,9 +162,8 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                   </div>
                 </>
               )}
-
-              {isNew && <div className={styles.newChip}>NEW</div>}
             </div>
+            {isNew && <div className={styles.newChip}>NEW</div>}
           </div>
         </Paper>
       </div>

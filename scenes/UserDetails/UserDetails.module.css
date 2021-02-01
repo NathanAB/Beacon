@@ -19,6 +19,10 @@
   padding-left: 22px;
 }
 
+.dateContainer {
+  margin: 20px 0;
+}
+
 @media only screen and (max-width: 768px) {
   .container {
     flex-direction: column;

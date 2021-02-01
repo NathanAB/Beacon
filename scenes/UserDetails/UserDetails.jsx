@@ -39,7 +39,9 @@ const UserDetails = ({ userObj }) => {
         </p>
         <br />
         {userDates.map(dateObj => (
-          <DateCard variant={DateCard.VARIANTS.FULL} dateObj={dateObj} />
+          <div className={styles.dateContainer}>
+            <DateCard variant={DateCard.VARIANTS.FULL} dateObj={dateObj} />
+          </div>
         ))}
       </section>
     </main>
