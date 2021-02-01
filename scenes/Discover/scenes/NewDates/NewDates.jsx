@@ -18,7 +18,7 @@ export default function NewDates({ dateObjs }) {
         className={styles.pattern}
         src={Pattern3}
       />
-      <Paper withShadow noMobile>
+      <Paper noBorder noBackground noMobile>
         <div className={styles.cardContent}>
           <Box
             display="flex"

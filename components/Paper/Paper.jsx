@@ -11,6 +11,8 @@ export default function Paper({
   withShadow,
   noMobile,
   highlighted,
+  withHover,
+  noBackground,
   noBorder,
   ...props
 }) {
@@ -23,6 +25,12 @@ export default function Paper({
   }
   if (fullWidth) {
     classes.push(styles.fullWidth);
+  }
+  if (withHover) {
+    classes.push(styles.withHover);
+  }
+  if (noBackground) {
+    classes.push(styles.noBackground);
   }
   if (noMobile) {
     classes.push(styles.noMobile);

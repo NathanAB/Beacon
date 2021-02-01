@@ -112,7 +112,7 @@ const DateDetails = ({ dateObj }) => {
         {dateObj.name}{' '}
         {dateObj.new && (
           <span className={styles.newTag}>
-            <Chip variant={Chip.VARIANTS.PRIMARY}>NEW</Chip>
+            <Chip variant={Chip.VARIANTS.PRIMARY}>NEW DATE</Chip>
           </span>
         )}
       </h3>

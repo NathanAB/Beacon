@@ -32,7 +32,8 @@ export default function LikeButton({ dateObj }) {
     setLoginPopoverOpen(false);
   };
 
-  const onClick = () => {
+  const onClick = e => {
+    e.preventDefault();
     ReactGA.event({
       category: 'Interaction',
       action: isFavorite ? 'Unliked Date' : 'Liked Date',

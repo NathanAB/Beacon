@@ -41,7 +41,6 @@
   border-bottom-right-radius: 0;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  transition: 0.15s;
   display: block;
   position: relative;
 }
@@ -75,16 +74,13 @@
   pointer-events: none;
 }
 
-.thumbnail:hover {
-  opacity: 0.8;
-  transition: 0.15s;
-}
-
 .cardBody {
   padding: 10px 20px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   position: relative;
+  color: black;
+  font-weight: normal;
 }
 
 .timeAndCost {
