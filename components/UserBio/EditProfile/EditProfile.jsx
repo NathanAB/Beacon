@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import ReactGA from 'react-ga';
-import InternalLink from 'next/link';
-import moment from 'moment';
-import { AiOutlineTwitter, AiOutlineInstagram, AiFillEdit } from 'react-icons/ai';
 
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
-import { DatePicker } from '@material-ui/pickers';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+} from '@material-ui/core';
 import styles from './EditProfile.module.css';
 import Button from '../../Button/Button';
 
@@ -17,11 +20,30 @@ const EditProfile = ({ userObj, isOpen, onCancel, onSave }) => {
     setFormData(newFormData);
   };
 
+  const updateHideLastName = e => {
+    const newFormData = { ...formData };
+    newFormData.hideLastName = e.target.checked;
+    setFormData(newFormData);
+  };
+
   return (
     <Dialog open={isOpen} maxWidth="md">
       <DialogTitle>Edit Profile</DialogTitle>
       <DialogContent>
         <form className={styles.form}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={formData.hideLastName}
+                onChange={updateHideLastName}
+                name="hideLastName"
+                color="primary"
+              />
+            }
+            label="Hide last name?"
+          />
+          <br />
+          <br />
           <TextField
             onChange={updateForm('bio')}
             value={formData.bio}

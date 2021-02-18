@@ -46,7 +46,6 @@ const UserBio = ({ userObj, isProfile }) => {
     );
   }
 
-  console.log({ isProfile });
   return (
     <>
       <EditProfile
