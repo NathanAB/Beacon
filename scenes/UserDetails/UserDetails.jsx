@@ -9,7 +9,7 @@ import DateCard from '../../components/DateCard/DateCard';
 import Spinner from '../../components/Spinner/Spinner';
 import UserBio from '../../components/UserBio/UserBio';
 
-const UserDetails = ({ userObj }) => {
+const UserDetails = ({ userObj, isProfile }) => {
   if (!userObj) {
     return <Spinner />;
   }
@@ -24,14 +24,16 @@ const UserDetails = ({ userObj }) => {
   return (
     <main className={styles.container}>
       <section className={styles.userProfile}>
-        <InternalLink href="#">
-          <a onClick={backEvent} className="link">
-            ← Back to Date
-          </a>
-        </InternalLink>
+        {!isProfile && (
+          <InternalLink href="#">
+            <a onClick={backEvent} className="link">
+              ← Back to Date
+            </a>
+          </InternalLink>
+        )}
         <br />
         <br />
-        <UserBio userObj={userObj} />
+        <UserBio userObj={userObj} isProfile={isProfile} />
       </section>
       <section className={styles.dateList}>
         <p>

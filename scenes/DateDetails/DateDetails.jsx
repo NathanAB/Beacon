@@ -136,7 +136,6 @@ const DateDetails = ({ dateObj }) => {
         </div>
         <div className={styles.spacer} />
         <LikeButton dateObj={dateObj} />
-        {/* <CommentButton /> */}
       </div>
       <p className={styles.description}>{dateObj.description}</p>
       <hr className={styles.lineBreak} />

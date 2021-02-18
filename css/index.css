@@ -121,3 +121,17 @@ button {
   padding: 30px;
   color: black;
 }
+
+.Toastify__toast--success {
+  padding: 15px;
+  padding-left: 25px;
+  background-color: lightgreen;
+  font-weight: bold;
+}
+
+.Toastify__toast--error {
+  padding: 15px;
+  padding-left: 25px;
+  font-weight: bold;
+  background-color: lightcoral;
+}

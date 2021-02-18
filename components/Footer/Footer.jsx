@@ -41,7 +41,7 @@ export default function Footer() {
               Learn more about us
             </a>
           </InternalLink>
-          <br />
+          {/* <br />
           <ReactGA.OutboundLink
             to="mailto:contact@beacondates.com"
             target="_blank"
@@ -49,7 +49,7 @@ export default function Footer() {
             eventLabel="Contact email"
           >
             Get in touch with us
-          </ReactGA.OutboundLink>
+          </ReactGA.OutboundLink> */}
           <br />
           <ReactGA.OutboundLink
             to="https://forms.gle/ebaqVd2TMTw47RjW8"

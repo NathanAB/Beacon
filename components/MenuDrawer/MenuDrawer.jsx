@@ -29,10 +29,12 @@ export default function MenuDrawer({ isOpen, onClose, user }) {
           <span>{user.name}</span>
         </div>
         <div className={styles.lists}>
-          {/* <ul className={styles.list}>
-            </ul> */}
-          {/* <hr className={styles.listDivider}/> */}
           <ul className={styles.list}>
+            <li>
+              <InternalLink href="/profile">
+                <a onClick={onClose}>Your profile</a>
+              </InternalLink>
+            </li>
             <li>
               <InternalLink href="/saved">
                 <a onClick={clickSaved}>Saved dates</a>

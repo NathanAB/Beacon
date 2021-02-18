@@ -1,6 +1,7 @@
 .userCardContent {
   padding: 22px 22px 22px 0;
   color: black;
+  position: relative;
 }
 
 .userCardHeader {
@@ -32,6 +33,11 @@
 .social * {
   font-size: 30px;
   color: black !important;
+}
+
+.editButton {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 @media only screen and (max-width: 768px) {

@@ -58,6 +58,10 @@ export const getUsers = async () => {
   return fetchGet(CONSTANTS.API.USERS);
 };
 
+export const updateUser = async userData => {
+  return fetchPatch({ url: CONSTANTS.API.USERS, body: userData });
+};
+
 export const getActivities = async () => {
   return fetchGet(CONSTANTS.API.ACTIVITIES);
 };

@@ -39,7 +39,7 @@ function MobileDrawer({ classes, isOpen, close }) {
             Blog
           </Link>
         </MenuItem>
-        <MenuItem>
+        {/* <MenuItem>
           <Link
             className={classes.drawerLink}
             color="secondary"
@@ -49,7 +49,7 @@ function MobileDrawer({ classes, isOpen, close }) {
           >
             Email Us
           </Link>
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem>
           <Link
             className={classes.drawerLink}
