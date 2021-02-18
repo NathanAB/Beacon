@@ -62,6 +62,7 @@ const EditProfile = ({ userObj, isOpen, onCancel, onSave }) => {
               shrink: true,
             }}
             onChange={updateForm('dob')}
+            fullWidth
           />
           <br />
           <br />
