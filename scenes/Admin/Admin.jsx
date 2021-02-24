@@ -9,10 +9,12 @@ import Store from '../../store';
 
 import Spinner from '../../components/Spinner/Spinner';
 import { loadDates } from '../../utils';
-import { updateDatePlan } from '../../api';
+import { adminUpdateDatePlan } from '../../api';
 import Constants from '../../constants';
 
-const EditDateForm = dynamic(() => import('./scenes/EditDateForm/EditDateForm'), { ssr: false });
+const EditDateForm = dynamic(() => import('../../components/EditDateForm/EditDateForm'), {
+  ssr: false,
+});
 
 function Admin() {
   const store = Store.useStore();
@@ -32,7 +34,7 @@ function Admin() {
     dateObj.active = !dateObj.active;
     setSavingDate(true);
     try {
-      await updateDatePlan(dateObj);
+      await adminUpdateDatePlan(dateObj);
       await loadDates(store);
     } catch (err) {
       console.error(err);
@@ -47,7 +49,7 @@ function Admin() {
     dateObj.new = !dateObj.new;
     setSavingDate(true);
     try {
-      await updateDatePlan(dateObj);
+      await adminUpdateDatePlan(dateObj);
       await loadDates(store);
     } catch (err) {
       console.error(err);
@@ -60,7 +62,7 @@ function Admin() {
   return (
     <Box margin="20px">
       {isSavingDate && <Spinner />}
-      {isEditingDate && <EditDateForm />}
+      {isEditingDate && <EditDateForm isAdmin />}
       <Button
         onClick={() => {
           setIsEditingDate({

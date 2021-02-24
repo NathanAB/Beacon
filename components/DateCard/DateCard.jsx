@@ -17,6 +17,7 @@ import { getDateCost, getDateLength, getDateTags, useDesktop, useThumbnail } fro
 import Chip from '../Chip/Chip';
 import Constants from '../../constants';
 import Store from '../../store';
+import Button from '../Button/Button';
 
 const placeholderImgs = [placeholder1, placeholder2, placeholder3, placeholder4];
 
@@ -36,12 +37,19 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
   const [highResLoaded, setHighResLoaded] = useState(false);
   const [placeholder] = useState(randPlaceholder());
   const numComments = dateObj?.comments?.length;
+  const isDraft = !dateObj.active;
   const clickDateEvent = () =>
     ReactGA.event({
       category: 'Interaction',
       action: 'Click Date',
       label: dateObj.name,
     });
+
+  const onEdit = e => {
+    e.preventDefault();
+    store.set('adminEditingDate')(dateObj);
+    return false;
+  };
 
   const CommentLink = () => {
     return (
@@ -102,7 +110,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                   <div className={styles.titleRow}>
                     <h5>{dateObj.name}</h5>
                     <div className={styles.spacer} />
-                    {isFull && isDesktop && <LikeButton dateObj={dateObj} />}
+                    {isFull && isDesktop && !isDraft && <LikeButton dateObj={dateObj} />}
                   </div>
                   <div className={styles.timeAndCost}>
                     {dateLength} hours · {getDateCost(dateObj)}
@@ -114,7 +122,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                       </div>
                     ))}
                   </div>
-                  {(!isFull || !isDesktop) && (
+                  {(!isFull || !isDesktop) && !isDraft && (
                     <div className={styles.commentSaveRow}>
                       <CommentLink numComments={numComments} />
                       <LikeButton dateObj={dateObj} />
@@ -141,7 +149,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                     </div>
                   )}
 
-                  {isFull && (
+                  {isFull && !isDraft && (
                     <>
                       <p className={styles.description}>{dateObj.description}</p>
                       <div className={styles.cardButtons}>
@@ -155,6 +163,12 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                           </a>
                         </InternalLink>
                       </div>
+                    </>
+                  )}
+                  {isDraft && (
+                    <>
+                      <p className={styles.description}>{dateObj.description}</p>
+                      <Button onClick={onEdit}>Edit Draft</Button>
                     </>
                   )}
                 </div>

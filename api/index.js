@@ -88,16 +88,28 @@ export const likeDate = async dateId => {
   return fetchPost({ url: CONSTANTS.API.LIKED_DATES, body: { dateId } });
 };
 
-export const updateDatePlan = async datePlan => {
+export const adminUpdateDatePlan = async datePlan => {
   return fetchPatch({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
 };
 
-export const deleteDatePlan = async datePlan => {
+export const adminDeleteDatePlan = async datePlan => {
   return fetchDelete({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
 };
 
-export const createDatePlan = async datePlan => {
+export const adminCreateDatePlan = async datePlan => {
   return fetchPost({ url: CONSTANTS.API.ADMIN.DATE_PLAN, body: datePlan });
+};
+
+export const updateDatePlan = async datePlan => {
+  return fetchPatch({ url: CONSTANTS.API.DATES, body: datePlan });
+};
+
+export const deleteDatePlan = async datePlan => {
+  return fetchDelete({ url: CONSTANTS.API.DATES, body: datePlan });
+};
+
+export const createDatePlan = async datePlan => {
+  return fetchPost({ url: CONSTANTS.API.DATES, body: datePlan });
 };
 
 export const updateUserDate = async userDateObj => {

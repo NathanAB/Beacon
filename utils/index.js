@@ -6,6 +6,7 @@ import uniqBy from 'lodash/uniqBy';
 
 import dc3 from '../assets/img/dc-3.jpeg';
 import { getDates, getNeighborhoods, likeDate, getThumbnailUrl } from '../api';
+import UserComment from '../components/UserComment/UserComment';
 
 const COST_MAP = ['Free', 'Under $30', '$30 to $60', '$60+'];
 const COST_LOOKUP = {
@@ -113,8 +114,10 @@ export const saveLocalLikes = async () => {
   }
 };
 
-export const loadDates = async store => {
+export const loadDates = async (store, userData) => {
   let adminDates = await getDates();
+  const user = store.get('user') || userData || {};
+  const myDates = adminDates.filter(date => date.creator === user?.id);
   const dates = adminDates.filter(date => date.active);
   shuffleArray(dates);
   adminDates = adminDates.sort((a, b) => {
@@ -127,6 +130,7 @@ export const loadDates = async store => {
     return 1;
   });
   store.set('adminDates')(adminDates);
+  store.set('myDates')(myDates);
   store.set('dates')(dates);
 
   let allNeighborhoods = await getNeighborhoods();

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactGA from 'react-ga';
 import moment from 'moment';
 import { AiOutlineTwitter, AiOutlineInstagram } from 'react-icons/ai';
+import { FiEdit } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 
 import Store from '../../store';
@@ -56,7 +57,6 @@ const UserBio = ({ userObj, isProfile }) => {
       />
       <Paper fullWidth withShadow noBorder={isDesktop}>
         <div className={styles.userCardContent}>
-          <div className={styles.editButton}></div>
           <div className={styles.userCardHeader}>
             <img alt="Date writer profile" className={styles.userImage} src={userObj.imageUrl} />
             <div className={styles.userMeta}>
@@ -67,6 +67,16 @@ const UserBio = ({ userObj, isProfile }) => {
             </div>
           </div>
 
+          {isProfile && (
+            <div className={styles.userBio}>
+              <a className={styles.editButton} onClick={() => setIsEditing(true)}>
+                Edit Profile &nbsp;
+                <span className={styles.editButton}>
+                  <FiEdit />
+                </span>
+              </a>
+            </div>
+          )}
           <div className={styles.userBio}>
             <p>{userObj.bio}</p>
             <br />
@@ -149,7 +159,6 @@ const UserBio = ({ userObj, isProfile }) => {
                 </ReactGA.OutboundLink>
               )}
             </div>
-            {isProfile && <Button onClick={() => setIsEditing(true)}>Edit Profile</Button>}
           </div>
         </div>
       </Paper>

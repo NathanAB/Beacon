@@ -56,6 +56,7 @@ export default ({ Component, pageProps }) => {
           store.set('likedDates')([]);
         }
       }
+      loadDates(store, authData);
     };
     const getTags = async () => {
       let tags = await api.getTags();
@@ -85,7 +86,6 @@ export default ({ Component, pageProps }) => {
       }
     };
     initialReqs();
-    loadDates(store);
     getTags();
     getActivities();
     getUsers();

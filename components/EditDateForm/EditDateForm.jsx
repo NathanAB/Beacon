@@ -22,13 +22,20 @@ import {
 } from '@material-ui/core';
 import { set } from 'lodash';
 
-import Button from '../../../../components/Button/Button';
-import DateCard from '../../../../components/DateCard/DateCard';
-import DateDetails from '../../../DateDetails/DateDetails';
-import Store from '../../../../store';
-import { createDatePlan, deleteDatePlan, updateDatePlan } from '../../../../api';
-import Spinner from '../../../../components/Spinner/Spinner';
-import { loadDates } from '../../../../utils';
+import Button from '../Button/Button';
+import DateCard from '../DateCard/DateCard';
+import DateDetails from '../../scenes/DateDetails/DateDetails';
+import Store from '../../store';
+import {
+  adminCreateDatePlan,
+  adminDeleteDatePlan,
+  adminUpdateDatePlan,
+  createDatePlan,
+  deleteDatePlan,
+  updateDatePlan,
+} from '../../api';
+import Spinner from '../Spinner/Spinner';
+import { loadDates } from '../../utils';
 
 const mdParser = new MarkdownIt();
 
@@ -66,7 +73,7 @@ function TabPanel(props) {
   );
 }
 
-function EditDateForm({ classes }) {
+function EditDateForm({ classes, isAdmin }) {
   const store = Store.useStore();
   const currentDate = store.get('adminEditingDate');
   const setIsEditingDate = store.set('adminEditingDate');
@@ -83,6 +90,10 @@ function EditDateForm({ classes }) {
     setFormData(Object.assign({}, formData));
   };
   const [isSavingDate, setSavingDate] = useState(false);
+
+  const createReq = isAdmin ? adminCreateDatePlan : createDatePlan;
+  const deleteReq = isAdmin ? adminDeleteDatePlan : deleteDatePlan;
+  const updateReq = isAdmin ? adminUpdateDatePlan : updateDatePlan;
 
   const onTabChange = (event, newValue) => {
     setTab(newValue);
@@ -115,7 +126,7 @@ function EditDateForm({ classes }) {
     }
     setSavingDate(true);
     try {
-      await deleteDatePlan(formData);
+      await deleteReq(formData);
       await loadDates(store);
       setIsEditingDate(false);
     } catch (err) {
@@ -142,7 +153,7 @@ function EditDateForm({ classes }) {
 
     setSavingDate(true);
     try {
-      await (isNew ? createDatePlan(formData) : updateDatePlan(formData));
+      await (isNew ? createReq(formData) : updateReq(formData));
       await loadDates(store);
       setIsEditingDate(false);
     } catch (err) {
@@ -403,25 +414,29 @@ function EditDateForm({ classes }) {
             fullWidth
             onChange={e => updateFormData(e, 'description')}
           />
-          <FormControl className={classes.controlSmall}>
-            <InputLabel>Date Creator</InputLabel>
-            <Select
-              value={formData?.creator}
-              onChange={e => updateFormData(e, `creator`)}
-              input={<Input />}
-            >
-              <MenuItem value={null}>
-                <em>None</em>
-              </MenuItem>
-              {users.map(n => (
-                <MenuItem key={n.id} value={n.id}>
-                  {n.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <br />
-          <br />
+          {isAdmin && (
+            <>
+              <FormControl className={classes.controlSmall}>
+                <InputLabel>Date Creator</InputLabel>
+                <Select
+                  value={formData?.creator}
+                  onChange={e => updateFormData(e, `creator`)}
+                  input={<Input />}
+                >
+                  <MenuItem value={null}>
+                    <em>None</em>
+                  </MenuItem>
+                  {users.map(n => (
+                    <MenuItem key={n.id} value={n.id}>
+                      {n.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <br />
+              <br />
+            </>
+          )}
           {formData.id && (
             <Typography variant="subtitle1">
               <strong>
@@ -465,7 +480,7 @@ function EditDateForm({ classes }) {
         <DialogActions>
           <a onClick={() => setIsEditingDate(false)}>Cancel</a>
         </DialogActions>
-        {!isNew && (
+        {!isNew && isAdmin && (
           <DialogActions>
             <Button onClick={deleteDate}>DELETE DATE</Button>
           </DialogActions>
