@@ -103,9 +103,7 @@ const DateDetails = ({ dateObj }) => {
     <div className={styles.container}>
       <div className={styles.backButton}>
         <InternalLink href={backUrl}>
-          <a onClick={backEvent} className="link">
-            ← Back to Explore
-          </a>
+          <a onClick={backEvent}>← Back to Explore</a>
         </InternalLink>
       </div>
       <h3 className={styles.dateTitle}>
@@ -209,9 +207,7 @@ const DateDetails = ({ dateObj }) => {
       <hr className={styles.lineBreak} />
       <div className={styles.backButtonMobile}>
         <InternalLink href={backUrl}>
-          <a onClick={backEvent} className="link">
-            ← Back to Explore
-          </a>
+          <a onClick={backEvent}>← Back to Explore</a>
         </InternalLink>
       </div>
     </div>

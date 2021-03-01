@@ -11,6 +11,10 @@
   margin: 20px 0;
 }
 
+.backButton a {
+  font-size: 16px;
+}
+
 .backButtonMobile {
   margin: 20px 0;
   display: none;
