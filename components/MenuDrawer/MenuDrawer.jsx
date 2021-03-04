@@ -30,7 +30,7 @@ export default function MenuDrawer({ isOpen, onClose, user }) {
         </div>
         <div className={styles.lists}>
           <ul className={styles.list}>
-            {user.dataValues.isCreator && (
+            {user?.dataValues?.isCreator && (
               <li>
                 <InternalLink href="/profile">
                   <a onClick={onClose}>Your profile</a>

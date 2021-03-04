@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.18.1](https://github.com/nathanab/beacon/compare/v3.18.0...v3.18.1)
+- Fix profile bug
+
 ## [v3.18.0](https://github.com/nathanab/beacon/compare/v3.17.0...v3.18.0)
 - Add profile editing
 - Add date management for non-admins

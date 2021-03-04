@@ -22,7 +22,7 @@ export default function MenuPopover({ user, isOpen, onClose, children }) {
           </div>
           <nav>
             <ul className={styles.navList}>
-              {user.dataValues.isCreator && (
+              {user?.dataValues?.isCreator && (
                 <li>
                   <InternalLink href="/profile">
                     <a onClick={onClose}>Your profile</a>
