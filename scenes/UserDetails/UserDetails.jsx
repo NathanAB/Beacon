@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactGA from 'react-ga';
 import InternalLink from 'next/link';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { useRouter } from 'next/router';
 import styles from './UserDetails.module.css';
@@ -25,6 +26,10 @@ const UserDetails = ({ userObj, isProfile }) => {
   const isEditingDate = store.get('adminEditingDate');
   const setIsEditingDate = store.set('adminEditingDate');
   const backEvent = () => router.back();
+  const [activeTab, setTab] = useState(0);
+  const onTabChange = (event, newValue) => {
+    setTab(newValue);
+  };
 
   const draftDates = userDates.filter(dateObj => !dateObj.active);
   const activeDates = userDates.filter(dateObj => dateObj.active);
@@ -55,45 +60,61 @@ const UserDetails = ({ userObj, isProfile }) => {
         <p>
           Showing: <strong>{userDates.length}</strong> dates written by {firstName}
         </p>
-        <br />
         {isProfile && (
-          <Button
-            onClick={() => {
-              setIsEditingDate({
-                sections: [{}, {}],
-              });
-            }}
-          >
-            Draft New Date Idea
-          </Button>
-        )}
-        {isProfile && !!draftDates.length && (
           <>
             <br />
-            <br />
-            <h5>Draft Dates</h5>
-          </>
-        )}
-        {isProfile &&
-          draftDates.map(dateObj => (
-            <div className={styles.dateContainer}>
-              <DateCard variant={DateCard.VARIANTS.FULL} dateObj={dateObj} />
-            </div>
-          ))}
 
-        {isProfile && !!activeDates.length && (
-          <>
+            <Button
+              onClick={() => {
+                setIsEditingDate({
+                  sections: [{}, {}],
+                });
+              }}
+            >
+              Draft New Date Idea
+            </Button>
             <br />
             <br />
-            <h5>Active Dates</h5>
           </>
         )}
 
-        {activeDates.map(dateObj => (
-          <div className={styles.dateContainer}>
-            <DateCard variant={DateCard.VARIANTS.FULL} dateObj={dateObj} />
-          </div>
-        ))}
+        {isProfile ? (
+          <>
+            <Tabs>
+              <TabList>
+                <Tab>
+                  <h6>Draft Dates</h6>
+                </Tab>
+                <Tab>
+                  <h6>Active Dates</h6>
+                </Tab>
+              </TabList>
+
+              <TabPanel>
+                {draftDates.map(dateObj => (
+                  <div className={styles.dateContainer}>
+                    <DateCard variant={DateCard.VARIANTS.FULL} dateObj={dateObj} />
+                  </div>
+                ))}
+              </TabPanel>
+              <TabPanel>
+                {activeDates.map(dateObj => (
+                  <div className={styles.dateContainer}>
+                    <DateCard variant={DateCard.VARIANTS.FULL} dateObj={dateObj} />
+                  </div>
+                ))}
+              </TabPanel>
+            </Tabs>
+          </>
+        ) : (
+          <>
+            {activeDates.map(dateObj => (
+              <div className={styles.dateContainer}>
+                <DateCard variant={DateCard.VARIANTS.FULL} dateObj={dateObj} />
+              </div>
+            ))}
+          </>
+        )}
       </section>
     </main>
   );

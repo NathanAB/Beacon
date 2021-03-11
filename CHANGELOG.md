@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.19.0](https://github.com/nathanab/beacon/compare/v3.18.1...v3.19.0)
+  * Update Create Date button to "Save Draft"
+  * Move date editor cancel button to left side
+  * Remove staging and production links from date editor
+  * Correctly [arse full instagram urls in date editor
+  * Remove activity dropdown from date editor
+  * On profile page have tabs that break out the drafts and active dates
+  * Add cancel confirmation modal to date editor
+
 ## [v3.18.1](https://github.com/nathanab/beacon/compare/v3.18.0...v3.18.1)
 - Fix profile bug
 

@@ -24,6 +24,7 @@ import { set } from 'lodash';
 
 import Button from '../Button/Button';
 import DateCard from '../DateCard/DateCard';
+import TabPanel from '../TabPanel/TabPanel';
 import DateDetails from '../../scenes/DateDetails/DateDetails';
 import Store from '../../store';
 import {
@@ -61,24 +62,16 @@ const styles = theme => ({
   dialogContent: {
     padding: '8px 34px',
   },
+  spacer: {
+    flexGrow: 2,
+  },
 });
-
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div role="tabpanel" hidden={value !== index} {...other}>
-      {children}
-    </div>
-  );
-}
 
 function EditDateForm({ classes, isAdmin }) {
   const store = Store.useStore();
   const currentDate = store.get('adminEditingDate');
   const setIsEditingDate = store.set('adminEditingDate');
   const neighborhoods = store.get('allNeighborhoods');
-  const activities = store.get('activities');
   const users = store.get('users');
   const tags = store.get('tags');
   const isNew = !currentDate.id;
@@ -150,6 +143,15 @@ function EditDateForm({ classes, isAdmin }) {
       alert('Each section should have a unique section number set');
       return;
     }
+
+    formData.sections.forEach(section => {
+      if (section.image.includes('instagram.com/p/')) {
+        const [whole, id] = section.image.match(/instagram\.com\/p\/([^/.]+)\//);
+        if (id) {
+          section.image = id;
+        }
+      }
+    });
 
     setSavingDate(true);
     try {
@@ -295,23 +297,6 @@ function EditDateForm({ classes, isAdmin }) {
                 ))}
               </Select>
             </FormControl>
-            <FormControl className={classes.controlSmall}>
-              <InputLabel>Activity</InputLabel>
-              <Select
-                value={section?.activityId}
-                onChange={e => updateFormData(e, `sections[${sectionNum}].activityId`)}
-                input={<Input />}
-              >
-                <MenuItem value={-1}>
-                  <em>None</em>
-                </MenuItem>
-                {activities.map(a => (
-                  <MenuItem key={a.activityId} value={a.activityId}>
-                    {a.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
             <TextField
               className={classes.control}
               value={section?.image || ''}
@@ -363,6 +348,7 @@ function EditDateForm({ classes, isAdmin }) {
     <Spinner />
   ) : (
     <Dialog
+      disableEscapeKeyDown
       fullScreen
       open={!!currentDate}
       onClose={() => setIsEditingDate(false)}
@@ -437,28 +423,6 @@ function EditDateForm({ classes, isAdmin }) {
               <br />
             </>
           )}
-          {formData.id && (
-            <Typography variant="subtitle1">
-              <strong>
-                <Link target="_blank" href={`https://www.beacondates.com/date/${formData.id}`}>
-                  Production Link to Date
-                </Link>
-              </strong>
-            </Typography>
-          )}
-          {formData.id && (
-            <Typography variant="subtitle1">
-              <strong>
-                <Link
-                  target="_blank"
-                  href={`https://app-staging.beacondates.com/date/${formData.id}`}
-                >
-                  Staging Link to Date
-                </Link>
-              </strong>
-            </Typography>
-          )}
-
           {renderSection(formData?.sections?.[0], 0)}
           {renderSection(formData?.sections?.[1], 1)}
           {formData?.sections?.[2] ? (
@@ -473,12 +437,20 @@ function EditDateForm({ classes, isAdmin }) {
         flexDirection="row-reverse"
         padding="6px 12px"
         borderTop="1px solid lightGray"
+        width="100%"
       >
         <DialogActions>
-          <Button onClick={saveDate}>{isNew ? 'Create Date' : 'Save Date'}</Button>
+          <Button onClick={saveDate}>{isNew ? 'Save Draft' : 'Save Date'}</Button>
         </DialogActions>
+        <div className={classes.spacer} />
         <DialogActions>
-          <a onClick={() => setIsEditingDate(false)}>Cancel</a>
+          <a
+            onClick={() =>
+              window.confirm('Are you sure want to cancel your changes?') && setIsEditingDate(false)
+            }
+          >
+            Cancel
+          </a>
         </DialogActions>
         {!isNew && isAdmin && (
           <DialogActions>

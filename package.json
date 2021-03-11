@@ -1,6 +1,6 @@
 {
   "name": "beacon",
-  "version": "3.18.1",
+  "version": "3.19.0",
   "private": true,
   "engines": {
     "node": "14.x"
@@ -45,6 +45,7 @@
     "react-popover": "^0.5.10",
     "react-responsive": "^8.0.3",
     "react-select": "^3.1.0",
+    "react-tabs": "^3.2.1",
     "react-toastify": "^6.0.9",
     "styled-components": "^5.2.0",
     "undux": "^5.2.0"
