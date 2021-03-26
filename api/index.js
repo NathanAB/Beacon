@@ -58,8 +58,16 @@ export const getUsers = async () => {
   return fetchGet(CONSTANTS.API.USERS);
 };
 
+export const getUsersAdmin = async () => {
+  return fetchGet(CONSTANTS.API.ADMIN.USERS);
+};
+
 export const updateUser = async userData => {
   return fetchPatch({ url: CONSTANTS.API.USERS, body: userData });
+};
+
+export const updateUserAdmin = async ({ email, userData }) => {
+  return fetchPatch({ url: CONSTANTS.API.ADMIN.USERS, body: { email, userData } });
 };
 
 export const getActivities = async () => {

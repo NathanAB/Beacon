@@ -30,6 +30,7 @@ export default {
     USERS: `${API_URL}/api/users`,
     ADMIN: {
       DATE_PLAN: `${API_URL}/api/admin/datePlan`,
+      USERS: `${API_URL}/api/admin/users`,
     },
   },
   KEYS,
