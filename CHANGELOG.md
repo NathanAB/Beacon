@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [v3.20.0](https://github.com/nathanab/beacon/compare/v3.19.0...v3.20.0)
   * Add user management to admin page
+  * Add admin link to menu
+  * Fix draft dates being links
 
 ## [v3.19.0](https://github.com/nathanab/beacon/compare/v3.18.1...v3.19.0)
   * Update Create Date button to "Save Draft"

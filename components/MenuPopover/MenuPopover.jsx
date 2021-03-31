@@ -9,6 +9,8 @@ import constants from '../../constants';
 import styles from './MenuPopover.module.css';
 
 export default function MenuPopover({ user, isOpen, onClose, children }) {
+  const isAdmin = user && constants.ADMINS.includes(user.email);
+
   const popoverProps = {
     isOpen,
     preferPlace: 'below',
@@ -22,6 +24,13 @@ export default function MenuPopover({ user, isOpen, onClose, children }) {
           </div>
           <nav>
             <ul className={styles.navList}>
+              {isAdmin && (
+                <li>
+                  <InternalLink href="/admin">
+                    <a onClick={onClose}>Admin</a>
+                  </InternalLink>
+                </li>
+              )}
               {user?.dataValues?.isCreator && (
                 <li>
                   <InternalLink href="/profile">

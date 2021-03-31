@@ -15,6 +15,8 @@ export default function MenuDrawer({ isOpen, onClose, user }) {
     onClose();
   };
 
+  const isAdmin = user && constants.ADMINS.includes(user.email);
+
   return (
     <Drawer anchor="right" open={isOpen} onClose={onClose}>
       <div className={styles.container}>
@@ -30,6 +32,13 @@ export default function MenuDrawer({ isOpen, onClose, user }) {
         </div>
         <div className={styles.lists}>
           <ul className={styles.list}>
+            {isAdmin && (
+              <li>
+                <InternalLink href="/admin">
+                  <a onClick={onClose}>Admin</a>
+                </InternalLink>
+              </li>
+            )}
             {user?.dataValues?.isCreator && (
               <li>
                 <InternalLink href="/profile">
