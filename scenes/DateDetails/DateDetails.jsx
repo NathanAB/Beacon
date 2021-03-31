@@ -20,6 +20,8 @@ import cn from '../../utils/cn';
 import tipFlower from '../../assets/graphics/tip-flower.svg';
 import LikeButton from '../../components/LikeButton/LikeButton';
 import Store from '../../store';
+import LoginButton from '../../components/LoginButton/LoginButton';
+import Paper from '../../components/Paper/Paper';
 
 import placeholderImg1 from '../../assets/graphics/pattern-1.svg';
 import placeholderImg2 from '../../assets/graphics/pattern-2.svg';
@@ -99,6 +101,23 @@ const DateDetails = ({ dateObj }) => {
     );
   };
 
+  const renderPaywall = () => (
+    <div className={styles.paywallContainer}>
+      <Paper fullWidth withShadow>
+        <div className={styles.paywallLogin}>
+          <h6>Log in for full access</h6>
+          <br />
+          <div className={styles.loginButtonContainer}>
+            <LoginButton type="google" />
+          </div>
+          <div className={styles.loginButtonContainer}>
+            <LoginButton type="facebook" />
+          </div>
+        </div>
+      </Paper>
+    </div>
+  );
+
   return (
     <div className={styles.container}>
       <div className={styles.backButton}>
@@ -136,79 +155,86 @@ const DateDetails = ({ dateObj }) => {
         <LikeButton dateObj={dateObj} />
       </div>
       <p className={styles.description}>{dateObj.description}</p>
-      <hr className={styles.lineBreak} />
-      <ol className={styles.sectionList}>
-        {dateObj.sections.map((section, index) => {
-          return (
-            <li className={styles.sectionListItem} key={section?.spot?.name}>
-              <div className={styles.bullet} />
-              <h5 className={styles.activityHeader}>
-                {['FIRST', 'SECOND', 'THIRD'][index]} ACTIVITY
-              </h5>
-              <h6 className={styles.activityTitle}>{section?.spot?.name}</h6>
-              <p className={styles.activityDescription}>{section.description}</p>
-              {section.tips && (
-                <div className={styles.tipsBox}>
-                  <h6 className={styles.tipsTitle}>
-                    <img
-                      alt="A small orange flower decorating the tips section."
-                      className={styles.tipFlower}
-                      src={tipFlower}
-                    />
-                    Tips & Tricks
-                  </h6>
-                  <div dangerouslySetInnerHTML={{ __html: mdParser.render(section.tips) }}></div>
+      <div className={styles.curtainContainer}>
+        {!user && renderPaywall()}
+        <div className={!user && styles.curtain}>
+          <hr className={styles.lineBreak} />
+          <ol className={styles.sectionList}>
+            {dateObj.sections.map((section, index) => {
+              return (
+                <li className={styles.sectionListItem} key={section?.spot?.name}>
+                  <div className={styles.bullet} />
+                  <h5 className={styles.activityHeader}>
+                    {['FIRST', 'SECOND', 'THIRD'][index]} ACTIVITY
+                  </h5>
+                  <h6 className={styles.activityTitle}>{section?.spot?.name}</h6>
+                  <p className={styles.activityDescription}>{section.description}</p>
+                  {section.tips && (
+                    <div className={styles.tipsBox}>
+                      <h6 className={styles.tipsTitle}>
+                        <img
+                          alt="A small orange flower decorating the tips section."
+                          className={styles.tipFlower}
+                          src={tipFlower}
+                        />
+                        Tips & Tricks
+                      </h6>
+                      <div
+                        dangerouslySetInnerHTML={{ __html: mdParser.render(section.tips) }}
+                      ></div>
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+          {creator && (
+            <section>
+              <div className={styles.creatorTitle}>Meet the date author:</div>
+              <div className={styles.creatorContainer}>
+                <img
+                  className={styles.creatorImg}
+                  alt="The date writer"
+                  style={{ width: 80, height: 80 }}
+                  src={creator.imageUrl}
+                />
+                <div className={styles.creatorDetails}>
+                  <div className={styles.creatorName}>{creator.name}</div>
+                  <p className={styles.creatorBio}>{creator.bio}</p>
+                  <InternalLink
+                    href={`${constants.PAGES.USER_DETAILS}/[userId]`}
+                    as={`${constants.PAGES.USER_DETAILS}/${creator.id}`}
+                  >
+                    <a onClick={() => {}}>See all dates by {creator.name}</a>
+                  </InternalLink>
                 </div>
-              )}
-            </li>
-          );
-        })}
-      </ol>
-      {creator && (
-        <section>
-          <div className={styles.creatorTitle}>Meet the date author:</div>
-          <div className={styles.creatorContainer}>
-            <img
-              className={styles.creatorImg}
-              alt="The date writer"
-              style={{ width: 80, height: 80 }}
-              src={creator.imageUrl}
+              </div>
+            </section>
+          )}
+          <hr className={styles.lineBreakNoTop} />
+          <h6 id="comments">Comments ({dateObj?.comments?.length})</h6>
+          <p className={styles.commentCaption}>
+            Add a comment, tell us about your date, share a story, etc. Thanks for contributing to
+            Beacon!
+          </p>
+          <CommentInput profilePic={user.picture} dateId={dateObj.id} />
+          {dateObj?.comments?.map(comment => (
+            <UserComment
+              isOwner={comment.user.id === user.id}
+              userName={comment.user.name}
+              timestamp={comment.createdAt}
+              profilePic={comment.user.imageUrl || tipFlower}
+              content={comment.content}
+              commentId={comment.id}
             />
-            <div className={styles.creatorDetails}>
-              <div className={styles.creatorName}>{creator.name}</div>
-              <p className={styles.creatorBio}>{creator.bio}</p>
-              <InternalLink
-                href={`${constants.PAGES.USER_DETAILS}/[userId]`}
-                as={`${constants.PAGES.USER_DETAILS}/${creator.id}`}
-              >
-                <a onClick={() => {}}>See all dates by {creator.name}</a>
-              </InternalLink>
-            </div>
+          ))}
+          <hr className={styles.lineBreak} />
+          <div className={styles.backButtonMobile}>
+            <InternalLink href={backUrl}>
+              <a onClick={backEvent}>← Back to Explore</a>
+            </InternalLink>
           </div>
-        </section>
-      )}
-      <hr className={styles.lineBreakNoTop} />
-      <h6 id="comments">Comments ({dateObj?.comments?.length})</h6>
-      <p className={styles.commentCaption}>
-        Add a comment, tell us about your date, share a story, etc. Thanks for contributing to
-        Beacon!
-      </p>
-      <CommentInput profilePic={user.picture} dateId={dateObj.id} />
-      {dateObj?.comments?.map(comment => (
-        <UserComment
-          isOwner={comment.user.id === user.id}
-          userName={comment.user.name}
-          timestamp={comment.createdAt}
-          profilePic={comment.user.imageUrl || tipFlower}
-          content={comment.content}
-          commentId={comment.id}
-        />
-      ))}
-      <hr className={styles.lineBreak} />
-      <div className={styles.backButtonMobile}>
-        <InternalLink href={backUrl}>
-          <a onClick={backEvent}>← Back to Explore</a>
-        </InternalLink>
+        </div>
       </div>
     </div>
   );
