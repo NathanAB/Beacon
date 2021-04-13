@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.21.0](https://github.com/nathanab/beacon/compare/v3.20.0...v3.21.0)
+  * Force login to view date details
+
 ## [v3.20.0](https://github.com/nathanab/beacon/compare/v3.19.0...v3.20.0)
   * Add user management to admin page
   * Add admin link to menu

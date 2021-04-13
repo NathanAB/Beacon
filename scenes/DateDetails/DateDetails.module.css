@@ -261,12 +261,15 @@
      -moz-user-select: none; /* Old versions of Firefox */
       -ms-user-select: none; /* Internet Explorer/Edge */
           user-select: none; /* Non-prefixed version, currently */
+  max-height: 650px;
+  margin-bottom: 50px;
+  overflow: hidden;
 }
 
 .paywallContainer {
   position: absolute;
   z-index: 1;
-  top: 120px;
+  top: 225px;
   left: 0px;
   right: 0px;
   margin: auto;

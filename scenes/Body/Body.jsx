@@ -34,7 +34,7 @@ export default ({ Component, pageProps }) => {
       const authData = await api.auth();
       if (authData) {
         store.set('user')(authData);
-        ReactGA.set({ userEmail: authData.email });
+        ReactGA.set({ userEmail: authData.email, userId: authData.email });
         LogRocket.identify(authData.email, {
           name: authData.name,
           email: authData.email,
