@@ -105,7 +105,7 @@ const DateDetails = ({ dateObj }) => {
     <div className={styles.paywallContainer}>
       <Paper fullWidth withShadow>
         <div className={styles.paywallLogin}>
-          <h6>Log in for full access</h6>
+          <h6>Log in to see date details</h6>
           <br />
           <div className={styles.loginButtonContainer}>
             <LoginButton type="google" />
