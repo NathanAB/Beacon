@@ -28,30 +28,6 @@ export default function NewDates({ dateObjs }) {
             marginBottom="30px"
           >
             <h3>New date ideas for {new Date().toLocaleString('default', { month: 'long' })}</h3>
-            {!isMobile && (
-              <InternalLink href="/search">
-                <a
-                  onClick={() =>
-                    ReactGA.event({
-                      category: 'Interaction',
-                      action: 'Click Explore All',
-                    })
-                  }
-                  className="link"
-                >
-                  Explore all
-                </a>
-              </InternalLink>
-            )}
-          </Box>
-          <div className={styles.dateCardsContainer}>
-            {dateObjs.map(dateObj => (
-              <div key={dateObj.id} className={styles.dateCardContainer}>
-                <DateCard isNew dateObj={dateObj} variant={DateCard.VARIANTS.PREVIEW} />
-              </div>
-            ))}
-          </div>
-          {isMobile && (
             <InternalLink href="/search">
               <a
                 onClick={() =>
@@ -65,7 +41,27 @@ export default function NewDates({ dateObjs }) {
                 Explore all
               </a>
             </InternalLink>
-          )}
+          </Box>
+          <div className={styles.dateCardsContainer}>
+            {dateObjs.map(dateObj => (
+              <div key={dateObj.id} className={styles.dateCardContainer}>
+                <DateCard isNew dateObj={dateObj} variant={DateCard.VARIANTS.PREVIEW} />
+              </div>
+            ))}
+          </div>
+          <InternalLink href="/search">
+            <a
+              onClick={() =>
+                ReactGA.event({
+                  category: 'Interaction',
+                  action: 'Click Explore All',
+                })
+              }
+              className={`link ${isMobile && 'center'}`}
+            >
+              Explore all
+            </a>
+          </InternalLink>
         </div>
       </Paper>
     </div>
