@@ -18,6 +18,7 @@ import Constants from '../constants';
 import 'react-markdown-editor-lite/lib/index.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-tabs/style/react-tabs.css';
+import 'tailwindcss/tailwind.css';
 import '../css/index.css';
 
 export default class BeaconApp extends App {

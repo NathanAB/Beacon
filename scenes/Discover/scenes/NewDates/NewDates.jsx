@@ -20,13 +20,7 @@ export default function NewDates({ dateObjs }) {
       />
       <Paper noBorder noBackground noMobile>
         <div className={styles.cardContent}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            flexWrap="wrap"
-            alignItems="center"
-            marginBottom="30px"
-          >
+          <div className="flex mb-7 flex-column items-center justify-center flex-wrap sm:flex-row sm:justify-between">
             <h3>New date ideas for {new Date().toLocaleString('default', { month: 'long' })}</h3>
             <InternalLink href="/search">
               <a
@@ -41,7 +35,7 @@ export default function NewDates({ dateObjs }) {
                 Explore all
               </a>
             </InternalLink>
-          </Box>
+          </div>
           <div className={styles.dateCardsContainer}>
             {dateObjs.map(dateObj => (
               <div key={dateObj.id} className={styles.dateCardContainer}>
@@ -49,19 +43,21 @@ export default function NewDates({ dateObjs }) {
               </div>
             ))}
           </div>
-          <InternalLink href="/search">
-            <a
-              onClick={() =>
-                ReactGA.event({
-                  category: 'Interaction',
-                  action: 'Click Explore All',
-                })
-              }
-              className={`link ${isMobile && 'center'}`}
-            >
-              Explore all
-            </a>
-          </InternalLink>
+          <div className="sm:text-right">
+            <InternalLink href="/search">
+              <a
+                onClick={() =>
+                  ReactGA.event({
+                    category: 'Interaction',
+                    action: 'Click Explore All',
+                  })
+                }
+                className={`link ${isMobile && 'center'}`}
+              >
+                Explore all
+              </a>
+            </InternalLink>
+          </div>
         </div>
       </Paper>
     </div>
