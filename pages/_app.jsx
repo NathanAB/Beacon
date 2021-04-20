@@ -8,6 +8,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import ReactGA from 'react-ga';
 import LogRocket from 'logrocket';
 import { ToastContainer } from 'react-toastify';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 import Store from '../store';
 import Body from '../scenes/Body/Body';
@@ -19,6 +21,12 @@ import 'react-markdown-editor-lite/lib/index.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-tabs/style/react-tabs.css';
 import '../css/index.css';
+
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+const stripePromise = loadStripe(
+  'pk_test_51IhhlnLpp6IcxFMhC4d5depCqIHW17P2zl3SuUjWxDFrUchtydLlDbIuEYgizQcg668syEMVIrMBcNMppM3Dkz6N00OGecyKod',
+);
 
 export default class BeaconApp extends App {
   componentDidMount() {
@@ -60,9 +68,11 @@ export default class BeaconApp extends App {
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <MuiPickersUtilsProvider utils={MomentUtils}>
-            <ErrorBoundary>
-              <Body {...this.props} />
-            </ErrorBoundary>
+            <Elements stripe={stripePromise}>
+              <ErrorBoundary>
+                <Body {...this.props} />
+              </ErrorBoundary>
+            </Elements>
           </MuiPickersUtilsProvider>
         </MuiThemeProvider>
       </Store.Container>

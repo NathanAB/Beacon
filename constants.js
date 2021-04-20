@@ -28,6 +28,9 @@ export default {
     THUMBNAIL: `${API_URL}/api/thumbnail`,
     COMMENTS: `${API_URL}/api/comments`,
     USERS: `${API_URL}/api/users`,
+    MEMBERSHIP: {
+      CHECKOUT: `${API_URL}/api/membership/checkout`,
+    },
     ADMIN: {
       DATE_PLAN: `${API_URL}/api/admin/datePlan`,
       USERS: `${API_URL}/api/admin/users`,
