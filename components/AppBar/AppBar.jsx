@@ -97,7 +97,11 @@ export default function BeaconAppBar() {
       </button>
     ) : (
       <MenuPopover isOpen={isProfileMenuOpen} onClose={closeProfileMenu} user={user}>
-        <button type="button" onClick={toggleProfileMenu} className={styles.loginButton}>
+        <button
+          type="button"
+          onClick={toggleProfileMenu}
+          className={`${styles.loginButton} flex items-center`}
+        >
           <img alt="Your profile" src={user.picture} className={styles.profilePic} />
           <span className={styles.hello}>Hi, {user.given_name}</span>
           <Icon>expand_more</Icon>

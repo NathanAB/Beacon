@@ -25,6 +25,7 @@
 
 .list {
   list-style: none; /* Remove default bullets */
+  margin-left: 35px;
 }
 
 .list a {
