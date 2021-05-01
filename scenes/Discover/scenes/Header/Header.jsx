@@ -76,7 +76,7 @@ export default function Header() {
   const headerOriginal = (
     <>
       <div className={styles.cardSection}>
-        <h5>Neighborhood in DC</h5>
+        <h5 className="text-xl font-bold">Neighborhood in DC</h5>
         <Select
           values={neighborhoodVals}
           onChange={neighborhoodSelect}
@@ -85,7 +85,7 @@ export default function Header() {
         />
       </div>
       <div className={styles.cardSection}>
-        <h5>Vibe</h5>
+        <h5 className="text-xl font-bold">Vibe</h5>
         <Select values={tagVals} onChange={tagSelect} isMulti options={tagOptions} />
       </div>
       <InternalLink
@@ -120,8 +120,8 @@ export default function Header() {
           <div className={styles.beaconTitle}>
             <BeaconTitle />
           </div>
-          <h1>Date night in DC?</h1>
-          <h4 className={styles.subtitle}>
+          <h1 className="text-7xl">Date night in DC?</h1>
+          <h4 className="inline-block mt-12 text-3xl">
             We&apos;ve got you <br /> covered with fun <br /> & fresh date ideas.
           </h4>
         </div>

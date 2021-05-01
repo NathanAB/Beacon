@@ -6,7 +6,7 @@ import BeaconGem from '../../assets/graphics/beacon-gem.svg';
 export default function LoginToast({ firstName }) {
   return (
     <>
-      <h6>
+      <h6 className="text-lg font-bold">
         <img
           src={BeaconGem}
           alt="Beacon Logo"

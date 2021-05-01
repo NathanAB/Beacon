@@ -331,7 +331,7 @@ function EditDateForm({ classes, isAdmin }) {
                 Place ID lookup here
               </Link>
             </Box>
-            <h6>Section Tips</h6>
+            <h6 className="text-lg font-bold">Section Tips</h6>
             <MdEditor
               value={section?.tips}
               style={{ height: '500px' }}

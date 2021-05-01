@@ -14,7 +14,7 @@ export default function LoginPopover({ children, isOpen, onClose }) {
     body: [
       <Paper withShadow>
         <div className={styles.popover}>
-          <h6>Log in to start saving dates</h6>
+          <h6 className="text-lg font-bold">Log in to start saving dates</h6>
           <br />
           <div className={styles.loginButtonContainer}>
             <LoginButton type="google" />

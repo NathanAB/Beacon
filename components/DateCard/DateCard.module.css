@@ -186,11 +186,6 @@
   align-items: center;
 }
 
-.viewDetails {
-  font-weight: bold;
-  font-size: 16px;
-}
-
 .creatorRow {
   display: flex;
   align-items: center;

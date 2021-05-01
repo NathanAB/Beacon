@@ -7,7 +7,7 @@ import Results from './Results/Results';
 export default function Search({ savedOnly }) {
   return (
     <div className={styles.container}>
-      <h2>{savedOnly ? 'Saved' : 'Explore'} Dates</h2>
+      <h2 className="text-5xl font-bold text-orange">{savedOnly ? 'Saved' : 'Explore'} Dates</h2>
       <FilterBar />
       <Results savedOnly={savedOnly} />
     </div>

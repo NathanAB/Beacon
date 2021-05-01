@@ -5,7 +5,7 @@ import PageTemplate from '../components/PageTemplate/PageTemplate';
 export default function TermsPage() {
   return (
     <PageTemplate>
-      <h3>Welcome to Beacon</h3>
+      <h3 className="text-2xl font-bold">Welcome to Beacon</h3>
       <br />
       <p>
         These terms and conditions outline the rules and regulations for the use of Beacon's
@@ -40,7 +40,7 @@ export default function TermsPage() {
         interchangeable and therefore as referring to same.
       </p>
       <br />
-      <h4>Cookies</h4>
+      <h4 className="text-xl font-bold">Cookies</h4>
       <p>
         We employ the use of cookies. By using Beacon's website you consent to the use of cookies in
         accordance with Beacon's privacy policy.
@@ -54,7 +54,7 @@ export default function TermsPage() {
       </p>
       <br />
 
-      <h4>License</h4>
+      <h4 className="text-xl font-bold">License</h4>
       <p>
         Unless otherwise stated, Beacon and/or it's licensors own the intellectual property rights
         for all material on Beacon. All intellectual property rights are reserved. You may view
@@ -76,7 +76,7 @@ export default function TermsPage() {
       </p>
       <br />
 
-      <h4>Hyperlinking to our Content</h4>
+      <h4 className="text-xl font-bold">Hyperlinking to our Content</h4>
       <p>
         The following organizations may link to our Web site without prior written approval:
         <ul>
@@ -162,7 +162,7 @@ export default function TermsPage() {
       </p>
       <br />
 
-      <h4>Reservation of Rights</h4>
+      <h4 className="text-xl font-bold">Reservation of Rights</h4>
       <p>
         We reserve the right at any time and in its sole discretion to request that you remove all
         links or any particular link to our Web site. You agree to immediately remove all links to
@@ -172,7 +172,7 @@ export default function TermsPage() {
       </p>
       <br />
 
-      <h4>Removal of links from our website</h4>
+      <h4 className="text-xl font-bold">Removal of links from our website</h4>
       <p>
         If you find any link on our Web site or any linked web site objectionable for any reason,
         you may contact us about this. We will consider requests to remove links but will have no
@@ -186,7 +186,7 @@ export default function TermsPage() {
       </p>
       <br />
 
-      <h4>Content Liability</h4>
+      <h4 className="text-xl font-bold">Content Liability</h4>
       <p>
         We shall have no responsibility or liability for any content appearing on your Web site. You
         agree to indemnify and defend us against all claims arising out of or based upon your
@@ -198,7 +198,7 @@ export default function TermsPage() {
       <br />
       <br />
 
-      <h4>Disclaimer</h4>
+      <h4 className="text-xl font-bold">Disclaimer</h4>
       <p>
         To the maximum extent permitted by applicable law, we exclude all representations,
         warranties and conditions relating to our website and the use of this website (including,

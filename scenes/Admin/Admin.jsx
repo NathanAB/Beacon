@@ -21,10 +21,10 @@ function Admin() {
       <Tabs>
         <TabList>
           <Tab>
-            <h6>Dates</h6>
+            <h6 className="text-lg font-bold">Dates</h6>
           </Tab>
           <Tab>
-            <h6>Users</h6>
+            <h6 className="text-lg font-bold">Users</h6>
           </Tab>
         </TabList>
 

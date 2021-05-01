@@ -26,15 +26,9 @@ const UserDetails = ({ userObj, isProfile }) => {
   const isEditingDate = store.get('adminEditingDate');
   const setIsEditingDate = store.set('adminEditingDate');
   const backEvent = () => router.back();
-  const [activeTab, setTab] = useState(0);
-  const onTabChange = (event, newValue) => {
-    setTab(newValue);
-  };
 
   const draftDates = userDates.filter(dateObj => !dateObj.active);
   const activeDates = userDates.filter(dateObj => dateObj.active);
-
-  console.log(isEditingDate);
 
   if (!userObj) {
     return <Spinner />;
@@ -45,15 +39,6 @@ const UserDetails = ({ userObj, isProfile }) => {
       {isEditingDate && <EditDateForm />}
 
       <section className={styles.userProfile}>
-        {!isProfile && (
-          <InternalLink href="#">
-            <a onClick={backEvent} className="link">
-              ← Back to Date
-            </a>
-          </InternalLink>
-        )}
-        <br />
-        <br />
         <UserBio userObj={userObj} isProfile={isProfile} />
       </section>
       <section className={styles.dateList}>
@@ -83,10 +68,10 @@ const UserDetails = ({ userObj, isProfile }) => {
             <Tabs>
               <TabList>
                 <Tab>
-                  <h6>Draft Dates</h6>
+                  <h6 className="text-lg font-bold">Draft Dates</h6>
                 </Tab>
                 <Tab>
-                  <h6>Active Dates</h6>
+                  <h6 className="text-lg font-bold">Active Dates</h6>
                 </Tab>
               </TabList>
 

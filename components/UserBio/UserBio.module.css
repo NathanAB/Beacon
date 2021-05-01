@@ -30,9 +30,15 @@
   padding-top: 20px;
 }
 
+.social {
+  display: flex;
+}
+
 .social * {
   font-size: 30px;
   color: black !important;
+  margin-right: 5px;
+  height: 40px;
 }
 
 .editButton {

@@ -20,7 +20,7 @@ export default function MenuPopover({ user, isOpen, onClose, children }) {
         <div className={styles.popover}>
           <div className={styles.header}>
             <img alt="Your profile" src={user.picture} className={styles.profilePic} />
-            <h6>{user.name}</h6>
+            <h6 className="text-lg font-bold">{user.name}</h6>
           </div>
           <nav>
             <ul className={styles.navList}>

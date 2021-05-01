@@ -17,16 +17,6 @@ export default function Footer() {
             discovering exciting and new local spots. Submit your idea and it might be featured on
             our homepage!
           </p>
-          <ReactGA.OutboundLink
-            to="https://forms.gle/6pwD9m24Uz94PFXr8"
-            target="_blank"
-            rel="noopener noreferrer"
-            eventLabel="Date idea form"
-          >
-            <Button variant={Button.VARIANTS.PRIMARY} fullWidth>
-              Submit a date idea
-            </Button>
-          </ReactGA.OutboundLink>
         </div>
         <div className={styles.col2}>
           <InternalLink href="/about">

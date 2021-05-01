@@ -95,7 +95,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
         </span>
         <div className={styles.cardBody}>
           <div className={styles.titleRow}>
-            <h5>{dateObj.name}</h5>
+            <h5 className="text-xl font-bold">{dateObj.name}</h5>
             <div className={styles.spacer} />
             {isFull && isDesktop && !isDraft && <LikeButton dateObj={dateObj} />}
           </div>
@@ -143,7 +143,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                   href={`${Constants.PAGES.DATE_DETAILS}/[dateId]`}
                   as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
                 >
-                  <a onClick={clickDateEvent} className={styles.viewDetails}>
+                  <a onClick={clickDateEvent} className="text-lg text-orange font-bold">
                     View Details →
                   </a>
                 </InternalLink>

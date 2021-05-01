@@ -20,8 +20,10 @@ export default function NewDates({ dateObjs }) {
       />
       <Paper noBorder noBackground noMobile>
         <div className={styles.cardContent}>
-          <div className="flex mb-7 flex-column items-center justify-center flex-wrap sm:flex-row sm:justify-between">
-            <h3>New date ideas for {new Date().toLocaleString('default', { month: 'long' })}</h3>
+          <div className="flex mb-7 flex-column items-center justify-center flex-wrap md:flex-row md:justify-between">
+            <h3 className="text-4xl">
+              New date ideas for {new Date().toLocaleString('default', { month: 'long' })}
+            </h3>
             <InternalLink href="/search">
               <a
                 onClick={() =>
@@ -30,7 +32,7 @@ export default function NewDates({ dateObjs }) {
                     action: 'Click Explore All',
                   })
                 }
-                className="link"
+                className="link text-orange hidden md:block"
               >
                 Explore all
               </a>
@@ -43,7 +45,7 @@ export default function NewDates({ dateObjs }) {
               </div>
             ))}
           </div>
-          <div className="sm:text-right">
+          <div className="text-center text-orange md:text-right">
             <InternalLink href="/search">
               <a
                 onClick={() =>

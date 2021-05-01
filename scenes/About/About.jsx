@@ -11,11 +11,11 @@ import styles from './About.module.css';
 export default function About() {
   return (
     <PageTemplate>
-      <h2>About Us</h2>
+      <h2 className="text-5xl font-bold text-orange">About Us</h2>
       <br />
       <br />
       <section className={styles.narrowSection}>
-        <h4>
+        <h4 className="text-2xl font-bold">
           <strong>Our Mission</strong>
         </h4>
         <p>
@@ -40,15 +40,15 @@ export default function About() {
         />
         <Paper withShadow>
           <div className={styles.paperInner}>
-            <h3>Beacon makes dating easier</h3>
+            <h3 className="text-4xl font-bold">Beacon makes dating easier</h3>
             <div className={styles.paperContent}>
               <div className={styles.paperSection}>
-                <h6 className={styles.paperHeader}>REDUCE PLANNING TIME</h6>
+                <h6 className="text-lg font-bold text-orange">REDUCE PLANNING TIME</h6>
                 <div className={styles.paperStat}>79%</div>
                 <p>of daters that say they spend an average of 20+ minutes planning a date</p>
               </div>
               <div className={styles.paperSection}>
-                <h6 className={styles.paperHeader}>INCREASE SATISFACTION</h6>
+                <h6 className="text-lg font-bold text-orange">INCREASE SATISFACTION</h6>
                 <div className={styles.paperStat}>
                   90<span className={styles.paperStatSmall}>MINS</span>
                 </div>
@@ -58,7 +58,7 @@ export default function About() {
                 </p>
               </div>
               <div className={styles.paperSection}>
-                <h6 className={styles.paperHeader}>BE HAPPIER TOGETHER</h6>
+                <h6 className="text-lg font-bold text-orange">BE HAPPIER TOGETHER</h6>
                 <div className={styles.paperStat}>3.5x</div>
                 <p>
                   increase of happiness reported by couples who spend time together at least once a
@@ -77,10 +77,12 @@ export default function About() {
           src={BlobOrange}
         />
         <div className={styles.quoteBlock}>
-          <h2>❛❛</h2>
-          <h2>Date nights are a necessity for a happy and life-affirming relationship.</h2>
+          <h2 className="text-5xl font-bold text-orange">❛❛</h2>
+          <h2 className="text-5xl font-bold text-orange leading-snug">
+            Date nights are a necessity for a happy and life-affirming relationship.
+          </h2>
           <br />
-          <h4>
+          <h4 className="text-3xl font-bold">
             <strong>Dr. Dianne Grande</strong>
           </h4>
           <ReactGA.OutboundLink
@@ -88,6 +90,7 @@ export default function About() {
             target="_blank"
             rel="noopener noreferrer"
             eventLabel="Dianne Grande Article"
+            className="underline"
           >
             Read the full article
           </ReactGA.OutboundLink>

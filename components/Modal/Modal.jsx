@@ -27,10 +27,9 @@ export default function Modal({ isOpen, closeModal, children, title }) {
       // onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}
       style={customStyles}
-      contentLabel="Example Modal"
     >
       <div className={styles.titleRow}>
-        <h5>{title}</h5>
+        <h5 className="text-lg font-bold">{title}</h5>
         <button type="button" onClick={closeModal} className={styles.closeButton}>
           <Icon>close</Icon>
         </button>

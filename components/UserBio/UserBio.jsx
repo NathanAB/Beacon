@@ -11,7 +11,6 @@ import styles from './UserBio.module.css';
 import Paper from '../Paper/Paper';
 import Spinner from '../Spinner/Spinner';
 import { useDesktop } from '../../utils';
-import Button from '../Button/Button';
 import EditProfile from './EditProfile/EditProfile';
 
 const UserBio = ({ userObj, isProfile }) => {
@@ -60,7 +59,7 @@ const UserBio = ({ userObj, isProfile }) => {
           <div className={styles.userCardHeader}>
             <img alt="Date writer profile" className={styles.userImage} src={userObj.imageUrl} />
             <div className={styles.userMeta}>
-              <h5>{userObj.name}</h5>
+              <h5 className="text-lg font-bold">{userObj.name}</h5>
               <p className={styles.dateWriterSince}>
                 Date Writer since {dateJoined.format('MMMM YYYY')}
               </p>
@@ -69,7 +68,10 @@ const UserBio = ({ userObj, isProfile }) => {
 
           {isProfile && (
             <div className={styles.userBio}>
-              <a className={styles.editButton} onClick={() => setIsEditing(true)}>
+              <a
+                className="flex text-md text-orange items-center"
+                onClick={() => setIsEditing(true)}
+              >
                 Edit Profile &nbsp;
                 <span className={styles.editButton}>
                   <FiEdit />

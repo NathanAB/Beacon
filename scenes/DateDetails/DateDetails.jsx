@@ -105,7 +105,7 @@ const DateDetails = ({ dateObj }) => {
     <div className={styles.paywallContainer}>
       <Paper fullWidth withShadow>
         <div className={styles.paywallLogin}>
-          <h6>Log in to see date details</h6>
+          <h6 className="text-lg font-bold">Log in to see date details</h6>
           <br />
           <div className={styles.loginButtonContainer}>
             <LoginButton type="google" />
@@ -120,9 +120,11 @@ const DateDetails = ({ dateObj }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.backButton}>
+      <div className="my-5">
         <InternalLink href={backUrl}>
-          <a onClick={backEvent}>← Back to Explore</a>
+          <a onClick={backEvent} className="text-orange text-lg">
+            ← Back to Explore
+          </a>
         </InternalLink>
       </div>
       <h3 className={styles.dateTitle}>
@@ -167,7 +169,7 @@ const DateDetails = ({ dateObj }) => {
                   <h5 className={styles.activityHeader}>
                     {['FIRST', 'SECOND', 'THIRD'][index]} ACTIVITY
                   </h5>
-                  <h6 className={styles.activityTitle}>{section?.spot?.name}</h6>
+                  <h6 className="mt-3 text-xl font-bold">{section?.spot?.name}</h6>
                   <p className={styles.activityDescription}>{section.description}</p>
                   {section.tips && (
                     <div className={styles.tipsBox}>
@@ -180,6 +182,7 @@ const DateDetails = ({ dateObj }) => {
                         Tips & Tricks
                       </h6>
                       <div
+                        className="tips-section"
                         dangerouslySetInnerHTML={{ __html: mdParser.render(section.tips) }}
                       ></div>
                     </div>
@@ -205,14 +208,18 @@ const DateDetails = ({ dateObj }) => {
                     href={`${constants.PAGES.USER_DETAILS}/[userId]`}
                     as={`${constants.PAGES.USER_DETAILS}/${creator.id}`}
                   >
-                    <a onClick={() => {}}>See all dates by {creator.name}</a>
+                    <a className="text-orange" onClick={() => {}}>
+                      See all dates by {creator.name}
+                    </a>
                   </InternalLink>
                 </div>
               </div>
             </section>
           )}
           <hr className={styles.lineBreakNoTop} />
-          <h6 id="comments">Comments ({dateObj?.comments?.length})</h6>
+          <h6 className="text-lg font-bold" id="comments">
+            Comments ({dateObj?.comments?.length})
+          </h6>
           <p className={styles.commentCaption}>
             Add a comment, tell us about your date, share a story, etc. Thanks for contributing to
             Beacon!
@@ -229,7 +236,7 @@ const DateDetails = ({ dateObj }) => {
             />
           ))}
           <hr className={styles.lineBreak} />
-          <div className={styles.backButtonMobile}>
+          <div className="text-orange text-lg md:hidden">
             <InternalLink href={backUrl}>
               <a onClick={backEvent}>← Back to Explore</a>
             </InternalLink>

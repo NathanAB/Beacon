@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import './fonts.css';
 @import './colors.css';
 
@@ -120,4 +124,17 @@ button {
   border: none;
   padding: 30px;
   color: black;
+}
+
+
+.tips-section ul {
+  padding-left: 20px !important;
+}
+
+.tips-section ul a {
+  color: var(--primary);
+}
+
+.tips-section li {
+  list-style-type: circle !important;
 }

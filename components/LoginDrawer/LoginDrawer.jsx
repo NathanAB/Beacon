@@ -24,8 +24,8 @@ export default function LoginDrawer() {
   return (
     <Drawer isVisible={isLoginDrawerOpen} onClose={onCloseDrawer}>
       <div className={styles.container}>
-        <img alt="Beacon Logo" src={BeaconGem} className={styles.logo} />
-        <div>Log in to start saving dates</div>
+        <img alt="Beacon Logo" src={BeaconGem} className="mb-5 inline-block" />
+        <h4 className="text-xl">Log in to start saving dates</h4>
         <br />
         <div className={styles.loginButtonContainer}>
           <LoginButton type="google" />

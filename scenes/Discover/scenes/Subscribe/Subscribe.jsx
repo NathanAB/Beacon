@@ -10,7 +10,7 @@ export default function Subscribe() {
     <div className={styles.container}>
       <Paper withShadow noMobile>
         <div className={styles.content}>
-          <h3>
+          <h3 className="text-2xl font-bold">
             Stay up to <i>date</i>
           </h3>
           <div className={styles.subtitle}>

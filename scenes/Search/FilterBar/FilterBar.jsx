@@ -125,7 +125,7 @@ export default function FilterBar() {
     <div className={styles.outerContainer}>
       <Paper withShadow>
         <div className={styles.innerContainer}>
-          {filters.length ? <h6>Filtered by:</h6> : <h6>No filters chosen.</h6>}
+          {filters.length ? <h6 className="text-lg font-bold">Filtered by:</h6> : <h6 className="text-lg font-bold">No filters chosen.</h6>}
           <div className={styles.filterChips}>
             {filters.map(filter => (
               <div className={styles.chipContainer} key={filter.value}>

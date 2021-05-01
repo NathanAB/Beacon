@@ -5,7 +5,7 @@ import PageTemplate from '../components/PageTemplate/PageTemplate';
 export default function PrivacyPage() {
   return (
     <PageTemplate>
-      <h3>Welcome to our Privacy Policy</h3>
+      <h3 className="text-2xl font-bold">Welcome to our Privacy Policy</h3>
       <br />
 
       <p>Your privacy is critically important to us.</p>
@@ -35,7 +35,7 @@ export default function PrivacyPage() {
         conditions.
       </p>
       <br />
-      <h4>Website Visitors</h4>
+      <h4 className="text-xl font-bold">Website Visitors</h4>
       <p>
         Like most website operators, Beacon collects non-personally-identifying information of the
         sort that web browsers and servers typically make available, such as the browser type,
@@ -53,7 +53,7 @@ export default function PrivacyPage() {
         information as described below.
       </p>
       <br />
-      <h4>Gathering of Personally-Identifying Information</h4>
+      <h4 className="text-xl font-bold">Gathering of Personally-Identifying Information</h4>
       <p>
         Certain visitors to Beacon's websites choose to interact with Beacon in ways that require
         Beacon to gather personally-identifying information. The amount and type of information that
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
         sign up for a blog at https://www.beacondates.com/ to provide a username and email address.
       </p>
       <br />
-      <h4>Security</h4>
+      <h4 className="text-xl font-bold">Security</h4>
       <p>
         The security of your Personal Information is important to us, but remember that no method of
         transmission over the Internet, or method of electronic storage is 100% secure. While we
@@ -69,7 +69,7 @@ export default function PrivacyPage() {
         guarantee its absolute security.
       </p>
       <br />
-      <h4>Advertisements</h4>
+      <h4 className="text-xl font-bold">Advertisements</h4>
       <p>
         Ads appearing on our website may be delivered to users by advertising partners, who may set
         cookies. These cookies allow the ad server to recognize your computer each time they send
@@ -79,7 +79,7 @@ export default function PrivacyPage() {
         the use of cookies by Beacon and does not cover the use of cookies by any advertisers.
       </p>
       <br />
-      <h4>Links To External Sites</h4>
+      <h4 className="text-xl font-bold">Links To External Sites</h4>
       <p>
         Our Service may contain links to external sites that are not operated by us. If you click on
         a third party link, you will be directed to that third party's site. We strongly advise you
@@ -90,14 +90,14 @@ export default function PrivacyPage() {
         practices of any third party sites, products or services.
       </p>
       <br />
-      <h4>Aggregated Statistics</h4>
+      <h4 className="text-xl font-bold">Aggregated Statistics</h4>
       <p>
         Beacon may collect statistics about the behavior of visitors to its website. Beacon may
         display this information publicly or provide it to others. However, Beacon does not disclose
         your personally-identifying information.
       </p>
       <br />
-      <h4>Cookies</h4>
+      <h4 className="text-xl font-bold">Cookies</h4>
       <p>
         To enrich and perfect your online experience, Beacon uses "Cookies", similar technologies
         and services provided by others to display personalized content, appropriate advertising and
@@ -117,7 +117,7 @@ export default function PrivacyPage() {
         acknowledge and agree to Beacon's use of cookies.
       </p>
       <br />
-      <h4>Privacy Policy Changes</h4>
+      <h4 className="text-xl font-bold">Privacy Policy Changes</h4>
       <p>
         Although most changes are likely to be minor, Beacon may change its Privacy Policy from time
         to time, and in Beacon's sole discretion. Beacon encourages visitors to frequently check
