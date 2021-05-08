@@ -4,6 +4,7 @@ import ReactGA from 'react-ga';
 import LogRocket from 'logrocket';
 import { toast } from 'react-toastify';
 
+import moment from 'moment';
 import Footer from '../../components/Footer/Footer';
 import AppBar from '../../components/AppBar/AppBar';
 import LoginToast from '../../components/LoginToast/LoginToast';
@@ -39,6 +40,9 @@ export default ({ Component, pageProps }) => {
           name: authData.name,
           email: authData.email,
         });
+        const { membershipEnd } = authData.dataValues;
+        const isMember = membershipEnd && moment(membershipEnd).isAfter(moment());
+        store.set('isMember')(isMember);
         const savedLikes = await saveLocalLikes();
         if (sessionStorage.getItem(constants.FLAGS.FRESH_LOGIN) && savedLikes) {
           toast(<LoginToast firstName={authData.given_name} />, {

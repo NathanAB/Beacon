@@ -1,73 +1,98 @@
 import React from 'react';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStripe } from '@stripe/react-stripe-js';
+import moment from 'moment';
 
+import { Box } from '@material-ui/core';
 import Store from '../store';
-import UserDetails from '../scenes/UserDetails/UserDetails';
 import Button from '../components/Button/Button';
 import Constants from '../constants';
+import Spinner from '../components/Spinner/Spinner';
 
 export default function MembershipPage() {
   const store = Store.useStore();
   const user = store.get('user');
+  const isMember = store.get('isMember');
   const stripe = useStripe();
-  const elements = useElements();
 
-  const handleSubmit = async event => {
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return;
-    }
+  if (!user) {
+    return <Spinner />;
+  }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const cardElement = elements.getElement(CardElement);
+  const { membershipEnd } = user.dataValues;
 
-    // Use your card Element with other Stripe.js APIs
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
+  const checkout = () => {
+    fetch(Constants.API.MEMBERSHIP.CHECKOUT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        priceId: 'price_1IhhmgLpp6IcxFMhlCSl6cp1',
+      }),
+      credentials: 'include',
+    }).then(async result => {
+      const data = await result.json();
+      stripe.redirectToCheckout({
+        sessionId: data.sessionId,
+      });
     });
+  };
 
-    if (error) {
-      console.log('[error]', error);
-    } else {
-      console.log('[PaymentMethod]', paymentMethod);
+  const manage = async () => {
+    const res = await fetch(Constants.API.MEMBERSHIP.PORTAL, {
+      method: 'POST',
+      credentials: 'include',
+    });
+    const data = await res.json();
+    window.location.href = data.url;
+  };
+
+  const render = () => {
+    if (membershipEnd && isMember) {
+      return (
+        <>
+          <h3>Your subscription is active.</h3>
+          <br />
+          <h4>Membership ends or renews on {moment(membershipEnd).format('MMMM Do YYYY')}.</h4>
+          <br />
+          <Button onClick={manage}>Manage Subscription</Button>
+        </>
+      );
     }
-
-    event.preventDefault();
+    if (membershipEnd && !isMember) {
+      return (
+        <>
+          <h3>Your subscription ended.</h3>
+          <br />
+          <h4>Membership ended on {moment(membershipEnd).format('MMMM Do YYYY')}.</h4>
+          <br />
+          <Button onClick={manage}>Manage Subscription</Button>
+        </>
+      );
+    }
+    return (
+      <>
+        <h3>You are not subscribed.</h3>
+        <br />
+        <Button onClick={checkout}>Subscribe</Button>
+      </>
+    );
   };
 
   return (
     <>
-      <Button
-        onClick={() => {
-          fetch(Constants.API.MEMBERSHIP.CHECKOUT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              priceId: 'price_1IhhmgLpp6IcxFMhlCSl6cp1',
-            }),
-          }).then(async result => {
-            const data = await result.json();
-            console.log(data);
-            stripe
-              .redirectToCheckout({
-                sessionId: data.sessionId,
-              })
-              .then(res => console.log(res));
-          });
-        }}
+      <Box
+        maxWidth="1000px"
+        margin="auto"
+        paddingY="50px"
+        display="flex"
+        flexDirection="column"
+        paddingX="20px"
+        alignItems="center"
+        textAlign="center"
       >
-        Subscribe
-      </Button>
-      <CardElement />
-      <Button onClick={handleSubmit} disabled={!stripe}>
-        Pay
-      </Button>
+        {render()}
+      </Box>
     </>
   );
 }

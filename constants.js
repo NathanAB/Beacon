@@ -30,6 +30,7 @@ export default {
     USERS: `${API_URL}/api/users`,
     MEMBERSHIP: {
       CHECKOUT: `${API_URL}/api/membership/checkout`,
+      PORTAL: `${API_URL}/api/membership/portal`,
     },
     ADMIN: {
       DATE_PLAN: `${API_URL}/api/admin/datePlan`,
