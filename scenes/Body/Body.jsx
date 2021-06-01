@@ -40,9 +40,11 @@ export default ({ Component, pageProps }) => {
           name: authData.name,
           email: authData.email,
         });
-        const { membershipEnd } = authData.dataValues;
-        const isMember = membershipEnd && moment(membershipEnd).isAfter(moment());
-        store.set('isMember')(isMember);
+        const { membershipEnd, customerId } = authData.dataValues;
+        const hasAccess = membershipEnd && moment(membershipEnd).isAfter(moment());
+        store.set('hasAccess')(hasAccess);
+        const hasMembership = customerId;
+        store.set('hasMembership')(hasMembership);
         const savedLikes = await saveLocalLikes();
         if (sessionStorage.getItem(constants.FLAGS.FRESH_LOGIN) && savedLikes) {
           toast(<LoginToast firstName={authData.given_name} />, {

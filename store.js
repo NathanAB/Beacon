@@ -28,6 +28,7 @@ export default createConnectedStore({
   isDateFormOpen: false,
   isFilterBarExpanded: false,
   isLoginDrawerOpen: false,
-  isMember: false,
+  hasAccess: false,
+  hasMembership: false,
   likedDates: [],
 });

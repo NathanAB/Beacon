@@ -7,32 +7,33 @@ import Button from '../components/Button/Button';
 import Paper from '../components/Paper/Paper';
 import BeaconTitle from '../components/BeaconTitle/BeaconTitle';
 import Constants from '../constants';
-import Spinner from '../components/Spinner/Spinner';
 import splash from '../assets/img/membership-splash.png';
 import img1 from '../assets/img/membership-img-1.png';
 import img2 from '../assets/img/membership-img-2.png';
 import img3 from '../assets/img/membership-img-3.png';
+import { useDesktop } from '../utils';
+
+const MONTHLY_PRICE_ID = process.env.REACT_APP_STRIPE_MONTHLY_PRICE_ID;
+const ANNUAL_PRICE_ID = process.env.REACT_APP_STRIPE_ANNUAL_PRICE_ID;
 
 export default function MembershipPage() {
   const store = Store.useStore();
   const user = store.get('user');
-  const isMember = store.get('isMember');
+  const hasAccess = store.get('hasAccess');
+  const hasMembership = store.get('hasMembership');
   const stripe = useStripe();
+  const isDesktop = useDesktop();
 
-  if (!user) {
-    return <Spinner />;
-  }
+  const { membershipEnd } = user.dataValues || {};
 
-  const { membershipEnd } = user.dataValues;
-
-  const checkout = () => {
+  const checkout = PRICE_ID => () => {
     fetch(Constants.API.MEMBERSHIP.CHECKOUT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        priceId: 'price_1IhhmgLpp6IcxFMhlCSl6cp1',
+        priceId: PRICE_ID,
       }),
       credentials: 'include',
     }).then(async result => {
@@ -52,50 +53,44 @@ export default function MembershipPage() {
     window.location.href = data.url;
   };
 
-  const render = () => {
-    if (membershipEnd && isMember) {
-      return (
-        <>
-          <h3>Your subscription is active.</h3>
-          <br />
-          <h4>Membership ends or renews on {moment(membershipEnd).format('MMMM Do YYYY')}.</h4>
-          <br />
-          <Button onClick={manage}>Manage Subscription</Button>
-        </>
-      );
-    }
-    if (membershipEnd && !isMember) {
-      return (
-        <>
-          <h3>Your subscription ended.</h3>
-          <br />
-          <h4>Membership ended on {moment(membershipEnd).format('MMMM Do YYYY')}.</h4>
-          <br />
-          <Button onClick={manage}>Manage Subscription</Button>
-        </>
-      );
-    }
+  if (hasMembership && hasAccess) {
     return (
-      <>
-        <h3>You are not subscribed.</h3>
+      <div className="w-full max-w-5xl p-8 m-auto">
+        <h3>Your subscription is active.</h3>
         <br />
-        <Button onClick={checkout}>Subscribe</Button>
-      </>
+        <h4>Membership ends or renews on {moment(membershipEnd).format('MMMM Do YYYY')}.</h4>
+        <br />
+        <Button onClick={manage}>Manage Subscription</Button>
+      </div>
     );
-  };
+  }
+  if (hasMembership && !hasAccess) {
+    return (
+      <div className="w-full max-w-5xl p-8 m-auto">
+        <h3>Your subscription ended.</h3>
+        <br />
+        <h4>Membership ended on {moment(membershipEnd).format('MMMM Do YYYY')}.</h4>
+        <br />
+        <Button onClick={manage}>Manage Subscription</Button>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
       <img
         src={splash}
-        className="left-0 right-0 z-0 w-full object-cover h-screen"
+        className="left-0 right-0 z-0 w-full object-cover bg-right h-lg md:h-xl"
         alt="A couple walking"
-        style={{ filter: 'brightness(0.7)' }}
+        style={{
+          filter: isDesktop ? 'brightness(0.7)' : 'brightness(0.5)',
+          objectPosition: 'left',
+        }}
       />
-      <div className="top-64 right-0 md:right-28 absolute">
+      <div className="top-20 md:top-48 right-0 md:right-28 absolute">
         <div className="z-10 max-w-lg px-8">
           <BeaconTitle className="text-white text-2xl" />
-          <h2 className="text-white font-normal mt-8 text-4xl md:text-6xl leading-tight">
+          <h2 className="text-white font-normal mt-8 text-3xl md:text-6xl leading-tight">
             We handle the planning so you can date more confidently
           </h2>
           <p className="font-bold text-white my-8">
@@ -103,7 +98,9 @@ export default function MembershipPage() {
             <br />
             Or save with our annual offer.
           </p>
-          <Button className>Subscribe now</Button>
+          <a href="#Options">
+            <Button>Subscribe now</Button>
+          </a>
         </div>
       </div>
       <div className="flex flex-col md:flex-row items-center justify-between max-w-6xl m-auto mt-16 px-8">
@@ -138,23 +135,21 @@ export default function MembershipPage() {
         </div>
       </div>
       <hr />
-      <div className="text-center mt-10 mb-12">
+      <div className="text-center mt-10 mb-12" id="Options">
         <h4>Subscribe to Beacon</h4>
         <Paper withShadow className="p-8 m-8 text-center w-80 inline-block">
           <h4 className="mb-4 font-bold">Monthly</h4>
           <h5 className="mb-3 font-normal">Only $1.25/week</h5>
           <p className="mb-5 text-gray-500">Billed as $5 per month</p>
-          <Button fullWidth size={Button.SIZES.LARGE}>
+          <Button onClick={checkout(MONTHLY_PRICE_ID)} fullWidth size={Button.SIZES.LARGE}>
             Get Monthly
           </Button>
         </Paper>
         <Paper withShadow className="p-8 m-8 text-center w-80 inline-block">
           <h4 className="mb-4 font-bold">Annual</h4>
-          <h5 className="mb-3 font-normal">
-            Only $50/year <span className="text-red-600">(-17%)</span>
-          </h5>
-          <p className="mb-5 text-gray-500">Billed as $50 annually</p>
-          <Button fullWidth size={Button.SIZES.LARGE}>
+          <h5 className="mb-3 font-normal">Only $40/year</h5>
+          <p className="mb-5 text-gray-500">Billed as $40 annually</p>
+          <Button onClick={checkout(ANNUAL_PRICE_ID)} fullWidth size={Button.SIZES.LARGE}>
             Get Annual
           </Button>
         </Paper>

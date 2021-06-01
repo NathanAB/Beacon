@@ -9,6 +9,7 @@ export default {
     MY_DATES: '/my-dates',
     SEARCH: '/search',
     NEIGHBORHOOD: '/neighborhood',
+    MEMBERSHIP: '/membership',
     ADMIN: '/admin',
     DATE_DETAILS: '/date',
     USER_DETAILS: '/user',
