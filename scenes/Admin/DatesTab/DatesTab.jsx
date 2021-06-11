@@ -22,6 +22,11 @@ const DatesTab = () => {
   const dateObjs = store.get('adminDates');
   const [isSavingDate, setSavingDate] = useState(false);
   const users = store.get('users');
+  dateObjs.forEach(dateObj => {
+    if (!dateObj.creatorName) {
+      dateObj.creatorName = users.find(u => u.id === dateObj.creator)?.name;
+    }
+  });
 
   const toggleActive = async dateObj => {
     // eslint-disable-next-line no-param-reassign
@@ -77,8 +82,7 @@ const DatesTab = () => {
           },
           {
             title: 'Creator',
-            field: 'creator',
-            render: dateObj => <>{users.find(u => u.id === dateObj.creator)?.name}</>,
+            field: 'creatorName',
           },
           {
             title: 'Neighborhood 1',
