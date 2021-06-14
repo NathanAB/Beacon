@@ -24,9 +24,7 @@ import '../css/index.css';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(
-  'pk_test_51IhhlnLpp6IcxFMhC4d5depCqIHW17P2zl3SuUjWxDFrUchtydLlDbIuEYgizQcg668syEMVIrMBcNMppM3Dkz6N00OGecyKod',
-);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 export default class BeaconApp extends App {
   componentDidMount() {

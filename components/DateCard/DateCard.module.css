@@ -105,6 +105,13 @@
   padding: 10px 0;
 }
 
+/* .description {
+  margin: 10px 0;
+  max-height: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
+
 
 /** Full Date Card Style **/
 .fullDateCard {

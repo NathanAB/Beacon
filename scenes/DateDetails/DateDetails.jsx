@@ -48,7 +48,6 @@ const DateDetails = ({ dateObj }) => {
   const lastFilters = store.get('lastFilters');
   const user = store.get('user');
   const hasAccess = store.get('hasAccess');
-  const isTrial = store.get('isTrial');
   const users = store.get('users');
   const creator = dateObj.creator && users.find(u => u.id === dateObj.creator);
   const filterString = filterArrayToString(lastFilters);
@@ -144,7 +143,9 @@ const DateDetails = ({ dateObj }) => {
           We'll show you a<br />
           good time
         </h3>
-        <h6 className="my-6">Log in to start your free trial</h6>
+        <h6 className="my-6">
+          Start your free trial for full access to this and other locally curated dates
+        </h6>
         <ul className="text-left">
           <li className="my-4">
             <strong>Beacon just makes dating easier.</strong> We keep it fresh with new ideas added
@@ -297,8 +298,13 @@ const DateDetails = ({ dateObj }) => {
         <div className={styles.spacer} />
         <LikeButton dateObj={dateObj} />
       </div>
+      {/* <p className={`${styles.description} ${!hasAccess && 'max-h-32 overflow-hidden relative'}`}>
+        {!hasAccess && (
+          <div className="bg-gradient-to-b absolute top-10 bottom-0 left-0 right-0 w-full from-transparent to-white" />
+        )}
+        {dateObj.description}
+      </p> */}
       <p className={styles.description}>{dateObj.description}</p>
-
       <div className={styles.curtainContainer}>
         <hr className={styles.lineBreak} />
         {renderBody()}
