@@ -7,9 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
 ## [v3.22.0](https://github.com/nathanab/beacon/compare/v3.21.1...v3.22.0)
+  * Add TailwindCSS
   * Add membership page
   * Add membership paywall
   * Add trial banner
+  * Add search by date creator on admin page
 
 ## [v3.21.1](https://github.com/nathanab/beacon/compare/v3.21.0...v3.21.1)
   * Fix login wall/dialog styling
