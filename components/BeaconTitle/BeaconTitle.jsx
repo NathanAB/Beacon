@@ -4,7 +4,7 @@ import ReactGA from 'react-ga';
 
 import styles from './BeaconTitle.module.css';
 
-export default function BeaconTitle({ responsive = false }) {
+export default function BeaconTitle({ responsive = false, className }) {
   return (
     <InternalLink href="/">
       <span
@@ -14,7 +14,7 @@ export default function BeaconTitle({ responsive = false }) {
             action: 'Click Beacon Logo',
           })
         }
-        className={`${styles.title} ${responsive && styles.responsive}`}
+        className={`${styles.title} ${responsive && styles.responsive} ${className}`}
       >
         BEACON
       </span>

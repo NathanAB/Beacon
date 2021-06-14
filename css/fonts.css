@@ -9,6 +9,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-family: 'Playfair Display';
+  font-weight: 700;
   font-size: 75px;
   line-height: 75px;
   color: var(--primary);
@@ -16,12 +17,14 @@ h1 {
 
 h2 {
   font-family: 'Playfair Display';
+  font-weight: 700;
   font-size: 50px;
   color: var(--primary);
 }
 
 h3 {
   font-family: 'Playfair Display';
+  font-weight: 700;
   font-size: 40px;
 }
 

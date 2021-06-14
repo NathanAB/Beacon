@@ -3,7 +3,9 @@ import { Box } from '@material-ui/core';
 import ReactGA from 'react-ga';
 import LogRocket from 'logrocket';
 import { toast } from 'react-toastify';
+import InternalLink from 'next/link';
 
+import moment from 'moment';
 import Footer from '../../components/Footer/Footer';
 import AppBar from '../../components/AppBar/AppBar';
 import LoginToast from '../../components/LoginToast/LoginToast';
@@ -15,6 +17,12 @@ import constants from '../../constants';
 
 export default ({ Component, pageProps }) => {
   const store = Store.useStore();
+  const hasAccess = store.get('hasAccess');
+  const hasMembership = store.get('hasMembership');
+  const user = store.get('user');
+  const isTrial = hasAccess && !hasMembership;
+  const isTrialEnded = !hasMembership && !hasAccess && user?.dataValues?.membershipEnd;
+  const trialTimeRemaining = user && moment().to(moment(user.dataValues.membershipEnd));
 
   // Make initial API requests
   useEffect(() => {
@@ -39,6 +47,11 @@ export default ({ Component, pageProps }) => {
           name: authData.name,
           email: authData.email,
         });
+        const { membershipEnd, customerId } = authData.dataValues;
+        const hasAccess = membershipEnd && moment(membershipEnd).isAfter(moment());
+        store.set('hasAccess')(hasAccess);
+        const hasMembership = customerId;
+        store.set('hasMembership')(hasMembership);
         const savedLikes = await saveLocalLikes();
         if (sessionStorage.getItem(constants.FLAGS.FRESH_LOGIN) && savedLikes) {
           toast(<LoginToast firstName={authData.given_name} />, {
@@ -91,9 +104,33 @@ export default ({ Component, pageProps }) => {
     getUsers();
   }, []);
 
+  const TrialBar = () => (
+    <div className="bg-gray-100 w-full z-10 p-4 opacity-80">
+      <div className="max-w-4xl flex flex-col md:flex-row md:justify-between m-auto">
+        <h6 className="text-center">
+          {isTrialEnded ? (
+            <>Your free trial has ended.</>
+          ) : (
+            <>
+              Your free trial ends <span>{trialTimeRemaining}</span>
+            </>
+          )}
+        </h6>
+        <h6 className="text-center">
+          {!isTrialEnded && <>Enjoying Beacon?</>}{' '}
+          <InternalLink href={constants.PAGES.MEMBERSHIP}>
+            <a>Subscribe now</a>
+          </InternalLink>{' '}
+          for only $5 a month!
+        </h6>
+      </div>
+    </div>
+  );
+
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh" overflow="hidden">
       <AppBar />
+      {(isTrial || isTrialEnded) && <TrialBar />}
       <Component {...pageProps} />
       <Footer />
     </Box>

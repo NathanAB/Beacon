@@ -39,11 +39,16 @@ export default function MenuPopover({ user, isOpen, onClose, children }) {
                 </li>
               )}
               <li>
+                <InternalLink href="/membership">
+                  <a onClick={onClose}>Membership</a>
+                </InternalLink>
+              </li>
+              <li>
                 <InternalLink href="/saved">
                   <a onClick={onClose}>Saved dates</a>
                 </InternalLink>
               </li>
-              <li>
+              {/* <li>
                 <ReactGA.OutboundLink
                   to="https://forms.gle/ebaqVd2TMTw47RjW8"
                   target="_blank"
@@ -52,7 +57,7 @@ export default function MenuPopover({ user, isOpen, onClose, children }) {
                 >
                   Feedback
                 </ReactGA.OutboundLink>
-              </li>
+              </li> */}
               <li>
                 <ReactGA.OutboundLink to={constants.API.LOGOUT} eventLabel="Logout">
                   Log out

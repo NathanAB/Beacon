@@ -9,6 +9,7 @@ export default {
     MY_DATES: '/my-dates',
     SEARCH: '/search',
     NEIGHBORHOOD: '/neighborhood',
+    MEMBERSHIP: '/membership',
     ADMIN: '/admin',
     DATE_DETAILS: '/date',
     USER_DETAILS: '/user',
@@ -28,6 +29,10 @@ export default {
     THUMBNAIL: `${API_URL}/api/thumbnail`,
     COMMENTS: `${API_URL}/api/comments`,
     USERS: `${API_URL}/api/users`,
+    MEMBERSHIP: {
+      CHECKOUT: `${API_URL}/api/membership/checkout`,
+      PORTAL: `${API_URL}/api/membership/portal`,
+    },
     ADMIN: {
       DATE_PLAN: `${API_URL}/api/admin/datePlan`,
       USERS: `${API_URL}/api/admin/users`,

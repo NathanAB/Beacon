@@ -1,6 +1,6 @@
 {
   "name": "beacon",
-  "version": "3.21.1",
+  "version": "3.22.0",
   "private": true,
   "engines": {
     "node": "14.x"
@@ -22,6 +22,8 @@
     "@material-ui/core": "^4.2.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
+    "@stripe/react-stripe-js": "^1.4.0",
+    "@stripe/stripe-js": "^1.13.2",
     "@zeit/next-css": "^1.0.1",
     "axios": "^0.19.2",
     "google-maps-react": "^2.0.2",
@@ -47,6 +49,7 @@
     "react-select": "^3.1.0",
     "react-tabs": "^3.2.1",
     "react-toastify": "^6.0.9",
+    "stripe": "^8.144.0",
     "styled-components": "^5.2.0",
     "undux": "^5.2.0"
   },
@@ -56,6 +59,7 @@
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addons": "^5.3.18",
     "@storybook/react": "^5.3.18",
+    "autoprefixer": "^10.2.5",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "css-loader": "^3.5.3",
@@ -66,7 +70,9 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
+    "postcss": "^8.2.15",
     "prettier": "^1.16.4",
-    "style-loader": "^1.2.1"
+    "style-loader": "^1.2.1",
+    "tailwindcss": "^2.1.2"
   }
 }

@@ -1,5 +1,8 @@
+@tailwind utilities;
+
 @import './fonts.css';
 @import './colors.css';
+
 
 html {
   height: 100%;

@@ -12,11 +12,11 @@ const Discover = () => {
   const isMobile = useMobile();
   const store = Store.useStore();
   const dateObjs = store.get('dates');
-  const firstFour = dateObjs.filter(date => date.new).slice(0, isMobile ? 2 : 4);
+  const newDates = dateObjs.filter(date => date.new).slice(0, isMobile ? 4 : 6);
   return (
     <Box width="100%" maxWidth="1024px" margin="0 auto" position="relative" zIndex="0">
       <Header />
-      <NewDates dateObjs={firstFour} />
+      <NewDates dateObjs={newDates} />
       <Subheader />
       {/* TODO: Implement subscribe widget */}
       {/* <Subscribe /> */}
