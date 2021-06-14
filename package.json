@@ -1,6 +1,6 @@
 {
   "name": "beacon",
-  "version": "3.21.1",
+  "version": "3.22.0",
   "private": true,
   "engines": {
     "node": "14.x"
