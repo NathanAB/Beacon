@@ -144,7 +144,7 @@ export default function DateCard({ dateObj, variant = DateCard.VARIANTS.PREVIEW,
                   as={`${Constants.PAGES.DATE_DETAILS}/${dateObj.id}`}
                 >
                   <a onClick={clickDateEvent} className={styles.viewDetails}>
-                    View Details →
+                    Read More →
                   </a>
                 </InternalLink>
               </div>

@@ -7,29 +7,22 @@ import { addComment } from '../../api';
 import styles from './CommentInput.module.css';
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
-import LoginPopover from '../LoginPopover/LoginPopover';
 import constants from '../../constants';
 
 export default function CommentInput({ profilePic, dateId }) {
   const store = Store.useStore();
-  const user = store.get('user');
+  const hasAccess = store.get('hasAccess');
+
   const isDesktop = useDesktop();
   const [inputValue, setInputValue] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoginPopoverOpen, setLoginPopoverOpen] = useState(false);
+
+  const placeholderText = hasAccess ? 'Add a comment...' : 'Log in to add a comment...';
 
   const onInputChange = e => {
     setInputValue(e?.target?.value);
   };
 
-  const clearLogin = () => {
-    localStorage.removeItem(constants.LOCAL_STORAGE.PENDING_COMMENT);
-    setLoginPopoverOpen(false);
-    ReactGA.event({
-      category: 'Interaction',
-      action: 'Close Login Panel',
-    });
-  };
   const onSubmit = async e => {
     e.preventDefault();
 
@@ -38,22 +31,7 @@ export default function CommentInput({ profilePic, dateId }) {
       action: 'Click Post Comment',
     });
 
-    if (!user) {
-      localStorage.setItem(constants.LOCAL_STORAGE.PENDING_COMMENT, inputValue);
-      ReactGA.event({
-        category: 'Interaction',
-        action: 'Open Login Panel',
-      });
-      if (isDesktop) {
-        setLoginPopoverOpen(true);
-      } else {
-        store.set('isLoginDrawerOpen')(true);
-      }
-      return;
-    }
-    localStorage.removeItem(constants.LOCAL_STORAGE.PENDING_COMMENT);
-
-    if (!inputValue) {
+    if (!hasAccess || !inputValue) {
       return;
     }
 
@@ -111,17 +89,12 @@ export default function CommentInput({ profilePic, dateId }) {
         className={styles.inputBox}
         value={inputValue}
         onChange={onInputChange}
-        placeholder="Add a comment..."
+        placeholder={placeholderText}
+        disabled={!hasAccess}
       />
-      {user ? (
-        <Button type="submit" disabled={!inputValue}>
-          Comment
-        </Button>
-      ) : (
-        <LoginPopover isOpen={isLoginPopoverOpen} onClose={clearLogin}>
-          <Button type="submit">Comment</Button>{' '}
-        </LoginPopover>
-      )}
+      <Button type="submit" disabled={!inputValue || !hasAccess}>
+        Comment
+      </Button>
     </form>
   ) : (
     <form onSubmit={onSubmit} className={styles.container}>
@@ -134,9 +107,10 @@ export default function CommentInput({ profilePic, dateId }) {
         className={styles.inputBox}
         value={inputValue}
         onChange={onInputChange}
-        placeholder="Add a comment..."
+        placeholder={placeholderText}
+        disabled={!hasAccess}
       ></textarea>
-      <button className={styles.postButton} type="submit">
+      <button className={styles.postButton} type="submit" disabled={!hasAccess}>
         Post
       </button>
     </form>

@@ -25,12 +25,19 @@ export default function LoginButton({ type }) {
   const data = typeData[type];
   const currentUrl = window.location.href;
   const redirectUrl = `${data.href}?redirectUrl=${encodeURIComponent(currentUrl)}`;
+  const onClick = () => {
+    sessionStorage.setItem(constants.FLAGS.FRESH_LOGIN, true);
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Click Login Button',
+    });
+  };
   return (
     <ReactGA.OutboundLink
       to={redirectUrl}
       eventLabel={`${data.name} Login Clicked`}
       className={`${styles.link} ${styles[type]}`}
-      onClick={() => sessionStorage.setItem(constants.FLAGS.FRESH_LOGIN, true)}
+      onClick={onClick}
     >
       <img className={styles.icon} alt={`${data.name} Logo`} src={data.icon} />
       Log in with {data.name}

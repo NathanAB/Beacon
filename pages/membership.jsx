@@ -55,7 +55,7 @@ export default function MembershipPage() {
 
   if (hasMembership && hasAccess) {
     return (
-      <div className="w-full max-w-5xl p-8 m-auto">
+      <div className="w-full max-w-5xl px-8 py-16 m-auto">
         <h3>Your subscription is active.</h3>
         <br />
         <h4>Membership ends or renews on {moment(membershipEnd).format('MMMM Do YYYY')}.</h4>
@@ -66,7 +66,7 @@ export default function MembershipPage() {
   }
   if (hasMembership && !hasAccess) {
     return (
-      <div className="w-full max-w-5xl p-8 m-auto">
+      <div className="w-full max-w-5xl px-8 py-16 m-auto">
         <h3>Your subscription ended.</h3>
         <br />
         <h4>Membership ended on {moment(membershipEnd).format('MMMM Do YYYY')}.</h4>

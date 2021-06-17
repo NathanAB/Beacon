@@ -105,79 +105,82 @@ const DateDetails = ({ dateObj }) => {
   };
 
   const renderPayWall = () => (
-    <div className="w-full max-w-5xl m-auto flex flex-col-reverse md:flex-row flex-wrap my-12">
-      <div className="md:w-1/2 md:pr-8 text-center">
-        <h3 className="font-normal leading-tight">Subscribe for full access</h3>
-        <h6 className="my-6">Help us support our local date writers</h6>
-        <ul className="text-left">
-          <li className="my-4">
-            <strong>Beacon makes dating in DC easiser.</strong> New dates are added every week.
-          </li>
-          <li className="my-4">
-            <strong>Everything you’ll need to impress.</strong> Get unique tips, secret spots, and
-            insider tips
-          </li>
-          <li className="my-4">
-            <strong>Don’t settle for just one perspective.</strong> our date writers have diverse
-            backgrounds and experiences
-          </li>
-        </ul>
-        <InternalLink href={`${constants.PAGES.MEMBERSHIP}`}>
-          <Button>Subscribe now</Button>
-        </InternalLink>
+    <>
+      <div className="w-full max-w-5xl m-auto flex flex-col-reverse md:flex-row flex-wrap my-12">
+        <div className="md:w-1/2 md:pr-8 text-center">
+          <h3 className="font-normal leading-tight">Subscribe for full access</h3>
+          <h6 className="my-6">Help us support our local date writers</h6>
+          <ul className="text-left">
+            <li className="my-4">
+              <strong>Beacon makes dating in DC easiser.</strong> New dates are added every week.
+            </li>
+            <li className="my-4">
+              <strong>Everything you’ll need to impress.</strong> Get unique tips, secret spots, and
+              insider tips
+            </li>
+            <li className="my-4">
+              <strong>Don’t settle for just one perspective.</strong> our date writers have diverse
+              backgrounds and experiences
+            </li>
+          </ul>
+          <InternalLink href={`${constants.PAGES.MEMBERSHIP}`}>
+            <Button>Subscribe now</Button>
+          </InternalLink>
+        </div>
+        <div className="md:w-1/2 mb-6">
+          <img
+            src={membershipImg}
+            className="w-full"
+            alt="Access to full content like date tips and user comments"
+          />
+        </div>
       </div>
-      <div className="md:w-1/2 mb-6">
-        <img
-          src={membershipImg}
-          className="w-full"
-          alt="Access to full content like date tips and user comments"
-        />
-      </div>
-    </div>
+      <hr className={styles.lineBreakNoTop} />
+    </>
   );
 
   const renderTrialWall = () => (
-    <div className="w-full max-w-5xl m-auto flex flex-col-reverse md:flex-row flex-wrap my-12">
-      <div className="md:w-1/2 md:pr-10 text-center">
-        <h3 className="font-normal leading-tight">
-          We'll show you a<br />
-          good time
-        </h3>
-        <h6 className="my-6">
-          Start your free trial for full access to this and other locally curated dates
-        </h6>
-        <ul className="text-left">
-          <li className="my-4">
-            <strong>Beacon just makes dating easier.</strong> We keep it fresh with new ideas added
-            every week.
-          </li>
-          <li className="my-4">
-            <strong>Everything you’ll need to impress.</strong> You'll love our unique tips, secret
-            spots, and insider tips.
-          </li>
-          <li className="my-4">
-            <strong>Don’t settle for just one perspective.</strong> Our date writers have diverse
-            backgrounds and experiences.
-          </li>
-        </ul>
-        <div className="mt-6 mx-auto w-72">
-          <LoginButton className="my-4" type="google" />
-        </div>
-        <div className="mt-4 mx-auto w-72">
-          <LoginButton type="facebook" />
-        </div>
-        {/* <Button>Subscribe now</Button>
+    <>
+      <div className="w-full max-w-5xl m-auto flex flex-col-reverse md:flex-row flex-wrap my-12">
+        <div className="md:w-1/2 md:pr-10 text-center">
+          <h3 className="font-normal leading-tight">Looking for tips and tricks?</h3>
+          <h6 className="my-6">
+            Start your free trial for full access to this and other locally curated dates
+          </h6>
+          <ul className="text-left">
+            <li className="my-4">
+              <strong>Beacon just makes dating easier.</strong> We keep it fresh with new ideas
+              added every week.
+            </li>
+            <li className="my-4">
+              <strong>Everything you’ll need to impress.</strong> You'll love our unique tips,
+              secret spots, and insider tips.
+            </li>
+            <li className="my-4">
+              <strong>Don’t settle for just one perspective.</strong> Our date writers have diverse
+              backgrounds and experiences.
+            </li>
+          </ul>
+          <div className="mt-6 mx-auto w-72">
+            <LoginButton className="my-4" type="google" />
+          </div>
+          <div className="mt-4 mx-auto w-72">
+            <LoginButton type="facebook" />
+          </div>
+          {/* <Button>Subscribe now</Button>
         <br />
         <a>No thanks, log in to start my free trial</a> */}
+        </div>
+        <div className="md:w-1/2 mb-6">
+          <img
+            src={membershipImg}
+            className="w-full"
+            alt="Access to full content like date tips and user comments"
+          />
+        </div>
       </div>
-      <div className="md:w-1/2 mb-6">
-        <img
-          src={membershipImg}
-          className="w-full"
-          alt="Access to full content like date tips and user comments"
-        />
-      </div>
-    </div>
+      <hr className={styles.lineBreakNoTop} />
+    </>
   );
 
   const renderContent = () => (
@@ -209,56 +212,34 @@ const DateDetails = ({ dateObj }) => {
           );
         })}
       </ol>
-      {creator && (
-        <section>
-          <div className={styles.creatorTitle}>Meet the date author:</div>
-          <div className={styles.creatorContainer}>
-            <img
-              className={styles.creatorImg}
-              alt="The date writer"
-              style={{ width: 80, height: 80 }}
-              src={creator.imageUrl}
-            />
-            <div className={styles.creatorDetails}>
-              <div className={styles.creatorName}>{creator.name}</div>
-              <p className={styles.creatorBio}>{creator.bio}</p>
-              <InternalLink
-                href={`${constants.PAGES.USER_DETAILS}/[userId]`}
-                as={`${constants.PAGES.USER_DETAILS}/${creator.id}`}
-              >
-                <a onClick={() => {}}>See all dates by {creator.name}</a>
-              </InternalLink>
-            </div>
-          </div>
-        </section>
-      )}
-      <hr className={styles.lineBreakNoTop} />
-      <h6 id="comments">Comments ({dateObj?.comments?.length})</h6>
-      <p className={styles.commentCaption}>
-        Add a comment, tell us about your date, share a story, etc. Thanks for contributing to
-        Beacon!
-      </p>
-      <CommentInput profilePic={user.picture} dateId={dateObj.id} />
-      {dateObj?.comments?.map(comment => (
-        <UserComment
-          isOwner={comment.user.id === user.id}
-          userName={comment.user.name}
-          timestamp={comment.createdAt}
-          profilePic={comment.user.imageUrl || tipFlower}
-          content={comment.content}
-          commentId={comment.id}
-        />
-      ))}
     </>
   );
 
   const renderBody = () => {
+    const hasFreeDate = !localStorage.getItem(constants.LOCAL_STORAGE.FREE_DATE_SEEN);
     if (user) {
       if (hasAccess) {
         return renderContent();
       }
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Saw Pay Wall',
+      });
       return renderPayWall();
     }
+    if (hasFreeDate) {
+      localStorage.setItem(constants.LOCAL_STORAGE.FREE_DATE_SEEN, true);
+
+      ReactGA.event({
+        category: 'Interaction',
+        action: 'Saw Free Date',
+      });
+      return renderContent();
+    }
+    ReactGA.event({
+      category: 'Interaction',
+      action: 'Saw Trial Wall',
+    });
     return renderTrialWall();
   };
 
@@ -308,6 +289,46 @@ const DateDetails = ({ dateObj }) => {
       <div className={styles.curtainContainer}>
         <hr className={styles.lineBreak} />
         {renderBody()}
+        {creator && (
+          <section>
+            <div className={styles.creatorTitle}>Meet the date author:</div>
+            <div className={styles.creatorContainer}>
+              <img
+                className={styles.creatorImg}
+                alt="The date writer"
+                style={{ width: 80, height: 80 }}
+                src={creator.imageUrl}
+              />
+              <div className={styles.creatorDetails}>
+                <div className={styles.creatorName}>{creator.name}</div>
+                <p className={styles.creatorBio}>{creator.bio}</p>
+                <InternalLink
+                  href={`${constants.PAGES.USER_DETAILS}/[userId]`}
+                  as={`${constants.PAGES.USER_DETAILS}/${creator.id}`}
+                >
+                  <a onClick={() => {}}>See all dates by {creator.name}</a>
+                </InternalLink>
+              </div>
+            </div>
+          </section>
+        )}
+        <hr className={styles.lineBreakNoTop} />
+        <h6 id="comments">Comments ({dateObj?.comments?.length})</h6>
+        <p className={styles.commentCaption}>
+          Add a comment, tell us about your date, share a story, etc. Thanks for contributing to
+          Beacon!
+        </p>
+        <CommentInput profilePic={user.picture} dateId={dateObj.id} />
+        {dateObj?.comments?.map(comment => (
+          <UserComment
+            isOwner={comment.user.id === user.id}
+            userName={comment.user.name}
+            timestamp={comment.createdAt}
+            profilePic={comment.user.imageUrl || tipFlower}
+            content={comment.content}
+            commentId={comment.id}
+          />
+        ))}
         <hr className={styles.lineBreak} />
         <div className={styles.backButtonMobile}>
           <InternalLink href={backUrl}>

@@ -46,5 +46,7 @@ export default {
   },
   LOCAL_STORAGE: {
     PENDING_COMMENT: 'pendingComment',
+    FREE_DATE_SEEN: 'freeDateSeen',
+    POPUP_SEEN: 'popupSeen',
   },
 };
