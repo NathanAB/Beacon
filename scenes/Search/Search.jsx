@@ -25,7 +25,7 @@ export default function Search({ savedOnly }) {
         localStorage.setItem(Constants.LOCAL_STORAGE.POPUP_SEEN, true);
         setShowPopup(true);
       }
-    }, 15000);
+    }, 10000);
     return () => clearTimeout(timer);
   }, []);
 

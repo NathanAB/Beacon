@@ -80,6 +80,19 @@ export default function Footer() {
         </div>
         <div className={styles.col3}>
           <div>
+            <InternalLink href="/membership">
+              <a
+                onClick={() =>
+                  ReactGA.event({
+                    category: 'Interaction',
+                    action: 'Click Subscribe Footer',
+                  })
+                }
+              >
+                Subscribe
+              </a>
+            </InternalLink>
+            <br />
             <InternalLink href="/terms">
               <a
                 onClick={() =>
