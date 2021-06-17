@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/nathanab/beacon/compare/master...HEAD)
 
+## [v3.23.0](https://github.com/nathanab/beacon/compare/v3.22.0...v3.23.0)
+  * Add a timed popup on the search page for non-users
+  * Allow non-users to see one date without logging in
+  * Add subscribe link to footer
+
 ## [v3.22.0](https://github.com/nathanab/beacon/compare/v3.21.1...v3.22.0)
   * Add TailwindCSS
   * Add membership page
